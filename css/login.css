@@ -83,8 +83,8 @@ nav a:hover {
 }
 
 .gradiente {
-    padding: 150px 0;
-    text-align: start;
+    padding: 200px 0;
+    text-align: center;
     background: radial-gradient(1200px 500px at 85% 80%, rgba(247, 50, 15, 0.35), transparent 60%), radial-gradient(1000px 500px at 10% 20%, rgba(122, 60, 255, .35), transparent 60%), linear-gradient(180deg, #20093d 0%, #2a0e4a 100%);
 }
 
@@ -96,4 +96,38 @@ nav a:hover {
 .gradiente p {
     color: #d7cfe6;
     margin: 0 0 28px;
+}
+
+input {
+    border-radius: 5px;
+    width: 35%;
+    height: 25px;
+}
+
+footer .pe_pagina {
+    background: #e9efff;
+    color: #2a2a2a;
+    padding: 12px 0;
+    text-align: center;
+}
+
+.footer_nome {
+    font-weight: bold;
+}
+
+.footer_links a {
+    color: #2a2a2a;
+    margin-left: 12px;
+    opacity: 0.8;
+}
+
+.footer_links a:hover {
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+
+    nav ul {
+        display: none;
+    }
 }
