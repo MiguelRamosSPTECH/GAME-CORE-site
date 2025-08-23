@@ -32,14 +32,38 @@ header {
     align-items: center;
     justify-content: space-between;
     height: 64px;
+    width: 90%;
 }
 
 .nome {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 25px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
+    width: 30%;
+    height: 100%;
+}
+
+.itens {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: auto;
+}
+
+.links {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nome .links a {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
 }
 
 nav ul {
