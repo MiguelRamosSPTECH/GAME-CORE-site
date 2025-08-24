@@ -236,22 +236,39 @@ nav a {
     height:50%;
 }
 
-footer .pe_pagina {
+footer {
+    display: flex;
+    position: relative;
+    align-items: center;
     background: #e9efff;
+    width: 100%;
     color: #2a2a2a;
-    padding: 12px 0;
-    text-align: center;
+    padding: 12px 20px;
 }
 
 .footer_nome {
     font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+
+.footer_links {
+    display: flex;
+    position: absolute;
+    left: 45%;
+    gap: 20px;
 }
 
 .footer_links a {
+    text-decoration: none;
     color: #2a2a2a;
-    margin-left: 12px;
-    opacity: 0.8;
+    font-weight: 500;
 }
+
+.footer_links a:hover {
+    color: #7a3cff;
+}
+
 
 .footer_links a:hover {
     opacity: 1;
