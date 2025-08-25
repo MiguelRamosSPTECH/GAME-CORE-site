@@ -65,13 +65,13 @@
             </div>
             
             <div class="campo">
-                <label for="ipt_cnpj">Senha:</label>
-                <input type="text" id="ipt_cnpj"><br><br>
+                <label for="ipt_senha">Senha:</label>
+                <input type="text" id="ipt_senha"><br><br>
             </div>
 
             <div class="campo">
-                <label for="ipt_email">Cpf:</label>
-                <input type="text" id="ipt_email"><br><br>
+                <label for="ipt_cpf">Cpf:</label>
+                <input type="text" id="ipt_cpf"><br><br>
             </div>
 
             <div class="campo">
@@ -112,18 +112,23 @@
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
+        var codigoVar = ipt_codigo.value;
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
-        var senhaVar = ipt_cnpj.value;
-        var codigoVar = ipt_codigo.value;
+        var senhaVar = ipt_senha.value;
+        var cpfVar = ipt_cpf.value;
+        var cargoVar = cargo.value;
+        
         var idEmpresaVincular
 
         // Verificando se há algum campo em branco
         if (
+            codigoVar == "" ||
             nomeVar == "" ||
             emailVar == "" ||
             senhaVar == "" ||
-            codigoVar == ""
+            cpfVar == "" ||
+            cargoVar == ""
         ) {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
@@ -157,9 +162,14 @@
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
+
+                codigoServer: codigoVar,
                 nomeServer: nomeVar,
                 emailServer: emailVar,
-                senhaServer: senhaVar
+                senhaServer: senhaVar,
+                cpfServer: cpfVar,
+                cargoServer: cargoVar,
+
             }),
         })
             .then(function (resposta) {

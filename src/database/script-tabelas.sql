@@ -1,3 +1,5 @@
+drop database gameCore;
+
 create database gameCore;
 
 use gameCore;
@@ -24,8 +26,10 @@ nome			varchar(45),
 email			varchar(45),
 cpf				char(15),
 senha			varchar(45),
+cargo			varchar(45),
 				primary key(id),
                 foreign key (fk_empresa) references empresa(id)
+                
 );
 
 create table superior (
@@ -78,4 +82,17 @@ fk_servidor 	int,
 				foreign key (fk_servidor) references servidor(id)
 );
 
+insert into empresa (nome, cnpj, telefone) values
+('GameTech Studios', '12345678000190', '(11)99999-9999'),
+('PixelWorks', '98765432000110', '(21)98888-8888'),
+('NextLevel Corp', '55123456000155', '(31)97777-7777');
+
+insert into usuario (fk_empresa, nome, email, cpf, senha) values
+(1, 'João Silva', 'teste@123', '12345678900', '1234'),
+(1, 'Maria Oliveira', 'maria.oliveira@gametech.com', '98765432100', 'senha456'),
+(2, 'Carlos Pereira', 'carlos@pixelworks.com', '32165498700', 'senha789'),
+(3, 'Ana Costa', 'ana@nextlevel.com', '45612378900', 'senha321');
+
 select * from usuario;
+
+select * from empresa;
