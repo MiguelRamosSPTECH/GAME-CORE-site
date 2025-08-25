@@ -1,62 +1,81 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+create database gameCore;
 
-/*
-comandos para mysql server
-*/
+use gameCore;
 
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
+create table empresa (
+id			int auto_increment,
+nome		varchar(45),
+cnpj		varchar(45),
+telefone	char(14),
+			primary key(id)
 );
 
-CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table token (
+fk_empresa	int,
+codigo		varchar(45),
+			primary key(fk_empresa),
+            foreign key(fk_empresa) references empresa(id)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+create table usuario (
+id		int auto_increment,
+fk_empresa		int,
+nome			varchar(45),
+email			varchar(45),
+cpf				char(15),
+senha			varchar(45),
+				primary key(id),
+                foreign key (fk_empresa) references empresa(id)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+create table superior (
+id_usuario		int,
+id_superior		int,
+				primary key(id_usuario, id_superior),
+                foreign key(id_usuario) references usuario(id),
+                foreign key(id_superior) references usuario(id)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
-
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
+create table regiao (
+id 			int auto_increment,
+regiao 		varchar(45),
+descricao	varchar(45),
+			primary key(id)
 );
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+
+create table servidor (
+id 				int auto_increment,
+hostname 		varchar(45),
+ip 				varchar(45),
+localizacao 	varchar(45),
+fk_empresa 		int,
+fk_regiao		int,
+				primary key(id),
+				foreign key (fk_regiao) references regiao(id)
+);
+
+
+create table log (
+id 					int auto_increment,
+fk_servidor 		int,
+cpu_porcentagem 	char(3),
+uso_cpu 			char(3),
+uso_ram 			char(3),
+uso_memoria 		char(3),
+					primary key(id),
+					foreign key (fk_servidor) references servidor(id)
+);
+
+
+create table alerta (
+id 				int auto_increment,
+minimo 			decimal(5,2),
+maximo 			decimal(5,2),
+componente 		varchar(45),
+fk_servidor 	int,
+				primary key(id),
+				foreign key (fk_servidor) references servidor(id)
+);
+
+select * from usuario;
