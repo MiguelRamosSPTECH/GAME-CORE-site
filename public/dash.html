@@ -46,22 +46,21 @@
                 <span id="mensagem_erro"></span>
             </div>
         </div>
-        <div class="formulario">
-            <h1>LOGIN</h1><br><br>
-            <div class="campo">
-                <label for="ipt_email">E-mail:</label>
-                <input type="text" id="ipt_email"><br><br>
-            </div>
-            <div class="campo">
-                <label for="ipt_senha">Senha:</label>
-                <input type="text" id="ipt_senha"><br><br>
+
+        <div style="display:flex; justify-content:space-around; align-items:center;">
+            <div style="width:45%;">
+                <canvas id="usuariosPorEmpresa"></canvas>
+
+                <canvas id="alertasPorServidor"></canvas>
             </div>
 
-            <div id="div_aguardar" class="loading-div">
-                <img src="./assets/circle-loading.gif" id="loading-gif" />
-            </div>
+            <div style="width:45%;">
+                <canvas id="usoCpu"></canvas>
 
-            <a class="botao" href="#contato" onclick="entrar()">Entrar</a>
+                <canvas id="servidoresPorRegiao"></canvas>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
     </main>
 
@@ -78,13 +77,13 @@
 
 <script>
 
-function entrar(){
-    aguardar()
+    function entrar() {
+        aguardar()
 
-    var emailVar = ipt_email.value
-    var senhaVar = ipt_senha.value
+        var emailVar = ipt_email.value
+        var senhaVar = ipt_senha.value
 
-    if (emailVar == "" || senhaVar == "") {
+        if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
             mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
             finalizarAguardar();
@@ -116,14 +115,14 @@ function entrar(){
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
                     // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-                    
+                    // Tem que tirar esses aquarios e id usuario?
                     setTimeout(function () {
                         window.location = "./dash.html";
                     }, 1000);
 
                 });
 
-            }else {
+            } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
 
@@ -143,6 +142,71 @@ function entrar(){
     function sumirMensagem() {
         cardErro.style.display = "none"
     }
+
+    const ctx1 = document.getElementById('usuariosPorEmpresa');
+
+    new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: ['GameTech Studios', 'PixelWorks', 'NextLevel Corp'],
+            datasets: [{
+                label: 'Usuários por Empresa',
+                data: [2, 1, 1], // dados vindos do SELECT COUNT(*) FROM usuario GROUP BY empresa
+                backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56']
+            }]
+        }
+    });
+
+    const ctx2 = document.getElementById('alertasPorServidor');
+
+    new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: ['Servidor A', 'Servidor B', 'Servidor C'],
+            datasets: [{
+                label: 'Qtd de Alertas',
+                data: [5, 2, 8], // SELECT fk_servidor, COUNT(*) FROM alerta GROUP BY fk_servidor
+                backgroundColor: '#FF6384'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const ctx3 = document.getElementById('usoCpu');
+
+    new Chart(ctx3, {
+        type: 'line',
+        data: {
+            labels: ['10:00', '10:05', '10:10', '10:15', '10:20'], // timestamps dos logs
+            datasets: [{
+                label: 'Uso CPU (%)',
+                data: [20, 35, 50, 40, 70], // dados da coluna uso_cpu
+                fill: false,
+                borderColor: '#36A2EB',
+                tension: 0.1
+            }]
+        }
+    });
+
+    const ctx4 = document.getElementById('servidoresPorRegiao');
+
+    new Chart(ctx4, {
+        type: 'doughnut',
+        data: {
+            labels: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'],
+            datasets: [{
+                label: 'Servidores por Região',
+                data: [3, 2, 1], // SELECT fk_regiao, COUNT(*) FROM servidor GROUP BY fk_regiao
+                backgroundColor: ['#FFCE56', '#36A2EB', '#FF6384']
+            }]
+        }
+    });
 
 </script>
 
