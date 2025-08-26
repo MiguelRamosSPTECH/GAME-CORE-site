@@ -52,7 +52,7 @@
 
             <div class="campo">
                 <label for="ipt_nome">Empresa:</label>
-                <input type="text" id="ipt_nome"><br><br>
+                <input type="text" id="ipt_empresa"><br><br>
             </div>
 
             <div class="campo">
@@ -69,15 +69,6 @@
                 <label for="ipt_arquivo">Documentos:</label>
                 <label for="ipt_arquivo" class="ipt_arquivo">Adicionar</label>
                 <input type="file" id="ipt_arquivo" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br><br>
-            </div>
-
-            <div class="campo">
-                <label for="cargo">Cargo:</label>
-                <select name="cargos" id="cargo">
-                    <option value="selecionar">Selecionar</option>
-                    <option value="engenheiro_sre">Engenheiro SRE</option>
-                    <option value="engenheiro_de_servidor_de_jogos">Engenheiro de servidor de jogos</option>
-                </select>
             </div>
 
             <div id="div_aguardar" class="loading-div">
@@ -109,33 +100,29 @@
 
         //Recupere o valor da nova input pelo nome do id
         // Agora vá para o método fetch logo abaixo
-        var codigoVar = ipt_codigo.value;
-        var nomeVar = ipt_nome.value;
+        var empresaVar = ipt_empresa.value;
         var emailVar = ipt_email.value;
-        var senhaVar = ipt_senha.value;
-        var cpfVar = ipt_cpf.value;
-        var cargoVar = cargo.value;
+        var arquivoVar = ipt_senha.value;
+        var cnpjVar = ipt_cnpj.value;
         
         var idEmpresaVincular
 
         // Verificando se há algum campo em branco
-        if (
-            codigoVar == "" ||
-            nomeVar == "" ||
-            emailVar == "" ||
-            senhaVar == "" ||
-            cpfVar == "" ||
-            cargoVar == ""
-        ) {
-            cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
+        // if (
+        //     empresaVar == "" ||
+        //     emailVar == "" ||
+        //     arquivoVar == "" ||
+        //     cnpjVar == "" ||
+        // ) {
+        //     cardErro.style.display = "block";
+        //     mensagem_erro.innerHTML =
+        //         "(Mensagem de erro para todos os campos em branco)";
 
-            finalizarAguardar();
-            return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
-        }
+        //     finalizarAguardar();
+        //     return false;
+        // } else {
+        //     setInterval(sumirMensagem, 5000);
+        // }
 
         // Verificando se o código de ativação é de alguma empresa cadastrada
         // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
@@ -151,50 +138,50 @@
         // }
 
         // Enviando o valor da nova input
-        fetch("/usuarios/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
+    //     fetch("/usuarios/cadastrar", {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify({
+    //             // crie um atributo que recebe o valor recuperado aqui
+    //             // Agora vá para o arquivo routes/usuario.js
 
-                codigoServer: codigoVar,
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                senhaServer: senhaVar,
-                cpfServer: cpfVar,
-                cargoServer: cargoVar,
+    //             codigoServer: codigoVar,
+    //             nomeServer: nomeVar,
+    //             emailServer: emailVar,
+    //             senhaServer: senhaVar,
+    //             cpfServer: cpfVar,
+    //             cargoServer: cargoVar,
 
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
+    //         }),
+    //     })
+    //         .then(function (resposta) {
+    //             console.log("resposta: ", resposta);
 
-                if (resposta.ok) {
-                    cardErro.style.display = "block";
+    //             if (resposta.ok) {
+    //                 cardErro.style.display = "block";
 
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+    //                 mensagem_erro.innerHTML =
+    //                     "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-                    setTimeout(() => {
-                        window.location = "login.html";
-                    }, "2000");
+    //                 setTimeout(() => {
+    //                     window.location = "login.html";
+    //                 }, "2000");
 
-                    // limparFormulario();
-                    finalizarAguardar();
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
-            });
+    //                 // limparFormulario();
+    //                 finalizarAguardar();
+    //             } else {
+    //                 throw "Houve um erro ao tentar realizar o cadastro!";
+    //             }
+    //         })
+    //         .catch(function (resposta) {
+    //             console.log(`#ERRO: ${resposta}`);
+    //             finalizarAguardar();
+    //         });
 
-        return false;
-    }
+    //     return false;
+    // }
 
     //   // Listando empresas cadastradas 
     //   function listar() {
@@ -214,7 +201,7 @@
     //       .catch(function (resposta) {
     //         console.log(`#ERRO: ${resposta}`);
     //       });
-    //   }
+    }
 
     function sumirMensagem() {
         cardErro.style.display = "none";
