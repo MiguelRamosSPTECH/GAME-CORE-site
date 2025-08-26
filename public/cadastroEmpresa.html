@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de usuário</title>
+    <link rel="stylesheet" href="css/cadastro_login.css">
+    <script src="./js/sessao.js"></script>
+    <script src="./js/alerta.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="container topbar">
+            <div class="nome">
+                <h3>GameCore</h3>
+                <div class="links">
+                    <nav>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="#sobre">Sobre</a></li>
+                            <li><a href="contato.html">Contato</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+
+            <div class="itens">
+
+                <div class="header_botoes">
+                    <a class="botao" href="login.html">LOGIN</a>
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+
+    <main class="gradiente">
+
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+
+        <div class="formulario">
+            <h1>PRÉ CADASTRO</h1><br>
+            <h4>Para cadastrar sua empresa, precisaremos de alguns dados:</h1><br>
+
+            <div class="campo">
+                <label for="ipt_nome">Empresa:</label>
+                <input type="text" id="ipt_nome"><br><br>
+            </div>
+
+            <div class="campo">
+                <label for="ipt_email">E-mail:</label>
+                <input type="text" id="ipt_email"><br><br>
+            </div>
+
+            <div class="campo">
+                <label for="ipt_cnpj">CNPJ:</label>
+                <input type="text" id="ipt_cnpj"><br><br>
+            </div>
+
+            <div class="campo">
+                <label for="ipt_arquivo">Documentos:</label>
+                <label for="ipt_arquivo" class="ipt_arquivo">Adicionar</label>
+                <input type="file" id="ipt_arquivo" accept=".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"><br><br>
+            </div>
+
+            <div class="campo">
+                <label for="cargo">Cargo:</label>
+                <select name="cargos" id="cargo">
+                    <option value="selecionar">Selecionar</option>
+                    <option value="engenheiro_sre">Engenheiro SRE</option>
+                    <option value="engenheiro_de_servidor_de_jogos">Engenheiro de servidor de jogos</option>
+                </select>
+            </div>
+
+            <div id="div_aguardar" class="loading-div">
+                <img src="./assets/circle-loading.gif" id="loading-gif" />
+            </div>
+
+            <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer_nome">GameCore</div>
+        <div class="footer_links">
+            <a href="#home">Home</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+        </div>
+    </footer>
+
+</body>
+
+<script>
+    // Array para armazenar empresas cadastradas para validação de código de ativação 
+    let listaEmpresasCadastradas = [];
+
+    function cadastrar() {
+
+        aguardar();
+
+        //Recupere o valor da nova input pelo nome do id
+        // Agora vá para o método fetch logo abaixo
+        var codigoVar = ipt_codigo.value;
+        var nomeVar = ipt_nome.value;
+        var emailVar = ipt_email.value;
+        var senhaVar = ipt_senha.value;
+        var cpfVar = ipt_cpf.value;
+        var cargoVar = cargo.value;
+        
+        var idEmpresaVincular
+
+        // Verificando se há algum campo em branco
+        if (
+            codigoVar == "" ||
+            nomeVar == "" ||
+            emailVar == "" ||
+            senhaVar == "" ||
+            cpfVar == "" ||
+            cargoVar == ""
+        ) {
+            cardErro.style.display = "block";
+            mensagem_erro.innerHTML =
+                "(Mensagem de erro para todos os campos em branco)";
+
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000);
+        }
+
+        // Verificando se o código de ativação é de alguma empresa cadastrada
+        // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+        //     if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+        //         idEmpresaVincular = listaEmpresasCadastradas[i].id
+        //         console.log("Código de ativação válido.");
+        //         break;
+        //     } else {
+        //         cardErro.style.display = "block";
+        //         mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+        //         finalizarAguardar();
+        //     }
+        // }
+
+        // Enviando o valor da nova input
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                // crie um atributo que recebe o valor recuperado aqui
+                // Agora vá para o arquivo routes/usuario.js
+
+                codigoServer: codigoVar,
+                nomeServer: nomeVar,
+                emailServer: emailVar,
+                senhaServer: senhaVar,
+                cpfServer: cpfVar,
+                cargoServer: cargoVar,
+
+            }),
+        })
+            .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    cardErro.style.display = "block";
+
+                    mensagem_erro.innerHTML =
+                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                    setTimeout(() => {
+                        window.location = "login.html";
+                    }, "2000");
+
+                    // limparFormulario();
+                    finalizarAguardar();
+                } else {
+                    throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                finalizarAguardar();
+            });
+
+        return false;
+    }
+
+    //   // Listando empresas cadastradas 
+    //   function listar() {
+    //     fetch("/empresas/listar", {
+    //       method: "GET",
+    //     })
+    //       .then(function (resposta) {
+    //         resposta.json().then((empresas) => {
+    //           empresas.forEach((empresa) => {
+    //             listaEmpresasCadastradas.push(empresa);
+
+    //             console.log("listaEmpresasCadastradas")
+    //             console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+    //           });
+    //         });
+    //       })
+    //       .catch(function (resposta) {
+    //         console.log(`#ERRO: ${resposta}`);
+    //       });
+    //   }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none";
+    }
+</script>
+
+</html>
