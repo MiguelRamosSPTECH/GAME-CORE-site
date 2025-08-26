@@ -155,11 +155,12 @@ nav a {
 .itens {
     display: flex;
     align-items: center;
+    margin-left: 350px;
 }
 
 .header_botoes {
     display: flex;
-    gap: 12px;
+    gap: 0px;
 }
 
 .botao:hover {
