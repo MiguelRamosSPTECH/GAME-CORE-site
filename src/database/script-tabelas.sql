@@ -1,6 +1,6 @@
-drop database gameCore;
+drop database if exists gameCore;
 
-create database gameCore;
+create database if not exists gameCore;
 
 use gameCore;
 
@@ -53,10 +53,11 @@ id 				int auto_increment,
 hostname 		varchar(45),
 ip 				varchar(45),
 localizacao 	varchar(45),
-fk_empresa 		int,
 fk_regiao		int,
+fk_empresa 		int,
 				primary key(id),
-				foreign key (fk_regiao) references regiao(id)
+				foreign key (fk_regiao) references regiao(id),
+                foreign key (fk_empresa) references empresa(id)
 );
 
 
