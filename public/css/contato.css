@@ -1,0 +1,406 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: 'Montserrat';
+    box-sizing: border-box;
+    letter-spacing: 1px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #ffffff;
+    background: #ffffff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.container2 {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+header {
+    background: #2a0e4a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    top: 0;
+}
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.nome {
+    font-weight: bold;
+    font-size: 25px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    height: 100%;
+    color: white;
+}
+
+.links {
+    display: flex;
+}
+
+.nome .links a {
+    position: relative;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+.nome .links ul li a::after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    background: rgba(229, 21, 248, 0.479);
+    transition: width .2s;
+}
+
+.nome .links ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+.itens {
+    display: flex;
+    align-items: center;
+}
+
+.header_botoes {
+    display: flex;
+    gap: 12px;
+}
+
+.botao:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.botao b {
+    font-weight: 600;
+}
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    font-size: 15px;
+    padding: 0 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.botao:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.gradiente {
+    padding: 300px 0;
+    text-align: start;
+    background: radial-gradient(1200px 500px at 85% 80%, rgba(247, 50, 15, 0.35), transparent 60%), radial-gradient(1000px 500px at 10% 20%, rgba(122, 60, 255, .35), transparent 60%), linear-gradient(180deg, #20093d 0%, #2a0e4a 100%);
+}
+
+.gradiente h1 {
+    font-size: 32px;
+    margin: 0 0 20px;
+}
+
+.gradiente p {
+    color: #d7cfe6;
+    margin: 0 0 28px;
+}
+
+.monitoramento {
+    background: #fff;
+    color: #2b2b2b;
+    padding: 50px 0;
+}
+
+.monitoramento .wrap {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 30px;
+    align-items: center;
+}
+
+.redonda {
+    width: 70%;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(34, 21, 51, 0.2);
+}
+
+.monitoramento h2 {
+    color: #4a1f86;
+    font-size: 24px;
+    margin: 0 0 12px;
+}
+
+.monitoramento p {
+    color: #5a5667;
+    margin: 0;
+}
+
+.negocio {
+    background: #fff;
+    color: #2b2b2b;
+    padding: 40px 0px;
+}
+
+.negocio h3 {
+    color: #4a1f86;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.cartoes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.cartao {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ece8f5;
+}
+
+.cartao img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.cartao h4 {
+    margin: 0 0 6px;
+    color: #331c63;
+}
+
+.cartao small {
+    color: #837a9e;
+}
+
+.diagrama {
+    background-color: #ffffff;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.diagrama h3 {
+    color: #331c63;
+    text-align: center;
+    font-size: 24px;
+}
+
+.img_diagrama {
+    width: 60%;
+    height:60%;
+    padding: 50px;
+}
+
+footer {
+    display: flex;
+    position: relative;
+    align-items: center;
+    background: #e9efff;
+    width: 100%;
+    color: #2a2a2a;
+    padding: 12px 20px;
+}
+
+.footer_nome {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+
+.footer_links {
+    display: flex;
+    position: absolute;
+    left: 45%;
+    gap: 20px;
+}
+
+.footer_links a {
+    text-decoration: none;
+    color: #2a2a2a;
+    font-weight: 500;
+}
+
+.footer_links a:hover {
+    color: #7a3cff;
+}
+
+
+.footer_links a:hover {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .topbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 0;
+    }
+    
+    .nome {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .links {
+        width: 100%;
+    }
+    
+    nav ul {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .itens {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .header_botoes {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .gradiente {
+        padding: 80px 0;
+        text-align: center;
+    }
+    
+    .monitoramento .wrap {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 30px;
+    }
+    
+    .redonda {
+        max-width: 250px;
+        margin: 0 auto;
+    }
+    
+    .cartoes {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .img_diagrama {
+        width: 85%;
+    }
+    
+    footer {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .footer_nome {
+        position: static;
+        margin-bottom: 10px;
+    }
+    
+    .footer_links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gradiente {
+        padding: 60px 0;
+    }
+    
+    .gradiente h1 {
+        font-size: 28px;
+    }
+
+    .links {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .header_botoes {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .header_botoes .botao {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .cartao img {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .img_diagrama {
+        width: 95%;
+    }
+    
+    .footer_links {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
