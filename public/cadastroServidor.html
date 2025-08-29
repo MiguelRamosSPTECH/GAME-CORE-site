@@ -30,7 +30,7 @@
                 <div class="header_botoes">
                     <a class="botao" href="dash.html">DASHBOARD</a>
                     <a class="botao" href="cadastroFuncionario.html"><b>CADASTRO FUNCIONÁRIO</b></a>
-                    <a class="botao" href="cadastroServidor.html"><b>CADASTRO SERVIDOR</b></a>
+                    <a class="botao botao-ativado" href="cadastroServidor.html"><b>CADASTRO SERVIDOR</b></a>
                     <a class="botao" href="criarCargo.html"><b>CRIAR CARGO</b></a>
                 </div>
 
@@ -50,39 +50,20 @@
         <div class="formulario">
             <h1>CADASTRO SERVIDOR</h1><br><br>
             <div class="campo">
-                <label for="ipt_codigo">Código:</label>
-                <input type="text" id="ipt_codigo"><br><br>
+                <label for="ipt_hostname">Hostname:</label>
+                <input type="text" id="ipt_hostname"><br><br>
             </div>
 
             <div class="campo">
-                <label for="ipt_nome">Nome:</label>
-                <input type="text" id="ipt_nome"><br><br>
+                <label for="ipt_ip">Ip:</label>
+                <input type="text" id="ipt_ip"><br><br>
             </div>
 
             <div class="campo">
-                <label for="ipt_email">E-mail:</label>
-                <input type="text" id="ipt_email"><br><br>
+                <label for="ipt_localizacao">Localização:</label>
+                <input type="text" id="ipt_localizacao"><br><br>
             </div>
             
-            <div class="campo">
-                <label for="ipt_senha">Senha:</label>
-                <input type="text" id="ipt_senha"><br><br>
-            </div>
-
-            <div class="campo">
-                <label for="ipt_cpf">Cpf:</label>
-                <input type="text" id="ipt_cpf"><br><br>
-            </div>
-
-            <div class="campo">
-                <label for="cargo">Cargo:</label>
-                <select name="cargos" id="cargo">
-                    <option value="selecionar">Selecionar</option>
-                    <option value="engenheiro_sre">Engenheiro SRE</option>
-                    <option value="engenheiro_de_servidor_de_jogos">Engenheiro de servidor de jogos</option>
-                </select>
-            </div>
-
             <div id="div_aguardar" class="loading-div">
                 <img src="./assets/circle-loading.gif" id="loading-gif" />
             </div>
