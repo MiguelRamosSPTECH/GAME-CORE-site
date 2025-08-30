@@ -14,11 +14,12 @@
     <header>
         <div class="container topbar">
             <div class="nome">
-                <h3>GameCore</h3>
+                <!-- <h3>GameCore</h3> -->
+                <a href="index.html"><h3>GameCore</h3></a>
                 <div class="links">
                     <nav>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <!-- <li><a href="index.html">Home</a></li> -->
                         </ul>
                     </nav>
                 </div>
@@ -28,7 +29,8 @@
             <div class="itens">
 
                 <div class="header_botoes">
-                    <a class="botao botao-ativado" href="dash.html">DASHBOARD</a>
+                    <a class="botao" href="dashAnalista.html">DASHBOARD ANALISTA</a>
+                    <a class="botao botao-ativado" href="dashSuporte.html">DASHBOARD SUPORTE</a>
                     <a class="botao" href="cadastroFuncionario.html">CADASTRO FUNCIONÁRIO</a>
                     <a class="botao" href="cadastroServidor.html"><b>CADASTRO SERVIDOR</b></a>
                     <a class="botao" href="criarCargo.html"><b>CRIAR CARGO</b></a>
@@ -47,8 +49,13 @@
             </div>
         </div>
 
-        <div style="display:flex; justify-content:space-around; align-items:center;">
-            <div style="width:45%;">
+        <div style="display:flex; flex-direction: column; align-items:center;">
+
+            <h1>Dashboard Suporte</h1>
+            <p>A Dashboard do suporte ficará aqui!</p>
+            
+            <!-- GRAFICOS -->
+            <!-- <div style="width:45%;">
                 <canvas id="usuariosPorEmpresa"></canvas>
 
                 <canvas id="alertasPorServidor"></canvas>
@@ -58,7 +65,7 @@
                 <canvas id="usoCpu"></canvas>
 
                 <canvas id="servidoresPorRegiao"></canvas>
-            </div>
+            </div> -->
         </div>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
