@@ -47,6 +47,20 @@ a {
     text-align: center;
 }
 
+#permissoes{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    justify-content: left;
+    text-align: left;
+}
+
+.label-permissoes{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .campo {
     display: flex;
     justify-content: flex-start;
@@ -155,7 +169,6 @@ nav a {
 .itens {
     display: flex;
     align-items: center;
-    margin-left: 350px;
 }
 
 .header_botoes {
