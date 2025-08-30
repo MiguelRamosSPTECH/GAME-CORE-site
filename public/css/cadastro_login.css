@@ -207,9 +207,14 @@ nav a {
 }
 
 .botao-ativado {
-    background: rgba(255, 255, 255, 0.2);
-    color: rgb(201, 9, 9);
+    background: rgba(255, 255, 255, 0.774);
+    color: #2a0e4a;
     border-color: rgba(255, 255, 255, 0.4);
+}
+
+.botao-ativado:hover {
+    background: rgba(255, 255, 255, 0.8);
+    color: #2a0e4a;
 }
 
 .gradiente {
