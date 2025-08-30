@@ -19,14 +19,17 @@ a {
 }
 
 .container {
-    width: 100vh;
+    width: 100%;
     max-width: 1100px;
     margin: 0 auto;
+    padding: 0 16px;
+    text-align: center;
 }
 
 .container2 {
     width: 100%;
     margin: 0 auto;
+    padding: 0 16px;
 }
 
 
@@ -117,11 +120,7 @@ nav a {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 36px;
-    font-size: 15px;
-    padding: 0 30px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: 10px 24px;
     border-radius: 8px;
     font-weight: bold;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -135,7 +134,7 @@ nav a {
 }
 
 .gradiente {
-    padding: 300px 0;
+    padding: clamp(80px, 50vw, 240px) 0;
     text-align: start;
     background: radial-gradient(1200px 500px at 85% 80%, rgba(247, 50, 15, 0.35), transparent 60%), radial-gradient(1000px 500px at 10% 20%, rgba(122, 60, 255, .35), transparent 60%), linear-gradient(180deg, #20093d 0%, #2a0e4a 100%);
 }
@@ -158,13 +157,15 @@ nav a {
 
 .monitoramento .wrap {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: minmax(220px, 300px) 1fr;
     gap: 30px;
     align-items: center;
 }
 
 .redonda {
-    width: 70%;
+    width: 100%;
+    max-width: 280px;
+    height: auto;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 5px 15px rgba(34, 21, 51, 0.2);
@@ -282,26 +283,20 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .topbar {
-        flex-direction: column;
-        height: auto;
-        padding: 15px 0;
+    .topbar { 
+        flex-direction: column; height: auto; padding: 12px 0; 
     }
-    
-    .nome {
-        flex-direction: column;
-        gap: 15px;
-        margin-bottom: 15px;
-        text-align: center;
+
+    .nome { 
+        flex-direction: column; gap: 12px; text-align: center; 
+    }
+
+    nav ul { 
+        justify-content: center; flex-wrap: wrap; 
     }
     
     .links {
         width: 100%;
-    }
-    
-    nav ul {
-        justify-content: center;
-        flex-wrap: wrap;
     }
     
     .itens {
@@ -322,13 +317,10 @@ footer {
     .monitoramento .wrap {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: 30px;
+        gap: 24px;
     }
     
-    .redonda {
-        max-width: 250px;
-        margin: 0 auto;
-    }
+    .redonda { margin: 0 auto; }
     
     .cartoes {
         grid-template-columns: 1fr;
