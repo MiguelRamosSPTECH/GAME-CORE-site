@@ -323,6 +323,9 @@ input[type="file"] {
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+    border-radius: 10px;
+    justify-content: center;
+    display: flex;
 }
 
 @media (max-width: 800px) {
