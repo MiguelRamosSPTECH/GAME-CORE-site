@@ -116,18 +116,19 @@
         var emailVar = ipt_email.value;
         var senhaVar = ipt_senha.value;
         var cpfVar = ipt_cpf.value;
-        var cargoVar = cargo.value;
+        // var cargoVar = cargo.value;
         
         var idEmpresaVincular
 
         // Verificando se há algum campo em branco
         if (
-            codigoVar == "" ||
+            // codigoVar == "" ||
             nomeVar == "" ||
             emailVar == "" ||
             senhaVar == "" ||
-            cpfVar == "" ||
-            cargoVar == ""
+            cpfVar == "" 
+            // ||
+            // cargoVar == ""
         ) {
             cardErro.style.display = "block";
             mensagem_erro.innerHTML =
@@ -162,12 +163,12 @@
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
 
-                codigoServer: codigoVar,
+                // codigoServer: codigoVar,
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 senhaServer: senhaVar,
                 cpfServer: cpfVar,
-                cargoServer: cargoVar,
+                // cargoServer: cargoVar,
 
             }),
         })
@@ -178,10 +179,10 @@
                     cardErro.style.display = "block";
 
                     mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+                        "Cadastro realizado com sucesso!";
 
                     setTimeout(() => {
-                        window.location = "login.html";
+                        // window.location = "login.html";
                     }, "2000");
 
                     // limparFormulario();
