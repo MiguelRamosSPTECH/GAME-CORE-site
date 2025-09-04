@@ -328,6 +328,33 @@ input[type="file"] {
     display: flex;
 }
 
+
+.botao-cadastrar {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.botao-cadastrar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.fixado {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  z-index: 1000;
+}
+
+
 @media (max-width: 800px) {
     header {
         height: auto;
@@ -398,6 +425,8 @@ input[type="file"] {
     .gradiente {
         padding: 30px 0;
     }
+
+
 }
 
 @media (max-width: 504px) {
