@@ -2,13 +2,13 @@ drop database if exists gameCore;
 
 create database if not exists gameCore;
 
-use GameCore;
+use gameCore;
 
 create table empresa (
 id          int auto_increment,
 nome        varchar(45),
 cnpj        varchar(14),
-telefone    char(14),
+email       varchar(45),
 codigo      varchar(45),
             primary key(id)
 );
@@ -70,16 +70,15 @@ cnpj            varchar(14),
 );
 
 
-insert into empresa (nome, cnpj, telefone) values
-('GameTech Studios', '12345678000190', '(11)99999-9999'),
-('PixelWorks', '98765432000110', '(21)98888-8888'),
-('NextLevel Corp', '55123456000155', '(31)97777-7777');
+-- Inserindo empresas com email
+INSERT INTO empresa (nome, cnpj, email) VALUES
+('Riot Games', '12345678000190', 'contato@riotgames.com'),
+('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
+('Nintendo', '55123456000155', 'contato@nintendo.com');
 
-insert into usuario (nome, email, cpf, senha) values
-('João Silva', 'teste@123', '12345678900', '1234'),
-('Maria Oliveira', 'maria.oliveira@gametech.com', '98765432100', 'senha456'),
-('Carlos Pereira', 'carlos@pixelworks.com', '32165498700', 'senha789'),
-('Ana Costa', 'ana@nextlevel.com', '45612378900', 'senha321');
+-- Inserindo usuários, incluindo um admin
+INSERT INTO usuario (nome, email, cpf, senha) VALUES
+('Admin', 'admin@', '00000000000', '1234');
 
 select * from usuario;
 
