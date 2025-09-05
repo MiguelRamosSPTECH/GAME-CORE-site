@@ -328,6 +328,14 @@ input[type="file"] {
     display: flex;
 }
 
+.grupo-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Espaço entre os botões */
+  align-items: center; /* Centraliza os botões */
+}
+
+
 
 .botao-cadastrar {
   background: linear-gradient(135deg, #6a11cb, #2575fc);

@@ -49,8 +49,15 @@
 
         <div style="display:flex; flex-direction: column; align-items:center;">
             
-            <h1>Dashboard Analista</h1>
-            <p>A Dashboard do analista ficará aqui!</p>
+            <h1>Funcionários Cadastrados</h1>
+            <p>Os funcionários cadastrados da empresa ficaram aqui!</p>
+            <div class="grupo-botoes">
+                <button class="botao-cadastrar" onclick="window.location.href='criarCargo.html'">Criar cargo</button>
+                <button class="botao-cadastrar" onclick="window.location.href='cadastroFuncionario.html'">Cadastrar funcionário</button>
+                <button class="botao-cadastrar">Editar funcionário</button>
+            </div>
+
+            
             <!-- GRAFICOS -->
             <!-- <div style="width:45%;">
                 <canvas id="usuariosPorEmpresa"></canvas>
@@ -209,6 +216,10 @@
             }]
         }
     });
+
+    function botaoCadastrar(){
+
+    }
 
 </script>
 
