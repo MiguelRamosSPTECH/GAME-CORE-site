@@ -331,7 +331,7 @@ input[type="file"] {
 .grupo-botoes {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Espaço entre os botões */
+  gap: 15px; /* Espaço entre os botões */
   align-items: center; /* Centraliza os botões */
 }
 
@@ -348,6 +348,7 @@ input[type="file"] {
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 200px;
 }
 
 .botao-cadastrar:hover {
