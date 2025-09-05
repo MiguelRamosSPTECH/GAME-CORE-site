@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de servidor</title>
+    <title>Criar Cargo</title>
     <link rel="stylesheet" href="css/cadastro_login.css">
     <script src="./js/sessao.js"></script>
     <script src="./js/alerta.js"></script>
@@ -14,7 +14,9 @@
     <header>
         <div class="container topbar">
             <div class="nome">
-                <a href="index.html"><h3>GameCore</h3></a>
+                <a href="index.html">
+                    <h3>GameCore</h3>
+                </a>
                 <div class="links">
                     <nav>
                         <ul>
@@ -28,10 +30,10 @@
             <div class="itens">
 
                 <div class="header_botoes">
-                    <a class="botao botao-ativado" href="servidor.html"><b>SERVIDOR</b></a>
+                    <a class="botao" href="servidor.html"><b>SERVIDOR</b></a>
                     <a class="botao" href="dashSuporte.html">DASHBOARD SUPORTE</a>
                     <a class="botao" href="dashAnalista.html">DASHBOARD ANALISTA</a>
-                    <a class="botao" href="funcionario.html">FUNCIONÁRIOS</a>
+                    <a class="botao botao-ativado" href="funcionario.html">FUNCIONÁRIOS</a>
                 </div>
 
             </div>
@@ -47,28 +49,13 @@
             </div>
         </div>
 
-        <div class="formulario">
-            <h1>CADASTRO SERVIDOR</h1><br><br>
-            <div class="campo">
-                <label for="ipt_hostname">Hostname:</label>
-                <input type="text" id="ipt_hostname"><br><br>
-            </div>
+        <div style="display:flex; flex-direction: column; align-items:center;">
 
-            <div class="campo">
-                <label for="ipt_ip">Ip:</label>
-                <input type="text" id="ipt_ip"><br><br>
-            </div>
+            <h1>Editar Funcionario</h1>
+            <p>A pagina de edição de funcionario ficaria aqui!</p>
 
-            <div class="campo">
-                <label for="ipt_localizacao">Localização:</label>
-                <input type="text" id="ipt_localizacao"><br><br>
-            </div>
-            
-            <div id="div_aguardar" class="loading-div">
-                <img src="./assets/circle-loading.gif" id="loading-gif" />
-            </div>
-
-            <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
     </main>
 
