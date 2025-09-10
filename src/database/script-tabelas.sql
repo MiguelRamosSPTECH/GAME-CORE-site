@@ -17,9 +17,10 @@ create table cargo (
 id          int auto_increment,
 nome        varchar(45),
 permissoes 	json,
-fk_empresa  int,
+fk_empresa int,
+
             primary key(id),
-            foreign key (fk_empresa) references empresa(id)
+            foreign key(fk_empresa) references empresa(id)
 );
 
 create table usuario (
@@ -28,8 +29,10 @@ nome        varchar(45),
 email       varchar(45),
 cpf         varchar(45),
 senha       varchar(45),
+fk_empresa int,
 fk_cargo    int,
             primary key(id),
+			foreign key (fk_empresa) references empresa(id),
             foreign key (fk_cargo) references cargo(id)
 );
 
@@ -76,10 +79,28 @@ INSERT INTO empresa (nome, cnpj, email) VALUES
 ('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
 ('Nintendo', '55123456000155', 'contato@nintendo.com');
 
+INSERT INTO cargo (nome, permissoes, fk_empresa)
+VALUES (
+  'Administrador',
+  '[
+    "Dashboard Analista",
+    "Dashboard Suporte",
+    "Cadastro Funcionário",
+    "Edição de Funcionário",
+    "Cadastro Servidor",
+    "Criação de Cargo"
+  ]',
+  1
+);
+
+
 -- Inserindo usuários, incluindo um admin
-INSERT INTO usuario (nome, email, cpf, senha) VALUES
-('Admin', 'admin@', '00000000000', '1234');
+INSERT INTO usuario (nome, email, cpf, senha, fk_empresa, fk_cargo) VALUES
+('Admin', 'admin@', '00000000000', '1234', 1, 1);
 
 select * from usuario;
+select * from cargo;
+
+SELECT nome FROM cargo where fk_empresa = 1;
 
 select * from empresa;
