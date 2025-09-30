@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <!--
     <header>
         <div class="container topbar">
             <div class="nome">
@@ -19,8 +20,9 @@
                 </a>
                 <div class="links">
                     <nav>
-                        <ul>
-                            <!-- <li><a href="index.html">Home</a></li> -->
+                        <ul> -->
+    <!-- <li><a href="index.html">Home</a></li> -->
+    <!--
                             <li><a href="contato.html">Contato</a></li>
                         </ul>
                     </nav>
@@ -37,41 +39,65 @@
             </div>
 
         </div>
-    </header>
+    </header> -->
 
     <main class="gradiente">
 
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
-        <div class="formulario">
-            <h1>LOGIN</h1><br><br>
-            <div class="campo">
-                <label for="ipt_email">E-mail:</label>
-                <input type="text" id="ipt_email"><br><br>
-            </div>
-            <div class="campo">
-                <label for="ipt_senha">Senha:</label>
-                <input type="password" id="ipt_senha"><br><br>
-            </div>
+        <section class="card-maior">
 
-            <div id="div_aguardar" class="loading-div">
-                <img src="./assets/aguarde-azul.gif" id="loading-gif" />
-            </div>
+            <section class="card-menor">
 
-            <a class="botao" href="#contato" onclick="entrar()">Entrar</a>
-        </div>
+                <div class="alerta_erro">
+                    <div class="card_erro" id="cardErro">
+                        <span id="mensagem_erro"></span>
+                    </div>
+                </div>
+
+                <div class="formulario">
+
+                    <h3>DBGWATCH</h3>
+                    <h4>Bem vindo de volta</h4>
+                    <h5>Coloque suas credenciais para logar</h5>
+
+                    <div class="campo">
+                        <label for="ipt_email">E-mail</label>
+                        <input type="text" id="ipt_email">
+                    </div>
+                    <div class="campo">
+                        <label for="ipt_senha">Senha</label>
+                        <input type="password" id="ipt_senha">
+                    </div>
+
+                    <div id="div_aguardar" class="loading-div">
+                        <img src="./assets/aguarde-azul.gif" id="loading-gif" />
+                    </div>
+
+                    <a class="botao" href="#contato" onclick="entrar()">Entrar</a>
+
+                    <div>
+                        <h5>Não possui acesso? <a href="login.html">Cadastrar-se</a></h5>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="card-menor">
+                <h1>imagem</h1>
+            </section>
+
+        </section>
+
     </main>
 
+    <!--
     <footer>
         <div class="footer_nome">GameCore</div>
         <div class="footer_links">
             <a href="index.html">Home</a>
             <a href="contato.html">Contato</a>
         </div>
-    </footer>
+    </footer> -->
 
 </body>
 
