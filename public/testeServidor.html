@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de servidor</title>
+    <link rel="stylesheet" href="css/cadastroServidor.css">
+    <script src="./js/sessao.js"></script>
+    <script src="./js/alerta.js"></script>
+    
+</head>
+
+<body>
+
+
+    <div class="card_cadastro">
+        <div class="container_cadastro">
+            <h1>Cadastrar servidor</h1>
+            <div class="campos_cadastro">
+                <label >Host Name: </label>
+                <input type="text" id="ipt_hostname">
+
+                <label >Ip: </label>
+                <input type="text" id="ipt_ip">
+
+                <label >Localização: </label>
+                <input type="text" id="ipt_localizacao">
+
+                <h4>O que você vai monitorar?</h4>
+
+                <input type="checkbox" name="componente" id="cpu">
+                <label class="label-componente">CPU</label>
+
+                <input type="checkbox" name="componente" id="ram">
+                <label class="label-componente">RAM</label>
+
+                <input type="checkbox" name="componente" id="disco">
+                <label class="label-componente">Disco</label>
+
+                <input type="checkbox" name="componente" id="processos">
+                <label class="label-componente">Processos</label>
+
+                <input type="checkbox" name="componente" id="rede">
+                <label class="label-componente">Rede</label>
+
+                <h4>Quais métricas você vai utilizar?</h4>
+
+                <input type="checkbox" name="metrica" id="MB">
+                <label class="label-metricas">MB</label>
+
+                <input type="checkbox" name="metrica" id="GB">
+                <label class="label-metricas">GB</label>
+
+                <input type="checkbox" name="metrica" id="TB">
+                <label class="label-metricas">TB</label>
+
+                <input type="checkbox" name="metrica" id="porcentagem">
+                <label class="label-metricas">%</label>
+
+                <div class="botao_cadastrar_servidor">
+                    <button onclick="enviarCadastroServidor">Cadastrar</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
