@@ -26,21 +26,53 @@ a {
     margin: 0 auto;
 }
 
+.card-maior {
+    display: flex;
+    background-color: red;
+    height: 90vh; /* Melhor usar vh para altura da tela */
+    width: 90vw;  /* Melhor usar vw para largura da tela */
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-menor {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-color: #2575fc;
+}
+
+.card-menor-img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    background-color: #25fc5b;
+}
+
 .formulario {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    width: 50%;
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.048);
-    border-radius: 25px;
+    width: 80%;
+    height: 90%;
+    /* padding: 20px; */
+    /* border-radius: 25px; */
     box-sizing: border-box;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); */
+    border: 1px solid black;
 }
 
 .formulario .botao {
-    margin-top: 45px;
-    width: 200xpx;
+    background-color: aquamarine;
+    /* margin-top: 45px;
+    width: 200xpx; */
 }
 
 .formulario h1 {
@@ -63,15 +95,16 @@ a {
 
 .campo {
     display: flex;
+    flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
-    gap: 40px;
-    margin: 8px 0;
+    align-items: start;
+    /* gap: 40px; */
+    /* margin: 8px 0; */
     width: 100%;
 }
 
 .campo label {
-    width: 150px;
+    /* width: 300px; */
     font-weight: bold;
     text-align: right;
 }
@@ -218,10 +251,14 @@ nav a {
 }
 
 .gradiente {
-    padding: 100px 0;
+    /* padding: 100px 0; */
+    height: 100vh;
+    width: 100%;
     text-align: center;
-    background: radial-gradient(1200px 500px at 85% 80%, rgba(247, 50, 15, 0.35), transparent 60%), radial-gradient(1000px 500px at 10% 20%, rgba(122, 60, 255, .35), transparent 60%), linear-gradient(180deg, #20093d 0%, #2a0e4a 100%);
-    flex-grow: 1;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gradiente h1 {
@@ -290,12 +327,12 @@ footer {
   display: none;
   background-color: #fff;
   color: black;
-  width: 230px;
+  /* width: 230px; */
   position: fixed;
-  border-radius: 4px;
+  /* border-radius: 4px; */
   border: #ED145B 3px solid;
-  padding: 10px;
-  margin-right: 10%;
+  /* padding: 10px; */
+  /* margin-right: 10%; */
 }
 
 .alerta_erro{
@@ -304,14 +341,15 @@ footer {
 }
 
 .loading-div {
-  width: 50px;
+  /* width: 50px; */
   margin: auto;
   display: none;
 }
 
 .loading-div img {
-  height: 50px;
-  width: 50px;
+    background-color: aquamarine;
+  /* height: 50px; */
+  /* width: 50px; */
 }
 
 input[type="file"] {
