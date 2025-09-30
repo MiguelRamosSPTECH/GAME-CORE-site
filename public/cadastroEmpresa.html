@@ -12,13 +12,15 @@
 
 <body>
     <header>
+        <!--
         <div class="container topbar">
             <div class="nome">
                 <a href="index.html"><h3>GameCore</h3></a>
                 <div class="links">
                     <nav>
-                        <ul>
-                            <!-- <li><a href="index.html">Home</a></li> -->
+                        <ul> -->
+        <!-- <li><a href="index.html">Home</a></li> -->
+        <!--
                             <li><a href="contato.html">Contato</a></li>
                         </ul>
                     </nav>
@@ -35,43 +37,68 @@
             </div>
 
         </div>
-    </header>
+    </header> -->
 
-    <main class="gradiente">
+        <main class="gradiente">
 
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
+            <section class="card-maior">
 
-        <div class="formulario">
-            <h1>PRÉ-CADASTRO</h1><br>
-            <h4>Para cadastrar sua empresa, precisaremos de alguns dados:</h1><br>
+                <section class="card-menor">
 
-            <div class="campo">
-                <label for="ipt_nome">Empresa:</label>
-                <input type="text" id="ipt_empresa"><br><br>
-            </div>
+                    <div class="alerta_erro">
+                        <div class="card_erro" id="cardErro">
+                            <span id="mensagem_erro"></span>
+                        </div>
+                    </div>
 
-            <div class="campo">
-                <label for="ipt_email">E-mail:</label>
-                <input type="text" id="ipt_email"><br><br>
-            </div>
+                    <div class="formulario">
+                        <h3>DBGWATCH</h3>
+                        <h4>Primeiro acesso?</h4>
+                        <h5>Coloque suas credenciais para cadastrar-se</h5>
 
-            <div class="campo">
-                <label for="ipt_cnpj">CNPJ:</label>
-                <input type="text" id="ipt_cnpj"><br><br>
-            </div>
+                        <div class="campo">
+                            <label for="ipt_nome">Nome Empresarial</label>
+                            <input type="text" id="ipt_empresa">
+                        </div>
 
-            <div id="div_aguardar" class="loading-div">
-                <img src="./assets/circle-loading.gif" id="loading-gif" />
-            </div>
+                        <div class="campo">
+                            <label for="ipt_nome_representante">Nome Representante</label>
+                            <input type="text" id="ipt_nome_representante">
+                        </div>
 
-            <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
-        </div>
-    </main>
+                        <div class="campo">
+                            <label for="ipt_email">E-mail</label>
+                            <input type="text" id="ipt_email">
+                        </div>
 
+                        <div class="campo">
+                            <label for="ipt_cnpj">CNPJ</label>
+                            <input type="text" id="ipt_cnpj">
+                        </div>
+
+                        <div id="div_aguardar" class="loading-div">
+                            <img src="./assets/circle-loading.gif" id="loading-gif" />
+                        </div>
+
+                        <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
+
+                        <div>
+                            <h5>Já possui acesso? <a href="login.html">Autentique-se</a></h5>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <section class="card-menor-img">
+                    <h1>imagem</h1>
+                </section>
+
+            </section>
+
+        </main>
+
+        <!--
     <footer>
         <div class="footer_nome">GameCore</div>
         <div class="footer_links">
@@ -80,6 +107,7 @@
             <a href="#contato">Contato</a>
         </div>
     </footer>
+    -->
 
 </body>
 
@@ -97,7 +125,7 @@
         var emailVar = ipt_email.value;
         var arquivoVar = ipt_senha.value;
         var cnpjVar = ipt_cnpj.value;
-        
+
         var idEmpresaVincular
 
         // Verificando se há algum campo em branco
@@ -131,69 +159,69 @@
         // }
 
         // Enviando o valor da nova input
-    //     fetch("/usuarios/cadastrar", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             // crie um atributo que recebe o valor recuperado aqui
-    //             // Agora vá para o arquivo routes/usuario.js
+        //     fetch("/usuarios/cadastrar", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify({
+        //             // crie um atributo que recebe o valor recuperado aqui
+        //             // Agora vá para o arquivo routes/usuario.js
 
-    //             codigoServer: codigoVar,
-    //             nomeServer: nomeVar,
-    //             emailServer: emailVar,
-    //             senhaServer: senhaVar,
-    //             cpfServer: cpfVar,
-    //             cargoServer: cargoVar,
+        //             codigoServer: codigoVar,
+        //             nomeServer: nomeVar,
+        //             emailServer: emailVar,
+        //             senhaServer: senhaVar,
+        //             cpfServer: cpfVar,
+        //             cargoServer: cargoVar,
 
-    //         }),
-    //     })
-    //         .then(function (resposta) {
-    //             console.log("resposta: ", resposta);
+        //         }),
+        //     })
+        //         .then(function (resposta) {
+        //             console.log("resposta: ", resposta);
 
-    //             if (resposta.ok) {
-    //                 cardErro.style.display = "block";
+        //             if (resposta.ok) {
+        //                 cardErro.style.display = "block";
 
-    //                 mensagem_erro.innerHTML =
-    //                     "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+        //                 mensagem_erro.innerHTML =
+        //                     "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-    //                 setTimeout(() => {
-    //                     window.location = "login.html";
-    //                 }, "2000");
+        //                 setTimeout(() => {
+        //                     window.location = "login.html";
+        //                 }, "2000");
 
-    //                 // limparFormulario();
-    //                 finalizarAguardar();
-    //             } else {
-    //                 throw "Houve um erro ao tentar realizar o cadastro!";
-    //             }
-    //         })
-    //         .catch(function (resposta) {
-    //             console.log(`#ERRO: ${resposta}`);
-    //             finalizarAguardar();
-    //         });
+        //                 // limparFormulario();
+        //                 finalizarAguardar();
+        //             } else {
+        //                 throw "Houve um erro ao tentar realizar o cadastro!";
+        //             }
+        //         })
+        //         .catch(function (resposta) {
+        //             console.log(`#ERRO: ${resposta}`);
+        //             finalizarAguardar();
+        //         });
 
-    //     return false;
-    // }
+        //     return false;
+        // }
 
-    //   // Listando empresas cadastradas 
-    //   function listar() {
-    //     fetch("/empresas/listar", {
-    //       method: "GET",
-    //     })
-    //       .then(function (resposta) {
-    //         resposta.json().then((empresas) => {
-    //           empresas.forEach((empresa) => {
-    //             listaEmpresasCadastradas.push(empresa);
+        //   // Listando empresas cadastradas 
+        //   function listar() {
+        //     fetch("/empresas/listar", {
+        //       method: "GET",
+        //     })
+        //       .then(function (resposta) {
+        //         resposta.json().then((empresas) => {
+        //           empresas.forEach((empresa) => {
+        //             listaEmpresasCadastradas.push(empresa);
 
-    //             console.log("listaEmpresasCadastradas")
-    //             console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-    //           });
-    //         });
-    //       })
-    //       .catch(function (resposta) {
-    //         console.log(`#ERRO: ${resposta}`);
-    //       });
+        //             console.log("listaEmpresasCadastradas")
+        //             console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+        //           });
+        //         });
+        //       })
+        //       .catch(function (resposta) {
+        //         console.log(`#ERRO: ${resposta}`);
+        //       });
     }
 
     function sumirMensagem() {
