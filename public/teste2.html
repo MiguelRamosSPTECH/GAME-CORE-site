@@ -11,33 +11,6 @@
 </head>
 
 <body onload="buscarCargos()">
-    <header>
-        <div class="container topbar">
-            <div class="nome">
-                <a href="index.html"><h3>GameCore</h3></a>
-                <div class="links">
-                    <nav>
-                        <ul>
-                            <!-- <li><a href="index.html">Home</a></li> -->
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-
-            <div class="itens">
-
-                <div class="header_botoes">
-                    <a class="botao" href="servidor.html"><b>SERVIDOR</b></a>
-                    <a class="botao" href="dashSuporte.html">DASHBOARD SUPORTE</a>
-                    <a class="botao" href="dashAnalista.html">DASHBOARD ANALISTA</a>
-                    <a class="botao botao-ativado" href="funcionario.html">FUNCIONÁRIOS</a>
-                </div>
-
-            </div>
-
-        </div>
-    </header>
 
     <main class="gradiente">
 
@@ -48,34 +21,28 @@
         </div>
 
         <div class="formulario">
-            <h1>CADASTRO DE FUNCIONÁRIO</h1><br><br>
+            <h1 style="color: black;">CADASTRO DE FUNCIONÁRIO</h1><br><br>
 
-            <div class="campo">
-                <label for="ipt_nome">Nome:</label>
+                <label for="ipt_nome" style="color: black;">Nome:</label>
                 <input type="text" id="ipt_nome"><br><br>
-            </div>
 
-            <div class="campo">
-                <label for="ipt_email">E-mail:</label>
+                <label for="ipt_email" style="color: black;">E-mail:</label>
                 <input type="text" id="ipt_email"><br><br>
-            </div>
             
-            <div class="campo">
-                <label for="ipt_senha">Senha:</label>
+                <label for="ipt_senha" style="color: black;">Senha:</label>
                 <input type="password" id="ipt_senha"><br><br>
-            </div>
 
-            <div class="campo">
-                <label for="ipt_cpf">Cpf:</label>
+                <label for="ipt_cpf" style="color: black;">Cpf:</label>
                 <input type="text" id="ipt_cpf"><br><br>
-            </div>
 
-            <!-- <div class="campo">
+                <center>
+                <div class="campo"> 
                 <label for="cargo">Cargo:</label>
                 <select name="cargos" id="cargo">
                     Os options serão adicionados aqui após a chamada da função "buscarCargos()"
                 </select>
-            </div> -->
+                </div>
+                </center>
 
             <div id="div_aguardar" class="loading-div">
                 <img src="./assets/circle-loading.gif" id="loading-gif" />
@@ -84,13 +51,6 @@
             <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
     </main>
-
-    <footer>
-        <div class="footer_nome">GameCore</div>
-        <div class="footer_links">
-            <a href="index.html">Home</a>
-        </div>
-    </footer>
 
 </body>
 

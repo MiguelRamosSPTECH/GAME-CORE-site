@@ -1,106 +1,84 @@
 drop database if exists gameCore;
-
 create database if not exists gameCore;
-
 use gameCore;
 
-create table empresa (
-id          int auto_increment,
-nome        varchar(45),
-cnpj        varchar(14),
-email       varchar(45),
-codigo      varchar(45),
-            primary key(id)
+create table Empresa(
+id int primary key auto_increment,
+nome varchar(45),
+cnpj char(14),
+email varchar(45),
+codigo varchar(45),
+acesso tinyint
+
 );
 
-create table cargo (
-id          int auto_increment,
-nome        varchar(45),
-permissoes 	json,
-fk_empresa int,
+create table Funcionario(
+id int primary key auto_increment,
+nome varchar(45),
+email varchar(45),
+cpf char(11),
+senha varchar(45),
+fk_empresa_func int,
+constraint ct_fkEmpresa foreign key fkempresafunc(fk_empresa_func) references Empresa(id)
 
-            primary key(id),
-            foreign key(fk_empresa) references empresa(id)
 );
 
-create table usuario (
-id          int auto_increment,
-nome        varchar(45),
-email       varchar(45),
-cpf         varchar(45),
-senha       varchar(45),
-fk_empresa int,
-fk_cargo    int,
-            primary key(id),
-			foreign key (fk_empresa) references empresa(id),
-            foreign key (fk_cargo) references cargo(id)
+create table Cargo(
+id int primary key auto_increment,
+nome varchar(45),
+fk_empresa_cargo int,
+fk_funcionario_cargo int,
+constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id),
+constraint ct_fkFuncCargo foreign key fkfunccargo(fk_funcionario_cargo) references Funcionario(id)
+
 );
 
-create table servidor (
-id          int auto_increment,
-hostname    varchar(45),
-ip          varchar(45),
+create table Permissao(
+id int primary key auto_increment,
+nome varchar(45)
+
+);
+
+create table PermissaoCargo(
+fk_permissao_pc int,
+fk_cargo_pc int,
+primary key(fk_permissao_pc, fk_cargo_pc),
+constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
+constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
+
+);
+
+create table Servidor(
+id int primary key auto_increment,
+hostName varchar(45),
+ip varchar(45),
 localizacao varchar(45),
-fk_empresa  int,
-            primary key(id),
-            foreign key (fk_empresa) references empresa(id)
+fk_empresa_servidor int,
+constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references Empresa(id)
+
 );
 
-create table componente (
-id              int auto_increment,
-nome            varchar(45),
-unidade_medida  char(5),
-                primary key(id)
+create table Metrica(
+id int primary key auto_increment,
+unidadeMedida varchar(45)
+
 );
 
-create table parametroAlerta (
-id              int auto_increment,
-minimo          decimal(5,2),
-maximo          decimal(5,2),
-fk_servidor     int,
-fk_componente   int,
-                primary key(id),
-                foreign key (fk_servidor) references servidor(id),
-                foreign key (fk_componente) references componente(id)
+create table Componente(
+id int primary key auto_increment,
+nome varchar(45)
+
 );
 
-create table preCadastro (
-idpreCadastro   int auto_increment,
-nome			varchar(45),
-email			varchar(45),
-cnpj            varchar(14),
-                primary key(idpreCadastro)
+create table ConfiguracaoServidor(
+id int primary key auto_increment,
+alertaLeve varchar(45),
+alertaGrave varchar(45),
+fk_servidor_config int,
+fk_metrica_config int,
+fk_componente_config int, 
+constraint ct_fkServidorConfig foreign key fkservidorconfig(fk_servidor_config) references Servidor(Id),
+constraint ct_fkMetricaConfig foreign key fkmetricaconfig(fk_metrica_config) references Metrica(Id),
+constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_config) references Componente(Id)
+
 );
-
-
--- Inserindo empresas com email
-INSERT INTO empresa (nome, cnpj, email) VALUES
-('Riot Games', '12345678000190', 'contato@riotgames.com'),
-('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
-('Nintendo', '55123456000155', 'contato@nintendo.com');
-
-INSERT INTO cargo (nome, permissoes, fk_empresa)
-VALUES (
-  'Administrador',
-  '[
-    "Dashboard Analista",
-    "Dashboard Suporte",
-    "Cadastro Funcionário",
-    "Edição de Funcionário",
-    "Cadastro Servidor",
-    "Criação de Cargo"
-  ]',
-  1
-);
-
-
--- Inserindo usuários, incluindo um admin
-INSERT INTO usuario (nome, email, cpf, senha, fk_empresa, fk_cargo) VALUES
-('Admin', 'admin@', '00000000000', '1234', 1, 1);
-
-select * from usuario;
-select * from cargo;
-
-SELECT nome FROM cargo where fk_empresa = 1;
-
-select * from empresa;
