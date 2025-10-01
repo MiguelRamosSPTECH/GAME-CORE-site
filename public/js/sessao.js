@@ -12,6 +12,18 @@ function validarSessao() {
     }
 }
 
+function validarSessaoGameCore() {
+    if (sessionStorage.EMAIL_GAMECORE == undefined) {
+        sessionStorage.clear();
+        window.location = "./login.html?AcessoNegado"
+    } else {
+        nome_login.innerHMTL = sessionStorage.NOME_GAMECORE
+        email_login.innerHMTL = sessionStorage.EMAIL_GAMECORE
+    }
+}
+
+
+
 function limparSessao() {
     sessionStorage.clear();
     window.location = "../login.html";
