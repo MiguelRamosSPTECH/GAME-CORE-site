@@ -8,37 +8,11 @@
     <link rel="stylesheet" href="css/cadastro_login.css">
     <script src="./js/sessao.js"></script>
     <script src="./js/alerta.js"></script>
+    <script src="./js/cadastroEmpresa.js"></script>
 </head>
 
 <body>
     <header>
-        <!--
-        <div class="container topbar">
-            <div class="nome">
-                <a href="index.html"><h3>GameCore</h3></a>
-                <div class="links">
-                    <nav>
-                        <ul> -->
-        <!-- <li><a href="index.html">Home</a></li> -->
-        <!--
-                            <li><a href="contato.html">Contato</a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-
-
-            <div class="itens">
-
-                <div class="header_botoes">
-                    <a class="botao" href="login.html">LOGIN</a>
-                </div>
-
-            </div>
-
-        </div>
-    </header> -->
-
         <main class="gradiente">
 
             <section class="card-maior">
@@ -61,7 +35,7 @@
                         <section class="campos">
                             <div class="campo">
                                 <label for="ipt_nome">Nome Empresarial</label>
-                                <input type="text" id="ipt_empresa">
+                                <input type="text" id="ipt_nome_empresarial">
                             </div>
 
                             <div class="campo">
@@ -84,6 +58,8 @@
                             <img src="./assets/circle-loading.gif" id="loading-gif" />
                         </div>
 
+                        <span id="msg_erro"></span>
+
                         <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
 
                         <div>
@@ -102,135 +78,5 @@
 
         </main>
 
-        <!--
-    <footer>
-        <div class="footer_nome">GameCore</div>
-        <div class="footer_links">
-            <a href="#home">Home</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#contato">Contato</a>
-        </div>
-    </footer>
-    -->
-
 </body>
-
-<script>
-    // Array para armazenar empresas cadastradas para validação de código de ativação 
-    let listaEmpresasCadastradas = [];
-
-    function cadastrar() {
-
-        aguardar();
-
-        //Recupere o valor da nova input pelo nome do id
-        // Agora vá para o método fetch logo abaixo
-        var empresaVar = ipt_empresa.value;
-        var emailVar = ipt_email.value;
-        var arquivoVar = ipt_senha.value;
-        var cnpjVar = ipt_cnpj.value;
-
-        var idEmpresaVincular
-
-        // Verificando se há algum campo em branco
-        // if (
-        //     empresaVar == "" ||
-        //     emailVar == "" ||
-        //     arquivoVar == "" ||
-        //     cnpjVar == "" ||
-        // ) {
-        //     cardErro.style.display = "block";
-        //     mensagem_erro.innerHTML =
-        //         "(Mensagem de erro para todos os campos em branco)";
-
-        //     finalizarAguardar();
-        //     return false;
-        // } else {
-        //     setInterval(sumirMensagem, 5000);
-        // }
-
-        // Verificando se o código de ativação é de alguma empresa cadastrada
-        // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
-        //     if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
-        //         idEmpresaVincular = listaEmpresasCadastradas[i].id
-        //         console.log("Código de ativação válido.");
-        //         break;
-        //     } else {
-        //         cardErro.style.display = "block";
-        //         mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
-        //         finalizarAguardar();
-        //     }
-        // }
-
-        // Enviando o valor da nova input
-        //     fetch("/usuarios/cadastrar", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify({
-        //             // crie um atributo que recebe o valor recuperado aqui
-        //             // Agora vá para o arquivo routes/usuario.js
-
-        //             codigoServer: codigoVar,
-        //             nomeServer: nomeVar,
-        //             emailServer: emailVar,
-        //             senhaServer: senhaVar,
-        //             cpfServer: cpfVar,
-        //             cargoServer: cargoVar,
-
-        //         }),
-        //     })
-        //         .then(function (resposta) {
-        //             console.log("resposta: ", resposta);
-
-        //             if (resposta.ok) {
-        //                 cardErro.style.display = "block";
-
-        //                 mensagem_erro.innerHTML =
-        //                     "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-        //                 setTimeout(() => {
-        //                     window.location = "login.html";
-        //                 }, "2000");
-
-        //                 // limparFormulario();
-        //                 finalizarAguardar();
-        //             } else {
-        //                 throw "Houve um erro ao tentar realizar o cadastro!";
-        //             }
-        //         })
-        //         .catch(function (resposta) {
-        //             console.log(`#ERRO: ${resposta}`);
-        //             finalizarAguardar();
-        //         });
-
-        //     return false;
-        // }
-
-        //   // Listando empresas cadastradas 
-        //   function listar() {
-        //     fetch("/empresas/listar", {
-        //       method: "GET",
-        //     })
-        //       .then(function (resposta) {
-        //         resposta.json().then((empresas) => {
-        //           empresas.forEach((empresa) => {
-        //             listaEmpresasCadastradas.push(empresa);
-
-        //             console.log("listaEmpresasCadastradas")
-        //             console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-        //           });
-        //         });
-        //       })
-        //       .catch(function (resposta) {
-        //         console.log(`#ERRO: ${resposta}`);
-        //       });
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-    }
-</script>
-
 </html>
