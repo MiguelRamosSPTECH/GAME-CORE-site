@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/aceitar.css">
+    <script src="./js/sessao.js"></script>
+    <script src=".js/aceitarEmpresa.js"></script>
+
+</head>
+<body onload="validarSessaoGameCore()">
+    <div class="container">
+        <div class="sideBar">
+            <img src="#" alt="" height="150px">
+                <a href="" class="link-sidebar">
+                    <img src="#" alt="">
+                </a>
+                <div class="logout-area" onclick="sair()">
+                    <img src="#" alt="">
+                </div>
+        </div>
+        <div class="header" >
+            <div id="dados_data">
+                <span id="dataHeader"></span>
+                <img id="agenda_icon" src="./assets/imgs/icon_agenda.jpg" alt="">
+            </div>
+            <div id="info_login">
+                <div id="foto_padrao_login"></div>
+                <div id="dados_login">
+                    <span id="nome_login">Luciano Macedo</span>
+                    <span id="email_login">luci@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="filtros">          
+            <h2 id="title-filtros">Aprovações</h2>
+            <select onchange="criarCards()" id="filtro">
+                <option value="1,2,3">Todas as empresas</option> 
+                <option value="1">Pendentes</option>
+                <option value="2">Reprovadas</option>
+                <option value="3">Aprovadas</option> 
+            </select>
+        </div>
+        <div class="conteudo" id="div_conteudo">
+            <table id="tabela_empresas"></table>
+        </div>
+    </div>
+
+</body>
+
+</html>
