@@ -6,10 +6,10 @@ use gameCore;
 
 create table empresa (
 id          int auto_increment,
-nome        varchar(45),
-cnpj        varchar(14),
+nomeEmpresarial        varchar(45),
 email       varchar(45),
-codigo      varchar(45),
+nomeRepresentante varchar(45),
+cnpj        varchar(14),
             primary key(id)
 );
 
