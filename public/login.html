@@ -55,18 +55,23 @@
 
                 <div class="formulario">
 
-                    <h3>DBGWATCH</h3>
-                    <h4>Bem vindo de volta</h4>
-                    <h5>Coloque suas credenciais para logar</h5>
+                    <section class="texto-form">
+                        <span class="t1">DBGWATCH</span>
+                        <span class="t2">Bem-vindo de volta</span>
+                        <span class="t3">Coloque suas credenciais para logar</span>
+                    </section>
 
-                    <div class="campo">
-                        <label for="ipt_email">E-mail</label>
-                        <input type="text" id="ipt_email">
-                    </div>
-                    <div class="campo">
-                        <label for="ipt_senha">Senha</label>
-                        <input type="password" id="ipt_senha">
-                    </div>
+                    <section class="campos">
+                        <div class="campo">
+                            <label for="ipt_email">E-mail</label>
+                            <input type="text" id="ipt_email">
+                        </div>
+
+                        <div class="campo">
+                            <label for="ipt_senha">Senha</label>
+                            <input type="password" id="ipt_senha">
+                        </div>
+                    </section>
 
                     <div id="div_aguardar" class="loading-div">
                         <img src="./assets/aguarde-azul.gif" id="loading-gif" />
@@ -75,14 +80,14 @@
                     <a class="botao" href="#contato" onclick="entrar()">Entrar</a>
 
                     <div>
-                        <h5>Não possui acesso? <a href="login.html">Cadastrar-se</a></h5>
+                        <h5 class="t3">Não possui acesso? <a class="t4" href="cadastro.html">Cadastrar-se</a></h5>
                     </div>
                 </div>
 
             </section>
 
 
-            <section class="card-menor">
+            <section class="card-menor-img">
                 <h1>imagem</h1>
             </section>
 
