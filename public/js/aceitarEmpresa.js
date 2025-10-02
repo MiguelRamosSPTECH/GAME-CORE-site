@@ -19,7 +19,7 @@ function criarCards() {
                         <th class="id_table">ID</th>
                         <th>Nome</th>
                         <th>Email</th>
-                        <th>ISPB</th>
+                        <th>CNPJ</th>
                         <th>Status Op.</th>
                         <th class="acao_table">Ação</th>
                     </tr>
@@ -50,7 +50,7 @@ function criarCards() {
                 statusOperacao = []
                 statusAcesso = []
                 email = []
-                ispb = []
+                cnpj = []
 
                 // Salvando em variaveis os valores retornados
                 for (i = 0; i < json.length; i++) {
@@ -58,7 +58,7 @@ function criarCards() {
                     nomeEmpresarial.push(json[i].nomeEmpresarial);
                     email.push(json[i].email)
                     nomeRepresentante.push(json[i].nomeRepresentante);
-                    ispb.push(json[i].ispb);
+                    cnpj.push(json[i].cnpj);
                     statusOperacao.push(json[i].statusOperacao);
                     statusAcesso.push(json[i].statusAcesso);
                 }
@@ -68,6 +68,7 @@ function criarCards() {
                 console.log(nomeRepresentante);
                 console.log(statusOperacao);
                 console.log(statusAcesso);
+                console.log(cnpj)
 
                 // montando os cards
                 console.log("Tamanho do vetor de id:" + id.length);
