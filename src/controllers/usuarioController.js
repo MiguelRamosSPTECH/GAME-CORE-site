@@ -7,9 +7,9 @@ function autenticar(req, res) {
 
 
     if (email == undefined) {
-        res.status(400).send("Seu email está undefined!");
+        res.status(400).send("Seu email está indefinido!");
     } else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
+        res.status(400).send("Sua senha está indefinido!");
     } else {
 
         usuarioModel.autenticar(email, senha)
@@ -25,9 +25,10 @@ function autenticar(req, res) {
                             id: resultadoAutenticar[0].id,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
+                            cpf: resultadoAutenticar[0].cpf,
                             senha: resultadoAutenticar[0].senha,
-                            fk_empresa: resultadoAutenticar[0].fk_empresa,
-                            fk_cargo: resultadoAutenticar[0].fk_cargo
+                            fk_empresa: resultadoAutenticar[0].fk_empresa_func,
+                            fk_cargo: resultadoAutenticar[0].fk_cargo_func
                         });
 
 

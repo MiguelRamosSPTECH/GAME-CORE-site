@@ -35,7 +35,7 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
 
                     setTimeout(function () {
-                        window.location = "simulador.html";
+                        window.location = "index.html";
                         console.log("ENTROUUUU");
 
                     }, 1000); // apenas para exibir o loading
