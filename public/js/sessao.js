@@ -22,6 +22,10 @@ function validarSessaoGameCore() {
     }
 }
 
+function validarEmpresa(){
+    //AQUI EU VOU COLOCAR UMA FUNÇÃO QUE PERMITE QUE O USUARIO FIQUE NUMA TELA DE AGUARDO ATÉ A GENTE ACEITAR A EMPRESA DELE. QUANDO A GNT ACEITAR, ELE VAI PRA TELA DE CADASTRAR FUNCIONÁRIO
+}
+
 
 
 function limparSessao() {

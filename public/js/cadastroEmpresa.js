@@ -44,7 +44,7 @@ function cadastrar() {
                 if (resposta.ok) {
                     console.log("cadastro realizado com sucesso")
                     console.log("redirecionando para tela de login")
-                    window.location.href="login.html"
+                    window.location.href="cadastroFuncionario.html"
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }

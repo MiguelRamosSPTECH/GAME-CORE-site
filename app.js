@@ -18,7 +18,8 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var cadastroEmpresaRouter = require("./src/routes/cadastroEmpresa");
-var cargosRouter = require("./src/routes/cargos")
+var cargosRouter = require("./src/routes/cargos");
+var cadastrarServidor = require("./src/routes/cadastrarServidor");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -31,6 +32,7 @@ app.use("/usuarios", usuarioRouter);
 app.use("/empresas", cadastroEmpresaRouter);
 app.use("/cargos", cargosRouter);
 app.use("/cadastroEmpresa", cadastroEmpresaRouter);
+app.use("/cadastrarServidor", cadastrarServidor);
 
 app.listen(PORTA_APP, function () {
     console.log(`
