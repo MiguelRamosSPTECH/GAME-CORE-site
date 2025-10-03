@@ -5,8 +5,10 @@ use gameCore;
 create table if not exists Empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(45),
-cnpj char(14),
 nomeRepresentante varchar(45),
+statusOperacao varchar(45),
+statusAcesso char(1) default 1,
+cnpj char(14),
 email varchar(45)
 
 );
@@ -87,14 +89,7 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 ('Ubisoft', '98765432000110', 'Tibursio', 'contato@ubisoft.com'),
 ('Nintendo', '55123456000155', 'João', 'contato@nintendo.com');
 
-INSERT INTO Cargo (nome, fk_empresa_cargo) VALUES
-("Analista", 1),
-("Gerente", 2),
-("Dev-Front Site", 3),
-("Dev-Ops", 3);
 
-INSERT INTO Funcionario (nome, email, cpf, senha, fk_empresa_func, fk_cargo_func) VALUES
-('Admin', 'admin@', '00000000000', '123', 1, 1);
 
 INSERT INTO Permissao (nome) VALUES 
 ("A"),
