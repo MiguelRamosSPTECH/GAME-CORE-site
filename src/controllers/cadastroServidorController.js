@@ -7,7 +7,6 @@ function cadastrarServidor(req,res){
     var metrica = req.body.metricaServer
     var componente = req.body.componenteServer
 
-    var idEmpresa = req.session.usuario.fk_empresa_servidor;
 
     if (hostname == undefined) {
         res.status(400).send("O nome hostname está indefinido!");
@@ -19,9 +18,7 @@ function cadastrarServidor(req,res){
         res.status(400).send("Selecione ao menos 1 métrica!");
     } else if (componente == undefined) {
         res.status(400).send("Selecione ao menos 1 componente!"); 
-    } else if (idEmpresa == undefined) {
-        res.status(400).send("Sessão inválida! ID da empresa não identificado!");
-    }
+    } 
     else{
         cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,metrica,componente)
             .then(

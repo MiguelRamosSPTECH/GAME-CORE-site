@@ -1,6 +1,6 @@
 var database = require("../database/config")
 
-function enviarCadastroServidor(hostname, ip, localizacao, componentes, metricas, fkEmpresa) {
+function cadastrar(hostname, ip, localizacao, componentes, metricas, fkEmpresa) {
     console.log("ACESSEI O MODEL DE CADASTRO DE SERVIDOR");
 
     var instrucaoSql = `

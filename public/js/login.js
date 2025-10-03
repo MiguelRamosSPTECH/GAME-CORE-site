@@ -8,7 +8,12 @@ function entrar() {
         sessionStorage.NOME_GAMECORE = `Perfil Administrativo`
         sessionStorage.EMAIL_GAMECORE = emailVar
         sessionStorage.SENHA_GAMECORE = senhaVar
-        window.location = `aceitarEmpresas.html`
+        setTimeout(function () {
+                        window.location = "aceitarEmpresas.html";
+                        console.log("tamo dentro!");
+
+                    }, 1000); 
+
     } else {
 
         console.log("FORM LOGIN: ", emailVar);
