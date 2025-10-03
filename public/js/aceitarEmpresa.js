@@ -117,7 +117,7 @@ function criarCards() {
 
 }
 
-criarCards()
+criarCards();
 
 function aprovar(i) {
     var idEmpresa1 = id[i]
