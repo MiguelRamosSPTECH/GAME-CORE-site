@@ -52,5 +52,45 @@ function cadastrar() {
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+
+            //Autenticando
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            resposta.json().then(json => {
+                console.log("Resposta recebida do login:", json);
+
+                if (json && json.id) {
+                    const usuario = json[0];
+
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.RELIGIAO_USUARIO = json.religiao;
+                    sessionStorage.ID_USUARIO = json.id;
+
+                    setTimeout(() => {
+                        window.location = "./index.html";
+                    }, 1000);
+                } else {
+                    finalizarAguardar("Usuário ou senha inválidos.");
+                    console.warn("Login falhou: estrutura inesperada da resposta.", json);
+                }
+            });
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+            
     }
 }
