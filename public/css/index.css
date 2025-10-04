@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech&display=swap');
+
 * {
     font-family: 'Poppins', sans-serif;
     box-sizing: border-box;
@@ -9,9 +10,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
     background: #ffffff;
-    overflow-x:hidden;
+    overflow-x: hidden;
 }
 
 a {
@@ -36,6 +37,7 @@ a {
     z-index: 5;
     top: -190px;
 }
+
 nav {
     display: flex;
     align-items: center;
@@ -45,18 +47,20 @@ nav {
     background-color: transparent;
     z-index: 5000;
 }
+
 nav .logo {
     text-align: center;
     display: flex;
-    justify-content:  center;
+    justify-content: center;
     align-items: center;
     height: 100%;
     font-size: 25px;
     font-family: 'Share Tech', sans-serif;
     font-weight: 900;
 }
+
 .nav-links {
-        z-index: 5000;
+    z-index: 5000;
 }
 
 .nav-links a {
@@ -105,6 +109,7 @@ nav ul {
     height: 90%;
     width: 100%;
 }
+
 .content-planeta-texts {
     display: flex;
     align-items: center;
@@ -112,6 +117,7 @@ nav ul {
     width: 50%;
     height: 55%;
 }
+
 .texts {
     display: flex;
     align-items: center;
@@ -120,6 +126,7 @@ nav ul {
     position: absolute;
     margin-bottom: 40px;
 }
+
 .first-texts {
     display: flex;
     align-items: center;
@@ -127,19 +134,22 @@ nav ul {
     width: 100%;
     position: absolute;
     padding-right: 10px;
-    
+
 }
+
 .first-texts span {
     font-family: 'Poppins', sans-serif;
     font-size: 20px;
     font-weight: 900;
 }
+
 .texts label {
     font-size: 110px;
     font-weight: 900;
     color: #ff96f8;
     z-index: 5;
 }
+
 .linha-planeta {
     display: flex;
     align-items: center;
@@ -174,12 +184,14 @@ nav ul {
     top: -22%;
     z-index: 500;
 }
+
 .linha-tec-left {
     position: absolute;
     background-image: url('../assets/imgs/linhas-tecnologia.png');
     background-position: center;
     background-size: cover;
-    transform: scaleX(-1); /*inverter imagem*/
+    transform: scaleX(-1);
+    /*inverter imagem*/
     width: 1000px;
     height: 1000px;
     right: 50%;
@@ -203,28 +215,33 @@ nav ul {
 
 
 .monitoramento {
-    background: #fff;
+    background: #ebe5e5;
     color: #2b2b2b;
-    padding: 50px 0;
+    padding: 30px 90px;
+    position: relative;
+    overflow: hidden;
 }
 
 .monitoramento .wrap {
-    display: grid;
+    display: flex;
     grid-template-columns: 300px 1fr;
     gap: 30px;
     align-items: center;
+    text-align: end;
+    position: relative;
+    z-index: 1;
 }
 
 .redonda {
-    width: 100%;
+    width: 550px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 5px 15px rgba(34, 21, 51, 0.2);
 }
 
 .monitoramento h2 {
-    color: #4a1f86;
-    font-size: 24px;
+    color: #321856;
+    font-size: 18px;
     margin: 0 0 12px;
 }
 
@@ -234,7 +251,7 @@ nav ul {
 }
 
 .negocio {
-    background: #fff;
+    background: #ebe5e5;
     color: #2b2b2b;
     padding: 40px 0px;
 }
@@ -246,14 +263,212 @@ nav ul {
     margin-bottom: 30px;
 }
 
+.quem-somos-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 120px;
+}
+
+.quem-somos {
+    position: absolute;
+    top: -140px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 220px;
+    color: rgba(183, 108, 253, 0.3);
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.quem-somos-container h3 {
+    position: relative;
+    color: #4a1f86;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    margin-top: 80px;
+    z-index: 1;
+}
+
+.linha-quem-somos {
+    position: absolute;
+    background-image: url('../assets/imgs/linhas-tecnologia.png');
+    background-position: center;
+    background-size: cover;
+    width: 850px;
+    height: 850px;
+    left: -17%;
+    top: -14%;
+    z-index: 0;
+    transform: scaleX(-1) rotate(5deg);
+    transform-origin: center;
+}
+
+.linha-quem-somos2 {
+    position: absolute;
+    background-image: url('../assets/imgs/linhas-tecnologia.png');
+    background-position: center;
+    background-size: cover;
+    width: 1000px;
+    height: 1000px;
+    left: 45%;
+    top: 23%;
+    z-index: 0;
+    transform: scaleY(-1) rotate(38deg);
+    transform-origin: center;
+}
+
+.servico {
+    background: #ebe5e5;
+    color: #2b2b2b;
+    padding: 30px 90px;
+}
+
+
+.servicos-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 120px;
+}
+
+.servico-text {
+    position: absolute;
+    top: -140px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 220px;
+    color: rgba(183, 108, 253, 0.3);
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.servicos-container h3 {
+    position: relative;
+    color: #4a1f86;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    margin-top: 80px;
+    z-index: 1;
+}
+
+.servico h2 {
+    color: #321856;
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+.servico p {
+    color: #5a5667;
+    margin: 0;
+}
+
+.servico h3 {
+    color: #4a1f86;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.servico-bloco {
+    display: flex;
+}
+
+.nossotime {
+    background: #000;
+    color: #ebe5e5;
+    padding: 30px 90px;
+}
+
+
+.time-container {
+    position: relative;
+    text-align: center;
+    margin-bottom: 120px;
+}
+
+.time-text {
+    position: absolute;
+    top: -140px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 220px;
+    color: #b76cfd4d;
+    z-index: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: 700;
+}
+
+.time-container h3 {
+    position: relative;
+    color: #ebe5e5;
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    margin-top: 80px;
+    z-index: 1;
+}
+
+.texto-img-time {
+    /* display: flex;
+    gap: 100px; */
+
+    display: flex;
+    flex-wrap: wrap;
+    /* melhor para responsividade */
+    gap: 80px;
+    max-width: 1200px;
+    /* controla largura total */
+    margin: 0 auto;
+    align-items: center;
+}
+
+.textosTime {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+
+    flex: 1 1 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.textosTime p {
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.imagemTime {
+    flex: 1 1 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.imagemTime img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    border: solid white 5px;
+    min-width: 300px;
+}
+
 .cartoes {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 60px;
+    margin: 40px;
 }
 
 .cartao {
-    background: #fff;
+    background: #c9c3c3;
     border-radius: 12px;
     padding: 20px;
     text-align: center;
@@ -277,6 +492,60 @@ nav ul {
     color: #837a9e;
 }
 
+.valores {
+    padding: 60px 50px;
+    background: #ebe5e5;
+    color: #2b2b2b;
+    position: relative;
+    overflow: hidden;
+}
+
+.valores-cards {
+    display: flex;
+    justify-content: center;
+    gap: 70px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.card {
+    flex: 0 1 28%;
+    min-height: 450px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 0;
+}
+
+.card-content {
+    position: relative;
+    z-index: 1;
+    padding: 0 10px 20px;
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+
 .diagrama {
     background-color: #ffffff;
     padding: 10px 0px;
@@ -291,8 +560,71 @@ nav ul {
 
 .img_diagrama {
     width: 60%;
-    height:60%;
+    height: 60%;
     padding: 50px;
+}
+
+
+.corpo7 {
+    width: 100%;
+    min-height: 500px;
+    background-color: #ebe5e5;
+    padding: 50px 20px;
+    text-align: center;
+    color: #2b2b2b;
+}
+
+.faq h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    max-width: 800px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+.faq-item input {
+    display: none;
+}
+
+.faq-card {
+    background: #c9c3c3;
+    border-radius: 12px;
+    padding: 25px 30px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    font-weight: bold;
+    display: block;
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.faq-card:hover {
+    background-color: #b6afaf;
+}
+
+.faq-card .setaGiratoria {
+    float: right;
+    transition: transform 0.3s;
+}
+
+.faq-content {
+    background: #ddd7d7;
+    margin-top: 8px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.faq-item input:checked+.faq-card .setaGiratoria {
+    transform: rotate(180deg);
+}
+
+.faq-item input:checked~.faq-content {
+    display: block;
 }
 
 footer {
@@ -339,59 +671,59 @@ footer {
         height: auto;
         padding: 15px 0;
     }
-    
+
     .nome {
         flex-direction: column;
         gap: 15px;
         margin-bottom: 15px;
         text-align: center;
     }
-    
+
     .links {
         width: 100%;
     }
-    
+
     nav ul {
         justify-content: center;
         flex-wrap: wrap;
     }
-    
+
     .itens {
         width: 100%;
         justify-content: center;
     }
-    
+
     .header_botoes {
         flex-wrap: wrap;
         justify-content: center;
     }
-    
+
     .gradiente {
         padding: 80px 0;
         text-align: center;
     }
-    
+
     .monitoramento .wrap {
         grid-template-columns: 1fr;
         text-align: center;
         gap: 30px;
     }
-    
+
     .redonda {
         max-width: 250px;
         margin: 0 auto;
     }
-    
+
     .cartoes {
         grid-template-columns: 1fr;
         max-width: 400px;
         margin: 0 auto;
     }
-    
+
     .img_diagrama {
         width: 85%;
     }
-    
+
     footer {
         flex-direction: column;
         height: auto;
@@ -399,12 +731,12 @@ footer {
         text-align: center;
         gap: 15px;
     }
-    
+
     .footer_nome {
         position: static;
         margin-bottom: 10px;
     }
-    
+
     .footer_links {
         flex-direction: column;
         gap: 10px;
@@ -415,7 +747,7 @@ footer {
     .gradiente {
         padding: 60px 0;
     }
-    
+
     .gradiente h1 {
         font-size: 28px;
     }
@@ -425,32 +757,32 @@ footer {
         align-items: center;
         justify-content: center;
     }
-    
+
     nav ul {
         flex-direction: column;
         align-items: center;
         gap: 10px;
     }
-    
+
     .header_botoes {
         flex-direction: column;
         width: 100%;
     }
-    
+
     .header_botoes .botao {
         width: 100%;
         text-align: center;
     }
-    
+
     .cartao img {
         width: 120px;
         height: 120px;
     }
-    
+
     .img_diagrama {
         width: 95%;
     }
-    
+
     .footer_links {
         flex-direction: column;
         gap: 8px;
