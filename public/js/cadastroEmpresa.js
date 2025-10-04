@@ -42,9 +42,20 @@ function cadastrar() {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    console.log("cadastro realizado com sucesso")
-                    console.log("redirecionando para tela de login")
-                    window.location.href="cadastroFuncionario.html"
+                    resposta.json().then(json => {
+
+            
+                        const idEmpresaGerado = json.id || json.insertId;
+
+                        if (idEmpresaGerado) {
+                            sessionStorage.ID_EMPRESA = idEmpresaGerado;
+                            console.log("Cadastro de empresa realizado com sucesso. ID:", idEmpresaGerado);
+                            window.location.href = "telaDeEspera.html";
+
+                        } else {
+                            throw "ID da empresa não retornado pelo servidor. Cadastro falhou.";
+                        }
+                    });
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";
                 }
@@ -52,6 +63,10 @@ function cadastrar() {
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+
+        return false;
+
+    }
 
             //Autenticando
         fetch("/usuarios/autenticar", {
@@ -92,5 +107,4 @@ function cadastrar() {
 
         return false;
             
-    }
 }

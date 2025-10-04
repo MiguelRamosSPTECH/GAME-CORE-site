@@ -93,7 +93,7 @@ function criarCards() {
                                 <td class="id_table">${id[i]}</td>
                                 <td>${nomeEmpresarial[i]}</td>
                                 <td>${email[i]}</td>
-                                <td>${ispb[i]}</td>
+                                <td>${cnpj[i]}</td>
                                 <td style ="color:${corTexto};font-weight:500">${status}</td>
                                 <td class="acao_table">
                                     ${status != 'Aprovada' ? `<button style="background-color: 	rgb(30,144,255)" onclick="aprovar(${i})"id=aprovar${i}>Aprovar</button>` : ""}
@@ -149,7 +149,7 @@ function editar(idEmpresaPassado, novoStatusPassado) {
 
         if (resposta.ok) {
             window.alert("Situação de empresa atualizada com sucesso!");
-            window.location = "aceitarEmpresas.html"
+            criarCards(); 
         } else if (resposta.status == 404) {
             window.alert("Deu 404!");
         } else {

@@ -8,62 +8,56 @@
     <link rel="stylesheet" href="css/cadastroServidor.css">
     <script src="./js/sessao.js"></script>
     <script src="./js/alerta.js"></script>
-    
+    <script src="./js/cadastrarServidor.js"></script>
+
 </head>
 
 <body>
-
-
     <div class="card_cadastro">
         <div class="container_cadastro">
             <h1>Cadastrar servidor</h1>
             <div class="campos_cadastro">
-                <label >Host Name: </label>
+                <label>Host Name: </label>
                 <input type="text" id="ipt_hostname">
 
-                <label >Ip: </label>
+                <label>Ip: </label>
                 <input type="text" id="ipt_ip">
 
-                <label >Localização: </label>
+                <label>Localização: </label>
                 <input type="text" id="ipt_localizacao">
 
                 <h4>O que você vai monitorar?</h4>
+                <div id="monitoramento-opcoes">
+                    <input type="checkbox" name="componente" id="cpu" value="CPU">
+                    <label class="label-componente">CPU</label>
 
-                <input type="checkbox" name="componente" id="cpu">
-                <label class="label-componente">CPU</label>
+                    <input type="checkbox" name="componente" id="ram" value="RAM">
+                    <label class="label-componente">RAM</label>
 
-                <input type="checkbox" name="componente" id="ram">
-                <label class="label-componente">RAM</label>
+                    <input type="checkbox" name="componente" id="disco" value="Disco">
+                    <label class="label-componente">Disco</label>
 
-                <input type="checkbox" name="componente" id="disco">
-                <label class="label-componente">Disco</label>
+                    <input type="checkbox" name="componente" id="processos" value="Processos">
+                    <label class="label-componente">Processos</label>
 
-                <input type="checkbox" name="componente" id="processos">
-                <label class="label-componente">Processos</label>
+                    <input type="checkbox" name="componente" id="rede" value="Rede">
+                    <label class="label-componente">Rede</label>
+                </div>
 
-                <input type="checkbox" name="componente" id="rede">
-                <label class="label-componente">Rede</label>
+                <div id="metricas-dinamicas" style="display: none;">
+                    <h4>Quais métricas você vai utilizar para <span id="metricas-titulo"></span>?</h4>
 
-                <h4>Quais métricas você vai utilizar?</h4>
-
-                <input type="checkbox" name="metrica" id="MB">
-                <label class="label-metricas">MB</label>
-
-                <input type="checkbox" name="metrica" id="GB">
-                <label class="label-metricas">GB</label>
-
-                <input type="checkbox" name="metrica" id="TB">
-                <label class="label-metricas">TB</label>
-
-                <input type="checkbox" name="metrica" id="porcentagem">
-                <label class="label-metricas">%</label>
+                    <div id="metricas-opcoes-container">
+                    </div>
+                </div>
 
                 <div class="botao_cadastrar_servidor">
                     <button onclick="enviarCadastroServidor()">Cadastrar</button>
                 </div>
-                
+
             </div>
         </div>
     </div>
-
 </body>
+
+</html>

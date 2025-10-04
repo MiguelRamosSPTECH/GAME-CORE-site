@@ -5,78 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de servidor</title>
-    <link rel="stylesheet" href="css/cadastro_login.css">
+    <link rel="stylesheet" href="css/cadastroServidor.css">
     <script src="./js/sessao.js"></script>
     <script src="./js/alerta.js"></script>
+    <script src="./js/cadastrarServidor.js"></script>
+
 </head>
 
-<body onload="validarSessao()">
-    <header>
-        <div class="container topbar">
-            <div class="nome">
-                <a href="index.html"><h3>GameCore</h3></a>
-                <div class="links">
-                    <nav>
-                        <ul>
-                            <!-- <li><a href="index.html">Home</a></li> -->
-                        </ul>
-                    </nav>
+<body>
+    <div class="card_cadastro">
+        <div class="container_cadastro">
+            <h1>Cadastrar servidor</h1>
+            <div class="campos_cadastro">
+                <label>Host Name: </label>
+                <input type="text" id="ipt_hostname">
+
+                <label>Ip: </label>
+                <input type="text" id="ipt_ip">
+
+                <label>Localização: </label>
+                <input type="text" id="ipt_localizacao">
+
+                <h4>O que você vai monitorar?</h4>
+                <div id="monitoramento-opcoes">
+                    <input type="checkbox" name="componente" id="cpu" value="CPU">
+                    <label class="label-componente">CPU</label>
+
+                    <input type="checkbox" name="componente" id="ram" value="RAM">
+                    <label class="label-componente">RAM</label>
+
+                    <input type="checkbox" name="componente" id="disco" value="Disco">
+                    <label class="label-componente">Disco</label>
+
+                    <input type="checkbox" name="componente" id="processos" value="Processos">
+                    <label class="label-componente">Processos</label>
+
+                    <input type="checkbox" name="componente" id="rede" value="Rede">
+                    <label class="label-componente">Rede</label>
                 </div>
-            </div>
+
+                <div id="metricas-dinamicas" style="display: none;">
+                    <h4>Quais métricas você vai utilizar para <span id="metricas-titulo"></span>?</h4>
+
+                    <div id="metricas-opcoes-container">
+                    </div>
+                </div>
+
+                <!-- <div id="div_aguardar" class="loading-div">
+                    <img src="./assets/circle-loading.gif" id="loading-gif" />
+                </div> -->
 
 
-            <div class="itens">
-
-                <div class="header_botoes">
-                    <a class="botao botao-ativado" href="servidor.html"><b>SERVIDOR</b></a>
-                    <a class="botao" href="dashSuporte.html">DASHBOARD SUPORTE</a>
-                    <a class="botao" href="dashAnalista.html">DASHBOARD ANALISTA</a>
-                    <a class="botao" href="funcionario.html">FUNCIONÁRIOS</a>
+                <div class="botao_cadastrar_servidor">
+                    <button onclick="enviarCadastroServidor()">Cadastrar</button>
                 </div>
 
             </div>
-
         </div>
-    </header>
-
-    <main class="gradiente">
-
-        <div class="alerta_erro">
-            <div class="card_erro" id="cardErro">
-                <span id="mensagem_erro"></span>
-            </div>
-        </div>
-
-        <div class="formulario">
-            <h1>CADASTRO SERVIDOR</h1><br><br>
-            <div class="campo">
-                <label for="ipt_hostname">Hostname:</label>
-                <input type="text" id="ipt_hostname"><br><br>
-            </div>
-
-            <div class="campo">
-                <label for="ipt_ip">Ip:</label>
-                <input type="text" id="ipt_ip"><br><br>
-            </div>
-
-            <div class="campo">
-                <label for="ipt_localizacao">Localização:</label>
-                <input type="text" id="ipt_localizacao"><br><br>
-            </div>
-            
-            <div id="div_aguardar" class="loading-div">
-                <img src="./assets/circle-loading.gif" id="loading-gif" />
-            </div>
-
-            <a class="botao" href="#contato" onclick="cadastrar()">Cadastrar</a>
-        </div>
-    </main>
-
-    <footer>
-        <div class="footer_nome">GameCore</div>
-        <div class="footer_links">
-            <a href="index.html">Home</a>
-        </div>
-    </footer>
-
+    </div>
 </body>
+
+</html>
