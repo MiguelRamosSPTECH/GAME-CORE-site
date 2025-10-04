@@ -5,12 +5,11 @@ use gameCore;
 create table if not exists Empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(45),
+email varchar(45),
 cnpj char(14),
-nomeRepresentante varchar(45),
 #statusOperacao varchar(45),
-#statusAcesso char(1) default 1,
-email varchar(45)
-
+statusAcesso char(1) default 1,
+nomeRepresentante varchar(45)
 );
 
 create table if not exists Cargo(
@@ -27,6 +26,7 @@ nome varchar(45),
 email varchar(45),
 cpf char(11),
 senha varchar(45),
+perfilAtivo boolean,
 fk_empresa_func int,
 fk_cargo_func int,
 constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),

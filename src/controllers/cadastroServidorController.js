@@ -1,11 +1,12 @@
 var cadastroServidorModel = require("../models/cadastroServidorModel");
 
-function cadastrarServidor(req,res){
-    var hostname = req.body.hostnameServer
-    var ip = req.body.ipServer
-    var localizacao = req.body.localizacaoServer
-    var metrica = req.body.metricaServer
-    var componente = req.body.componenteServer
+function cadastrarServidor(req, res) {
+    var hostname = req.body.hostnameServer;
+    var ip = req.body.ipServer;
+    var localizacao = req.body.localizacaoServer;
+    var metrica = req.body.metricaServer;
+    var componente = req.body.componenteServer;
+    var idEmpresa = req.body.idEmpresaServer;
 
 
     if (hostname == undefined) {
@@ -18,9 +19,12 @@ function cadastrarServidor(req,res){
         res.status(400).send("Selecione ao menos 1 métrica!");
     } else if (componente == undefined) {
         res.status(400).send("Selecione ao menos 1 componente!"); 
-    } 
+    } else if(idEmpresa == undefined) {
+        res.status(400).send("O ID da empresa não foi fornecido!");
+        return;
+    }
     else{
-        cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,metrica,componente)
+        cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,metrica,componente,idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -37,3 +41,6 @@ function cadastrarServidor(req,res){
             );
     }
 }
+module.exports = {
+    cadastrarServidor 
+};
