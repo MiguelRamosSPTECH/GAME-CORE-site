@@ -5,10 +5,10 @@ use gameCore;
 create table if not exists Empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(45),
-nomeRepresentante varchar(45),
-statusOperacao varchar(45),
-statusAcesso char(1) default 1,
 cnpj char(14),
+nomeRepresentante varchar(45),
+#statusOperacao varchar(45),
+#statusAcesso char(1) default 1,
 email varchar(45)
 
 );
@@ -99,6 +99,7 @@ INSERT INTO Permissao (nome) VALUES
 ("E"),
 ("F");
 
-
-
-
+select * from Empresa;
+select * from Servidor;
+select * from Cargo;
+select * from Funcionario;
