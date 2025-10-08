@@ -7,6 +7,10 @@
     letter-spacing: 1px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -382,6 +386,8 @@ nav ul {
     background: #000;
     color: #ebe5e5;
     padding: 30px 90px;
+    position: relative;
+    overflow: hidden;
 }
 
 
@@ -450,6 +456,7 @@ nav ul {
     justify-content: center;
     align-items: center;
     margin: 0;
+    z-index: 5;
 }
 
 .imagemTime img {
@@ -458,6 +465,34 @@ nav ul {
     border-radius: 12px;
     border: solid white 5px;
     min-width: 300px;
+}
+
+.linha-time {
+    position: absolute;
+    background-image: url('../assets/imgs/linhas-tecnologia.png');
+    background-position: center;
+    background-size: cover;
+    width: 850px;
+    height: 850px;
+    right: -15%;
+    top: -22%;
+    z-index: 0;
+    transform: scaleX(-1) rotate(90deg);
+    transform-origin: center;
+}
+
+.linha-time2 {
+    position: absolute;
+    background-image: url('../assets/imgs/linhas-tecnologia.png');
+    background-position: center;
+    background-size: cover;
+    width: 1000px;
+    height: 1000px;
+    left: 0;
+    top: -19%;
+    z-index: 0;
+    transform: scaleY(-1) rotate(25deg);
+    transform-origin: center;
 }
 
 .cartoes {
@@ -631,18 +666,109 @@ footer {
     display: flex;
     position: relative;
     align-items: center;
-    background: #e9efff;
+    background: #2a0e4a;
     width: 100%;
-    color: #2a2a2a;
-    padding: 12px 20px;
+    height: 300px;
+    color: #ebe5e5;
+    padding: 18px 20px;
+    font-size: large;
 }
 
-.footer_nome {
-    font-weight: bold;
+.ft {
+    /* outline: 1px solid rgb(236, 188, 188); */
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ft-1 {
+    /* outline: 1px solid rgb(251, 255, 0); */
+    height: 40%;
+    width: 95%;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ft-nav {
+    /* outline: 1px solid rgb(154, 193, 35); */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ft-cad {
+    /* outline: 1px solid rgb(149, 32, 175); */
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+}
+
+.ft-2 {
+    /* outline: 1px solid rgb(255, 0, 0); */
+    height: 40%;
+    width: 95%;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ft-redes {
+    display: flex;
+    align-items: end;
+    height: 80%;
+    gap: 10px;
+    /* outline: 1px solid rgb(50, 4, 151); */
+    margin: 10px;
+}
+
+.ft-nome {
+    display: flex;
+    align-items: end;
+    height: 80%;
+    /* outline: 1px solid rgb(11, 110, 13); */
+    margin: 10px;
+}
+
+.ft-nav a:hover,
+.ft-cad a:hover {
+    opacity: 0.8;
+    color: #c1b1e5
+}
+
+
+.ft-nome span {
+    font-weight: 800;
     font-size: 20px;
     margin: 0;
 }
 
+.ft-redes img {
+    height: 50px;
+    width: auto;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+
+}
+
+#a {
+    height: 42px;
+    position: relative;
+    top: -3.5px
+}
+
+.ft-redes img:hover {
+    transform: scale(1.3);
+
+}
+
+/* 
 .footer_links {
     display: flex;
     position: absolute;
@@ -659,11 +785,9 @@ footer {
 .footer_links a:hover {
     color: #7a3cff;
 }
+*/
 
 
-.footer_links a:hover {
-    opacity: 1;
-}
 
 @media (max-width: 768px) {
     .topbar {
@@ -724,6 +848,107 @@ footer {
         width: 85%;
     }
 
+    .valores-cards {
+        grid-template-columns: 2fr;
+        display: grid;
+        /* justify-content: center; */
+        /* gap: 70px; */
+        /* flex-wrap: wrap; */
+        /* margin-top: 40px; */
+    }
+
+    .valores .quem-somos {
+        font-size: 140px;
+        top: -90px;
+    }
+    .valores-cards{
+        margin-top: 60px;
+    }
+    .card {
+    min-height: 300px;
+}
+
+    .negocio .quem-somos {
+        font-size: 95px;
+        top: -55px;
+    }
+
+    .cartoes {
+        margin-top: 55px;
+    }
+
+    .texto-img-time {
+        flex-direction: column-reverse;
+        gap: 0;
+    }
+
+    .linha-time,
+    .linha-time2 {
+        display: none;
+    }
+
+    .nossotime .time-text {
+        display: none;
+    }
+
+    .time-container h3 {
+        margin: 0;
+    }
+
+    .time-container {
+        margin: 0;
+    }
+
+    .textosTime {
+        flex: 0;
+    }
+
+    .servico-text {
+        top: -70px;
+        font-size: 120px;
+    }
+
+    .quem-somos {
+        top: -50px;
+        font-size: 90px;
+    }
+
+    .linha-quem-somos,
+    .linha-quem-somos2 {
+        display: none;
+    }
+
+    .wrap {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .quem-somos-container {
+        margin-bottom: 20px;
+    }
+
+    .servico-bloco {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .servicos-container {
+        margin-bottom: 80px;
+    }
+
+    .servicos-container h3 {
+        margin-top: 20px;
+    }
+
+    .servico-bloco h2 {
+        margin-top: 20px;
+    }
+    .corpo7 {
+    padding: 10px 60px;
+}
+
     footer {
         flex-direction: column;
         height: auto;
@@ -732,17 +957,12 @@ footer {
         gap: 15px;
     }
 
-    .footer_nome {
-        position: static;
-        margin-bottom: 10px;
-    }
-
-    .footer_links {
-        flex-direction: column;
-        gap: 10px;
+    .ft-nav {
+        text-align: start;
     }
 }
 
+/* 
 @media (max-width: 480px) {
     .gradiente {
         padding: 60px 0;
@@ -787,4 +1007,4 @@ footer {
         flex-direction: column;
         gap: 8px;
     }
-}
+} */
