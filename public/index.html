@@ -10,16 +10,16 @@
 </head>
 
 <body>
-    <div class="first-section">
+    <div class="first-section" id="home">
         <div class="shadow">a</div>
         <nav>
             <a class="logo" href="#">GAMECORE</a>
             <div class="nav-links">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Quem somos</a></li>
-                    <li><a href="#">Nossos serviços</a></li>
-                    <li><a href="cadastroEmpresa.htmls">Contato</a></li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#quem_somos">Quem somos</a></li>
+                    <li><a href="#servico">Nossos serviços</a></li>
+                    <li><a href="cadastroEmpresa.html">Contato</a></li>
                 </ul>
             </div>
 
@@ -46,7 +46,7 @@
         <div class="linha-tec-left"></div>
     </div>
     <main>
-        <section class="monitoramento">
+        <section class="monitoramento" id="quem_somos">
             <div class="quem-somos-container">
                 <div class="quem-somos">QUEM SOMOS</div>
                 <h3>QUEM SOMOS</h3>
@@ -66,14 +66,14 @@
                         ipsam iusto mollitia quod corporis. Numquam fugiat repellat vel enim optio similique vitae iusto
                         velit illo facilis?
                     </p>
-                    <button>Saiba mais (apagar botao)</button>
+                    <!-- <button>Saiba mais (apagar botao)</button> -->
                 </div>
             </div>
             <div class="linha-quem-somos"></div>
             <div class="linha-quem-somos2"></div>
         </section>
 
-        <section class="servico">
+        <section class="servico" id="servico">
             <div class="servicos-container">
                 <div class="servico-text">SERVIÇOS</div>
                 <h3>SERVIÇOS</h3>
@@ -138,7 +138,8 @@
                     <img src="./assets/imgs/equipe.jpg">
                 </div>
             </section>
-
+            <div class="linha-time"></div>
+            <div class="linha-time2"></div>
         </div>
         <!--  -->
 
@@ -179,7 +180,7 @@
         </section>
 
 
-        <section class="valores">
+        <section class="valores" id="valores">
             <div class="quem-somos-container">
                 <div class="quem-somos">VALORES</div>
                 <h3>VALORES</h3>
@@ -264,27 +265,37 @@
     </main>
 
     <footer>
-        <section>
-            <section>
-                <a href="">Início</a>
-                <a href="">Quem Somos</a>
-                <a href="">Nossos Serviços</a>
-                <a href="">Nossos Valores</a>
-                <a href="">FAQ</a>
+        <section class="ft">
+            <section class="ft-1">
+                <section class="ft-nav">
+                    <a href="#home">Início</a>
+                    <a href="#quem_somos">Quem Somos</a>
+                    <a href="#servico">Nossos Serviços</a>
+                    <a href="#valores">Nossos Valores</a>
+                    <a href="#FAQ">FAQ</a>
+
+
+
+                </section>
+                <section class="ft-cad"">
+                    <a href="">Cadastro</a>
+                    <a href="">Login</a>
+                </section>
             </section>
-            <section>
-                <a href="">Cadastro</a>
-                <a href="">Login</a>
+            <section class=" ft-2">
+                    <section class="ft-redes">
+                        <img id="a" src="./assets/imgs/facebook.png"
+                            onclick="window.location.href='https://www.facebook.com/'">
+                        <img src="./assets/imgs/instagram.png"
+                            onclick="window.location.href='https://www.instagram.com/'">
+                        <img src="./assets/imgs/linkedin.png"
+                            onclick="window.location.href='https://www.linkedin.com/'">
+                    </section>
+                    <section class="ft-nome">
+                        <span>GAMECORE</span>
+                    </section>
+                </section>
             </section>
-        </section>
-        <section>
-            <section>
-                <p>Ícones redes sociais</p>
-            </section>
-            <section>
-                <span>GAMECORE</span>
-            </section>
-        </section>
     </footer>
 
 </body>
