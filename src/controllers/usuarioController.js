@@ -27,8 +27,8 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome,
                             cpf: resultadoAutenticar[0].cpf,
                             senha: resultadoAutenticar[0].senha,
-                            fk_empresa: resultadoAutenticar[0].fk_empresa_func,
-                            fk_cargo: resultadoAutenticar[0].fk_cargo_func
+                            fk_empresa: resultadoAutenticar[0].fk_empresa_func
+                            //fk_cargo: resultadoAutenticar[0].fk_cargo_func
                         });
 
 
@@ -63,7 +63,7 @@ function autenticar(req, res) {
 
 }
 
-function cadastrar(req, res) {
+function cadastrarFunc(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
@@ -103,5 +103,5 @@ function cadastrar(req, res) {
 
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrarFunc
 }
