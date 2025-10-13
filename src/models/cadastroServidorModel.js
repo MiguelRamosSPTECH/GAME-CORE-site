@@ -29,7 +29,6 @@ function enviarCadastroServidor(hostname, ip, localizacao, componentes, metricas
                             NULL  -- Alerta Grave padrão
                         );
                     `;
-
                 
                     promisesConfiguracao.push(database.executar(instrucaoSqlConfiguracao));
                 }
