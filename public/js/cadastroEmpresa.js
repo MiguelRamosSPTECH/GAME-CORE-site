@@ -75,7 +75,7 @@ function cadastrar() {
                         if (idEmpresaGerado) {
                             sessionStorage.ID_EMPRESA = idEmpresaGerado;
                             console.log("Cadastro de empresa realizado com sucesso. ID:", idEmpresaGerado);
-                            window.location.href = "telaDeEspera.html";
+                            window.location.href = "login.html";
 
                         } else {
                             throw "ID da empresa não retornado pelo servidor. Cadastro falhou.";
