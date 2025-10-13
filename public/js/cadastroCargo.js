@@ -1,13 +1,13 @@
     function cadastrar(){   
         let cargoVar = ipt_cargo.value;
-        let fk_empresaVar = sessionStorage.FK_EMPRESA;
+        let fk_empresaVar = sessionStorage.ID_EMPRESA;
         
         console.log(cargoVar);
 
-        let permissoesSelecionadas = []
+        let permissoesSelecionadasVar = []
 
         document.querySelectorAll("input[type=checkbox]:checked").forEach(c => {
-            permissoesSelecionadas.push(c.value)
+            permissoesSelecionadasVar.push(c.value)
         })
 
         fetch("/cargos/criar", {
@@ -17,7 +17,7 @@
             },
             body: JSON.stringify({
                 cargoServer: cargoVar,
-                jsonServer: permissoesSelecionadas,
+                permissoesServer: permissoesSelecionadasVar,
                 fk_empresaServer: fk_empresaVar
             })
             

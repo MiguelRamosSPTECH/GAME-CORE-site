@@ -2,13 +2,10 @@ var cargoModel = require("../models/cargoModel");
 
 function criar(req, res){
     var nome = req.body.cargoServer;
-    var json = req.body.jsonServer;
+    var permissoes = req.body.permissoesSelecionadas;
     var fk_empresa = req.body.fk_empresaServer;
 
-    let permissoesJSON = JSON.stringify(json);    
-
-
-    cargoModel.criar(nome, permissoesJSON, fk_empresa)
+    cargoModel.criar(nome, permissoes, fk_empresa)
         .then(
             function(resultado){
                 res.json(resultado);
