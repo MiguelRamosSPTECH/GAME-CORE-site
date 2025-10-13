@@ -1,14 +1,23 @@
 // sessão
 function validarSessao() {
-    var email = sessionStorage.EMAIL_USUARIO;
+    
     var nome = sessionStorage.NOME_USUARIO;
+    var email = sessionStorage.EMAIL_USUARIO;
+    var cpf = sessionStorage.CPF_USUARIO;
 
-    var b_usuario = document.getElementById("b_usuario");
+    var nome_usuario = document.getElementById("nome_usuario");
+    var email_usuario = document.getElementById("email_usuario");
+    var cpf_usuario = document.getElementById("cpf_usuario");
 
-    if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
+    if (nome != null && email != null) {
+
+        if(nome_usuario) nome_usuario.innerHTML = nome;
+        if(email_usuario) email_usuario.innerHTML = email;
+        if(cpf_usuario) cpf_usuario.innerHTML = cpf;
+
     } else {
         window.location = "../login.html";
+        alert("Realize um login para prosseguir!") //apenas para testar
     }
 }
 
@@ -21,12 +30,6 @@ function validarSessaoGameCore() {
         email_login.innerHMTL = sessionStorage.EMAIL_GAMECORE
     }
 }
-
-function validarEmpresa(){
-    //AQUI EU VOU COLOCAR UMA FUNÇÃO QUE PERMITE QUE O USUARIO FIQUE NUMA TELA DE AGUARDO ATÉ A GENTE ACEITAR A EMPRESA DELE. QUANDO A GNT ACEITAR, ELE VAI PRA TELA DE CADASTRAR FUNCIONÁRIO
-}
-
-
 
 function limparSessao() {
     sessionStorage.clear();

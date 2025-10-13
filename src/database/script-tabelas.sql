@@ -94,12 +94,12 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 
 
 INSERT INTO Permissao (nome) VALUES 
-("A"),
-("B"),
-("C"),
-("D"),
-("E"),
-("F");
+("Dashboard de Analista"),
+("Dashboard de Suporte"),
+("Cadastro de Funcionário"),
+("Edição de Funcionário"),
+("Cadastro de Servidor"),
+("Criação de Cargo");
 
 select * from Empresa;
 select * from Servidor;
