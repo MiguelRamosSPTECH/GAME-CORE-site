@@ -16,8 +16,6 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, nomeFu
     let idEmpresa = cadEmpresa.insertId;
     console.log("ID da empresa criada: \n" + idEmpresa);
     console.log("Empresa cadastrada com sucesso!");
-    
-
 
     let funcDB = `
 

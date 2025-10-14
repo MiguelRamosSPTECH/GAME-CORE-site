@@ -7,10 +7,10 @@
     <title>Criar Cargo</title>
     <link rel="stylesheet" href="css/cadastro_login.css">
     <script src="./js/sessao.js"></script>
-    <script src="./js/alerta.js"></script>
+    <script src="./js/cadastroCargo.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <header>
         <div class="container topbar">
             <div class="nome">
@@ -58,32 +58,32 @@
             <br>
             <div id="permissoes">
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="dashboard_analista">
+                    <input type="checkbox" name="permissoes" value="1">
                     Dashboard Analista
                 </label>
 
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="dashboard_suporte">
+                    <input type="checkbox" name="permissoes" value="2">
                     Dashboard Suporte
                 </label>
 
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="cadastro_funcionario">
+                    <input type="checkbox" name="permissoes" value="3">
                     Cadastro Funcionário
                 </label>
 
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="criar_cargo">
+                    <input type="checkbox" name="permissoes" value="4">
                     Edição de Funcionário
                 </label>
 
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="cadastro_servidor">
+                    <input type="checkbox" name="permissoes" value="5">
                     Cadastro Servidor
                 </label>
 
                 <label class="label-permissoes">
-                    <input type="checkbox" name="permissoes" value="criar_cargo">
+                    <input type="checkbox" name="permissoes" value="6">
                     Criação de Cargo
                 </label>
             </div>
@@ -104,57 +104,3 @@
     </footer>
 
 </body>
-
-<script>
-
-    function cadastrar(){   
-        let cargoVar = ipt_cargo.value;
-        let fk_empresaVar = sessionStorage.FK_EMPRESA;
-        
-        console.log(cargoVar);
-
-        let permissoesSelecionadas = []
-
-        document.querySelectorAll("input[type=checkbox]:checked").forEach(c => {
-            permissoesSelecionadas.push(c.value)
-        })
-
-        fetch("/cargos/criar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                cargoServer: cargoVar,
-                jsonServer: permissoesSelecionadas,
-                fk_empresaServer: fk_empresaVar
-            })
-            
-        })
-            .then(function (resposta){
-                console.log("Resposta: ", resposta);
-                
-                if(resposta.ok){
-                    cardErro.style.display = "block";
-
-                    mensagem_erro.innerHTML =
-                        "Cargo criado com sucesso!";
-                        setTimeout(() => {
-                        // window.location = "login.html";
-                    }, "2000");
-                    limparFormulario();
-                }
-                else {
-                    throw "Houve um erro ao tentar criar o cargo!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
-            });
-
-            return false;
-    }
-
-    
-</script>
