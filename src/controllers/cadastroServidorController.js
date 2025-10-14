@@ -4,8 +4,8 @@ function cadastrarServidor(req, res) {
     var hostname = req.body.hostnameServer;
     var ip = req.body.ipServer;
     var localizacao = req.body.localizacaoServer;
-    var metrica = req.body.metricaServer;
     var componente = req.body.componenteServer;
+    var metrica = req.body.metricaServer;
     var idEmpresa = req.body.idEmpresaServer;
 
 
@@ -24,7 +24,7 @@ function cadastrarServidor(req, res) {
         return;
     }
     else{
-        cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,metrica,componente,idEmpresa)
+        cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,componente,metrica,idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
