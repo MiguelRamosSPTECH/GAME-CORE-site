@@ -2,15 +2,15 @@ var cargoModel = require("../models/cargoModel");
 
 function criar(req, res){
     var nome = req.body.cargoServer;
-    var json = req.body.jsonServer;
-    var fk_empresa = req.body.fk_empresaServer;
+    var permissoes = req.body.permissoesServer;
+    var fk_empresa_cargo = req.body.fk_empresaServer;
 
-    let permissoesJSON = JSON.stringify(json);    
+    console.log(permissoes)
 
-
-    cargoModel.criar(nome, permissoesJSON, fk_empresa)
+    cargoModel.criar(nome, permissoes, fk_empresa_cargo)
         .then(
             function(resultado){
+                console.log("BBBBBBBBBBBBBBBBBBBBBB"+permissoes)
                 res.json(resultado);
             }
         ).catch(
@@ -26,9 +26,9 @@ function criar(req, res){
 }
 
 function buscar(req, res){
-    var fk_empresa = req.params.idEmpresa;
+    var fk_empresa_cargo = req.params.idEmpresa;
 
-    cargoModel.buscar(fk_empresa)
+    cargoModel.buscar(fk_empresa_cargo)
         .then(
             function(resultado){
                 res.json(resultado);

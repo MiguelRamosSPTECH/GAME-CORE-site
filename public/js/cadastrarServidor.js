@@ -1,5 +1,4 @@
 
-
 const mapaDeMetricas = {
     'CPU': ['%', 'MHz', 'GHz'],
     'RAM': ['%', 'MB', 'GB'],
