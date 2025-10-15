@@ -87,6 +87,8 @@ constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_co
 
 );
 
+-- ----------------------------------------------------------------
+-- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
 INSERT INTO Componente (nome)
 	VALUES 	('CPU'),
 			('RAM'),
@@ -106,6 +108,7 @@ INSERT INTO Metrica (unidadeMedida)
 			('PID'),
 			('Mbps'),
 			('Pacotes/s');
+-- --------------------------------------------------------------
 
 INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 ('Riot Games', '12345678000190', 'Leonardo', 'contato@riotgames.com'),
@@ -132,6 +135,8 @@ select * from componente;
 select * from metrica;
 select * from ConfiguracaoServidor;
 
+-- SELECT QUE RETORNA NOME DE SERVIDOR E OS
+-- COMPONENTES / METRICAS SELECIONADAS
 select 	cs.id id_config,
 		s.hostname hostname_servidor,
         m.unidademedida,

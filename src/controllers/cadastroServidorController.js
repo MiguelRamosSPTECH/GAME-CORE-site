@@ -4,8 +4,9 @@ function cadastrarServidor(req, res) {
     var hostname = req.body.hostnameServer;
     var ip = req.body.ipServer;
     var localizacao = req.body.localizacaoServer;
-    var componente = req.body.componenteServer;
-    var metrica = req.body.metricaServer;
+    // var metrica = req.body.metricaServer;
+    // var componente = req.body.componenteServer;
+    var configuracao = req.body.configuracaoServer;
     var idEmpresa = req.body.idEmpresaServer;
 
 
@@ -15,16 +16,14 @@ function cadastrarServidor(req, res) {
         res.status(400).send("Seu ip está indefinido!");
     } else if (localizacao == undefined) {
         res.status(400).send("A localização está indefinida!");
-    } else if (metrica == undefined) {
-        res.status(400).send("Selecione ao menos 1 métrica!");
-    } else if (componente == undefined) {
-        res.status(400).send("Selecione ao menos 1 componente!"); 
-    } else if(idEmpresa == undefined) {
+    } if (configuracao == undefined) {
+        res.status(400).send("A configuração(componente x métrica) está indefinida!");
+    } else if (idEmpresa == undefined) {
         res.status(400).send("O ID da empresa não foi fornecido!");
         return;
     }
-    else{
-        cadastroServidorModel.enviarCadastroServidor(hostname,ip,localizacao,componente,metrica,idEmpresa)
+    else {
+        cadastroServidorModel.enviarCadastroServidor(hostname, ip, localizacao, configuracao, idEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -42,5 +41,5 @@ function cadastrarServidor(req, res) {
     }
 }
 module.exports = {
-    cadastrarServidor 
+    cadastrarServidor
 };
