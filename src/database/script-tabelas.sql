@@ -86,6 +86,29 @@ constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_co
 
 );
 
+-- ----------------------------------------------------------------
+-- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
+INSERT INTO Componente (nome)
+	VALUES 	('CPU'),
+			('RAM'),
+            ('Disco'),
+            ('Processos'),
+            ('Rede');
+        
+INSERT INTO Metrica (unidadeMedida)
+	VALUES 	('%'),
+			('MHz'),
+			('GHz'),
+			('MB'),
+			('GB'),
+			('TB'),
+			('#'),
+			('Tempo (s)'),
+			('PID'),
+			('Mbps'),
+			('Pacotes/s');
+-- --------------------------------------------------------------
+
 INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 ('Riot Games', '12345678000190', 'Leonardo', 'contato@riotgames.com'),
 ('Ubisoft', '98765432000110', 'Tibursio', 'contato@ubisoft.com'),
@@ -102,7 +125,21 @@ INSERT INTO Permissao (nome) VALUES
 ("Criação de Cargo");
 
 select * from Empresa;
-select * from Servidor;
 select * from Cargo;
 select * from Funcionario;
+
+select * from Servidor;
+select * from componente;
+select * from metrica;
 select * from ConfiguracaoServidor;
+
+-- SELECT QUE RETORNA NOME DE SERVIDOR E OS
+-- COMPONENTES / METRICAS SELECIONADAS
+select 	cs.id id_config,
+		s.hostname hostname_servidor,
+        m.unidademedida,
+        c.nome componente
+from configuracaoServidor as cs
+inner join metrica m on m.id = cs.fk_metrica_config
+inner join componente c on c.id = cs.fk_componente_config
+inner join servidor s on s.id = cs.fk_servidor_config;
