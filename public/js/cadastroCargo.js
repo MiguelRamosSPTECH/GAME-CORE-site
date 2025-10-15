@@ -7,8 +7,10 @@
         let permissoesSelecionadasVar = []
 
         document.querySelectorAll("input[type=checkbox]:checked").forEach(c => {
-            permissoesSelecionadasVar.push(c.value)
+            permissoesSelecionadasVar.push(Number(c.value))
         })
+
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + permissoesSelecionadasVar)
 
         fetch("/cargos/criar", {
             method: "POST",
@@ -27,6 +29,8 @@
                 
                 if(resposta.ok){
                     cardErro.style.display = "block";
+
+                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + permissoesSelecionadasVar)
 
                     mensagem_erro.innerHTML =
                         "Cargo criado com sucesso!";
