@@ -45,6 +45,7 @@ nome varchar(45)
 create table if not exists PermissaoCargo(
 fk_permissao_pc int,
 fk_cargo_pc int,
+permissoes int not null,
 primary key(fk_permissao_pc, fk_cargo_pc),
 constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
 constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
@@ -123,6 +124,7 @@ INSERT INTO Permissao (nome) VALUES
 ("Edição de Funcionário"),
 ("Cadastro de Servidor"),
 ("Criação de Cargo");
+
 
 select * from Empresa;
 select * from Cargo;
