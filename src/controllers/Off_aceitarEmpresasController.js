@@ -1,4 +1,4 @@
-var aceitarEmpresaModel = require("../models/aceitarEmpresasModel");
+var aceitarEmpresaModel = require("../models/Off_aceitarEmpresasModel");
 
 function buscar_cards(req, res) {
     console.log("indo para o AceitarEmpresasController - buscar_cards");
