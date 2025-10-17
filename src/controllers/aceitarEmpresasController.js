@@ -32,6 +32,8 @@ function buscar_cards(req, res) {
 }
 
 function editar(req, res) {
+    console.log("Entrei no controller do editar");
+    
     var novoStatus = req.body.novoStatus;
     var idEmpresa = req.body.idEmpresa;
 
