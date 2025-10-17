@@ -1,0 +1,170 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    font-family: 'Open Sans', sans-serif;
+}
+
+.conteudo{
+    height: 100%;
+
+    display: grid;
+
+
+    grid-template-columns: 1fr 12fr;
+
+    grid-template-areas:
+    "sideBar corpo" ;
+}
+
+.sideBar{
+
+    padding-top: 30px;
+    padding-bottom: 30px;
+     box-sizing: border-box;
+
+
+    grid-area: sideBar;
+    background-color: #231f39;
+    height: 100%;
+
+
+    display: grid;
+    
+    row-gap: 180px;
+
+
+}
+
+.corpo{
+    grid-area: corpo;
+    background-color: #0a061b;
+    height: 100% - 40px;
+
+    display: grid;
+
+    grid-template-rows: 1fr 4fr 3fr;
+
+    row-gap: 15px;
+
+    grid-template-columns: 0.1fr 1fr 1fr 1fr 1fr 1fr 1fr 0.1fr;
+
+    column-gap: 15px;
+
+    grid-template-areas:
+    ". painel painel painel status status status ."
+    ". grafico grafico grafico grafico grafico grafico ."
+    ". kpi1 kpi1 kpi2 kpi2 kp3 kp3 ." ;
+
+    padding-bottom: 20px;
+    padding-top: 20px;
+
+
+}
+
+.painel{
+    grid-area: painel;
+    text-align: left;
+}
+
+
+.status{
+    grid-area: status;
+}
+
+
+.grafico{
+    grid-area: grafico;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border: solid;
+
+    border-color: white;
+
+    border-radius: 5PX;
+}
+
+
+.kpi1{
+
+    padding: 10%;
+
+    font-family: 'Open Sans', sans-serif;
+
+    background-color: #c5e4c4;
+
+    grid-area: kpi1;
+
+    border: solid;
+
+    border-color: white;
+
+    border-radius: 15px;
+}
+
+
+.kpi2{
+
+    padding: 10%;
+
+    font-family: 'Open Sans', sans-serif;
+
+    background-color: #c5e4c4;
+
+    grid-area: kpi2;
+
+    border: solid;
+
+    border-color: white;
+
+    border-radius: 15px;
+}
+
+
+.kpi3{
+
+    padding: 10%;
+
+    font-family: 'Open Sans', sans-serif;
+
+    background-color: #ffda6a;
+
+    grid-area: kp3;
+
+    border: solid;
+
+    border-color: white;
+
+    border-radius: 15px;
+}
+
+
+.imgcentrais{
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+
+    justify-content: center;
+
+    justify-items: center;
+
+    align-items: center;
+
+    
+}
+
+
+.linha_espacada{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+}
