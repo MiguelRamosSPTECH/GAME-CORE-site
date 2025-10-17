@@ -118,7 +118,7 @@ nav ul {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 36%;
+    width: 38%;
     position: absolute;
     margin-bottom: 40px;
 }
@@ -130,7 +130,6 @@ nav ul {
     width: 100%;
     position: absolute;
     padding-right: 20px;
-
 }
 
 .first-texts span {
@@ -177,7 +176,7 @@ nav ul {
     width: 1000px;
     height: 1000px;
     left: 51%;
-    top: -5%;
+    top: -25%;
     z-index: 500;
 }
 
@@ -191,7 +190,7 @@ nav ul {
     width: 1000px;
     height: 1000px;
     right: 51%;
-    top: -5%;
+    top: -25%;
     z-index: 500;
 }
 
@@ -217,9 +216,10 @@ nav ul {
     background: #ebe5e5;
     color: #2b2b2b;
     padding: 30px 90px;
-    height: 140vh;
+    height: 180vh;
     position: relative;
     overflow: hidden;
+    border: 1px solid black;
 }
 
 .monitoramento .wrap {
@@ -237,9 +237,8 @@ nav ul {
     flex-direction: column;
     align-items: end;
 }
-
 .content-sobre-nos button {
-    width: 16%;
+    width: 19%;
     padding: 3.5px;
     border-radius: 25px;
     background: linear-gradient(127deg, #2d4ec7 0%, #1537b1 63%);
@@ -262,7 +261,9 @@ nav ul {
 }
 
 .monitoramento p {
-    width: 75%;
+    width: 85%;
+    text-align: justify;
+    font-size: 15px;
     color: #5a5667;
     font-weight: 500;
 }
@@ -271,7 +272,7 @@ nav ul {
     background: #ebe5e5;
     color: #2b2b2b;
     padding: 140px 0px;
-    height: 140vh;
+    height: 180vh;
 }
 
 .negocio h3 {
@@ -292,7 +293,7 @@ nav ul {
     top: -135px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 220px;
+    font-size: 200px;
     color: rgba(183, 108, 253, 0.24);
     z-index: 0;
     pointer-events: none;
@@ -335,8 +336,8 @@ nav ul {
     background-size: cover;
     width: 1000px;
     height: 1000px;
-    left: 57%;
-    top: 212.5%;
+    left: 58%;
+    top: 232%;
     transform: scaleY(-1) rotate(10deg);
     transform-origin: center;
     z-index: 0;
@@ -363,10 +364,10 @@ nav ul {
 
 .servico-text {
     position: absolute;
-    top: -130px;
+    top: -115px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 300px;
+    font-size: 280px;
     color: rgba(183, 108, 253, 0.096);
     z-index: 0;
     pointer-events: none;
@@ -453,11 +454,11 @@ nav ul {
 
 .time-text {
     position: absolute;
-    top: -85px;
+    top: -75px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 240px;
-    color: #b76cfd2d;
+    font-size: 230px;
+    color: #b76cfd15;
     z-index: 0;
     pointer-events: none;
     white-space: nowrap;
@@ -530,8 +531,8 @@ nav ul {
     background-size: cover;
     width: 850px;
     height: 850px;
-    top: 35%;
-    left: 55%;
+    top: 33%;
+    left: 57%;
     z-index: 0;
     transform: scaleX(-1) rotate(185deg);
     transform-origin: center;
@@ -543,9 +544,9 @@ nav ul {
     background-position: center;
     background-size: cover;
     width: 1000px;
-    height: 1000px;
+    height: 800px;
     left: -25%;
-    top: -17%;
+    top: -18%;
     z-index: 0;
     transform: scaleY(-1) rotate(-150deg);
     transform-origin: center;
@@ -592,6 +593,15 @@ nav ul {
     color: #2b2b2b;
     position: relative;
     overflow: hidden;
+    height: 150vh;
+}
+.v {
+    font-size: 250px;
+    top: -170px;
+}
+.val-title {
+    margin-top: 50px!important;
+    margin-bottom: 200px!important;
 }
 
 .valores-cards {
@@ -781,8 +791,10 @@ footer {
 }
 
 .ft-redes {
+    width: 250px;
     display: flex;
-    align-items: end;
+    align-items: center;
+    justify-content: space-evenly;
     height: 80%;
     gap: 10px;
     /* outline: 1px solid rgb(50, 4, 151); */
@@ -811,9 +823,8 @@ footer {
 }
 
 .ft-redes img {
-    height: 50px;
+    height: 75px;
     width: auto;
-    margin: 10px;
     padding: 10px;
     cursor: pointer;
     transition: 0.5s;
@@ -821,9 +832,8 @@ footer {
 }
 
 #a {
-    height: 42px;
+    height: 58px;
     position: relative;
-    top: -3.5px
 }
 
 .ft-redes img:hover {
