@@ -27,7 +27,7 @@
 
                 <h4>O que você vai monitorar?</h4>
                 <div id="monitoramento-opcoes">
-                    <input type="checkbox" name="componente" id="cpu" value="CPU">
+                    <!-- <input type="checkbox" name="componente" id="cpu" value="CPU">
                     <label class="label-componente">CPU</label>
 
                     <input type="checkbox" name="componente" id="ram" value="RAM">
@@ -40,15 +40,36 @@
                     <label class="label-componente">Processos</label>
 
                     <input type="checkbox" name="componente" id="rede" value="Rede">
-                    <label class="label-componente">Rede</label>
+                    <label class="label-componente">Rede</label> -->
+
+                    <label>Componente:</label>
+                    <select id="selectComponente">
+                        <option value="">Selecione um componente</option>
+                        <option value="CPU">CPU</option>
+                        <option value="RAM">RAM</option>
+                        <option value="Disco">Disco</option>
+                        <option value="Processos">Processos</option>
+                        <option value="Rede">Rede</option>
+                    </select>
+
+                    <label>Métrica:</label>
+                    <select id="selectMetrica">
+                        <option value=""></option>
+                    </select>
+
+                    <button id="btnAdicionar">Adicionar configuração</button>
+
+                    <ul id="listaConfiguracoes"></ul>
+
+
                 </div>
 
-                <div id="metricas-dinamicas" style="display: none;">
+                <!-- <div id="metricas-dinamicas" style="display: none;">
                     <h4>Quais métricas você vai utilizar para <span id="metricas-titulo"></span>?</h4>
 
                     <div id="metricas-opcoes-container">
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div id="div_aguardar" class="loading-div">
                     <img src="./assets/circle-loading.gif" id="loading-gif" />
