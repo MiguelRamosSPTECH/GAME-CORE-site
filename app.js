@@ -20,7 +20,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var cadastroEmpresaRouter = require("./src/routes/cadastroEmpresa");
 var cargosRouter = require("./src/routes/cargos");
 var cadastrarServidor = require("./src/routes/cadastrarServidor");
-var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
+//var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
 
 
 
@@ -36,7 +36,7 @@ app.use("/empresas", cadastroEmpresaRouter);
 app.use("/cargos", cargosRouter);
 app.use("/cadastroEmpresa", cadastroEmpresaRouter);
 app.use("/cadastrarServidor", cadastrarServidor);
-app.use("/aceitarEmpresas", aceitarEmpresasRouter);
+//app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 
 
 app.listen(PORTA_APP, function () {

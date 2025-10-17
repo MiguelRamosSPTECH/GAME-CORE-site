@@ -5,11 +5,12 @@ use gameCore;
 create table if not exists Empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(45),
-email varchar(45),
 cnpj char(14),
-#statusOperacao varchar(45),
-statusAcesso char(1) default 1,
-nomeRepresentante varchar(45)
+nomeRepresentante varchar(45),
+email varchar(45),
+-- statusOperacao varchar(45),
+statusAcesso boolean default 1
+
 );
 
 create table if not exists Cargo(
@@ -26,7 +27,8 @@ nome varchar(45),
 email varchar(45),
 cpf char(11),
 senha varchar(45),
-perfilAtivo boolean,
+perfilAtivo boolean default 1,
+userMaster boolean default 0,
 fk_empresa_func int,
 fk_cargo_func int,
 constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
@@ -43,6 +45,7 @@ nome varchar(45)
 create table if not exists PermissaoCargo(
 fk_permissao_pc int,
 fk_cargo_pc int,
+permissoes int not null,
 primary key(fk_permissao_pc, fk_cargo_pc),
 constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
 constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
@@ -84,6 +87,29 @@ constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_co
 
 );
 
+-- ----------------------------------------------------------------
+-- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
+INSERT INTO Componente (nome)
+	VALUES 	('CPU'),
+			('RAM'),
+            ('Disco'),
+            ('Processos'),
+            ('Rede');
+        
+INSERT INTO Metrica (unidadeMedida)
+	VALUES 	('%'),
+			('MHz'),
+			('GHz'),
+			('MB'),
+			('GB'),
+			('TB'),
+			('#'),
+			('Tempo (s)'),
+			('PID'),
+			('Mbps'),
+			('Pacotes/s');
+-- --------------------------------------------------------------
+
 INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 ('Riot Games', '12345678000190', 'Leonardo', 'contato@riotgames.com'),
 ('Ubisoft', '98765432000110', 'Tibursio', 'contato@ubisoft.com'),
@@ -92,14 +118,30 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
 
 
 INSERT INTO Permissao (nome) VALUES 
-("A"),
-("B"),
-("C"),
-("D"),
-("E"),
-("F");
+("Dashboard de Analista"),
+("Dashboard de Suporte"),
+("Cadastro de Funcionário"),
+("Edição de Funcionário"),
+("Cadastro de Servidor"),
+("Criação de Cargo");
+
 
 select * from Empresa;
-select * from Servidor;
 select * from Cargo;
 select * from Funcionario;
+
+select * from Servidor;
+select * from componente;
+select * from metrica;
+select * from ConfiguracaoServidor;
+
+-- SELECT QUE RETORNA NOME DE SERVIDOR E OS
+-- COMPONENTES / METRICAS SELECIONADAS
+select 	cs.id id_config,
+		s.hostname hostname_servidor,
+        m.unidademedida,
+        c.nome componente
+from configuracaoServidor as cs
+inner join metrica m on m.id = cs.fk_metrica_config
+inner join componente c on c.id = cs.fk_componente_config
+inner join servidor s on s.id = cs.fk_servidor_config;
