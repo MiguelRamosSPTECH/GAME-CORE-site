@@ -87,6 +87,21 @@ constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_co
 
 );
 
+-- TESTE PARA ADIÇÃO DE CONFIGRAÇÃO GLOBAL - NÃO ESPECÍFICA POR SERVIDOR
+-- Possivelmente será alterado !!
+CREATE TABLE ConfiguracaoGlobal (
+	id INT PRIMARY KEY auto_increment,
+	alertaLeve VARCHAR(45),
+  	alertaGrave VARCHAR(45),
+  	fk_metrica_config INT,
+  	fk_componente_config INT,
+  	CONSTRAINT fk_metrica_global FOREIGN KEY (fk_metrica_config) REFERENCES Metrica(id),
+  	CONSTRAINT fk_componente_global FOREIGN KEY (fk_componente_config) REFERENCES Componente(id)
+);
+-- --------------------
+
+
+
 -- ----------------------------------------------------------------
 -- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
 INSERT INTO Componente (nome)
