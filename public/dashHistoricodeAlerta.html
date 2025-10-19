@@ -6,204 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Histórico de Alertas</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: "Poppins", sans-serif;
-        }
-
-        body {
-            margin: 0;
-            background-color: #0e0d1b;
-            color: white;
-            display: flex;
-            height: 100vh;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 80px;
-            background-color: #191730;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #9d4edd, #4cc9f0);
-            margin-bottom: 30px;
-        }
-
-        .sidebar .icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #2d2a5c;
-            margin: 10px 0;
-            transition: 0.3s;
-        }
-
-        .sidebar .icon:hover {
-            background: #3a36a3;
-            cursor: pointer;
-        }
-
-        /* Main */
-        .main {
-            flex: 1;
-            padding: 30px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 800;
-        }
-
-        .search-box {
-            background-color: #c6c5f733;
-            display: flex;
-            align-items: center;
-            padding: 5px 15px;
-            border-radius: 30px;
-        }
-
-        .search-box input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: white;
-            font-size: 14px;
-            padding: 5px;
-            width: 200px;
-        }
-
-        .search-box span {
-            font-size: 18px;
-            color: white;
-        }
-
-        .content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 25px;
-            margin-top: 30px;
-        }
-
-        /* Tabela */
-        .table-card {
-            background: #e9e9ff;
-            border-radius: 10px;
-            overflow: hidden;
-            color: black;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        thead {
-            background: #dad9ff;
-            font-weight: 700;
-        }
-
-        th,
-        td {
-            padding: 12px 16px;
-            font-size: 14px;
-        }
-
-        tbody {
-            display: block;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        thead,
-        tbody tr {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-        }
-
-        tr:nth-child(even) {
-            background: #f4f3ff;
-        }
-
-        .status {
-            background: #6c8dff;
-            color: white;
-            font-size: 12px;
-            padding: 4px 10px;
-            border-radius: 5px;
-            display: inline-block;
-        }
-
-        /* Card do gráfico */
-        .chart-card {
-            background: #191730;
-            border: 1px solid #3a2f9b;
-            border-radius: 10px;
-            text-align: center;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .chart-card h2 {
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 250px;
-        }
-
-        .btn-relatorio {
-            margin-top: 15px;
-            background: #d9dbff;
-            color: black;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-relatorio:hover {
-            background: #bfc3ff;
-        }
-    </style>
+    <link rel="stylesheet" href="css/dashHistoricodeAlerta.css" />
 </head>
 
 <body>
+
+<div class="main">
     <div class="sidebar">
-        <div class="logo"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-    </div>
+            <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
+
+            <div class="menu">
+                <a href="home.html" class="menu-item">
+                    <i class="icon home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="historico.html" class="menu-item">
+                    <i class="icon historico"></i>
+                    <span>Histórico</span>
+                </a>
+                <a href="config.html" class="menu-item">
+                    <i class="icon config"></i>
+                    <span>Config.</span>
+                </a>
+            </div>
+
+            <a href="login.html" class="logout">
+                <i class="icon sair"></i>
+                <span>Sair</span>
+            </a>
+        </div>
 
     <div class="main">
         <div class="header">
             <h1>HISTÓRICO DE ALERTAS</h1>
             <div class="search-box">
                 <input type="text" placeholder="Buscar..." />
-                <span>🔍</span>
+                <img src="./assets/imgs/lupaBranca.png" style="width: 20px;">
             </div>
         </div>
 
@@ -223,7 +61,7 @@
 
                         <script>
                             const tableBody = [];
-                            for (let i = 0; i < 10; i++) {
+                            for (let i = 0; i < 13; i++) {
                                 tableBody.push(`
                   <tr>
                     <td><b>DEMO-1</b></td>
@@ -240,14 +78,15 @@
                 </table>
             </div>
 
+           
             <div class="chart-card">
-                <div>
+                <div class="grafico_classificacao">
                     <h2>CLASSIFICAÇÃO DOS ALERTAS</h2>
                     <div class="chart-container">
                         <canvas id="alertChart"></canvas>
                     </div>
                 </div>
-                <button class="btn-relatorio">⬇️ Gerar Relatório</button>
+                <button class="btn-relatorio"><img src="./assets/imgs/downloadPreto.png" style="width: 30px;"> Gerar Relatório <img src="./assets/imgs/downloadPreto.png" style="width: 30px;"></button>
             </div>
         </div>
     </div>
@@ -264,16 +103,28 @@
                     borderWidth: 0
                 }]
             },
-            options: {
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: { color: '#fff', font: { size: 14 } }
-                    }
-                }
-            }
+           options: {
+  plugins: {
+    legend: {
+      position: 'bottom',
+      align: 'start',
+      labels: {
+        color: 'rgb(0, 0, 0)',
+        font: { size: 14 },
+        boxWidth: 25,
+        padding: 15,
+      }
+    }
+  },
+  layout: {
+    padding: { left: 20 } 
+  }
+
+}
+
         });
     </script>
+</div>
 </body>
 
 </html>
