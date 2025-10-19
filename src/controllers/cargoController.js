@@ -10,7 +10,7 @@ function criar(req, res){
     cargoModel.criar(nome, permissoes, fk_empresa_cargo)
         .then(
             function(resultado){
-                console.log("BBBBBBBBBBBBBBBBBBBBBB"+permissoes)
+                console.log("Permissões Escolhidas: "+permissoes)
                 res.json(resultado);
             }
         ).catch(

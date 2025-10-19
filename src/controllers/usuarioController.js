@@ -23,29 +23,14 @@ function autenticar(req, res) {
 
                         res.json({
                             id: resultadoAutenticar[0].id,
-                            email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
                             cpf: resultadoAutenticar[0].cpf,
+                            email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
                             fk_empresa: resultadoAutenticar[0].fk_empresa_func
                             //fk_cargo: resultadoAutenticar[0].fk_cargo_func
                         });
 
-
-                        // aquarioModel.buscarAquariosPorEmpresa(resultadoAutenticar[0].empresaId)
-                        //     .then((resultadoAquarios) => {
-                        //         if (resultadoAquarios.length > 0) {
-                        //             res.json({
-                        //                 id: resultadoAutenticar[0].id,
-                        //                 email: resultadoAutenticar[0].email,
-                        //                 nome: resultadoAutenticar[0].nome,
-                        //                 senha: resultadoAutenticar[0].senha,
-                        //                 aquarios: resultadoAquarios
-                        //             });
-                        //         } else {
-                        //             res.status(204).json({ aquarios: [] });
-                        //         }
-                        //     })
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
                     } else {
@@ -67,11 +52,11 @@ function cadastrarFunc(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
-    // var codigo = req.body.codigoServer;
     var cpf = req.body.cpfServer;
-    var fk_empresa = req.body.fkEmpresaServer;
+    var senha = req.body.senhaServer;
     var fk_cargo = req.body.cargoServer;
+    var fk_empresa = req.body.fkEmpresaServer;
+ 
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -83,7 +68,7 @@ function cadastrarFunc(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, cpf, fk_empresa, fk_cargo)
+        usuarioModel.cadastrarFunc(nome, email, cpf, senha, fk_cargo, fk_empresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
