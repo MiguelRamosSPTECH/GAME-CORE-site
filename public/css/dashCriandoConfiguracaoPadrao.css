@@ -1,161 +1,160 @@
 body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background: #0f0f24;
-    color: #fff;
-    display: flex;
-    height: 100vh;
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #0f0f24;
+  color: #fff;
+  display: flex;
+  height: 100vh;
 }
 
 /* Sidebar */
 .sidebar {
-    width: 80px;
-    background: #1a1630;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0;
+  width: 80px;
+  background: #1a1630;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
 }
 
 .logo {
-    font-size: 0.8rem;
-    color: #fff;
-    text-align: center;
+  font-size: 0.8rem;
+  color: #fff;
+  text-align: center;
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .icon {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #cfcfcf;
-    cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #cfcfcf;
+  cursor: pointer;
 }
 
 .exit {
-    color: #ff3b3b;
-    font-size: 24px;
+  color: #ff3b3b;
+  font-size: 24px;
 }
 
 /* Main content */
 .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 40px;
 }
 
 /* Header */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header h1 {
-    color: #fff;
-    font-weight: 600;
+  color: #fff;
+  font-weight: 600;
 }
 
 header h1 span {
-    color: #ffe23e;
+  color: #45ff3e;
 }
 
 .actions button {
-    padding: 10px 20px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .cancel {
-    background: #ff3b3b;
-    color: #fff;
-    margin-right: 10px;
+  background: #ff3b3b;
+  color: #fff;
+  margin-right: 10px;
 }
 
 .create {
-    background: #57a7ff;
-    color: #fff;
+  background: #57a7ff;
+  color: #fff;
 }
 
 /* Content area */
 .content {
-    background: #fff;
-    border-radius: 12px;
-    padding: 30px;
-    margin-top: 20px;
-    color: #000;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  padding: 30px;
+  margin-top: 20px;
+  color: #000;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .inputs {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .inputs label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
-.inputs input,
-.inputs select {
-    display: block;
-    width: 250px;
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    background: #dcdcf3;
-    margin-top: 5px;
+.inputs input, .inputs select {
+  display: block;
+  width: 250px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: #dcdcf3;
+  margin-top: 5px;
 }
 
 /* Panels */
 .panels {
-    display: flex;
-    gap: 20px;
-    justify-content: space-between;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 .panel {
-    background: #e7e7ee;
-    border-radius: 10px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  background: #e7e7ee;
+  border-radius: 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel-header {
-    background: #c7c7d8;
-    font-weight: 600;
-    padding: 8px 12px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+  background: #c7c7d8;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .panel-body {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .sub-options {
-    background: #d9d9e6;
-    border-radius: 10px;
-    padding: 10px;
-    margin-top: 10px;
-    display: flex;
-    gap: 15px;
+  background: #d9d9e6;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
 }
 
 .sidebar {
@@ -267,7 +266,7 @@ header h1 span {
     opacity: 1;
 }
 
-
+/* -------- MAIN -------- */
 .main {
     margin-left: 80px;
     flex: 1;
