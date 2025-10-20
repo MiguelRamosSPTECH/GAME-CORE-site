@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: #000;
+    color: white;
+    padding: 20px;
+}
+
+/* ======= LAYOUT ======= */
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.top-row {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.main-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* ======= CARDS ======= */
+.card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    padding: 20px 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card.total {
+    background: #e7ebe5;
+    color: #000;
+}
+
+.card.risk {
+    background: #df4a4a;
+    color: white;
+}
+
+.card .icon {
+    font-size: 35px;
+    margin-right: 10px;
+}
+
+/* ======= STATUS CARD ======= */
+.status-card {
+    flex: 2;
+    background: #2a2549;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.status-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.status-header p {
+    font-size: 13px;
+    color: #ccc;
+}
+
+.legenda {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.legenda span {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.verde {
+    background: #40c463;
+}
+
+.amarelo {
+    background: #f3c74b;
+}
+
+.vermelho {
+    background: #e74c3c;
+}
+
+.barra-status {
+    display: flex;
+    height: 18px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.normal {
+    background: #40c463;
+    width: 70%;
+}
+
+.atencao {
+    background: #f3c74b;
+    width: 15%;
+}
+
+.alerta {
+    background: #e74c3c;
+    width: 15%;
+}
+
+.sub {
+    font-size: 12px;
+    color: #bcbcbc;
+    margin-top: 10px;
+}
+
+/* ======= TABELA ======= */
+.table-container {
+    flex: 1;
+    background: #f8f8f8;
+    color: #000;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+.table-container h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    color: #666;
+    font-weight: 600;
+}
+
+/* ======= GRÁFICOS ======= */
+.charts {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.chart-box {
+    background: #0b0b11;
+    border-radius: 15px;
+    padding: 20px;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-box canvas {
+    width: 100%;
+    height: 100% ;
+}
