@@ -48,6 +48,7 @@ constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
 );
 
 CREATE TABLE layout (
+	id int primary key auto_increment,
 	nome VARCHAR(45)
 );
 
@@ -143,14 +144,7 @@ select * from ConfiguracaoServidor;
 
 -- SELECT QUE RETORNA NOME DE SERVIDOR E OS
 -- COMPONENTES / METRICAS SELECIONADAS
-select 	cs.id id_config,
-		s.hostname hostname_servidor,
-        m.unidademedida,
-        c.nome componente
-from configuracaoServidor as cs
-inner join metrica m on m.id = cs.fk_metrica_config
-inner join componente c on c.id = cs.fk_componente_config
-inner join servidor s on s.id = cs.fk_servidor_config;
+-- -- --- --- refazer
 
 # SELECT que retorna o cargo, suas respectivas permissões e a empresa que os detêm
 select e.nomeEmpresarial as "Nome da Empresa", c.nome as "Nome do Cargo", p.nome as "Permissões"

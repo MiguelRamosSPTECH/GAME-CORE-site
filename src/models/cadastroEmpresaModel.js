@@ -17,17 +17,24 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, nomeFu
     console.log("ID da empresa criada: \n" + idEmpresa);
     console.log("Empresa cadastrada com sucesso!");
 
+    // let funcDB = `
+
+    //     INSERT INTO Funcionario (nome, email, cpf, senha, userMaster, fk_empresa_func)
+    //     VALUES ('${nomeFunc}', '${emailFunc}', '${cpfFunc}', '${senhaFunc}', 1, ${idEmpresa});
+
+    // `;
     let funcDB = `
 
-        INSERT INTO Funcionario (nome, email, cpf, senha, userMaster, fk_empresa_func)
-        VALUES ('${nomeFunc}', '${emailFunc}', '${cpfFunc}', '${senhaFunc}', 1, ${idEmpresa});
+        INSERT INTO Funcionario (nome, email, cpf, senha, userMaster)
+        VALUES ('${nomeFunc}', '${emailFunc}', '${cpfFunc}', '${senhaFunc}', 1);
 
     `;
+
     let cadFunc = await database.executar(funcDB);
     console.log("Executando a instrução SQL (Funcionário): \n" + funcDB)
     console.log("Funcionário cadastrado com sucesso!");
     
-    return {idEmpresa:idEmpresa};
+    return cadFunc;
 
 }
 
