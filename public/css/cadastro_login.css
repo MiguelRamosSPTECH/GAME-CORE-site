@@ -67,6 +67,8 @@ a {
     /* border-radius: 25px; */
     box-sizing: border-box;
     /* box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); */
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .texto-form {
