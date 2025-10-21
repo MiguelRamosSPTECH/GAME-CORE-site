@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Cargo</title>
-    <link rel="stylesheet" href="css/cadastro_login.css">
+    <title>Edição de Funcionário</title>
+    <!--<link rel="stylesheet" href="css/cadastroo_login.css">-->
     <script src="./js/sessao.js"></script>
+    <script src="./js/cadastroFuncionario.js"></script>
+    <script src="./js/edicaoFuncionario.js"></script>
+
 </head>
 
-<body>
-    <header>
+<body onload="buscarFunc(), buscarCargos(), validarSessao()">
+    <!--<header>
         <div class="container topbar">
             <div class="nome">
                 <a href="index.html">
@@ -19,7 +22,7 @@
                 <div class="links">
                     <nav>
                         <ul>
-                            <!-- <li><a href="index.html">Home</a></li> -->
+                             <li><a href="index.html">Home</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -39,8 +42,9 @@
 
         </div>
     </header>
+-->
 
-    <main class="gradiente">
+    <!--    <main class="gradiente">
 
         <div class="alerta_erro">
             <div class="card_erro" id="cardErro">
@@ -49,11 +53,24 @@
         </div>
 
         <div style="display:flex; flex-direction: column; align-items:center;">
+-->
 
-            <h1>Editar Funcionário</h1>
-            <p>A página de edição de funcionário ficará aqui!</p>
+    <label for="funcionario">Funcionário:</label>
+    <select name="funcionarios" id="funcionario">
+        <!--Os options serão adicionados aqui após a chamada da função "buscarCargos()"-->
+    </select>
 
-        </div>
+
+    <label for="cargo">Cargo:</label>
+    <select name="cargos" id="cargo">
+        <!--Os options serão adicionados aqui após a chamada da função "buscarCargos()"-->
+    </select>
+
+    <button class="botao" onclick="alterarCargo()">Alterar Cargo</button>
+    <button class="botao" onclick="removerFunc()">Remover Funcionário</button>
+
+    <!--    </div>
+
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         </div>
     </main>
@@ -64,5 +81,5 @@
             <a href="index.html">Home</a>
         </div>
     </footer>
-
+-->
 </body>

@@ -32,8 +32,6 @@
                 if(resposta.ok){
                     cardErro.style.display = "block";
 
-                    
-
                     console.log("Permissões Selecionadas: " + permissoesSelecionadasVar)
 
                     mensagem_erro.innerHTML =
