@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Histórico de Alertas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/dashHistoricodeAlerta.css" />
+</head>
+
+<body>
+
+<div class="main">
+    <div class="sidebar">
+            <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
+
+            <div class="menu">
+                <a href="home.html" class="menu-item">
+                    <i class="icon home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="historico.html" class="menu-item">
+                    <i class="icon historico"></i>
+                    <span>Histórico</span>
+                </a>
+                <a href="config.html" class="menu-item">
+                    <i class="icon config"></i>
+                    <span>Config.</span>
+                </a>
+            </div>
+
+            <a href="login.html" class="logout">
+                <i class="icon sair"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+
+    <div class="main">
+        <div class="header">
+            <h1>HISTÓRICO DE ALERTAS</h1>
+            <div class="search-box">
+                <input type="text" placeholder="Buscar..." />
+                <img src="./assets/imgs/lupaBranca.png" style="width: 20px;">
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>KEY ID</th>
+                            <th>TIPO DE REQUISIÇÃO</th>
+                            <th>RESUMO</th>
+                            <th>STATUS</th>
+                            <th>CRIADO EM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <script>
+                            const tableBody = [];
+                            for (let i = 0; i < 13; i++) {
+                                tableBody.push(`
+                  <tr>
+                    <td><b>DEMO-1</b></td>
+                    <td>TI Request</td>
+                    <td>RAM Acima de 95% no servidor V1.MAIN</td>
+                    <td><span class='status'>EM ABERTO</span></td>
+                    <td>16/10/2025 - 14:04</td>
+                  </tr>
+                `);
+                            }
+                            document.write(tableBody.join(''));
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+
+           
+            <div class="chart-card">
+                <div class="grafico_classificacao">
+                    <h2>CLASSIFICAÇÃO DOS ALERTAS</h2>
+                    <div class="chart-container">
+                        <canvas id="alertChart"></canvas>
+                    </div>
+                </div>
+                <button class="btn-relatorio"><img src="./assets/imgs/downloadPreto.png" style="width: 30px;"> Gerar Relatório <img src="./assets/imgs/downloadPreto.png" style="width: 30px;"></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('alertChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Manutenção', 'Estado de Alerta', 'Estado Crítico'],
+                datasets: [{
+                    data: [62.5, 25, 12.5],
+                    backgroundColor: ['#9CE9FF', '#58C0E8', '#3B8EB5'],
+                    borderWidth: 0
+                }]
+            },
+           options: {
+  plugins: {
+    legend: {
+      position: 'bottom',
+      align: 'start',
+      labels: {
+        color: 'rgb(0, 0, 0)',
+        font: { size: 14 },
+        boxWidth: 25,
+        padding: 15,
+      }
+    }
+  },
+  layout: {
+    padding: { left: 20 } 
+  }
+
+}
+
+        });
+    </script>
+</div>
+</body>
+
+</html>

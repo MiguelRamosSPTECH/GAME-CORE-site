@@ -15,4 +15,20 @@ router.get('/buscar/:idEmpresa', function(req, res){
     cargoController.buscar(req, res);
 })
 
+router.get('/buscarFunc', function(req, res){
+    cargoController.buscarFunc(req, res);
+})
+
+router.get('/buscarFunc/:idEmpresa', function(req, res){
+    cargoController.buscarFunc(req, res);
+})
+
+router.post('/alterarCargo', function(req, res){
+    cargoController.alterarCargo(req, res);
+})
+
+router.post('/removerFunc', function(req, res){
+    cargoController.removerFunc(req, res);
+})
+
 module.exports = router;

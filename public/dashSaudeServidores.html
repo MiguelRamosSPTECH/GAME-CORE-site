@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status dos Servidores</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/dashSaudeServidores.css">
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <div class="top-row">
+            <div class="card total">
+                <div class="icon">📶</div>
+                <div>
+                    <p>Total de Servidores Online</p>
+                    <h2>53</h2>
+                </div>
+            </div>
+
+            <div class="card risk">
+                <div class="icon">🚨</div>
+                <div>
+                    <p>Servidores em Risco</p>
+                    <h2>4</h2>
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <h2>Status de Saúde dos Servidores</h2>
+                    <p><strong>Total:</strong> 53 ativos</p>
+                </div>
+                <div class="legenda">
+                    <span class="verde"></span> Normal
+                    <span class="amarelo"></span> Atenção
+                    <span class="vermelho"></span> Alerta
+                </div>
+                <div class="barra-status">
+                    <div class="normal"></div>
+                    <div class="atencao"></div>
+                    <div class="alerta"></div>
+                </div>
+                <p class="sub">Aproximadamente 7% dos servidores requerem atenção</p>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="table-container">
+                <h3>Servidores com Maior Número de alertas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Qtd. Alertas</th>
+                            <th>Servidor</th>
+                            <th>IP</th>
+                            <th>Localização</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5</td>
+                            <td>Riot - 09828</td>
+                            <td>192.168.1.10</td>
+                            <td>Rack B5</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Valve - 18964</td>
+                            <td>10.42.5.99</td>
+                            <td>Bloco A - 54</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Epic - 14096</td>
+                            <td>192.168.1.10</td>
+                            <td>Host Zeus-01</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Blizzard - 27027</td>
+                            <td>172.16.30.201</td>
+                            <td>Sala A1-Leste</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>NetEase - 34896</td>
+                            <td>192.168.10.1</td>
+                            <td>Bloco DB</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Playtech - 15026</td>
+                            <td>10.0.0.5</td>
+                            <td>Rack C14</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="charts">
+                <div class="chart-box">
+                    <canvas id="impactoChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="tempoChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const impactoCtx = document.getElementById('impactoChart');
+            new Chart(impactoCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+                    datasets: [{
+                        label: 'Impacto da Saturação do Servidor',
+                        data: [18, 26, 23, 35, 36],
+                        borderColor: '#4f7bff',
+                        backgroundColor: 'transparent',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#4f7bff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#ccc' } },
+                        y: { ticks: { color: '#ccc' } }
+                    }
+                }
+
+            });
+
+            const tempoCtx = document.getElementById('tempoChart');
+            new Chart(tempoCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+                    datasets: [{
+                        label: 'Tempo de Carregamento',
+                        data: [18, 27, 23, 35, 36],
+                        borderColor: '#c97bff',
+                        backgroundColor: 'transparent',
+                        tension: 0.4,
+                        fill: false,
+                        pointBackgroundColor: '#c97bff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: '#ccc' } },
+                        y: { ticks: { color: '#ccc' } }
+                    }
+                }
+
+            });
+    </script>
+
+</html>

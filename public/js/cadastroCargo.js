@@ -2,15 +2,17 @@
         let cargoVar = ipt_cargo.value;
         let fk_empresaVar = sessionStorage.ID_EMPRESA;
         
-        console.log(cargoVar);
 
+        //Permissões que o usuário escolher
         let permissoesSelecionadasVar = []
 
         document.querySelectorAll("input[type=checkbox]:checked").forEach(c => {
+
             permissoesSelecionadasVar.push(Number(c.value))
+
         })
 
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + permissoesSelecionadasVar)
+        console.log("Permissões Selecionadas: " + permissoesSelecionadasVar)
 
         fetch("/cargos/criar", {
             method: "POST",
@@ -30,7 +32,7 @@
                 if(resposta.ok){
                     cardErro.style.display = "block";
 
-                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + permissoesSelecionadasVar)
+                    console.log("Permissões Selecionadas: " + permissoesSelecionadasVar)
 
                     mensagem_erro.innerHTML =
                         "Cargo criado com sucesso!";
