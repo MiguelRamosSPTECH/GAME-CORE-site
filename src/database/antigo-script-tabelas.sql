@@ -10,6 +10,7 @@ nomeRepresentante varchar(45),
 email varchar(45),
 -- statusOperacao varchar(45),
 statusAcesso boolean default 1
+
 );
 
 create table if not exists Cargo(
@@ -17,6 +18,7 @@ id int primary key auto_increment,
 nome varchar(45),
 fk_empresa_cargo int,
 constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id)
+
 );
 
 create table if not exists Funcionario(
@@ -28,38 +30,36 @@ senha varchar(45),
 perfilAtivo boolean default 1,
 userMaster boolean default 0,
 fk_cargo_func int,
--- fk_empresa_func int,
--- constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
+fk_empresa_func int,
+constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
 constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Cargo(id)
+
 );
 
 create table if not exists Permissao(
 id int primary key auto_increment,
 nome varchar(45)
+
 );
 
 create table if not exists PermissaoCargo(
 fk_permissao_pc int,
 fk_cargo_pc int,
--- permissoes int not null,
+permissoes int not null,
 primary key(fk_permissao_pc, fk_cargo_pc),
 constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
 constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
-);
 
-CREATE TABLE layout (
-	nome VARCHAR(45)
 );
 
 create table if not exists Servidor(
 id int primary key auto_increment,
 hostName varchar(45),
--- ip varchar(45),
+ip varchar(45),
 localizacao varchar(45),
 fk_empresa_servidor int,
-fk_layout int,
-constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references Empresa(id),
-constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) references layout(id)
+constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references Empresa(id)
+
 );
 
 create table if not exists Metrica(
@@ -78,17 +78,28 @@ create table if not exists ConfiguracaoServidor(
 id int primary key auto_increment,
 alertaLeve varchar(45),
 alertaGrave varchar(45),
--- fk_servidor_config int,
+fk_servidor_config int,
 fk_metrica_config int,
-fk_componente_config int,
-fk_empresa int,
-fk_layout int,
--- constraint ct_fkServidorConfig foreign key fkservidorconfig(fk_servidor_config) references Servidor(Id),
+fk_componente_config int, 
+constraint ct_fkServidorConfig foreign key fkservidorconfig(fk_servidor_config) references Servidor(Id),
 constraint ct_fkMetricaConfig foreign key fkmetricaconfig(fk_metrica_config) references Metrica(Id),
-constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_config) references Componente(Id),
-constraint ct_EmpresaConfig foreign key fkempresaconfig(fk_empresa) references empresa(id),
-constraint ct_LayoutConfig foreign key fklayoutconfig(fk_layout) references layout(id)
+constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_config) references Componente(Id)
+
 );
+
+-- TESTE PARA ADIÇÃO DE CONFIGRAÇÃO GLOBAL - NÃO ESPECÍFICA POR SERVIDOR
+-- Possivelmente será alterado !!
+CREATE TABLE ConfiguracaoGlobal (
+	id INT PRIMARY KEY auto_increment,
+	alertaLeve VARCHAR(45),
+  	alertaGrave VARCHAR(45),
+  	fk_metrica_config INT,
+  	fk_componente_config INT,
+  	CONSTRAINT fk_metrica_global FOREIGN KEY (fk_metrica_config) REFERENCES Metrica(id),
+  	CONSTRAINT fk_componente_global FOREIGN KEY (fk_componente_config) REFERENCES Componente(id)
+);
+-- --------------------
+
 
 
 -- ----------------------------------------------------------------
