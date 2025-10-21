@@ -11,22 +11,52 @@
 </head>
 
 <body>
-    <div class="dashboard">
 
+<div class="main">
+
+<div class="sidebar">
+            <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
+
+            <div class="menu">
+                <a href="home.html" class="menu-item">
+                    <i class="icon home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="historico.html" class="menu-item">
+                    <i class="icon historico"></i>
+                    <span>Histórico</span>
+                </a>
+                <a href="config.html" class="menu-item">
+                    <i class="icon config"></i>
+                    <span>Config.</span>
+                </a>
+            </div>
+
+            <a href="login.html" class="logout">
+                <i class="icon sair"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+
+</div>
+
+    <div class="dashboard">
         <div class="top-row">
             <div class="card total">
-                <div class="icon">📶</div>
+                
                 <div>
-                    <p>Total de Servidores Online</p>
-                    <h2>53</h2>
+                    <h1>Total de Servidores Online</h1>
+                    <h2><53></h2>
+                    
                 </div>
             </div>
 
             <div class="card risk">
-                <div class="icon">🚨</div>
+                
                 <div>
-                    <p>Servidores em Risco</p>
-                    <h2>4</h2>
+                    <h1>Total de Servidores em Risco</h1>
+                    <h2><4></4></h2>
+                    
                 </div>
             </div>
 
@@ -112,7 +142,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <script>
         const impactoCtx = document.getElementById('impactoChart');
             new Chart(impactoCtx, {
