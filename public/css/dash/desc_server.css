@@ -605,7 +605,7 @@ html, * {
     background-color: #b4b4b4;
     border-radius: 10px;
     width: 100%;
-    min-height: 10%;
+    height: 10%;
 }
 .title-card span {
     padding-left: 20px;
