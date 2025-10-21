@@ -29,8 +29,8 @@ cpf char(11),
 senha varchar(45),
 perfilAtivo boolean default 1,
 userMaster boolean default 0,
-fk_empresa_func int,
 fk_cargo_func int,
+fk_empresa_func int,
 constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
 constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Cargo(id)
 
@@ -87,6 +87,21 @@ constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_co
 
 );
 
+-- TESTE PARA ADIÇÃO DE CONFIGRAÇÃO GLOBAL - NÃO ESPECÍFICA POR SERVIDOR
+-- Possivelmente será alterado !!
+CREATE TABLE ConfiguracaoGlobal (
+	id INT PRIMARY KEY auto_increment,
+	alertaLeve VARCHAR(45),
+  	alertaGrave VARCHAR(45),
+  	fk_metrica_config INT,
+  	fk_componente_config INT,
+  	CONSTRAINT fk_metrica_global FOREIGN KEY (fk_metrica_config) REFERENCES Metrica(id),
+  	CONSTRAINT fk_componente_global FOREIGN KEY (fk_componente_config) REFERENCES Componente(id)
+);
+-- --------------------
+
+
+
 -- ----------------------------------------------------------------
 -- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
 INSERT INTO Componente (nome)
@@ -128,6 +143,8 @@ INSERT INTO Permissao (nome) VALUES
 
 select * from Empresa;
 select * from Cargo;
+select * from Permissao;
+select * from PermissaoCargo;
 select * from Funcionario;
 
 select * from Servidor;
@@ -145,3 +162,10 @@ from configuracaoServidor as cs
 inner join metrica m on m.id = cs.fk_metrica_config
 inner join componente c on c.id = cs.fk_componente_config
 inner join servidor s on s.id = cs.fk_servidor_config;
+
+# SELECT que retorna o cargo, suas respectivas permissões e a empresa que os detêm
+select e.nomeEmpresarial as "Nome da Empresa", c.nome as "Nome do Cargo", p.nome as "Permissões"
+from PermissaoCargo pc
+inner join Permissao p on p.id = pc.fk_permissao_pc
+inner join Cargo c on c.id = pc.fk_cargo_pc
+inner join Empresa e on e.id = c.fk_empresa_cargo;

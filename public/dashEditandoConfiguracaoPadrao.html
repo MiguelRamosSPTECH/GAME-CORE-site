@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout de Configuração</title>
+    <link rel="stylesheet" href="./css/dashEditandoConfiguracaoPadrao.css">
+</head>
+
+<body>
+    <div class="main">
+        <div class="sidebar">
+            <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
+
+            <div class="menu">
+                <a href="home.html" class="menu-item">
+                    <i class="icon home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="historico.html" class="menu-item">
+                    <i class="icon historico"></i>
+                    <span>Histórico</span>
+                </a>
+                <a href="config.html" class="menu-item">
+                    <i class="icon config"></i>
+                    <span>Config.</span>
+                </a>
+            </div>
+
+            <a href="login.html" class="logout">
+                <i class="icon sair"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+
+        <div class="main">
+            <header>
+                <h1><span>EDITANDO</span> LAYOUT DE CONFIGURAÇÃO</h1>
+                <div class="actions">
+                    <button class="cancel">CANCELAR</button>
+                    <button class="create">CRIAR CONFIGURAÇÃO</button>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="inputs">
+                    <div>
+                        <label>NOME DO LAYOUT</label>
+                        <input type="text" placeholder="">
+                    </div>
+                    <div>
+                        <label>COPIAR LAYOUT EXISTENTE</label>
+                        <select>
+                            <option>DESEMPENHO LÓGICO DO JOGO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="panels">
+                    <!-- CPU -->
+                    <div class="panel">
+                        <div class="panel-header">CPU</div>
+                        <div class="panel-body">
+                            <label><input type="checkbox"> CPU</label>
+                            <label><input type="checkbox"> LOAD-AVERAGE</label>
+                            <label><input type="checkbox"> CPU I/O WAIT</label>
+                            <div class="sub-options">
+                                <label><input type="radio" name="cpuMetric"> %</label>
+                                <label><input type="radio" name="cpuMetric"> MB/s</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RAM -->
+                    <div class="panel">
+                        <div class="panel-header">RAM</div>
+                        <div class="panel-body">
+                            <label><input type="checkbox"> RAM</label>
+                            <label><input type="checkbox"> RAM LIVRE</label>
+                            <label><input type="checkbox"> RAM SWAP</label>
+                            <div class="sub-options">
+                                <label><input type="radio" name="ramMetric"> %</label>
+                                <label><input type="radio" name="ramMetric"> MB/s</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DISCO -->
+                    <div class="panel">
+                        <div class="panel-header">DISCO</div>
+                        <div class="panel-body">
+                            <label><input type="checkbox"> DISCO</label>
+                            <label><input type="checkbox"> THROUGHPUT</label>
+                            <div class="sub-options">
+                                <label><input type="radio" name="diskMetric"> %</label>
+                                <label><input type="radio" name="diskMetric"> MB/s</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </section>
+    </div>
+
+    <script>
+        document.querySelector('.cancel').addEventListener('click', () => {
+            alert('Cancelado!');
+        });
+
+        document.querySelector('.create').addEventListener('click', () => {
+            alert('Configuração criada com sucesso!');
+        });
+
+    </script>
+</body>
+
+</html>
