@@ -1,0 +1,159 @@
+* {
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background-color: #0e0d1b;
+            color: white;
+            display: flex;
+            height: 100vh;
+        }
+
+ /* -------- SIDEBAR -------- */
+.sidebar {
+    width: 80px;
+    background-color: #120b2b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    height: 100vh;
+    transition: width 0.4s ease;
+    position: fixed;
+    left: 0;
+    top: 0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sidebar:hover {
+    width: 220px;
+}
+
+.sidebar .logo {
+    width: 55px;
+    transition: all 0.3s ease;
+    margin-bottom: 40px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 15px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: #2a2250;
+    transform: translateX(5px);
+}
+
+.icon {
+    width: 30px;
+    height: 30px;
+    background-color: #262044;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+}
+
+.home::before {
+    content: "🏠";
+}
+
+.historico::before {
+    content: "⏱️";
+}
+
+.config::before {
+    content: "⚙️";
+}
+
+.sair::before {
+    content: "🚪";
+}
+
+.logout {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #ff6b6b;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout:hover {
+    background-color: #3a1224;
+    transform: translateX(5px);
+}
+
+.sidebar span {
+    opacity: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar:hover span {
+    opacity: 1;
+}
+
+/* -------- MAIN -------- */
+.main {
+    margin-left: 80px;
+    flex: 1;
+    padding: 20px 40px;
+    transition: margin-left 0.3s ease;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container_pagina{
+    display: flex;
+    flex-direction: column;
+}
+
+.graficos{
+    display: flex;
+    flex-direction: row;
+}
+
+.grafico_chamados{
+    background-color: #ffffff;
+}
+
+.grafico_alerta{
+    background-color: #ffffff;
+}
+
+.historico_alerta{
+    display: flex;
+    flex-direction: column;
+}
+
+.tabela_historico{
+    background-color: #ffffff;
+}
