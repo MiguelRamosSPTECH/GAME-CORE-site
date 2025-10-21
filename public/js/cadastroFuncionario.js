@@ -1,31 +1,4 @@
-
-    function buscarCargos() {
-    var idEmpresa = sessionStorage.ID_EMPRESA;
-
-    fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
-        .then(response => response.json())
-        .then(resposta => {
-            console.log("Dado recebido: ", resposta);
-
-            var select = document.getElementById("cargo");
-            select.innerHTML = '<option value="">Selecionar</option>';
-
-            resposta.forEach(cargo => {
-            select.innerHTML += `<option value="${cargo.id}">${cargo.nome}</option>`;
-            return idCargo = cargo.id
-        });
-        console.log("Options do select:", select.innerHTML);
-
-        })
-        .catch(erro => console.error("Erro:", erro));
-
-        console.log("ID do cargo" + idCargo)
-}
-
-
-    function cadastrarFunc() {
-
-
+function cadastrarFunc() {
 
         aguardar();
 
