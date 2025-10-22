@@ -1,68 +1,208 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Alertas</title>
     <link rel="stylesheet" href="./css/dashHistoricoAlertaSRE.css">
-    <title>Historico de Alertas</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-<div class="main">
-    <div class="sidebar">
+    <div class="main">
+        <div class="sidebar">
             <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
 
             <div class="menu">
-                <a href="home.html" class="menu-item">
-                    <i class="icon home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="historico.html" class="menu-item">
-                    <i class="icon historico"></i>
-                    <span>Histórico</span>
-                </a>
-                <a href="config.html" class="menu-item">
-                    <i class="icon config"></i>
-                    <span>Config.</span>
-                </a>
+                <a href="home.html" class="menu-item"><i class="icon home"></i><span>Home</span></a>
+                <a href="historico.html" class="menu-item"><i class="icon historico"></i><span>Histórico</span></a>
+                <a href="config.html" class="menu-item"><i class="icon config"></i><span>Config.</span></a>
             </div>
 
-            <a href="login.html" class="logout">
-                <i class="icon sair"></i>
-                <span>Sair</span>
-            </a>
+            <a href="login.html" class="logout"><i class="icon sair"></i><span>Sair</span></a>
         </div>
 
+        <div class="container_pagina">
+            <div class="conteudo_superior">
+                <div class="lado_esquerdo">
+                    <div class="grafico_card">
+                        <h3>Qtd. Chamados abertos</h3>
+                        <canvas id="chartChamados"></canvas>
+                    </div>
 
-<div class="container_pagina">
-    <div class="graficos">
-        <div class="grafico_chamados">
+                    <div class="grafico_card">
+                        <h3>Alertas dos últimos chamados</h3>
+                        <canvas id="chartAlertas"></canvas>
+                    </div>
+                </div>
             
+            <div class="alertas-container">
+                <div class="tabela_card">
+                    <h2>Histórico de Alertas</h2>
+                    <div class="tabela_historico">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Key ID</th>
+                                    <th>Responsável</th>
+                                    <th>Descrição</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ALR-005</td>
+                                    <td>João Silva</td>
+                                    <td>Latência de rede crítica (mais de 500ms) entre Serviço</td>
+                                    <td>Em Análise</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-006</td>
+                                    <td>Admin</td>
+                                    <td>CPU acima de 95% em servidor principal</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-007</td>
+                                    <td>Pedro Paulo</td>
+                                    <td>Falha de autenticação repetida em API Gateway</td>
+                                    <td>Pendente</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-008</td>
+                                    <td>João Silva</td>
+                                    <td>Latência alta no serviço de banco de dados</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-009</td>
+                                    <td>Maria Fernanda</td>
+                                    <td>Uso de disco acima de 90% no servidor WEB-02</td>
+                                    <td>Em Análise</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-010</td>
+                                    <td>Admin</td>
+                                    <td>Serviço de e-mail não responde ao ping</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-011</td>
+                                    <td>Pedro Paulo</td>
+                                    <td>Perda de pacotes acima de 20%</td>
+                                    <td>Pendente</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-012</td>
+                                    <td>João Silva</td>
+                                    <td>Alerta de segurança: login suspeito detectado</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-013</td>
+                                    <td>Maria Fernanda</td>
+                                    <td>Serviço de cache inativo (Redis)</td>
+                                    <td>Em Análise</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-014</td>
+                                    <td>Admin</td>
+                                    <td>Consumo de memória acima do esperado em API Core</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-015</td>
+                                    <td>Pedro Paulo</td>
+                                    <td>Erro 500 frequente no microserviço Auth</td>
+                                    <td>Pendente</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-016</td>
+                                    <td>João Silva</td>
+                                    <td>Tempo de resposta do endpoint /users excedendo 2s</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-017</td>
+                                    <td>Admin</td>
+                                    <td>Backup automático falhou na madrugada</td>
+                                    <td>Em Análise</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-018</td>
+                                    <td>Pedro Paulo</td>
+                                    <td>Monitoramento detectou reinício inesperado no servidor APP-03</td>
+                                    <td>Resolvido</td>
+                                </tr>
+                                <tr>
+                                    <td>ALR-019</td>
+                                    <td>Maria Fernanda</td>
+                                    <td>Serviço de fila RabbitMQ atingiu 100% de uso</td>
+                                    <td>Em Análise</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    <div class="botoes">
+                        <button class="relatorio">📄 Gerar Relatório</button>
+                        <button class="slack" onclick="window.open('https://slack.com/signin#/signin', '_blank')">
+                            <img src="./assets/imgs/slack-logo.png" alt="">
+                            Add to <span>Slack</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+            </div>
         </div>
-
-
-        <div class="grafico_alerta">
-
-        </div>
-
     </div>
 
+    <script>
+        // Gráfico de barras
+            new Chart(document.getElementById("chartChamados"), {
+                type: "bar",
+                data: {
+                    labels: ["Jan", "Fev", "Mar", "Abr"],
+                    datasets: [{
+                        label: "",
+                        data: [8, 12, 16, 20],
+                        backgroundColor: ["#7fffd4", "#4ecae3", "#397ed9", "#1e3b8a"],
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, ticks: { color: "#333" } }, x: { ticks: { color: "#333" } } }
+                }
+            });
 
-    <div class="historico_alerta">
-        <div class="tabela_historico">
-            <h2>Histórico de Alertas</h2>
-        </div>
+            // Gráfico de rosca
+            new Chart(document.getElementById("chartAlertas"), {
+                type: "doughnut",
+                data: {
+                    labels: ["Manutenção", "Estado de Alerta", "Estado Crítico"],
+                    datasets: [{
+                        data: [62.5, 25, 12.5],
+                        backgroundColor: ["#7fffd4", "#4ecae3", "#397ed9"],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: "70%",
+                    plugins: {
+                        legend: {
+                            labels: { color: "#333" },
+                            position: "bottom"
+                        }
+                    }
+                }
+            });
 
-        <div class="botoes">
-            <button class="relatorio">Gerar Relatório</button>
-            <button onclick="window.location.href='https://slack.com/signin#/signin'" class="slack">Add to <span>Slack</span></button>
-        </div>
-
-    </div>
-
-</div>
-
-</div>
-    
+    </script>
 </body>
+
 </html>
