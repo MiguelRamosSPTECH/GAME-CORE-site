@@ -25,24 +25,23 @@
         </div>
 
         <div class="container_pagina">
-            <div class="conteudo_superior">
-                <div class="lado_esquerdo">
-                    <div class="grafico_card">
-                        <h3>Qtd. Chamados abertos</h3>
-                        <canvas id="chartChamados"></canvas>
-                    </div>
+  <div class="lado_esquerdo">
+    <div class="grafico_card">
+      <h3>Qtd. Chamados abertos</h3>
+      <canvas id="chartChamados"></canvas>
+    </div>
 
-                    <div class="grafico_card">
-                        <h3>Alertas dos últimos chamados</h3>
-                        <canvas id="chartAlertas"></canvas>
-                    </div>
-                </div>
-            
-            <div class="alertas-container">
-                <div class="tabela_card">
-                    <h2>Histórico de Alertas</h2>
-                    <div class="tabela_historico">
-                        <table>
+    <div class="grafico_card" id="graficoRosca">
+  <h3>Alertas dos últimos chamados</h3>
+  <canvas id="chartAlertas"></canvas>
+</div>
+  </div>
+
+  <div class="alertas-container">
+    <div class="tabela_card">
+      <h2>Histórico de Alertas</h2>
+      <div class="tabela_historico">
+        <table>
                             <thead>
                                 <tr>
                                     <th>Key ID</th>
@@ -145,20 +144,19 @@
                             </tbody>
 
                         </table>
-                    </div>
+      </div>
 
-                    <div class="botoes">
-                        <button class="relatorio">📄 Gerar Relatório</button>
-                        <button class="slack" onclick="window.open('https://slack.com/signin#/signin', '_blank')">
-                            <img src="./assets/imgs/slack-logo.png" alt="">
-                            Add to <span>Slack</span>
-                        </button>
-                    </div>
+      <div class="botoes">
+        <button class="relatorio">📄 Gerar Relatório</button>
+        <button class="slack" onclick="window.open('https://slack.com/signin#/signin', '_blank')">
+          <img src="./assets/imgs/slack-logo.png" alt="">
+          Add to <span>Slack</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-                </div>
-            </div>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -181,26 +179,35 @@
             });
 
             // Gráfico de rosca
-            new Chart(document.getElementById("chartAlertas"), {
-                type: "doughnut",
-                data: {
-                    labels: ["Manutenção", "Estado de Alerta", "Estado Crítico"],
-                    datasets: [{
-                        data: [62.5, 25, 12.5],
-                        backgroundColor: ["#7fffd4", "#4ecae3", "#397ed9"],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    cutout: "70%",
-                    plugins: {
-                        legend: {
-                            labels: { color: "#333" },
-                            position: "bottom"
-                        }
-                    }
-                }
-            });
+            const chartAlertas = new Chart(document.getElementById("chartAlertas"), {
+  type: "doughnut",
+  data: {
+    labels: ["Manutenção", "Estado de Alerta", "Estado Crítico"],
+    datasets: [{
+      data: [62.5, 25, 12.5],
+      backgroundColor: ["#7fffd4", "#4ecae3", "#397ed9"],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    cutout: "70%",
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: "bottom",
+        labels: {
+          color: "#333",
+          boxWidth: 20,
+          padding: 15
+        }
+      }
+    },
+    layout: {
+      padding: { bottom: 10 }
+    }
+  }
+});
 
     </script>
 </body>
