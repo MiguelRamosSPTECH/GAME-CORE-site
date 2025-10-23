@@ -239,10 +239,12 @@ header h1 span {
 }
 
 .option-component {
-    width: 100%;
-    max-height: 98%;
-    border-radius: 10px;
-    background-color: white;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  width: 100%;
+  max-height: 98%;
+  border-radius: 10px;
 }
 
 .opcoes-metricas {
