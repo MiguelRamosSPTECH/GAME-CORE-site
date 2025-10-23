@@ -20,7 +20,7 @@ function showInfoInput(input) {
 
 function cadastrarFunc() {
 
-        aguardar();
+        //aguardar();
 
         var nomeVar = ipt_nome.value;
         var emailVar = ipt_email.value;
@@ -42,15 +42,15 @@ function cadastrarFunc() {
             //cargoVar == ""
 
         ) {
-            cardErro.style.display = "block";
+            //cardErro.style.display = "block";
             mensagem_erro.innerHTML =
                 "(Mensagem de erro para todos os campos em branco)";
 
             finalizarAguardar();
             return false;
-        } else {
-            setInterval(sumirMensagem, 5000);
-        }
+        }// else {
+         //   setInterval(sumirMensagem, 5000);
+        //}
 
 
         fetch("/usuarios/cadastrarFunc", {
@@ -76,7 +76,7 @@ function cadastrarFunc() {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    cardErro.style.display = "block";
+                    //cardErro.style.display = "block";
 
                     
                     //Aqui muda os sessionStorages
@@ -102,12 +102,7 @@ function cadastrarFunc() {
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
-                finalizarAguardar();
             });
 
         return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
     }

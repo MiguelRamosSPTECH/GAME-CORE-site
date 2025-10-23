@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/dash/funcionarios/create_edit_func.css
+    <link rel="stylesheet" href="../../../css/dash/funcionarios/edit_func.css
     ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="../../../js/cadastroFuncionario.js"></script>
+    <script src="../../../js/sessao.js"></script>
+    <script src="../../../js/edicaoFuncionario.js"></script>
     <title>CREATE SERVER | DBGWATCH</title>
 </head>
-<body>
+<body onload="validarSessao(), buscarCargos()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -36,13 +38,13 @@
                 <div class="content-cadastro">
                     <div class="container-cadastro">
                         <div class="title-card">
-                            CRIANDO PERFIL
+                            ALTERANDO PERFIL
                         </div>
                         <div class="row">
                             <div class="form-cadastro">
                                 <div class="grupo-inputs">
                                     <div class="title-grupo">
-                                        <span id="text-title">Informações básicas</span>
+                                        <span id="text-title">Coloque as novas informações</span>
                                     </div>
                                     <div class="inputs">
                                         <div class="info-input">
@@ -106,7 +108,7 @@
                         </div>  
                         <div class="area-buttons">
                             <button onclick="window.location.href='./index.html'">CANCELAR</button>
-                            <button id="confirm">CONFIRMAR</button>
+                            <button id="confirm" onclick="alterarCargo()">CONFIRMAR</button>
                         </div>                  
                 </div>
             </div>
