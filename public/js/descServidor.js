@@ -58,26 +58,26 @@ function showMetrics(elemento) {
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-down"></i>`
 
   } else {
-    for(let i=0;i<areaMetricas.children.length;i++) {
-      areaMetricas.children[i].children[0].checked = false
-      showInputsAlerts(areaMetricas.children[0].children[0])
-    }
     elemento.style.backgroundColor = "transparent"
     elemento.style.border = "1px solid black"
     areaMetricas.style.display = "none"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-left"></i>`
+        areaMetricas.nextElementSibling.setAttribute('style','display:none!important')
   }
 }
 
-function showInputsAlerts(elemento) {
-  var areaInputs = elemento.parentNode.parentNode.nextElementSibling
-  if(elemento.checked) {
-    areaInputs.setAttribute('style','display:flex!important')
-  } else {
-    areaInputs.setAttribute('style','display:none!important')
-  }
+/* TODO RADIO INPUT QUE FOR CHECKED MOSTRA OS INPUT DE ALERTAS */
+var radiosInputs = document.querySelectorAll('input[type="radio"]')
+for(let i=0;i<radiosInputs.length;i++) {
+  radiosInputs[i].addEventListener('click', ()=> {
+    var areaInputs = radiosInputs[i].parentNode.parentNode.parentNode.lastElementChild
+      if(radiosInputs[i].checked) {
+        areaInputs.setAttribute('style','display:flex!important')
+      }
+  })
 }
+
 
 function abrirModalConfigs() {
     var idModal = document.getElementsByClassName('modal')[0];
@@ -87,6 +87,18 @@ function abrirModalConfigs() {
       backgroundModal.style.display = "block"
     } else {
       idModal.style.display = "none"
+      backgroundModal.style.display = "none"
+    }
+}
+
+function descricaoChamado() {
+  var modalChamado = document.getElementsByClassName('modal-chamado')[0];
+  var backgroundModal = document.getElementsByClassName('background-modal')[0];
+      if(modalChamado.style.display == "none" || modalChamado.style.display == "") {
+      modalChamado.style.display = "flex"
+      backgroundModal.style.display = "block"
+    } else {
+      modalChamado.style.display = "none"
       backgroundModal.style.display = "none"
     }
 }

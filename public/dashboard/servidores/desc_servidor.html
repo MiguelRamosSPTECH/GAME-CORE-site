@@ -238,7 +238,7 @@
                     </div>
                 </div>
                 <div class="last-row">
-                    <div class="alerta-jira">
+                    <div class="alerta-jira" onclick="descricaoChamado()">
                         <div class="title-alerta">
                             <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
                             <div class="circle-status">asd</div>
@@ -310,6 +310,10 @@
                                     <input type="radio" name="opt_metric"> %
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>                              
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -324,6 +328,10 @@
                                     <input type="radio" name="opt_user_cpu"> %
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>                              
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -338,6 +346,10 @@
                                     <input type="radio" name="opt_system_cpu"> %
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -350,6 +362,10 @@
                                 <div class="opcao">
                                     <input type="radio" name="opt_loadavg"> Quantidade
                                 </div>
+                            </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
                             </div>
                         </div>
                         <div class="opcoes-metricas">
@@ -364,6 +380,10 @@
                                 <div class="opcao">
                                     <input type="radio" name="opt_ociosa_cpu"> %
                                 </div>
+                            </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
                             </div>
                         </div>
                     </div>
@@ -391,6 +411,10 @@
                                     <input type="radio" name="opt_metric_ram"> GB
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -411,6 +435,10 @@
                                     <input type="radio" name="opt_swap"> GB
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -430,6 +458,10 @@
                                 <div class="opcao">
                                     <input type="radio" name="opt_ram_disp"> GB
                                 </div>
+                            </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
                             </div>
                         </div>
                     </div>
@@ -457,6 +489,10 @@
                                     <input type="radio" name="opt_metric_disk"> GB
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
                         </div>
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
@@ -473,6 +509,10 @@
                                 <div class="opcao">
                                     <input type="radio" name="opt_throughput"> GB/s
                                 </div>
+                            </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
                             </div>
                         </div>
                         <div class="opcoes-metricas">
@@ -494,6 +534,10 @@
                                     <input type="radio" name="opt_livre_disk"> GB
                                 </div>
                             </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -502,6 +546,62 @@
         <div class="area-buttons-modal">
             <button class="btn-cancel">CANCELAR</button>
             <button>CONFIRMAR</button>
+        </div>
+    </div>
+
+    <div class="modal-chamado">
+        <div class="limite-container-modal">
+            <div class="header-chamado">
+                INFORMAÇÕES DO CHAMADO
+                <i class="fa-solid fa-xmark" onclick="descricaoChamado()"></i>
+            </div>
+            <div class="img-fundo-chamado"></div>
+            <div class="infos-chamado">
+                <div class="grupo-info">
+                    <div class="icon-chamado">
+                        <img src="../../assets/imgs/icon-title-chamado.png" alt="">
+                    </div>
+                    <label>
+                        <strong>TITULO: </strong> Problema com RAM no servidor V1.MAIN
+                    </label>
+                </div>
+                <div class="grupo-info">
+                    <div class="icon-chamado">
+                        <img src="../../assets/imgs/icon-solicita-chamado.png" alt="">
+                    </div>
+                    <label>
+                        <strong>SOLICITANTE: </strong> Pedro - Engenheirro SRE
+                    </label>
+                </div>
+                 <div class="grupo-info">
+                    <div class="icon-chamado">
+                        <img src="../../assets/imgs/icon-status-chamado.png" alt="">
+                    </div>
+                    <label>
+                        <strong>STATUS - </strong>
+                        <select name="" id="">
+                            <option value="">EM ABERTO</option>
+                            <option value="">RESOLVENDO</option>
+                            <option value="">RESOLVIDO</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="grupo-info">
+                    <div class="icon-chamado">
+                        <img src="../../assets/imgs/icon-tipo-chamado.png" alt="">
+                    </div>
+                    <label>
+                        <strong>TIPO DE SOLICITAÇÃO </strong> TI Request
+                    </label>
+                </div>
+                <div class="grupo-info desc">
+                    <strong>DESCRIÇÃO:</strong>
+                    <span>
+                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem aliquam modi cumque, mollitia, sequi et odio rem quisquam velit hic illum asperiores reiciendis beatae quasi molestias debitis sint eum sed.
+                    </span>
+                </div>                
+                               
+            </div>
         </div>
     </div>
 </body>
