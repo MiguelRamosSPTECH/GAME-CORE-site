@@ -531,8 +531,17 @@ html, * {
 }
 
 
+/* MODAL  */
+.background-modal {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: rgba(128, 128, 128, 0.541);
+}
 .modal {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     font-family: "Poppins",sans-serif;
@@ -545,6 +554,8 @@ html, * {
     background-color: #231f39;
     border-radius: 10px;
     color: white;
+    border: none;
+    z-index: 3;
 }
 .title-modal {
     display: flex;
@@ -623,6 +634,7 @@ html, * {
     gap: 15px;
 }
 button {
+    cursor: pointer;
     border-radius: 20px;
     outline: none;
     border: none;
@@ -639,7 +651,9 @@ button {
     width: 100%;
     max-height: 98%;
     border-radius: 10px;
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .opcoes-metricas {
@@ -652,8 +666,8 @@ button {
     width: 96%;
     padding: 5px;
     gap: 5px;
-    background-color: #e1e1e1;
     border-radius: 10px;
+    background-color: #e1e1e1;
 
 }
 .opcao-componente {
@@ -662,7 +676,7 @@ button {
     justify-content: space-between;
     gap: 5px;
     width: 90%;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
 }
 .opcao-componente div {
@@ -696,12 +710,8 @@ input {
     position: relative;
     
 }
-.check-componente:checked {
-    background-color: #74ce3a;
-    border: none;
-    
-}
 input:checked {
     background-color: #678aff;
+    border: 2px solid black;
     
 }
