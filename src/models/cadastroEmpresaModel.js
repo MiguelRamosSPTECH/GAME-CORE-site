@@ -5,8 +5,8 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
     
     let empresaDB = `
 
-        INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email)
-        VALUES ('${nomeEmpresarial}', '${cnpj}', '${nomeRepresentante}', '${email}');
+        INSERT INTO Empresa (nomeEmpresarial, cnpj, email)
+        VALUES ('${nomeEmpresarial}', '${cnpj}', '${email}');
 
     `;
     let cadEmpresa = await database.executar(empresaDB);
@@ -30,7 +30,7 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
     let funcDB = `
 
         INSERT INTO Funcionario (nome, email, cpf, senha, fk_cargo_func)
-        VALUES ('${nomeEmpresarial}', '${email}', '${cpfFunc}', '${senhaFunc}', '${idCargo}');
+        VALUES ('${nomeRepresentante}', '${email}', '${cpfFunc}', '${senhaFunc}', '${idCargo}');
 
     `;
 
