@@ -4,9 +4,8 @@ use gameCore;
 
 create table if not exists Empresa(
 id int primary key auto_increment,
-nomeEmpresarial varchar(45),
+nomeEmpresarial varchar(30),
 cnpj char(14),
-nomeRepresentante varchar(45),
 email varchar(45),
 -- statusOperacao varchar(45),
 statusAcesso boolean default 1
@@ -16,17 +15,18 @@ create table if not exists Cargo(
 id int primary key auto_increment,
 nome varchar(45),
 fk_empresa_cargo int,
+ativo tinyint,
 constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id)
 );
 
 create table if not exists Funcionario(
 id int primary key auto_increment,
-nome varchar(45),
-email varchar(45),
+nome varchar(50),
+email varchar(30),
 cpf char(11),
 senha varchar(45),
 perfilAtivo boolean default 1,
-userMaster boolean default 0,
+-- userMaster boolean default 0,
 fk_cargo_func int,
 -- fk_empresa_func int,
 -- constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
@@ -35,13 +35,13 @@ constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Car
 
 create table if not exists Permissao(
 id int primary key auto_increment,
-nome varchar(45)
+nome varchar(20)
 );
 
 create table if not exists PermissaoCargo(
 fk_permissao_pc int,
 fk_cargo_pc int,
--- permissoes int not null,
+permissoes int not null,
 primary key(fk_permissao_pc, fk_cargo_pc),
 constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
 constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
@@ -49,14 +49,16 @@ constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
 
 CREATE TABLE layout (
 	id int primary key auto_increment,
-	nome VARCHAR(45)
+	nome VARCHAR(45),
+    emUso tinyint,
+    fk_empresa_layout int,
+    constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references Empresa(id)
 );
 
 create table if not exists Servidor(
 id int primary key auto_increment,
-hostName varchar(45),
--- ip varchar(45),
-localizacao varchar(45),
+macadress varchar(20),
+localizacao varchar(30),
 fk_empresa_servidor int,
 fk_layout int,
 constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references Empresa(id),
@@ -65,13 +67,13 @@ constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) reference
 
 create table if not exists Metrica(
 id int primary key auto_increment,
-unidadeMedida varchar(45)
+unidadeMedida varchar(15)
 
 );
 
 create table if not exists Componente(
 id int primary key auto_increment,
-nome varchar(45)
+nome varchar(20)
 
 );
 
@@ -79,16 +81,12 @@ create table if not exists ConfiguracaoServidor(
 id int primary key auto_increment,
 alertaLeve varchar(45),
 alertaGrave varchar(45),
--- fk_servidor_config int,
-fk_metrica_config int,
-fk_componente_config int,
-fk_empresa int,
+fk_metrica_cs int,
+fk_componente_cs int,
 fk_layout int,
--- constraint ct_fkServidorConfig foreign key fkservidorconfig(fk_servidor_config) references Servidor(Id),
-constraint ct_fkMetricaConfig foreign key fkmetricaconfig(fk_metrica_config) references Metrica(Id),
-constraint ct_fkComponenteConfig foreign key fkcomponenteconfig(fk_componente_config) references Componente(Id),
-constraint ct_EmpresaConfig foreign key fkempresaconfig(fk_empresa) references empresa(id),
-constraint ct_LayoutConfig foreign key fklayoutconfig(fk_layout) references layout(id)
+constraint ct_fkMetricaCs foreign key fkmetricacs(fk_metrica_cs) references Metrica(Id),
+constraint ct_fkComponenteCs foreign key fkcomponentecs(fk_componente_cs) references Componente(Id),
+constraint ct_LayoutCs foreign key fklayoutcs(fk_layout) references layout(id)
 );
 
 
