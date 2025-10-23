@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../../css/dash/desc_server.css">
+  <title>Layout de Configuração</title>
+  <link rel="stylesheet" href="../../css/dashCriandoConfiguracaoPadrao.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../../js/descServidor.js" defer></script>
-  <title>DASHBOARD | GAMEOPS</title>
+  <!-- <script src="./js/sessao.js"></script> -->
+  <script src="../../js/criarConfig.js"></script>
+  <script src="../../js/descServidor.js"></script>
 </head>
 <body>
-    <div class="background-modal"></div>
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -34,258 +34,35 @@
                 </div>
                 </div>
             </div>
-        </div>   
+        </div>
         <div class="content-dash">
-          <div class="container-dash-server">
-            <!-- AREA DAS FILTROS -->
-            <div class="area-filtros">
-              <div class="filtro-config">
-                CONFIGURAÇÃO ESCOLHIDA - 
-                <div class="select-option">
-                    <select name="" id="select_configurations">
-                        <option value="">DESEMPENHO LÓGICO DE JOGO</option>
+          <div class="content-cards">
+              <header>
+                <h1><span>CRIANDO</span> LAYOUT DE CONFIGURAÇÃO</h1>
+                <div class="actions">
+                  <button class="cancel">CANCELAR</button>
+                  <button class="create">CRIAR CONFIGURAÇÃO</button>
+                </div>
+              </header>
+
+              <section class="content">
+                <div class="card-branco">
+
+                <div class="inputs">
+                  <div class="group-input">
+                    <label>NOME DO LAYOUT</label>
+                    <input type="text" placeholder="">
+                  </div>
+                  <div class="group-input">
+                    <label>COPIAR LAYOUT EXISTENTE</label>
+                    <select>
+                      <option>DESEMPENHO LÓGICO DO JOGO</option>
                     </select>
-                    <div class="circle-configuration">
-                        <i class="fa-solid fa-gear" onclick="abrirModalConfigs()"></i>
-                    </div>                    
+                  </div>
                 </div>
-              </div>
-              <div class="change-server">
-                <button>
-                    <a href="../index.html">ALTERAR SERVIDOR</a>
-                </button>
-              </div>
-            </div>
 
-            <div class="linha-header">
-                <!-- AREA KPIS -->
-                <div class="area-kpis">
-                    <div class="kpi">
-                        <div class="title-kpi">CPU</div>
-                        <div class="dados-kpi">
-                            <div class="dado-porcentagem">
-                                68% <span>/100%</span>
-                            </div>
-                            <div class="up-down-indicator">
-                                5%
-                                <div class="img-indicator"></div>
-                            </div>
-                        </div>
-                        <div class="progresso-kpi">
-                            <div class="barra-fundo">
-                                <div class="progresso-barra">
-                                    
-                                </div>
-                            </div>
-                            <label>Disponível - <span>32%</span></label>
-                        </div>
-                    </div>
-                    <div class="kpi">
-                        <div class="title-kpi">CPU</div>
-                        <div class="dados-kpi">
-                            <div class="dado-porcentagem">
-                                68% <span>/100%</span>
-                            </div>
-                            <div class="up-down-indicator">
-                                5%
-                                <div class="img-indicator"></div>
-                            </div>
-                        </div>
-                        <div class="progresso-kpi">
-                            <div class="barra-fundo">
-                                <div class="progresso-barra">
-                                    
-                                </div>
-                            </div>
-                            <label>Disponível - <span>32%</span></label>
-                        </div>
-                    </div>
-                    <div class="kpi">
-                        <div class="title-kpi">CPU</div>
-                        <div class="dados-kpi">
-                            <div class="dado-porcentagem">
-                                68% <span>/100%</span>
-                            </div>
-                            <div class="up-down-indicator">
-                                5%
-                                <div class="img-indicator"></div>
-                            </div>
-                        </div>
-                        <div class="progresso-kpi">
-                            <div class="barra-fundo">
-                                <div class="progresso-barra">
-                                    
-                                </div>
-                            </div>
-                            <label>Disponível - <span>32%</span></label>
-                        </div>
-                    </div>
-                    <div class="kpi">
-                        <div class="title-kpi">CPU</div>
-                        <div class="dados-kpi">
-                            <div class="dado-porcentagem">
-                                68% <span>/100%</span>
-                            </div>
-                            <div class="up-down-indicator">
-                                5%
-                                <div class="img-indicator"></div>
-                            </div>
-                        </div>
-                        <div class="progresso-kpi">
-                            <div class="barra-fundo">
-                                <div class="progresso-barra">
-                                    
-                                </div>
-                            </div>
-                            <label>Disponível - <span>32%</span></label>
-                        </div>
-                    </div>
-                    
-                </div>  
-                <div class="info-servidor">
-                    <div class="circle-notification">
-                        1
-                    </div>
-                    <div class="title-servidor">
-                        <span>SERVIDOR 09829</span> - V1.MAIN
-                    </div>
-                    <div class="row-info-servidor">
-                        <div class="img-servidor"></div>
-                        <div class="problemas-encontrados">
-                            <span>1</span> problema(s)
-                            <span id="not_resolved">NÃO</span> solucionados!
-                        </div>
-                    </div>
-                </div>              
-            </div>
-
-            <div class="second-row">
-                <!-- AREA CONTAINERS -->
-                <div class="area-containers">
-                    <div class="filtro-container">
-                        FILTRAR CONTAINERS -- 
-                        <select name="" id="select-containers">
-                            <option value="">TODOS</option>
-                        </select>
-                    </div>
-                    <div class="row-containers">
-                        <div class="kpis-containers">
-                            <div class="kpi-container">
-                                <div class="title-kpi-container">
-                                    ALERTAS
-                                </div>
-                                <span class="dado-kpi-container">
-                                    3
-                                </span>
-                            </div>
-                            <div class="kpi-container">
-                                <div class="title-kpi-container">
-                                    THROTTLED TIME
-                                </div>
-                                <span class="dado-kpi-container">
-                                    2 / <span class="limite-kpi-container">5</span>
-                                    <span class="texto-pequeno">min</span>
-                                </span>
-                            </div>
-                            <div class="kpi-container">
-                                <div class="title-kpi-container">
-                                    TICKS POR SEGUNDO
-                                </div>
-                                <span class="dado-kpi-container">
-                                    20 / <span class="limite-kpi-container">20</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="grafico-containers">
-                            <canvas id="graficos"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <!-- AREA BOAS PRATICAS -->
-                 <div class="boas-praticas">
-                    <h5>ITENS A VERIFICAR QUANDO VISUALIZAR-SE UM ALERTA</h5>
-                    <div class="sessao-boa-pratica">
-                        <div class="area-icon">
-                            <img src="../../assets/imgs/escolher-icon.png" alt="">
-                        </div>
-                        <span><span class="forte">ESCOLHER</span> configurações que se adaptem ao alerta</span> 
-                    </div>
-                    <div class="sessao-boa-pratica">
-                        <div class="area-icon">
-                            <img src="../../assets/imgs/verificar-icon.png" alt="">
-                        </div>
-                        <span><span class="forte">VERIFICAR</span> histórico de alertas e ler relatório para informações detalhadas</span> 
-                    </div>
-                    <div class="sessao-boa-pratica">
-                        <div class="area-icon">
-                            <img class="icon_atualizar" src="../../assets/imgs/atualizar-icon.png" alt="">
-                        </div>
-                        <span><span class="forte">ATUALIZAR</span> status do alerta  conforme processo de resolução.</span> 
-                    </div>
-                    <div class="sessao-boa-pratica">
-                        <div class="area-icon">
-                            <img class="icon_checar" src="../../assets/imgs/checar-icon.png" alt="">
-                        </div>
-                        <span><span class="forte">CHECKAR</span> outros servidores após certeza de que o problema foi resolvido.</span> 
-                    </div>
-                 </div>
-            </div>
-            <div class="last-row">
-                <div class="alerta-jira">
-                    <div class="title-alerta">
-                        <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                        <div class="circle-status">asd</div>
-                    </div>
-                    <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                    <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                    <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                </div>
-                <div class="alerta-jira">
-                    <div class="title-alerta">
-                        <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                        <div class="circle-status">asd</div>
-                    </div>
-                    <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                    <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                    <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                </div>
-                <div class="alerta-jira">
-                    <div class="title-alerta">
-                        <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                        <div class="circle-status">asd</div>
-                    </div>
-                    <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                    <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                    <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                </div>
-                <div class="alerta-jira">
-                    <div class="title-alerta">
-                        <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                        <div class="circle-status">asd</div>
-                    </div>
-                    <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                    <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                    <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                </div>
-                
-            </div>
-          </div>
-        </div>     
-    </div>
-    <div class="modal">
-        <div class="title-modal">
-            <span><strong>CONFIGURAÇÃO SELECIONADA: </strong>DESEMPENHO LÓGICO DO JOGO</span>
-            <i class="fa-solid fa-xmark" onclick="abrirModalConfigs()"></i>
-        </div>
-        <div class="desc-modal">
-            <span>Todas as alterações serão temporárias, sendo perdidas assim que você deslogar do sistema, 
-            voltando ao padrão escolhido no menu de configurações padrão!</span>
-        </div>
-        <div class="aba-config">
-            <div class="title-componentes">
-                <strong>COMPONENTES DE SERVIDOR</strong>
-            </div>
-            <div class="content-componentes">
+                <div class="panels">
+                  <!-- CPU -->
                   <div class="card-componente">
                       <div class="title-card">
                           <span>CPU</span>
@@ -486,12 +263,49 @@
                           </div>                         
                       </div>
                   </div>
-            </div>
+
+                  <!-- RAM
+                  <div class="panel">
+                    <div class="panel-header">RAM</div>
+                    <div class="panel-body">
+                      <label><input type="checkbox"> RAM</label>
+                      <label><input type="checkbox"> RAM LIVRE</label>
+                      <label><input type="checkbox"> RAM SWAP</label>
+                      <div class="sub-options">
+                        <label><input type="radio" name="ramMetric"> %</label>
+                        <label><input type="radio" name="ramMetric"> MB/s</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  DISCO
+                  <div class="panel">
+                    <div class="panel-header">DISCO</div>
+                    <div class="panel-body">
+                      <label><input type="checkbox"> DISCO</label>
+                      <label><input type="checkbox"> THROUGHPUT</label>
+                      <div class="sub-options">
+                        <label><input type="radio" name="diskMetric"> %</label>
+                        <label><input type="radio" name="diskMetric"> MB/s</label>
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+              </section>
         </div>
-        <div class="area-buttons-modal">
-            <button class="btn-cancel">CANCELAR</button>
-            <button>CONFIRMAR</button>
-        </div>
-    </div>
+      </div>
+  </div>
+
+  <script>
+    document.querySelector('.cancel').addEventListener('click', () => {
+  alert('Cancelado!');
+});
+
+document.querySelector('.create').addEventListener('click', () => {
+  alert('Configuração criada com sucesso!');
+});
+
+  </script>
 </body>
 </html>

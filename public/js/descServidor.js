@@ -52,7 +52,7 @@ function showMetrics(elemento) {
   var iconeSeta = elemento.parentNode.parentNode;
   if(areaMetricas.style.display == "none" || areaMetricas.style.display == "") {
     elemento.style.backgroundColor = "#74ce3a"
-    elemento.style.border = "2px solid #74ce3a"
+    elemento.style.border = "2px solid black"
     areaMetricas.style.display = "flex"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-down"></i>`
@@ -63,4 +63,16 @@ function showMetrics(elemento) {
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-left"></i>`
   }
+}
+
+function abrirModalConfigs() {
+    var idModal = document.getElementsByClassName('modal')[0];
+    var backgroundModal = document.getElementsByClassName('background-modal')[0];
+    if(idModal.style.display == "none" || idModal.style.display == "") {
+      idModal.style.display = "flex"
+      backgroundModal.style.display = "block"
+    } else {
+      idModal.style.display = "none"
+      backgroundModal.style.display = "none"
+    }
 }

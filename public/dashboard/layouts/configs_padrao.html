@@ -5,45 +5,49 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Layouts de Configurações</title>
-        <link rel="stylesheet" href="./css/dashConfiguracaoPadrao.css" />
+        <link rel="stylesheet" href="../../css/dash/configs_padrao.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     </head>
 
-    <body>
-    <div class="main">
-        <div class="sidebar">
-            <img src="./assets/imgs/testegatologo.png" alt="logo" class="logo">
-
-            <div class="menu">
-                <a href="home.html" class="menu-item">
-                    <i class="icon home"></i>
-                    <span>Home</span>
-                </a>
-                <a href="historico.html" class="menu-item">
-                    <i class="icon historico"></i>
-                    <span>Histórico</span>
-                </a>
-                <a href="config.html" class="menu-item">
-                    <i class="icon config"></i>
-                    <span>Config.</span>
-                </a>
-            </div>
-
-            <a href="login.html" class="logout">
-                <i class="icon sair"></i>
-                <span>Sair</span>
-            </a>
-        </div>
-
-        
-            <div class="container">
+    <body>          
+    <div class="container-all">
+            <div class="nav-lateral">
+                <div class="logo-dbg">
+                    <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
+                </div>
+                <div class="options-nav">
+                    <div class="principal-options">
+                        <div class="circle-option">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                        <div class="circle-option">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="circle-option">
+                            <i class="fa-solid fa-gear"></i>
+                        </div>
+                    </div>
+                    <div class="area-logoff">
+                        <div class="circle-option logoff">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="content-dash">
                 <div class="top-bar">
-                    <h1>LAYOUTS DE CONFIGURAÇÕES</h1>
-                    <div class="header-right">
+                    <div class="title-search">
+                        <h1>LAYOUTS DE CONFIGURAÇÕES</h1>
                         <div class="search-box">
                             <input type="text" placeholder="Pesquisar layout..." />
                             <img src="./assets/imgs/lupaBranca.png">
+                        </div>                        
+                    </div>
+                    <div class="header-right">
+                        <div class="ipt-select">
+                            <input type="radio"> Selecionar
                         </div>
-                        
                         <button class="novo-layout">NOVO LAYOUT</button>
                     </div>
                 </div>
