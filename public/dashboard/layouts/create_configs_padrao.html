@@ -41,7 +41,7 @@
                 <h1><span>CRIANDO</span> LAYOUT DE CONFIGURAÇÃO</h1>
                 <div class="actions">
                   <button class="cancel" onclick="window.location='./configs_padrao.html'">CANCELAR</button>
-                  <button class="create">CRIAR CONFIGURAÇÃO</button>
+                  <button class="create" onclick="criarLayout()">CRIAR CONFIGURAÇÃO</button>
                 </div>
               </header>
 
@@ -51,7 +51,7 @@
                 <div class="inputs">
                   <div class="group-input">
                     <label>NOME DO LAYOUT</label>
-                    <input type="text" placeholder="">
+                    <input type="text" placeholder="Nome" id="ipt_nome">
                   </div>
                   <div class="group-input">
                     <label>COPIAR LAYOUT EXISTENTE</label>
