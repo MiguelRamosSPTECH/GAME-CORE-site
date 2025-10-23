@@ -36,10 +36,6 @@ function showInfoInput(input) {
     valorAtualRastrear.innerText = valorInput
 }
 
-function changeElementInPage() {
-    var pagina = window.location.href;
-    console.log(pagina)
-}
 
 
 // =========================================== NAO
