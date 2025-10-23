@@ -272,3 +272,8 @@ main {
     color: #fff;
 }
 
+.inputs-alertas {
+    width: 100%;
+    border: 1px solid black;
+}
+
