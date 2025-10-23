@@ -11,6 +11,10 @@ function criarLayout(nomeLayout,ListaChecked,fk_empresa_cargo){
 
 // insert na tabela config do server
 
+    let 
+
+
+
 
 }
 

@@ -15,17 +15,24 @@ function criarLayout() {
 
     let componentesChecked = document.getElementsByClassName('check-componente');
 
-    for (let i = 0; i < componentesChecked.length; i++){
+    for (let i = 0; i < componentesChecked.length; i++) {
 
-        if(componentesChecked[i].style.backgroundColor == "rgb(116, 206, 58)"){
+        if (componentesChecked[i].style.backgroundColor == "rgb(116, 206, 58)") {
 
-            for(let j = 0; j < ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children).length; j++){
+            for (let j = 0; j < ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children).length; j++) {
 
-                if((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].children[0].checked){
+                if ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].children[0].checked) {
 
-                    let x = (componentesChecked[i].parentNode.innerText).trim().replaceAll(" ","_")
+                    let x = (componentesChecked[i].parentNode.innerText).trim().replaceAll(" ", "_")
 
-                    listaChecked.push({[x]:`${(componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText}`})
+                    y = (componentesChecked[i].parentNode.parentNode.parentNode).children[2].children[0].value
+
+                    z = (componentesChecked[i].parentNode.parentNode.parentNode).children[2].children[1].value
+
+                    listaChecked.push({ [x]: `${(componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText}`,"AlertaLeve": y, "AlertaGrave": z})
+
+                    console.log(y)
+                    console.log(z)
 
                 }
             }
@@ -37,17 +44,17 @@ function criarLayout() {
 
     let nomeLayoutVar = document.getElementById("ipt_nome").value;
 
-    if (nomeLayoutVar == null || nomeLayoutVar.trim() == ""){
+    if (nomeLayoutVar == null || nomeLayoutVar.trim() == "") {
         alert("preencha o nome")
-    } else if(listaChecked.length != 4){
+    } else if (listaChecked.length != 4) {
         alert("Deve escolher apenas 4 componentes")
-    } else{
+    } else {
         fetch("/config/criarLayout", {
             method: "POST",
-            headers:{
-                "Content-Type":"application/json",
+            headers: {
+                "Content-Type": "application/json",
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 nomeLayoutServer: nomeLayoutVar,
                 ListaCheckedServer: listaChecked,
                 fk_empresaServer: fk_empresaVar
@@ -62,6 +69,6 @@ function criarLayout() {
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
-            return false;
+        return false;
     }
 }
