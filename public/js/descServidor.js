@@ -50,7 +50,6 @@
 function showMetrics(elemento) {
   var areaMetricas = elemento.parentNode.parentNode.parentNode.children[1];
   var iconeSeta = elemento.parentNode.parentNode;
-  console.log(areaMetricas)
   if(areaMetricas.style.display == "none" || areaMetricas.style.display == "") {
     elemento.style.backgroundColor = "#74ce3a"
     elemento.style.border = "2px solid black"
@@ -59,6 +58,10 @@ function showMetrics(elemento) {
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-down"></i>`
 
   } else {
+    for(let i=0;i<areaMetricas.children.length;i++) {
+      areaMetricas.children[i].children[0].checked = false
+      showInputsAlerts(areaMetricas.children[0].children[0])
+    }
     elemento.style.backgroundColor = "transparent"
     elemento.style.border = "1px solid black"
     areaMetricas.style.display = "none"
