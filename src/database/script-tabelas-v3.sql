@@ -57,6 +57,7 @@ CREATE TABLE layout (
 
 create table if not exists Servidor(
 id int primary key auto_increment,
+apelido varchar(20),
 macadress varchar(20),
 localizacao varchar(30),
 fk_empresa_servidor int,
