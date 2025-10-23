@@ -1,10 +1,18 @@
 
 const mapaDeMetricas = {
-    'CPU': ['%', 'MHz', 'GHz'],
+    'CPU': ['%'],
+    'CPU_USER': ['%'],
+    'CPU_SYSTEM': ['%'],
+    'LOADAVG': ['Quantidade'],
+    'CPU_OCIOSA': ['%'],
+
     'RAM': ['%', 'MB', 'GB'],
-    'Disco': ['%', 'GB', 'TB'],
-    'Processos': ['#', 'Tempo (s)', 'PID'],
-    'Rede': ['Mbps', 'Pacotes/s']
+    'SWAP': ['%', 'MB', 'GB'],
+    'RAM_DISP': ['%', 'MB', 'GB'],
+
+    'DISCO': ['%', 'GB', 'TB'],
+    'THROUGHPUT': ['MB/s', 'GB/s'],
+    'DISCO_LIVRE': ['%', 'MB', 'GB']
 };
 
 
