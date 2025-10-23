@@ -11,13 +11,13 @@ function criarLayout() {
 
         if(componentesChecked[i].style.backgroundColor == "rgb(116, 206, 58)"){
 
-            for(let j = 0; j < ((componentesChecked[i].parentNode.parentNode.parentNode).lastElementChild.children).length; j++){
+            for(let j = 0; j < ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children).length; j++){
 
-                if((componentesChecked[i].parentNode.parentNode.parentNode).lastElementChild.children[j].children[0].checked){
+                if((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].children[0].checked){
 
                     let x = (componentesChecked[i].parentNode.innerText).trim().replaceAll(" ","_")
 
-                    listaChecked.push({[x]:`${(componentesChecked[i].parentNode.parentNode.parentNode).lastElementChild.children[j].innerText}`})
+                    listaChecked.push({[x]:`${(componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText}`})
 
                 }
             }
