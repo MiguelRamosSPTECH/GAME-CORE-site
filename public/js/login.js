@@ -36,11 +36,11 @@ function entrar() {
                     console.log(json);
                     console.log(JSON.stringify(json));
 
+                    sessionStorage.ID_EMPRESA = json.idEmpresa; 
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.ID_EMPRESA = json.fk_empresa;
 
 
                     setTimeout(function () {
