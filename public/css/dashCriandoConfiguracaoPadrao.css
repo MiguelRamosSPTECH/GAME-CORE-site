@@ -310,3 +310,20 @@ input:checked {
     background-color: #678aff;
     
 }
+.inputs-alertas {
+    display: none!important;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.inputs-alertas input {
+  width: 45%;
+  padding-left: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  background-color: #f8f8f8;
+  font-family: "Poppins",sans-serif;
+}
