@@ -1,0 +1,321 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+html, * {
+    margin: 0;
+    left: 0;
+}
+.container-all {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #0a061b;
+    font-family: "Poppins",sans-serif;
+}
+/* NAV-LATERAL */
+.nav-lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 6.5%;
+    background-color: #231f39;
+    border-bottom-right-radius: 8.5px;
+    border-top-right-radius: 8.5px;
+}
+
+.logo-dbg {
+    width: 100%;
+    height: 14%;
+}
+.logo-dbg img {
+    width: 100%;
+    height: 100%;
+}
+
+.options-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    width: 50%;
+    height: 75%;
+}
+.principal-options {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-direction: column;
+}
+.circle-option {
+    font-size: 20px;
+    color: #231f39;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d9d9d9;
+    width: 80%;
+    height: 9%;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(207, 204, 204, 0.2);
+}
+.circle-option:hover {
+    transform: scale(1.15);
+    background-color: #bdb5b5;
+}
+.area-logoff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    width: 100%;
+
+}
+.logoff {
+    height: 50%;
+    border: 2px solid red;
+    color: red;
+}
+
+/* conteudo da tela*/
+.content-dash {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.card-cadastro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95%;
+    height: 92%;
+    background-color: rgb(66, 64, 64);
+    border-radius: 15px;
+}
+.content-cadastro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 97%;
+    height: 94%;
+    background-color: white;
+    border-radius: 15px;
+}
+.container-cadastro {
+    display: flex;
+    flex-direction: column;
+    width: 98%;
+    height: 98%;
+}
+.title-card {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 15%;
+    font-weight: 900;
+    font-size: x-large;
+    color: #455bfe;
+}
+/* area de formularios de criar/editar */
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    height: 80%;
+}
+.form-cadastro {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 48%;
+    height: 100%;
+    gap: 15px;
+}
+.grupo-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 80%;
+    width: 100%;
+}
+.second-grupo {
+    height: 35%;
+}
+.second-grupo .title-grupo {
+    height: 30%;
+}
+.title-grupo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #f1efef;
+    border-radius: 15px;
+    height: 12%;
+    font-weight: 600;
+}
+.title-grupo span {
+    padding-left: 15px;
+}
+.inputs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 83%;
+    width: 90%;
+    gap: 15px;
+}
+.second-group {
+    justify-content: start;
+
+    height: 65%;
+    justify-content: center;
+    align-items: center;
+    
+}
+.info-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 25%;
+}
+.second {
+    height: 70%;
+}
+.info-input label {
+    font-weight: 500;
+    font-size: 100%;
+    height: 45%;
+}
+
+.info-input input, select {
+    border: 1px solid black;
+    border-radius: 15px;
+    width: 96%;
+    height: 55%;
+    outline: none;
+    padding-left: 10px;
+    font-family: "Poppins", sans-serif;
+
+}
+.info-input select {
+    width: 100%;
+    height: 90%; 
+}
+.info-input-duplo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 25%;
+}
+.input-duplo {
+    display: flex;
+    flex-direction: column;
+    width: 47%;
+}
+.info-input-duplo input {
+    width:95%;
+    border: 1px solid black;
+    outline: none;
+    border-radius: 15px;
+    padding-left: 10px;
+    font-family: "Poppins",sans-serif;
+    height: 75%;
+}
+
+
+.desc-campo {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid black;
+    padding: 15px;
+    height: 100%;
+    width: 48%;
+    gap: 15px;
+}
+#title-campo {
+    font-size: x-large;
+    font-weight: 800;
+}
+#descricao-campo {
+    text-align: justify;
+    width: 85%;
+    font-size: 15px;
+}
+
+.area-buttons {
+    display: flex;
+    justify-content: end;
+    gap: 15px;
+    width: 100%;
+    height: 5%;
+}
+.area-buttons button {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #9b3737;
+    font-family: "Poppins",sans-serif;
+    width: 12%;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out
+}
+.area-buttons button:hover {
+    transform: scale(1.05);
+}
+#confirm {
+    background-color: #74ce3a;
+}
+#rastrear {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+    width: 60%;
+    height: 35%;
+    border-radius: 20px;
+    background-color: #e1e1e1;
+}
+.title-rastrear {
+    width: 90%;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2a0e4a;
+    text-align: center;
+}
+.content-rastrear {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    height: 50%;
+}
+.valores {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+}
+.values {
+    width: 100%;
+    text-align: end;
+}
+.title-valores {
+    font-weight: 700;
+    font-size: 16px;
+}
