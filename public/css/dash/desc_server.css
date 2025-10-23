@@ -715,3 +715,124 @@ input:checked {
     border: 2px solid black;
     
 }
+
+.inputs-alertas {
+    display: none!important;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+.inputs-alertas input {
+  width: 45%;
+  padding-left: 10px;
+  border-radius: 20px;
+  outline: none;
+  border: none;
+  background-color: #f8f8f8;
+  font-family: "Poppins",sans-serif;
+}
+
+
+/* MODAL CHAMADO */
+.modal-chamado {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 50%;
+    height: 98%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #e1e1e1;
+    font-family: "Poppins",sans-serif;
+    z-index: 5;
+}
+.limite-container-modal {
+    display: flex;
+    width: 90%;
+    height: 90%;
+    flex-direction: column;
+    gap: 15px;
+}
+.header-chamado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 800;
+    width: 100%;
+    height: 5%;
+
+}
+.header-chamado i {
+    font-size: 25px;
+
+}
+.img-fundo-chamado { 
+    background-image: url('../../assets/imgs/analisePreditiva.png');
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 20%;
+}
+.infos-chamado {
+    height: 65%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+}
+.grupo-info {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.desc {
+    display: flex;
+    align-items: start;
+    margin-left: 50px;
+    max-height: 30%;
+    flex-direction: column;
+}
+.desc span {
+    font-size: small;
+}
+.grupo-info label {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 80%;
+}
+.grupo-info strong {
+    font-weight: 900;
+}
+.grupo-info select {
+    background-color: #678aff;
+    height: 100%;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-family: "Poppins",sans-serif;
+    width: 25%;
+    font-weight: 800;
+    text-align: center;
+    color: white;
+}
+.icon-chamado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6%;
+    height: 100%;
+}
+.icon-chamado img {
+    width: 100%;
+    height: 100%;
+}
