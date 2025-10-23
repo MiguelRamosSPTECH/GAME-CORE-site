@@ -31,9 +31,6 @@ function criarLayout() {
 
                     listaChecked.push({ [x]: `${(componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText}`,"AlertaLeve": y, "AlertaGrave": z})
 
-                    console.log(y)
-                    console.log(z)
-
                 }
             }
 
