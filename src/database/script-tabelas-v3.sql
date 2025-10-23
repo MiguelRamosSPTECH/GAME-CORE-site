@@ -15,7 +15,7 @@ create table if not exists Cargo(
 id int primary key auto_increment,
 nome varchar(45),
 fk_empresa_cargo int,
-ativo tinyint,
+ativo BOOLEAN DEFAULT 1,
 constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id)
 );
 
@@ -35,7 +35,7 @@ constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Car
 
 create table if not exists Permissao(
 id int primary key auto_increment,
-nome varchar(20)
+nome varchar(35)
 );
 
 create table if not exists PermissaoCargo(
@@ -113,10 +113,10 @@ INSERT INTO Metrica (unidadeMedida)
 			('Pacotes/s');
 -- --------------------------------------------------------------
 
-INSERT INTO Empresa (nomeEmpresarial, cnpj, nomeRepresentante, email) VALUES
-('Riot Games', '12345678000190', 'Leonardo', 'contato@riotgames.com'),
-('Ubisoft', '98765432000110', 'Tibursio', 'contato@ubisoft.com'),
-('Nintendo', '55123456000155', 'João', 'contato@nintendo.com');
+INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
+('Riot Games', '12345678000190', 'contato@riotgames.com'),
+('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
+('Nintendo', '55123456000155', 'contato@nintendo.com');
 
 
 
