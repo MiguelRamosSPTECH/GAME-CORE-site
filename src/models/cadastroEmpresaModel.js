@@ -17,10 +17,20 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
     console.log("ID da empresa criada: \n" + idEmpresa);
     console.log("Empresa cadastrada com sucesso!");
 
+    let cargoRootDB = `
+    
+        INSERT INTO Cargo (nome, fk_empresa_cargo) 
+        VALUES ('Administrador Master', '${idEmpresa}');
+
+    `
+    let cadCargoRoot = await database.executar(cargoRootDB);
+    let idCargo = cadCargoRoot.insertId;
+    console.log("Inserindo cargo de administrador ao usuário" + cadCargoRoot)
+
     let funcDB = `
 
-        INSERT INTO Funcionario (nome, email, cpf, senha, userMaster)
-        VALUES ('${nomeEmpresarial}', '${email}', '${cpfFunc}', '${senhaFunc}', 1);
+        INSERT INTO Funcionario (nome, email, cpf, senha, fk_cargo_func)
+        VALUES ('${nomeEmpresarial}', '${email}', '${cpfFunc}', '${senhaFunc}', '${idCargo}');
 
     `;
 

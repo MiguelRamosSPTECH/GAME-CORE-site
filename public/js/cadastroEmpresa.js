@@ -62,12 +62,13 @@ function cadastrar() {
                 if (resposta.ok) {
                     resposta.json().then(json => {
 
-                        const idEmpresaGerado = json.id || json.insertId || json.idEmpresa || idEmpresa;
+                        const idEmpresaGerado = json.idEmpresa;
 
                         if (idEmpresaGerado) {
                             sessionStorage.ID_EMPRESA = idEmpresaGerado;
                             console.log("Cadastro de empresa realizado com sucesso. ID:", idEmpresaGerado);
                             window.location.href = "login.html";
+
 
                         } else {
                             throw "ID da empresa não retornado pelo servidor. Cadastro falhou.";
