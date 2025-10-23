@@ -23,13 +23,15 @@ function criarLayout() {
 
                 if ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].children[0].checked) {
 
-                    let x = (componentesChecked[i].parentNode.innerText).trim().replaceAll(" ", "_")
+                    let w = (componentesChecked[i].parentNode.innerText)
+
+                    let x = (componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText
 
                     y = (componentesChecked[i].parentNode.parentNode.parentNode).children[2].children[0].value
 
                     z = (componentesChecked[i].parentNode.parentNode.parentNode).children[2].children[1].value
 
-                    listaChecked.push({ [x]: `${(componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText}`,"AlertaLeve": y, "AlertaGrave": z})
+                    listaChecked.push({ "componente": w, "metrica": x,"AlertaLeve": y, "AlertaGrave": z})
 
                 }
             }

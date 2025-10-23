@@ -21,7 +21,7 @@ var cadastroEmpresaRouter = require("./src/routes/cadastroEmpresa");
 var cargosRouter = require("./src/routes/cargos");
 var cadastrarServidor = require("./src/routes/cadastrarServidor");
 //var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
-
+var config = require("./src/routes/config");
 
 
 app.use(express.json());
@@ -37,6 +37,7 @@ app.use("/cargos", cargosRouter);
 app.use("/cadastroEmpresa", cadastroEmpresaRouter);
 app.use("/cadastrarServidor", cadastrarServidor);
 //app.use("/aceitarEmpresas", aceitarEmpresasRouter);
+app.use("/config", config);
 
 
 app.listen(PORTA_APP, function () {

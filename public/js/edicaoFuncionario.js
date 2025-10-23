@@ -32,7 +32,7 @@ async function buscarCargos() {
         .then(resposta => {
             console.log("Dado recebido: ", resposta);
 
-            var select = document.getElementById("cargo");
+            var select = document.getElementById("ipt_cargo");
             select.innerHTML = '<option value="">Selecionar</option>';
 
             resposta.forEach(cargo => {
@@ -99,15 +99,15 @@ function removerFunc(){
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none";
-    }
-
 
     function alterarCargo(){
 
-        var nomeFuncionario = nomeFunc;
+        var nomeFuncionario = ipt_nome.value;
+        var emailFuncionario = ipt_email.value;
+        var cpfFuncionario = ipt_cpf.value;
+        var senhaFuncionrio = ipt_senha.value;
         var id_do_Cargo = idCargo;
+        var idEmpresa = sessionStorage.ID_EMPRESA;
 
 
         console.log("Funcionário: ", nomeFuncionario);
@@ -156,9 +156,5 @@ function removerFunc(){
             });
 
         return false;
-    }
-
-    function sumirMensagem() {
-        cardErro.style.display = "none";
     }
 
