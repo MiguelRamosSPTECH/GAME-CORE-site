@@ -33,6 +33,8 @@ function changeElementInPage() {
     console.log(pagina)
 }
 
+
+// =========================================== NAO
 // array global que armazena todas as configurações (componente - metrica)
 const configuracoes = [];
 
@@ -85,7 +87,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+function exibirLayout(){}
 
+function cadastrarServidor(){   
+
+}
 
 
 function enviarCadastroServidor() {
