@@ -48,20 +48,31 @@
 
 
 function showMetrics(elemento) {
-  var areaMetricas = elemento.parentNode.parentNode.parentNode.lastElementChild;
+  var areaMetricas = elemento.parentNode.parentNode.parentNode.children[1];
   var iconeSeta = elemento.parentNode.parentNode;
+  console.log(areaMetricas)
   if(areaMetricas.style.display == "none" || areaMetricas.style.display == "") {
     elemento.style.backgroundColor = "#74ce3a"
     elemento.style.border = "2px solid black"
     areaMetricas.style.display = "flex"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-down"></i>`
+
   } else {
     elemento.style.backgroundColor = "transparent"
     elemento.style.border = "1px solid black"
     areaMetricas.style.display = "none"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-left"></i>`
+  }
+}
+
+function showInputsAlerts(elemento) {
+  var areaInputs = elemento.parentNode.parentNode.nextElementSibling
+  if(elemento.checked) {
+    areaInputs.setAttribute('style','display:flex!important')
+  } else {
+    areaInputs.setAttribute('style','display:none!important')
   }
 }
 
