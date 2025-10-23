@@ -77,8 +77,12 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric"> %
+                                      <input type="checkbox" onclick="showInputsAlerts(this)" name="opt_metric"> %
                                   </div>
+                              </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
                               </div>
                           </div>
                           <div class="opcoes-metricas">
@@ -90,9 +94,13 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_user_cpu"> %
+                                      <input type="checkbox" onclick="showInputsAlerts(this)" name="metric_usercpu"> %
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div>                              
                           </div>     
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -103,9 +111,13 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_system_cpu"> %
+                                      <input type="checkbox" onclick="showInputsAlerts(this)" name="metric_systemcpu"> %
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>                                               
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -115,10 +127,11 @@
                                       <i class="fa-solid fa-angles-left"></i>
                                   </div>
                               <div class="group-opcao-metrica">
-                                <div class="opcao">
-                                    <input type="radio" name="opt_loadavg"> Quantidade
-                                </div>
-                            </div>
+                              </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -129,9 +142,13 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_ociosa_cpu"> %
+                                      <input type="checkbox" name="metric_cpuidle" onclick="showInputsAlerts(this)"> %
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                       </div>
                   </div>
@@ -149,15 +166,19 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_ram"> %
+                                      <input type="radio" name="metric_ram" onclick="showInputsAlerts(this)"> %
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_ram"> MB
+                                      <input type="radio" name="metric_ram" onclick="showInputsAlerts(this)"> MB
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_ram"> GB
+                                      <input type="radio" name="metric_ram" onclick="showInputsAlerts(this)"> GB
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -168,15 +189,19 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_swap"> %
+                                      <input type="radio" name="metric_ramswap" onclick="showInputsAlerts(this)"> %
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_swap"> MB
+                                      <input type="radio" name="metric_ramswap" onclick="showInputsAlerts(this)"> MB
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_swap"> GB
+                                      <input type="radio" name="metric_ramswap" onclick="showInputsAlerts(this)"> GB
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -187,15 +212,19 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_ram_disp"> %
+                                      <input type="radio" name="metric_ramdisp" onclick="showInputsAlerts(this)"> %
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_ram_disp"> MB
+                                      <input type="radio" name="metric_ramdisp" onclick="showInputsAlerts(this)"> MB
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_ram_disp"> GB
+                                      <input type="radio" name="metric_ramdisp" onclick="showInputsAlerts(this)"> GB
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                       </div>
                   </div>
@@ -213,15 +242,19 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_disk"> %
+                                      <input type="radio" name="metric_disco" onclick="showInputsAlerts(this)"> %
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_disk"> MB
+                                      <input type="radio" name="metric_disco" onclick="showInputsAlerts(this)"> MB
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_metric_disk"> GB
+                                      <input type="radio" name="metric_disco" onclick="showInputsAlerts(this)"> GB
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -232,12 +265,16 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                   <div class="opcao">
-                                      <input type="radio" name="opt_throughput"> MB/s
+                                      <input type="radio" name="metric_throughput" onclick="showInputsAlerts(this)"> MB/s
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_throughput"> GB/s
+                                      <input type="radio" name="metric_throughput" onclick="showInputsAlerts(this)"> GB/s
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>  
                           <div class="opcoes-metricas">
                                   <div class="opcao-componente">
@@ -248,15 +285,19 @@
                                   </div>
                               <div class="group-opcao-metrica">
                                 <div class="opcao">
-                                      <input type="radio" name="opt_livre_disk"> %
+                                      <input type="radio" name="metric_discolivre" onclick="showInputsAlerts(this)"> %
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_livre_disk"> MB
+                                      <input type="radio" name="metric_discolivre" onclick="showInputsAlerts(this)"> MB
                                   </div>
                                   <div class="opcao">
-                                      <input type="radio" name="opt_livre_disk"> GB
+                                      <input type="radio" name="metric_discolivre" onclick="showInputsAlerts(this)"> GB
                                   </div>
                               </div>
+                              <div class="inputs-alertas">
+                                    <input type="number" placeholder="Alerta leve">
+                                    <input type="number" placeholder="Alerta grave">
+                              </div> 
                           </div>                         
                       </div>
                   </div>
@@ -293,16 +334,5 @@
         </div>
       </div>
   </div>
-
-  <script>
-    document.querySelector('.cancel').addEventListener('click', () => {
-  alert('Cancelado!');
-});
-
-document.querySelector('.create').addEventListener('click', () => {
-  alert('Configuração criada com sucesso!');
-});
-
-  </script>
 </body>
 </html>

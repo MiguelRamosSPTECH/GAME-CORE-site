@@ -48,7 +48,7 @@
 
 
 function showMetrics(elemento) {
-  var areaMetricas = elemento.parentNode.parentNode.parentNode.lastElementChild;
+  var areaMetricas = elemento.parentNode.parentNode.parentNode.children[1];
   var iconeSeta = elemento.parentNode.parentNode;
   if(areaMetricas.style.display == "none" || areaMetricas.style.display == "") {
     elemento.style.backgroundColor = "#74ce3a"
@@ -56,12 +56,26 @@ function showMetrics(elemento) {
     areaMetricas.style.display = "flex"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-down"></i>`
+
   } else {
+    for(let i=0;i<areaMetricas.children.length;i++) {
+      areaMetricas.children[i].children[0].checked = false
+      showInputsAlerts(areaMetricas.children[0].children[0])
+    }
     elemento.style.backgroundColor = "transparent"
     elemento.style.border = "1px solid black"
     areaMetricas.style.display = "none"
     iconeSeta.removeChild(iconeSeta.lastElementChild)
     iconeSeta.innerHTML+=`<i class="fa-solid fa-angles-left"></i>`
+  }
+}
+
+function showInputsAlerts(elemento) {
+  var areaInputs = elemento.parentNode.parentNode.nextElementSibling
+  if(elemento.checked) {
+    areaInputs.setAttribute('style','display:flex!important')
+  } else {
+    areaInputs.setAttribute('style','display:none!important')
   }
 }
 
