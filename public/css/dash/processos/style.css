@@ -281,3 +281,22 @@ table tr th {
 .ipt_idServer {
     display: none;
 }
+
+
+.div_icones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.coluna_tabela_func{
+    width:14% ;
+        text-align: center;
+    justify-content: center;
+}
+
+.celula_func{
+    text-align: center;
+    justify-content: center;
+}
