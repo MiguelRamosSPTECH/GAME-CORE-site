@@ -22,6 +22,7 @@ var cargosRouter = require("./src/routes/cargos");
 var cadastrarServidor = require("./src/routes/cadastrarServidor");
 //var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
 var config = require("./src/routes/config");
+var configGlobal = require("./src/routes/configuracaoGlobal");
 
 
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use("/cadastroEmpresa", cadastroEmpresaRouter);
 app.use("/cadastrarServidor", cadastrarServidor);
 //app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 app.use("/config", config);
+app.use("/configuracaoGlobal", configGlobal);
 
 
 app.listen(PORTA_APP, function () {

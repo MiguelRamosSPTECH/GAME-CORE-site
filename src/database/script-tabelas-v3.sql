@@ -111,7 +111,8 @@ INSERT INTO Metrica (unidadeMedida)
 			('MB'),
 			('GB'),
 			('MB/s'),
-			('GB/s');
+			('GB/s'),
+            ('Numérico');
 -- --------------------------------------------------------------
 
 INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
