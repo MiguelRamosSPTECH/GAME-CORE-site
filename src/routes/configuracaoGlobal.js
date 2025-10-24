@@ -7,9 +7,9 @@ router.get("/listar", function (req, res) {
     configuracaoGlobalController.listar(req, res);
 });
 
-router.put("/atualizar/:id", function(req,res){
-    configuracaoGlobalController.atualizar(req,res);
-});
+// router.put("/atualizar/:id", function(req,res){
+//     configuracaoGlobalController.atualizar(req,res);
+// });
 
 
 module.exports = router;
