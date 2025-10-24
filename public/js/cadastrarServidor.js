@@ -1,4 +1,6 @@
 console.log("JSSSS")
+var idEmpresa = sessionStorage.ID_EMPRESA;
+
 const mapaDeMetricas = {
     'CPU': ['%'],
     'CPU_USER': ['%'],
@@ -93,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // async function exibirLayout(){
 
+    //var idEmpresa = sessionStorage.ID_EMPRESA;
 
 //     fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
 //         .then(response => response.json())

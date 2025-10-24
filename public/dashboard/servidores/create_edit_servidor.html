@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,19 +25,19 @@
                         <i class="fa-solid fa-clock"></i>
                     </div>
                     <div class="circle-option">
-                            <i class="fa-solid fa-bug"></i>
-                        </div>
+                        <i class="fa-solid fa-bug"></i>
+                    </div>
                     <div class="circle-option">
                         <i onclick="window.location.href='../layouts/configs_padrao.html'" class="fa-solid fa-gear"></i>
                     </div>
                 </div>
                 <div class="area-logoff">
                     <div class="circle-option logoff">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </div>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <div class="content-dash">
             <div class="card-cadastro">
                 <div class="content-cadastro">
@@ -53,11 +54,17 @@
                                     <div class="inputs">
                                         <div class="info-input">
                                             <label for="ipt_nome">Nome</label>
-                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..." onkeyup="showInfoInput(this)">
+                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..."
+                                                onkeyup="showInfoInput(this)">
+                                        </div>
+                                        <div class="info-input">
+                                            <label for="ipt_nome">Apelido (Alias)</label>
+                                            <input type="text" id="ipt_apelido" placeholder="Apelido do servidor...">
                                         </div>
                                         <div class="info-input">
                                             <label for="ipt_regiao">Região</label>
-                                            <input id="ipt_regiao" onchange="showInfoInput(this)" placeholder="Região do servidor...">
+                                            <input id="ipt_regiao" onchange="showInfoInput(this)"
+                                                placeholder="Região do servidor...">
                                         </div>
                                     </div>
                                 </div>
@@ -68,13 +75,13 @@
                                     <div class="inputs second-group">
                                         <div class="info-input">
                                             <label for="ipt_configuracao">Configuração Inicial</label>
-                                                <select id="ipt_configuracao" onchange="showInfoInput(this)">
-                                                    <option value="">-----</option>
-                                                </select>
+                                            <select id="ipt_configuracao" onchange="showInfoInput(this)">
+                                                <option value="">-----</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="desc-campo">
                                 <span id="title-campo"></span>
                                 <span id="descricao-campo"></span>
@@ -98,15 +105,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                              
-                        </div>  
+                            </div>
+                        </div>
                         <div class="area-buttons">
                             <button onclick="window.location.href='../index.html'">CANCELAR</button>
                             <button id="confirm">CONFIRMAR</button>
-                        </div>                  
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>    
-    </div>    
+        </div>
 </body>
+
 </html>
