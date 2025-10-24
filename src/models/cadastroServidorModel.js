@@ -59,6 +59,8 @@ function enviarCadastroServidor(hostname, ip, localizacao, configuracao, idEmpre
         });
 }
 
+
+
 module.exports = {
     enviarCadastroServidor
 };

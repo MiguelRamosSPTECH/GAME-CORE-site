@@ -40,6 +40,29 @@ function cadastrarServidor(req, res) {
             );
     }
 }
+
+function exibirLayout(req, res){
+    var fk_empresa_cargo = req.params.idEmpresa;
+
+    cargoModel.exibirLayout(fk_empresa_cargo)
+        .then(
+            function(resultado){
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao buscar o cargo! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+        );
+}
+
+
 module.exports = {
-    cadastrarServidor
+    cadastrarServidor,
+    exibirLayout
 };
