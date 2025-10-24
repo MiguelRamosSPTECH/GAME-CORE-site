@@ -50,7 +50,7 @@ constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
 CREATE TABLE layout (
 	id int primary key auto_increment,
 	nome VARCHAR(45),
-    emUso tinyint,
+    emUso BOOLEAN DEFAULT 1,
     fk_empresa_layout int,
     constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references Empresa(id)
 );
@@ -95,23 +95,23 @@ constraint ct_LayoutCs foreign key fklayoutcs(fk_layout) references layout(id)
 -- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
 INSERT INTO Componente (nome)
 	VALUES 	('CPU'),
+			('User CPU USE'),
+            ('System CPU USE'),
+            ('LOADAVG'),
+            ('CPU OCIOSA'),
 			('RAM'),
-            ('Disco'),
-            ('Processos'),
-            ('Rede');
+            ('RAM SWAP'),
+            ('RAM DISP.'),
+            ('DISCO'),
+            ('THROUGHTPUT(I/O)'),
+            ('DISCO LIVRE');
         
 INSERT INTO Metrica (unidadeMedida)
 	VALUES 	('%'),
-			('MHz'),
-			('GHz'),
 			('MB'),
 			('GB'),
-			('TB'),
-			('#'),
-			('Tempo (s)'),
-			('PID'),
-			('Mbps'),
-			('Pacotes/s');
+			('MB/s'),
+			('GB/s');
 -- --------------------------------------------------------------
 
 INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
@@ -122,8 +122,8 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
 
 
 INSERT INTO Permissao (nome) VALUES 
-("Dashboard de Analista"),
-("Dashboard de Suporte"),
+("Dashboard GameOps"),
+("Dashboard SRE"),
 ("Cadastro de Funcionário"),
 ("Edição de Funcionário"),
 ("Cadastro de Servidor"),
