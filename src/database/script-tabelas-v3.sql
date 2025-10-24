@@ -110,8 +110,8 @@ INSERT INTO Metrica (unidadeMedida)
 	VALUES 	('%'),
 			('MB'),
 			('GB'),
-			('MB/s'),
-			('GB/s'),
+			('MBS'),
+			('GBS'),
             ('Numérico');
 -- --------------------------------------------------------------
 

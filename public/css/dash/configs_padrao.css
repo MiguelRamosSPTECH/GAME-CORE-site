@@ -232,14 +232,11 @@ main {
 }
 
 .card h2 {
-    color: #ffca28;
-    font-size: x-large;
+    color: #f1d7d7;
+    font-size: xx-large;
+    width: 80%;
 }
 
-.card h2 span {
-    color: #fff;
-    font-size: x-large;
-}
 
 .card p {
     color: #ccc;
@@ -265,7 +262,7 @@ main {
     font-size: 22px;
     height: 100%;
 }
-.icon-ram,.icon-cpu {
+.icon-ram,.icon-cpu, .icon-disco {
     background-image: url('../../assets/imgs/icon-ram-config.png');
     background-position: center;
     background-size: cover;
@@ -275,6 +272,9 @@ main {
 }
 .icon-cpu {
     background-image: url('../../assets/imgs/icon-cpu-config.png');
+}
+.icon-disco {
+    background-image: url('../../assets/imgs/icon-disco.png');
 }
 
 .icon-item span {
