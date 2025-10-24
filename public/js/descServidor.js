@@ -102,3 +102,17 @@ function descricaoChamado() {
       backgroundModal.style.display = "none"
     }
 }
+
+
+
+var permissoesNecessarias = [1, 2];
+
+function iniciarPagina() {
+
+      validarSessao();
+
+      setTimeout(function() {
+          checarPermissoes(permissoesNecessarias);
+      }, 200);
+
+}

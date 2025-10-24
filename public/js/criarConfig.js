@@ -71,3 +71,17 @@ function criarLayout() {
         return false;
     }
 }
+
+
+
+var permissoesNecessarias = [1, 2];
+
+function iniciarPagina() {
+
+      validarSessao();
+
+      setTimeout(function() {
+          checarPermissoes(permissoesNecessarias);
+      }, 200);
+
+}

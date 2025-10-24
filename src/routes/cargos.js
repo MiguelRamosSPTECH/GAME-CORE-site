@@ -31,4 +31,8 @@ router.post('/removerFunc', function(req, res){
     cargoController.removerFunc(req, res);
 })
 
+router.post("/buscarPermissoes", function(req, res) {
+    cargoController.buscarPermissoes(req, res);
+});
+
 module.exports = router;
