@@ -6,16 +6,23 @@ function carregarConfigs() {
             "Content-Type": "application/json"
         }
     })
-    .then(async resposta => {
-        var listaLayouts = await resposta.json();
-        var nomeLayoutTroca = "";
-        var nomeComponenteTroca = ""
-        if(resposta.ok) {
-            var divLayouts = document.getElementById('area_layouts');
-            var contador = 0;
-            listaLayouts.forEach(layout => {
-                if(nomeLayoutTroca != layout.nomeLayout) {
-                    divLayouts.innerHTML+=`
+        .then(async resposta => {
+            var listaLayouts = await resposta.json();
+            var nomeLayoutTroca = "";
+            var nomeComponenteTroca = ""
+            var stringsComponentes = "";
+            var areaComponentes;
+            if (resposta.ok) {
+                var divLayouts = document.getElementById('area_layouts');
+                var contador = 0;
+                
+                console.log(listaLayouts)
+
+                listaLayouts.forEach(layout => {
+                    if (nomeLayoutTroca != layout.nomeLayout) {
+
+
+                        divLayouts.innerHTML += `
                         <div class="card">
                             <div class="icon-top">
                                 <img src="../../assets/imgs/icon-config-layout.png">
@@ -27,62 +34,43 @@ function carregarConfigs() {
                             <button>USAR LAYOUT</button>
                         </div>                          
                     `
-                    contador++;
-                }
-                nomeLayoutTroca = layout.nomeLayout
-            })
-            contador = 0;
-            var contaVezes = 0;
-            nomeComponenteTroca = ""
-            nomeLayoutTroca = ""
-            var stringsComponentes = ""
-            var areaComponentes
-            listaLayouts.forEach(layout => {
-                if(document.getElementById(`componentes_${contador}`) == null) {
-                    contador--
-                } 
-                areaComponentes = document.getElementById(`componentes_${contador}`)
-                console.log(areaComponentes)
-                    if(contaVezes <=3) {
-                        console.log(nomeComponenteTroca != layout.nome.split("_")[0].toLowerCase())
-                        if(nomeComponenteTroca != layout.nome.split("_")[0].toLowerCase()) {
-                            if(layout.nome.split("_")[0].toLowerCase() == "cpu") {
-                                stringsComponentes+=
+                        contador++;
+                    }
+
+                    if (nomeComponenteTroca != layout.nome.split("_")[0].toLowerCase() || nomeLayoutTroca != layout.nomeLayout) {
+                        areaComponentes = document.getElementById(`componentes_${contador - 1}`)
+
+                        if (layout.nome.split("_")[0].trim().toLowerCase() == "cpu") {
+                            areaComponentes.innerHTML +=
                                 `
                                     <div class="icon-item">
                                         <div class="icon-cpu"></div>
                                         <span>CPU</span>
                                     </div>                           
                                 `
-                            } else if(layout.nome.split("_")[0].toLowerCase() == "ram") {
-                                stringsComponentes+=
+                        } else if (layout.nome.split("_")[0].trim().toLowerCase() == "ram") {
+                            areaComponentes.innerHTML +=
                                 `
                                     <div class="icon-item">
                                         <div class="icon-ram"></div>
                                         <span>RAM</span>
                                     </div>                           
                                 `
-                            } else {
-                                stringsComponentes+=
+                        } else {
+                            areaComponentes.innerHTML +=
                                 `
                                     <div class="icon-item">
                                         <div class="icon-disco"></div>
                                         <span>DISCO</span>
                                     </div>                           
                                 `
-                            }
-                        }        
-                        contador++ 
-                        contaVezes++              
-                    }  else {
-                        contaVezes = 0;
+                        }
                     }
-                    
-                    nomeComponenteTroca = layout.nome.split("_")[0].toLowerCase()
-            })
-            areaComponentes.innerHTML = stringsComponentes
-            
 
-        }
-    })
+                    nomeComponenteTroca = layout.nome.split("_")[0].toLowerCase()
+                    nomeLayoutTroca = layout.nomeLayout
+
+                })
+            }
+        })
 }
