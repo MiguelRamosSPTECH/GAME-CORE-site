@@ -41,19 +41,22 @@ function cadastrarServidor(req, res) {
     }
 }
 
-function exibirLayout(req, res){
-    var fk_empresa_cargo = req.params.idEmpresa;
+function exibeLayout(req, res){
 
-    cargoModel.exibirLayout(fk_empresa_cargo)
+    var fk_empresa_layout = req.params.idEmpresa;
+
+    cadastroServidorModel.exibeLayout(fk_empresa_layout)
         .then(
             function(resultado){
                 res.json(resultado);
+                console.log("O QUE TEM AQUIIIIII?" + res)
+                console.log("O QUE TEM AQUIIIIII?" + resultado)
             }
         ).catch(
             function (erro) {
                     console.log(erro);
                     console.log(
-                        "\nHouve um erro ao buscar o cargo! Erro: ",
+                        "\nHouve um erro ao buscar o layout! Erro: ",
                         erro.sqlMessage
                     );
                     res.status(500).json(erro.sqlMessage);
@@ -64,5 +67,5 @@ function exibirLayout(req, res){
 
 module.exports = {
     cadastrarServidor,
-    exibirLayout
+    exibeLayout
 };

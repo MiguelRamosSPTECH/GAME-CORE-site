@@ -60,7 +60,22 @@ function enviarCadastroServidor(hostname, ip, localizacao, configuracao, idEmpre
 }
 
 
+function exibeLayout(fk_empresa_layout){
+
+    var obtendoLayout = `
+
+        SELECT id, nome FROM layout WHERE fk_empresa_layout = ${fk_empresa_layout}
+
+    `;
+
+    console.log("Layout obtido: " + obtendoLayout);
+    return database.executar(obtendoLayout);
+
+}
+
+
 
 module.exports = {
-    enviarCadastroServidor
+    enviarCadastroServidor,
+    exibeLayout
 };
