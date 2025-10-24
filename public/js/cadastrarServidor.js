@@ -91,7 +91,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function exibirLayout(){}
+async function exibirLayout(){
+
+
+    fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
+        .then(response => response.json())
+        .then(resposta => {
+            console.log("Dado recebido: ", resposta);
+
+            var select = document.getElementById("ipt_configuracao");
+            select.innerHTML = '<option value="">Selecionar</option>';
+
+            resposta.forEach(layout => {
+            select.innerHTML += `<option value="${layout.id}">${layout.nome}</option>`;
+            return idLayout = layout.id
+        });
+        console.log("Options do select:", select.innerHTML);
+
+        console.log("ID do cargo" + idLayout)
+
+        })
+        .catch(erro => console.error("Erro:", erro));
+
+
+}
 
 function cadastrarServidor(){   
 
