@@ -1,6 +1,6 @@
 var database = require("../database/config");
 
-function buscar(idEmpresa){
+function buscar(idEmpresa) {
     var instrucaoSql = `
         SELECT id, nome 
         FROM Layout 
@@ -23,12 +23,27 @@ function buscarCompleto(idEmpresa) {
         inner join metrica m on
         m.id = cs.fk_metrica_cs
         where e.id = ${idEmpresa}
-        order by l.id;`;
-        console.log("Buscando layouts da empresa COMPLETO: \n" + instrucaoSql);
-        return database.executar(instrucaoSql);
+        order by l.id, c.nome;`;
+    console.log("Buscando layouts da empresa COMPLETO: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+async function usarLayout(idLayout, idEmpresa) {
+
+    let instrucaoSql1 = `
+        UPDATE layout SET emUso = 0 WHERE fk_empresa_layout = ${idEmpresa};
+    `;
+    await database.executar(instrucaoSql1);
+
+
+    let instrucaoSql2 = `
+        UPDATE layout SET emUso = 1 WHERE id = ${idLayout};
+    `;
+    return database.executar(instrucaoSql2);
 }
 
 module.exports = {
     buscar,
-    buscarCompleto
+    buscarCompleto,
+    usarLayout
 };
