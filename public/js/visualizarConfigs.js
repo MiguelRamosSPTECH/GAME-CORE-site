@@ -15,7 +15,7 @@ function carregarConfigs() {
             if (resposta.ok) {
                 var divLayouts = document.getElementById('area_layouts');
                 var contador = 0;
-                
+
                 console.log(listaLayouts)
 
                 listaLayouts.forEach(layout => {
@@ -31,7 +31,7 @@ function carregarConfigs() {
                             <input type="text" style="display:none" value="${layout.id}">
                             <div class="icons-bottom" id="componentes_${contador}">
                             </div>
-                            <button>USAR LAYOUT</button>
+                            <button onclick="usarLayout(${layout.id})">USAR LAYOUT</button>
                         </div>                          
                     `
                         contador++;
@@ -73,4 +73,28 @@ function carregarConfigs() {
                 })
             }
         })
+}
+
+function usarLayout(idLayout) {
+    const idLayoutVar = idLayout;
+    const idEmpresaVar = sessionStorage.ID_EMPRESA;
+
+    // if ()validação
+
+    fetch("/layouts/usarLayout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            idLayoutServer: idLayoutVar,
+            idEmpresaServer: idEmpresaVar
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta)
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
 }
