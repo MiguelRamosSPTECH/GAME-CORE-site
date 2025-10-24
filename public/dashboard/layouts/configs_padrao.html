@@ -10,7 +10,7 @@
         <script src="../../js/visualizarConfigs.js"></script>
     </head>
 
-    <body>          
+    <body onload="carregarConfigs()">          
     <div class="container-all">
             <div class="nav-lateral">
                 <div class="logo-dbg">
@@ -53,57 +53,7 @@
                 </div>
             
                 <main>
-                    <div class="cards">
-                        <div class="card ">
-                            <div class="icon-top">
-                                <img src="../../assets/imgs/icon-config-layout.png">
-                            </div>
-                            <h2>DESEMPENHO <span>LÓGICO</span></h2>
-                            <p>DO JOGO</p>
-                            <div class="icons-bottom">
-                                <div class="icon-item">
-                                    <div class="icon-cpu"></div>
-                                    <span>CPU</span>
-                                </div>
-                                <div class="icon-item">
-                                    <div class="icon-ram"></div>
-                                    <span>RAM</span>
-                                </div>
-                            </div>
-                            <button>USAR LAYOUT</button>
-                        </div>  
-                        <div class="card">
-                            <div class="icon-top"><img src="../../assets/imgs/icon-config-layout.png"></div>
-                            <h2>DESEMPENHO <span>LÓGICO</span></h2>
-                            <p>DO JOGO</p>
-                            <div class="icons-bottom">
-                                <div class="icon-item">
-                                    <div class="icon-cpu"></div>
-                                    <span>CPU</span>
-                                </div>
-                                <div class="icon-item">
-                                    <div class="icon-ram"></div>
-                                    <span>RAM</span>
-                                </div>
-                            </div>
-                            <button>USAR LAYOUT</button>
-                        </div>
-                        <div class="card">
-                            <div class="icon-top"><img src="../../assets/imgs/icon-config-layout.png"></div>
-                            <h2>DESEMPENHO <span>LÓGICO</span></h2>
-                            <p>DO JOGO</p>
-                            <div class="icons-bottom">
-                                <div class="icon-item">
-                                    <div class="icon-cpu"></div>
-                                    <span>CPU</span>
-                                </div>
-                                <div class="icon-item">
-                                    <div class="icon-ram"></div>
-                                    <span>RAM</span>
-                                </div>
-                            </div>
-                            <button>USAR LAYOUT</button>
-                        </div>
+                    <div class="cards" id="area_layouts">
                     </div>
                 </main>
         </div>

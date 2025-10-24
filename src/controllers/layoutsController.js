@@ -10,15 +10,21 @@ function buscar(req, res) {
             res.status(500).json(erro.sqlMessage);
         });
 
-    // .then(function(resultado){
-    //     res.json(resultado);
-    // })
-    // .catch(function(erro){
-    //     console.log("\nErro ao buscar layouts: ", erro.sqlMessage);
-    //     res.status(500).json(erro.sqlMessage);
-    // });
+}
+
+function buscarCompleto(req,res) {
+    const idEmpresa = req.params.idEmpresa;
+
+    layoutsModel.buscarCompleto(idEmpresa)
+    .then(result => res.status(201).json(result))
+    .catch(erro => {
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage);
+    })
+    ;
 }
 
 module.exports = {
-    buscar
+    buscar,
+    buscarCompleto
 };

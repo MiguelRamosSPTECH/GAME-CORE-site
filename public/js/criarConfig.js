@@ -23,7 +23,7 @@ function criarLayout() {
 
                 if ((componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].children[0].checked) {
 
-                    let w = (componentesChecked[i].parentNode.innerText)
+                    let w = (componentesChecked[i].parentNode.innerText).trim().replaceAll(" ", "_");
 
                     let x = (componentesChecked[i].parentNode.parentNode.parentNode).children[1].children[j].innerText
 
@@ -63,7 +63,9 @@ function criarLayout() {
             .then(function (resposta) {
                 console.log("Resposta: ", resposta);
 
-                // if(resposta.ok){}
+                if(resposta.ok) {
+                    window.location.href = "configs_padrao.html"
+                }
             })
             .catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
