@@ -22,7 +22,8 @@ function buscarCompleto(idEmpresa) {
         c.id = cs.fk_componente_cs
         inner join metrica m on
         m.id = cs.fk_metrica_cs
-        where e.id = ${idEmpresa};`;
+        where e.id = ${idEmpresa}
+        order by l.id;`;
         console.log("Buscando layouts da empresa COMPLETO: \n" + instrucaoSql);
         return database.executar(instrucaoSql);
 }
