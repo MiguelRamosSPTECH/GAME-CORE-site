@@ -1,4 +1,4 @@
-
+console.log("JSSSS")
 const mapaDeMetricas = {
     'CPU': ['%'],
     'CPU_USER': ['%'],
@@ -91,33 +91,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-async function exibirLayout(){
+// async function exibirLayout(){
 
 
-    fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
-        .then(response => response.json())
-        .then(resposta => {
-            console.log("Dado recebido: ", resposta);
+//     fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
+//         .then(response => response.json())
+//         .then(resposta => {
+//             console.log("Dado recebido: ", resposta);
 
-            var select = document.getElementById("ipt_configuracao");
-            select.innerHTML = '<option value="">Selecionar</option>';
+//             var select = document.getElementById("ipt_configuracao");
+//             select.innerHTML = '<option value="">Selecionar</option>';
 
-            resposta.forEach(layout => {
-            select.innerHTML += `<option value="${layout.id}">${layout.nome}</option>`;
-            return idLayout = layout.id
+//             resposta.forEach(layout => {
+//             select.innerHTML += `<option value="${layout.id}">${layout.nome}</option>`;
+//             return idLayout = layout.id
+//         });
+//         console.log("Options do select:", select.innerHTML);
+
+//         console.log("ID do cargo" + idLayout)
+
+//         })
+//         .catch(erro => console.error("Erro:", erro));
+
+
+// }
+
+async function exibirLayouts() {
+    const idEmpresa = sessionStorage.ID_EMPRESA;
+    console.log("ID Empresa:", sessionStorage.ID_EMPRESA);
+    if (!idEmpresa) return;
+
+    try {
+        const response = await fetch(`/layouts/buscar/${idEmpresa}`, { cache: 'no-store' });
+        const layouts = await response.json();
+
+        const select = document.getElementById("ipt_configuracao");
+        select.innerHTML = '<option value="">Selecionar</option>';
+
+        layouts.forEach(layout => {
+            const option = document.createElement("option");
+            option.value = layout.id;
+            option.textContent = layout.nome;
+            select.appendChild(option);
         });
-        console.log("Options do select:", select.innerHTML);
 
-        console.log("ID do cargo" + idLayout)
-
-        })
-        .catch(erro => console.error("Erro:", erro));
-
-
+    } catch (erro) {
+        console.error("Erro ao carregar layouts: ", erro);
+    }
 }
 
-function cadastrarServidor(){   
 
+function cadastrarServidor(){
+    // nova função
 }
 
 

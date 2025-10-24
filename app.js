@@ -23,6 +23,7 @@ var cadastrarServidor = require("./src/routes/cadastrarServidor");
 //var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
 var config = require("./src/routes/config");
 var configGlobal = require("./src/routes/configuracaoGlobal");
+var layouts = require("./src/routes/layouts");
 
 
 app.use(express.json());
@@ -40,6 +41,7 @@ app.use("/cadastrarServidor", cadastrarServidor);
 //app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 app.use("/config", config);
 app.use("/configuracaoGlobal", configGlobal);
+app.use("/layouts", layouts);
 
 
 app.listen(PORTA_APP, function () {
