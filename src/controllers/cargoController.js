@@ -66,51 +66,7 @@ function buscarFunc(req, res){
         );
 }
 
-function alterarCargo(req, res){
 
-    var funcionario = req.body.nomeFuncServer
-    var cargo = req.body.idCargoServer
-
-    cargoModel.alterarCargo(funcionario, cargo)
-        .then(
-        function(resultado){
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao alterar o cargo! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-        );
-
-}
-
-
-function removerFunc(req, res){
-
-    var funcionario = req.body.nomeFuncServer
-
-    cargoModel.removerFunc(funcionario)
-        .then(
-        function(resultado){
-                res.json(resultado);
-            }
-        ).catch(
-            function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao alterar o cargo! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-        );
-
-}
 
 function buscarPermissoes(req, res) {
 
@@ -129,7 +85,9 @@ function buscarPermissoes(req, res) {
                 var permissoes = [];
 
                 for (let i = 0; i < resultado.length; i++) {
+
                     permissoes.push(resultado[i].fk_permissao_pc);
+
                 }
             
                 res.json({ permissoes: permissoes });
@@ -153,7 +111,5 @@ module.exports = {
     criar,
     buscar,
     buscarFunc,
-    alterarCargo,
-    removerFunc,
     buscarPermissoes
 }
