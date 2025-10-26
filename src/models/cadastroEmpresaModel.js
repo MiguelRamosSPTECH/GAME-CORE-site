@@ -37,6 +37,24 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
     let cadFunc = await database.executar(funcDB);
     console.log("Executando a instrução SQL (Funcionário): \n" + funcDB)
     console.log("Funcionário cadastrado com sucesso!");
+
+
+
+    for (i = 1; i < 7; i++){
+
+    var permFunc = `
+
+        INSERT INTO PermissaoCargo (fk_permissao_pc, fk_cargo_pc, permissoes)
+        VALUES (
+                ${i},
+                ${idCargo},
+                ${i}
+                );
+                `;
+
+    let cadPermissaoCargoMaster = await database.executar(permFunc)
+
+    }
     
     return {idEmpresa:idEmpresa};
 

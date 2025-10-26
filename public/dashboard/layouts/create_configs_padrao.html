@@ -10,9 +10,9 @@
   <script src="../../js/descServidor.js"></script>
   <script src="../../js/sessao.js"></script>
   <script src="../../js/criarConfig.js" defer></script>
+  <script src="../../../js/edicaoFuncionario.js"></script>
 </head>
-<!-- <body onload="validarSessao()"> -->
-<body>
+<body onload="validarSessao()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="area-logoff">
-                    <div class="circle-option logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
                     <i class="fa-solid fa-right-from-bracket"></i>
                 </div>
                 </div>
