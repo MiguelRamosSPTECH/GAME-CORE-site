@@ -19,7 +19,6 @@ function entrar() {
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-
             if (resposta.ok) {
                 console.log(resposta);
 
@@ -27,25 +26,28 @@ function entrar() {
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    console.log("FK CARGO RECEBIDO NO LOGIN:", json.fk_cargo_func);
-                    console.log("PERMISSOES:", sessionStorage.getItem("PERMISSOES_USUARIO"));
-
                     sessionStorage.ID_EMPRESA = json.idEmpresa; 
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    var fk_cargo_func = json.fk_cargo_func; 
+                    sessionStorage.NOME_CARGO = json.nomeCargo;
 
                     //Chama a função para buscar as permissões antes de redirecionar
                     buscarEsalvarPermissoes(fk_cargo_func);
 
 
                     setTimeout(function () {
-                        window.location = "../../dashboard/servidores/desc_servidor.html";
-                        console.log("ENTROUUUU");
+                        if(sessionStorage.NOME_CARGO == "Administrador Master") {
+                             window.location = "../dashboard/dash_adm/funcionarios/index.html";
+                        } else if(sessionStorage.NOME_CARGO == "GAMEOPS") {
+                            window.location = "../dashboard/index.html"
+                        } else if(sessionStorage.NOME_CARGO == "Engenheiro SRE") {
+                            window.location = "../dashboard/dash_sre"
+                        }
+                        
 
-                    }, 1000);
+                    }, 500); // apenas para exibir o loading
 
                 });
 

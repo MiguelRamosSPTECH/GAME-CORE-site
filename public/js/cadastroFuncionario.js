@@ -102,16 +102,4 @@ function cadastrarFunc() {
             });
 
         return false;
-}
-
-var permissoesNecessarias = [3];
-
-function iniciarPagina() {
-
-      validarSessao();
-
-      setTimeout(function() {
-          checarPermissoes(permissoesNecessarias);
-      }, 200);
-
-}
+    }
