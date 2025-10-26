@@ -158,17 +158,3 @@ function removerFunc(){
         return false;
     }
 
-
-
-var permissoesNecessarias = [4];
-
-function iniciarPagina() {
-
-      validarSessao();
-
-      setTimeout(function() {
-          checarPermissoes(permissoesNecessarias);
-      }, 200);
-
-}
-

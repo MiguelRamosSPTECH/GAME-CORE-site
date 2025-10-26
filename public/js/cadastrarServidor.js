@@ -238,17 +238,3 @@ function enviarCadastroServidor() {
 
 
 }
-
-
-
-var permissoesNecessarias = [5];
-
-function iniciarPagina() {
-
-      validarSessao();
-
-      setTimeout(function() {
-          checarPermissoes(permissoesNecessarias);
-      }, 200);
-
-}

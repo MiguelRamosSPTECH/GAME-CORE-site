@@ -53,18 +53,4 @@
             return false;
     }
 
-
-
-//var permissoesNecessarias = [6];
-//
-//function iniciarPagina() {
-//
-//      validarSessao();
-//
-//      setTimeout(function() {
-//          checarPermissoes(permissoesNecessarias);
-//      }, 200);
-//
-//}
-
     
