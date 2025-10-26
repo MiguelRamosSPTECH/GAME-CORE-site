@@ -28,11 +28,12 @@ function showInfoInput(input) {
     var input_prefixo = (input.id).split("_")
     var valorInput = input.value
     var descricaoCampos = {
-        "nome": "Este campo é responsável pela identificação do servidor! Você pode escolher tanto um nome, quanto um código de identificação. Isso tudo varia de acordo com suas preferências e modelo de referências dentro da sua empresa no seu setor específico! Este é o campo mais importante, trate de seguir padrões para te ajudar na identificação de uma forma mais rápida",
+        "apelido":"Este campo é responsável pela identificação mais fácil do servidor! Você pode escolher tanto um apelido, quanto um código de identificação. Isso tudo varia de acordo com suas preferências e modelo de referências dentro da sua empresa no seu setor específico! Este é o campo mais importante, trate de seguir padrões para te ajudar na identificação de uma forma mais rápida",
+        "nome": "Este campo se refere ao MACADRESS do seu servidor! Peço que você verifique qual o macadress do seu servidor utilizando o comando ipconfig /all no terminal e indo na aba de Adaptador de Rede sem Fio Wi-Fi e depois indo em Endereço Físico. Necessário ser o MACADRESS, se não o script de captura NÃO FUNCIONARÁ!",
         "regiao":"Este campo é responsável pela identificação da região onde o servidor se encontra! O como você irá gerenciar e/ou dividir essas regiões também depende de como sua empresa e/ou seu setor funciona e/ou trabalha! Lembre-se de que essa é uma parte importante, pois otimizará seu tempo na identificação de problemas",
         "configuracao":"Neste campo você pode escolher uma configuração inicial para seu servidor. Uma configuração inicial é o layout de componentes que você já quer que seja escolhido quando você for monitorar! Lembrando que você pode editar o que vêm nestas configurações no menu lateral da dashboard!"
     }
-    divRastrear.style.display = "flex"
+    // divRastrear.style.display = "flex"
     tituloInput.innerText = `${input_prefixo[1].toUpperCase()} DO SERVIDOR`
     descInput.innerHTML = descricaoCampos[`${input_prefixo[1]}`]
     valorAtualRastrear.innerText = valorInput
