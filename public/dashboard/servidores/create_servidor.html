@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../css/dash/funcionarios/create_func.css
-    ">
+    <link rel="stylesheet" href="../../css/dash/create_edit_server.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script src="../../../js/cadastroFuncionario.js"></script>
-    <script src="../../../js/sessao.js"></script>
-    <script src="../../../js/edicaoFuncionario.js"></script>
+    <script src="../../js/cadastrarServidor.js" defer></script>
     <title>CREATE SERVER | DBGWATCH</title>
 </head>
-<body onload="validarSessao(), buscarCargos()">
+<!-- <body onload="changeElementInPage(), exibirLayouts()"> -->
+<body onload="exibirLayouts()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
-                <img src="../../../assets/imgs/DBG.-logo2png.png" alt="">
+                <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
             </div>
             <div class="options-nav">
                 <div class="principal-options">
                     <div class="circle-option">
-                        <i onclick="window.location.href='./index.html'" class="fa-solid fa-house"></i>
+                        <i onclick="window.location.href='../index.html'" class="fa-solid fa-house"></i>
                     </div>
                     <div class="circle-option">
-                        <i class="fa-solid fa-address-card"></i>
-                    </div>                    
+                        <i onclick="window.location.href='../processos/index.html'" class="fa-solid fa-clock"></i>
+                    </div>
+                    <div class="circle-option">
+                        <i onclick="window.location.href='../historico_alerta.html'" class="fa-solid fa-bug"></i>
+                    </div>                      
+                    <div class="circle-option">
+                        <i onclick="window.location.href='../layouts/configs_padrao.html'" class="fa-solid fa-gear"></i>
+                    </div>
                 </div>
                 <div class="area-logoff">
                     <div class="circle-option logoff">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                </div>
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <div class="content-dash">
             <div class="card-cadastro">
                 <div class="content-cadastro">
                     <div class="container-cadastro">
                         <div class="title-card">
-                            CRIANDO PERFIL
+                            CADASTRANDO SERVIDOR
                         </div>
                         <div class="row">
                             <div class="form-cadastro">
@@ -49,38 +54,34 @@
                                     <div class="inputs">
                                         <div class="info-input">
                                             <label for="ipt_nome">Nome</label>
-                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..." onkeyup="showInfoInput(this)">
+                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..."
+                                                onkeyup="showInfoInput(this)">
                                         </div>
                                         <div class="info-input">
-                                            <label for="ipt_email">Email</label>
-                                            <input id="ipt_email" onkeyup="showInfoInput(this)" placeholder="Email do funcionario...">
+                                            <label for="ipt_nome">Apelido (Alias)</label>
+                                            <input type="text" id="ipt_apelido" placeholder="Apelido do servidor...">
                                         </div>
-                                        <div class="info-input-duplo">
-                                            <div class="input-duplo">
-                                                <label for="ipt_cpf">CPF</label>
-                                                <input id="ipt_cpf" onkeyup="showInfoInput(this)" placeholder="CPF do funcionário...">
-                                            </div>
-                                            <div class="input-duplo">
-                                                <label for="ipt_senha">Senha</label>
-                                                <input id="ipt_senha" onkeyup="showInfoInput(this)" placeholder="Senha do funcionário...">
-                                            </div>
+                                        <div class="info-input">
+                                            <label for="ipt_regiao">Região</label>
+                                            <input id="ipt_regiao" onchange="showInfoInput(this)"
+                                                placeholder="Região do servidor...">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="grupo-inputs second-grupo">
                                     <div class="title-grupo">
-                                        <span id="text-title">Permissões</span>
+                                        <span id="text-title">Configurações</span>
                                     </div>
                                     <div class="inputs second-group">
-                                        <div class="info-input second">
-                                            <label for="ipt_cargo">Cargos</label>
-                                                <select id="ipt_cargo" onclick="showInfoInput(this)">
-                                                    <option value="">-----</option>
-                                                </select>
+                                        <div class="info-input">
+                                            <label for="ipt_configuracao">Configuração Inicial</label>
+                                            <select id="ipt_configuracao" onchange="showInfoInput(this)">
+                                                <option value="">-----</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="desc-campo">
                                 <span id="title-campo"></span>
                                 <span id="descricao-campo"></span>
@@ -104,15 +105,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                              
-                        </div>  
+                            </div>
+                        </div>
                         <div class="area-buttons">
-                            <button onclick="window.location.href='./index.html'">CANCELAR</button>
-                            <button id="confirm" onclick="cadastrarFunc()">CONFIRMAR</button>
-                        </div>                  
+                            <button onclick="window.location.href='../index.html'">CANCELAR</button>
+                            <button id="confirm">CONFIRMAR</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>    
-    </div>    
+        </div>
 </body>
+
 </html>

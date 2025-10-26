@@ -1,3 +1,4 @@
+// sessão
 function validarSessao() {
     
     var nome = sessionStorage.NOME_USUARIO;
@@ -16,59 +17,30 @@ function validarSessao() {
 
     } else {
         window.location = "../login.html";
-        alert("Realize um login para prosseguir!")
+        alert("Realize um login para prosseguir!") //apenas para testar
     }
 }
 
-
+function validarSessaoGameCore() {
+    if (sessionStorage.EMAIL_GAMECORE == undefined) {
+        sessionStorage.clear();
+        window.location = "./login.html?AcessoNegado"
+    } else {
+        nome_login.innerHMTL = sessionStorage.NOME_GAMECORE
+        email_login.innerHMTL = sessionStorage.EMAIL_GAMECORE
+    }
+}
 
 function limparSessao() {
-
     sessionStorage.clear();
     window.location = "../login.html";
-
 }
 
-
-
-function checarPermissoes(permissoesNecessarias) {
-
-    var permissoesJSON = sessionStorage.getItem("PERMISSOES_USUARIO");
-
-    if (!permissoesJSON) {
-
-        alert("ACESSO NEGADO! Você não possui permissões cadastradas.");
-        window.location.href = "index.html";
-        return;
-
-    }
-
-    var permissoes = JSON.parse(permissoesJSON);
-
-    for (var i = 0; i < permissoesNecessarias.length; i++) {
-
-        if (permissoes.indexOf(permissoesNecessarias[i]) >= 0) {
-
-            return;
-
-        }
-    }
-
-    alert("ACESSO NEGADO! Você não possui permissão para acessar esta tela. Solicite tal permissão ao seu gestor.");
-    window.location.href = "index.html";
-
-}
-
-
-
+// carregamento (loading)
 function aguardar() {
-
     var divAguardar = document.getElementById("div_aguardar");
     divAguardar.style.display = "flex";
-
 }
-
-
 
 //  function finalizarAguardar(texto) {
 //      var divAguardar = document.getElementById("div_aguardar");

@@ -86,10 +86,6 @@ function cadastrarFunc() {
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.ID_CARGO = json.fk_cargo;
                     sessionStorage.ID_EMPRESA = json.fk_empresa;
-                    
-                    if (json.permissoes) {
-                        sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
-                    }
 
                     mensagem_erro.innerHTML =
                         "Cadastro realizado com sucesso!";
@@ -109,16 +105,4 @@ function cadastrarFunc() {
             });
 
         return false;
-}
-
-var permissoesNecessarias = [3];
-
-function iniciarPagina() {
-
-      validarSessao();
-
-      setTimeout(function() {
-          checarPermissoes(permissoesNecessarias);
-      }, 200);
-
-}
+    }

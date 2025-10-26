@@ -28,8 +28,8 @@ function autenticar(req, res) {
                             cpf: resultadoAutenticar[0].cpf,
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
-                            idEmpresa: resultadoAutenticar[0].idEmpresa,
-                            fk_cargo_func: resultadoAutenticar[0].fk_cargo_func
+                            idEmpresa: resultadoAutenticar[0].idEmpresa
+                            //fk_cargo: resultadoAutenticar[0].fk_cargo_func
 
                         });
 

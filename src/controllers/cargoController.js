@@ -112,48 +112,10 @@ function removerFunc(req, res){
 
 }
 
-function buscarPermissoes(req, res) {
-
-    var fk_cargo = req.body.fkCargoServer; 
-
-    if (fk_cargo == undefined) {
-        res.status(400).send("ID do Cargo indefinido!");
-        return;
-    }
-
-    cargoModel.buscarPermissoesPorCargo(fk_cargo)
-        .then(function(resultado) {
-
-            if (resultado.length > 0) {
-
-                var permissoes = [];
-
-                for (let i = 0; i < resultado.length; i++) {
-                    permissoes.push(resultado[i].fk_permissao_pc);
-                }
-            
-                res.json({ permissoes: permissoes });
-
-            } else {
-
-                res.json({ permissoes: [] }); 
-
-            }
-        }).catch(function (erro) {
-
-            console.log(erro);
-
-            console.log("Houve um erro ao buscar permissões! Erro: ", erro.sqlMessage);
-            
-            res.status(500).json(erro.sqlMessage);
-        });
-}
-
 module.exports = {
     criar,
     buscar,
     buscarFunc,
     alterarCargo,
-    removerFunc,
-    buscarPermissoes
+    removerFunc
 }

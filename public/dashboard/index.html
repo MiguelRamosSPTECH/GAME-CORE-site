@@ -22,7 +22,7 @@
                         <i onclick="window.location.href='./processos/index.html'" class="fa-solid fa-clock"></i>
                     </div>
                     <div class="circle-option">
-                        <i class="fa-solid fa-bug"></i>
+                        <i onclick="window.location.href='historico_alerta.html'" class="fa-solid fa-bug"></i>
                     </div>                      
                     <div class="circle-option">
                         <i onclick="window.location.href='./layouts/configs_padrao.html'" class="fa-solid fa-gear"></i>
@@ -62,7 +62,7 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                         <div class="add-server">
-                            <i onclick="window.location.href='./servidores/create_edit_servidor.html'" class="fa-solid fa-plus"></i>
+                            <i onclick="window.location.href='./servidores/create_servidor.html'" class="fa-solid fa-plus"></i>
                         </div>
                     </div>
                     <div class="area-table">
@@ -75,21 +75,21 @@
                                 <th class="bloco-alertas">Alertas em aberto</th>
                             </tr>
                             <tr class="background-linha">
-                                <td>Alfreds Futterkiste</td>
-                                <td>Maria Anders</td>
-                                <td>Germany</td>
-                                <td class="bloco-alertas critico">Germany</td>
-                                <td class="bloco-alertas">Germany</td>
+                                <td onclick="window.location.href='servidores/desc_servidor.html'">Servidor Alfa</td>
+                                <td>177.123.199.50</td>
+                                <td>São Paulo</td>
+                                <td class="bloco-alertas critico">Inoperante</td>
+                                <td class="bloco-alertas">5</td>
                                 <input class="ipt_idServer" type="number" value="2">
-                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='servidores/edit_servidor.html'"></i></td>
                             </tr>
                             <tr>
-                                <td>Alfreds Futterkiste</td>
-                                <td>Maria Anders</td>
-                                <td >Germany</td>
-                                <td class="bloco-alertas critico">Germany</td>
-                                <td class="bloco-alertas">Germany</td>
-                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square"></i></td>
+                                <td onclick="window.location.href='servidores/desc_servidor.html'">Servidor Beta</td>
+                                <td>29.239.73.67</td>
+                                <td >Curitiba</td>
+                                <td class="bloco-alertas critico" style="color: green;">Ativo</td>
+                                <td class="bloco-alertas">0</td>
+                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='servidores/edit_servidor.html'"></i></td>
                             </tr>
                         </table>
                     </div>

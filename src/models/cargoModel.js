@@ -92,16 +92,7 @@ function removerFunc(nomeFuncionario){
     console.log("Deletando Funcionário Pelo Nome")
     return database.executar(deleta)
 
-}
 
-function buscarPermissoesPorCargo(idCargo) {
-    var instrucaoSql = `
-        SELECT fk_permissao_pc FROM PermissaoCargo 
-        WHERE fk_cargo_pc = ${idCargo}
-    `;
-
-    console.log("Buscando Permissões do Cargo: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
 }
 
 module.exports = {
@@ -109,6 +100,5 @@ module.exports = {
     buscar,
     buscarFunc,
     alterarCargo,
-    removerFunc,
-    buscarPermissoesPorCargo
+    removerFunc
 };
