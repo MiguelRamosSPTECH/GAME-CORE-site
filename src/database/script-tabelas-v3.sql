@@ -50,7 +50,7 @@ constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
 CREATE TABLE layout (
 	id int primary key auto_increment,
 	nome VARCHAR(45),
-    emUso BOOLEAN DEFAULT 1,
+    emUso tinyint,
     fk_empresa_layout int,
     constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references Empresa(id)
 );
@@ -95,24 +95,26 @@ constraint ct_LayoutCs foreign key fklayoutcs(fk_layout) references layout(id)
 -- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
 INSERT INTO Componente (nome)
 	VALUES 	('CPU'),
-			('User CPU USE'),
-            ('System CPU USE'),
-            ('LOADAVG'),
-            ('CPU OCIOSA'),
+			('CPU_OCIOSA'),
+            ('CPU_USUARIOS'),
+            ('CPU_SISTEMA'),
+            ('CPU_LOADAVG'),
 			('RAM'),
-            ('RAM SWAP'),
-            ('RAM DISP.'),
+            ('RAM_DISP'),
+            ('RAM_SWAP'),
             ('DISCO'),
-            ('THROUGHTPUT(I/O)'),
-            ('DISCO LIVRE');
+            ('DISCO_LIVRE'),
+            ('DISCO_THROUGHPUT'),
+            ('REDE');
         
 INSERT INTO Metrica (unidadeMedida)
 	VALUES 	('%'),
 			('MB'),
 			('GB'),
-			('MBS'),
+            ('MBS'),
 			('GBS'),
-            ('Numérico');
+			('Numérico');
+            
 -- --------------------------------------------------------------
 
 INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
@@ -123,8 +125,8 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
 
 
 INSERT INTO Permissao (nome) VALUES 
-("Dashboard GameOps"),
-("Dashboard SRE"),
+("Dashboard de Analista"),
+("Dashboard de Suporte"),
 ("Cadastro de Funcionário"),
 ("Edição de Funcionário"),
 ("Cadastro de Servidor"),
@@ -136,7 +138,7 @@ select * from Cargo;
 select * from Permissao;
 select * from PermissaoCargo;
 select * from Funcionario;
-
+select * from layout;
 select * from Servidor;
 select * from componente;
 select * from metrica;
@@ -152,3 +154,35 @@ from PermissaoCargo pc
 inner join Permissao p on p.id = pc.fk_permissao_pc
 inner join Cargo c on c.id = pc.fk_cargo_pc
 inner join Empresa e on e.id = c.fk_empresa_cargo;
+
+select * from servidor;
+select * from layout;
+delete from layout where id = 3;
+insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08","Ala Sul",1,null);
+insert into layout values(null, "DESEMPENHO LÓGICO", 1);
+select * from configuracaoservidor;
+insert into configuracaoservidor values(null, 80, 90, 1, 2, 1);
+insert into configuracaoservidor values(null, 90, 95, 1, 1, 1);
+#-----------------------------------------------------------
+##SCRIPTS ETL
+
+#select  que retorna c omponentes e metricas de um layout especifico
+select cs.alertaLeve,cs.alertaGrave, componente.nome, metrica.unidadeMedida from configuracaoservidor cs
+inner join 
+componente on 
+cs.fk_componente_cs = componente.id
+inner join metrica on
+cs.fk_metrica_cs = metrica.id
+where fk_layout = 1;
+
+
+select l.id, l.nome, c.nome, m.unidadeMedida, l.emUso from empresa e
+inner join layout l on
+e.id = l.fk_empresa_layout
+inner join configuracaoservidor cs on
+cs.fk_layout =  l.id
+inner join componente c on
+c.id = cs.fk_componente_cs
+inner join metrica m on
+m.id = cs.fk_metrica_cs
+where e.id = 4;
