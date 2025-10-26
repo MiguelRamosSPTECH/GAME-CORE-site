@@ -10,10 +10,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../js/descServidor.js" defer></script>
+    <script src="../../js/edicaoFuncionario.js"></script>
+    <script src="../../js/sessao.js"></script>
     <title>DASHBOARD | GAMEOPS</title>
 </head>
 
-<body>
+<body onload="validarSessao(), iniciarPagina()">
     <div class="background-modal"></div>
     <div class="container-all">
         <div class="nav-lateral">

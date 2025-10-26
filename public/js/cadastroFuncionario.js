@@ -13,7 +13,7 @@ function showInfoInput(input) {
         "cargo":"Aqui, você pode escolher um cargo para seu funcionário! Para editar as permissões do cargo você deve ir na aba de cargos no canto lateral da dash, onde temos a barra lateral!"
     }
     // divRastrear.style.display = "flex"
-    tituloInput.innerText = `${input_prefixo[1].toUpperCase()} DO FUNCIONARIO`
+    tituloInput.innerText = `${input_prefixo[1].toUpperCase()} DO FUNCIONÁRIO`
     descInput.innerHTML = descricaoCampos[`${input_prefixo[1]}`]
     valorAtualRastrear.innerText = valorInput
 }
@@ -26,21 +26,17 @@ function cadastrarFunc() {
         var emailVar = ipt_email.value;
         var cpfVar = ipt_cpf.value;
         var senhaVar = ipt_senha.value;
-
         var cargoVar = idCargo;
         var fk_empresaVar = sessionStorage.ID_EMPRESA;
 
         console.log("Cargo: ", cargoVar);
 
-        // Verificando se há algum campo em branco
+
         if (
-            // codigoVar == "" ||
             nomeVar == "" ||
             emailVar == "" ||
             cpfVar == "" || 
-            senhaVar == "" //||
-            //cargoVar == ""
-
+            senhaVar == ""
         ) {
             //cardErro.style.display = "block";
             mensagem_erro.innerHTML =
@@ -59,10 +55,7 @@ function cadastrarFunc() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                // crie um atributo que recebe o valor recuperado aqui
-                // Agora vá para o arquivo routes/usuario.js
 
-                // codigoServer: codigoVar,
                 nomeServer: nomeVar,
                 emailServer: emailVar,
                 cpfServer: cpfVar,
@@ -76,10 +69,7 @@ function cadastrarFunc() {
                 console.log("resposta: ", resposta);
 
                 if (resposta.ok) {
-                    //cardErro.style.display = "block";
 
-                    
-                    //Aqui muda os sessionStorages
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.EMAIL_USUARIO = json.email;
@@ -88,17 +78,20 @@ function cadastrarFunc() {
                     sessionStorage.ID_EMPRESA = json.fk_empresa;
                     
                     if (json.permissoes) {
+
                         sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
+                        
                     }
 
-                    mensagem_erro.innerHTML =
-                        "Cadastro realizado com sucesso!";
+                    //mensagem_erro.innerHTML =
+                    //    "Cadastro realizado com sucesso!";
 
-                    setTimeout(() => {
-                        // window.location = "login.html";
-                    }, "2000");
+                    alert("Cadastro realizado com sucesso!")
 
-                    // limparFormulario();
+                    //setTimeout(() => {
+                    //    window.location = "login.html";
+                    //}, "2000");
+
                     finalizarAguardar();
                 } else {
                     throw "Houve um erro ao tentar realizar o cadastro!";

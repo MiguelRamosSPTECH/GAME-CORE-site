@@ -4,16 +4,6 @@ function entrar() {
 
     if (emailVar == "" || senhaVar == "") {
         msg_erro.innerHTML = `Preencha todos os campos!`
-    } if (emailVar == "gamecore.adm@gmail.com" && senhaVar == "gamecoreacess1234") {
-        sessionStorage.NOME_GAMECORE = `Perfil Administrativo`
-        sessionStorage.EMAIL_GAMECORE = emailVar
-        sessionStorage.SENHA_GAMECORE = senhaVar
-        setTimeout(function () {
-                        window.location = "aceitarEmpresas.html";
-                        console.log("tamo dentro!");
-
-                    }, 1000); 
-
     } else {
 
         console.log("FORM LOGIN: ", emailVar);
@@ -47,12 +37,12 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
                     var fk_cargo_func = json.fk_cargo_func; 
 
-                    // Chama a função para buscar as permissões antes de redirecionar
+                    //Chama a função para buscar as permissões antes de redirecionar
                     buscarEsalvarPermissoes(fk_cargo_func);
 
 
                     setTimeout(function () {
-                        window.location = "index.html";
+                        window.location = "../../dashboard/servidores/desc_servidor.html";
                         console.log("ENTROUUUU");
 
                     }, 1000);
@@ -90,7 +80,9 @@ function buscarEsalvarPermissoes(fk_cargo) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
+
             fkCargoServer: fk_cargo
+
         })
     }).then(function (resposta) {
 
@@ -118,8 +110,10 @@ function buscarEsalvarPermissoes(fk_cargo) {
         }
         
     }).catch(function (erro) {
+
         console.error("Erro no fetch de permissões:", erro);
-        sessionStorage.setItem('PERMISSOES_USUARIO', '[]'); // Falhou? Bloqueia.
+
+        sessionStorage.setItem('PERMISSOES_USUARIO', '[]'); // Falhou? Bloqueia, deixando as permissões "zeradas"
         
         setTimeout(() => {
             window.location = "index.html";

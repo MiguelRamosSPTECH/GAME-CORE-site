@@ -59,7 +59,11 @@ function buscarFunc(fk_empresa){
 
     var buscaFunc = `
     
-        SELECT id, nome FROM Funcionario where fk_empresa_func = ${fk_empresa}
+        SELECT f.id, f.nome, f.email, f.cpf, f.senha, f.perfilAtivo, fk_cargo_func 
+        FROM Funcionario f
+        JOIN Cargo c on c.id = f.fk_cargo_func
+        JOIN Empresa e on e.id = c.fk_empresa_cargo
+        WHERE e.id = ${fk_empresa};
 
     `;
 
@@ -68,31 +72,7 @@ function buscarFunc(fk_empresa){
 
 }
 
-function alterarCargo(nomeFuncionario, idCargo){
 
-    //Fazer um trigger que sempre altera o cargo
-
-    var altera = `
-    
-        UPDATE Funcionario SET fk_cargo_func = (SELECT id FROM Cargo WHERE Cargo.id = ${idCargo}) WHERE Funcionario.nome = '${nomeFuncionario}'
-
-    `
-    console.log("Alterando o Cargo do Usuário Pelo Seu Nome")
-    return database.executar(altera)
-
-}
-
-function removerFunc(nomeFuncionario){
-
-    var deleta = `
-    
-        DELETE FROM Funcionario WHERE nome = "${nomeFuncionario}"
-
-    `
-    console.log("Deletando Funcionário Pelo Nome")
-    return database.executar(deleta)
-
-}
 
 function buscarPermissoesPorCargo(idCargo) {
     var instrucaoSql = `
@@ -104,11 +84,11 @@ function buscarPermissoesPorCargo(idCargo) {
     return database.executar(instrucaoSql);
 }
 
+
+
 module.exports = {
     criar,
     buscar,
     buscarFunc,
-    alterarCargo,
-    removerFunc,
     buscarPermissoesPorCargo
 };
