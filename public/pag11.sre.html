@@ -11,22 +11,36 @@
 <body>
     <div class="conteudo">
 
-        <div class="sideBar">
-            <div>
-                <img src="assets/imgs/detetive.png" width="150px">
+<div class="nav-lateral">
+            <div class="logo-dbg">
+                <img src="../assets/imgs/DBG.-logo2png.png" alt="">
             </div>
-
-            <div class="imgcentrais">
-                <img src="assets/imgs/home.icon.webp" width="45px">
-                <img src="assets/imgs/relogio.icon.png" width="45px">
-                <img src="assets/imgs/configuracao.icon.png" width="45px">
-                <img src="assets/imgs/configuracao.icon.png" width="45px">
+            <div class="options-nav">
+                <div class="principal-options">
+                    <div class="circle-option">
+                        <i onclick="window.location.reload()" class="fa-solid fa-house"></i>
+                        <span class="texto-oculto">Início</span>
+                    </div>
+                    <div class="circle-option">
+                        <i onclick="window.location.href='./processos/index.html'" class="fa-solid fa-clock"></i>
+                          <span class="texto-oculto">Processos</span>
+                    </div>
+                    <div class="circle-option">
+                        <i onclick="window.location.href='historico_alerta.html'" class="fa-solid fa-bug"></i>
+                          <span class="texto-oculto">Alertas</span>
+                    </div>                      
+                    <div class="circle-option">
+                        <i onclick="window.location.href='./layouts/configs_padrao.html'" class="fa-solid fa-gear"></i>
+                        <span class="texto-oculto">Configurações</span>
+                    </div>
+                </div>
+                <div class="area-logoff">
+                    <div class="circle-option logoff">
+                    <i  class="fa-solid fa-right-from-bracket"></i>
+                    <span class="texto-oculto" style="color: red;">Sair</span>
+                </div>
+                </div>
             </div>
-                
-            <div class="imgcentrais">
-                <img src="assets/imgs/sair.png" width="45px">
-            </div>
-        
         </div>
         <div class="corpo">
 
