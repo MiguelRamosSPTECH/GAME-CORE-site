@@ -57,16 +57,16 @@
 
 
 
-var permissoesNecessarias = [6];
-
-function iniciarPagina() {
-
-      validarSessao();
-
-      setTimeout(function() {
-          checarPermissoes(permissoesNecessarias);
-      }, 200);
-
-}
+//var permissoesNecessarias = [6];
+//
+//function iniciarPagina() {
+//
+//      validarSessao();
+//
+//      setTimeout(function() {
+//          checarPermissoes(permissoesNecessarias);
+//      }, 200);
+//
+//}
 
     

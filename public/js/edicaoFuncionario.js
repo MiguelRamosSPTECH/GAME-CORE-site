@@ -156,15 +156,15 @@ function editarFunc() {
 
 
 
-var permissoesNecessarias = [4];
-
-function iniciarPagina() {
-
-    validarSessao();
-
-    setTimeout(function () {
-        checarPermissoes(permissoesNecessarias);
-    }, 200);
-
-}
+//var permissoesNecessarias = [4];
+//
+//function iniciarPagina() {
+//
+//    validarSessao();
+//
+//    setTimeout(function () {
+//        checarPermissoes(permissoesNecessarias);
+//    }, 200);
+//
+//}
 
