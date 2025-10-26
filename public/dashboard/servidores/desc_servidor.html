@@ -10,10 +10,11 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../../js/descServidor.js" defer></script>
+    <script src="../../js/sessao.js"></script>
     <title>DASHBOARD | GAMEOPS</title>
 </head>
 
-<body>
+<body onload="validarSessao()">
     <div class="background-modal"></div>
     <div class="container-all">
         <div class="nav-lateral">
@@ -36,7 +37,7 @@
                     </div>
                 </div>
                 <div class="area-logoff">
-                    <div class="circle-option logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </div>
                 </div>

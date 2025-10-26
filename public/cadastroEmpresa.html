@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de usuário</title>
     <link rel="stylesheet" href="css/cadastro_login.css">
-    <script src="./js/sessao.js"></script>
-    <script src="./js/cadastroEmpresa.js"></script>
+    <script src="./js/cadastroEmpresa.js" defer></script>
 </head>
 
 <body>
@@ -34,12 +33,12 @@
                         <section class="campos">
                             <div class="campo">
                                 <label for="ipt_nome">Nome Empresarial</label>
-                                <input type="text" id="ipt_nome_empresarial">
+                                <input type="text" placeholder="Insira o nome empresarial" id="ipt_nome_empresarial">
                             </div>
 
                             <div class="campo">
                                 <label for="ipt_cnpj">CNPJ</label>
-                                <input type="text" id="ipt_cnpj">
+                                <input type="number" placeholder="000.000.000-00" id="ipt_cnpj" maxlength="14">
                             </div>
                             
                             <div class="campo">
@@ -49,17 +48,17 @@
 
                             <div class="campo">
                                 <label for="ipt_email">E-mail</label>
-                                <input type="text" id="ipt_email">
+                                <input type="text" placeholder="email@gmail.com" id="ipt_email">
                             </div>                            
 
                             <div class="campo">
-                                <label for="ipt_email">CPF</label>
-                                <input type="text" id="ipt_cpf">
+                                <label for="ipt_cpfl">CPF</label>
+                                <input type="number" id="ipt_cpf" maxlength="11">
                             </div>
 
                             <div class="campo">
                                 <label for="ipt_email">Senha</label>
-                                <input type="text" id="ipt_senha">
+                                <input type="password" id="ipt_senha">
                             </div>
 
                         </section>
