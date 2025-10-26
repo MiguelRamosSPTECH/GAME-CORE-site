@@ -10,7 +10,7 @@
     <title>EDIT SERVER | DBGWATCH</title>
 </head>
 <!-- <body onload="changeElementInPage(), exibirLayouts()"> -->
-<body onload="exibirLayouts()">
+<body onload="exibirLayouts(), validarSessao()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="area-logoff">
-                    <div class="circle-option logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </div>
                 </div>
