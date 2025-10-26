@@ -7,9 +7,11 @@ function validarSessao() {
     if(quebraURL[3] == "dashboard") {
         if(quebraURL[4] == "dash_adm" && nomeCargo != "Administrador Master") {
             limparSessao()
+        } else if(quebraURL[5] == "create_servidor.html" && nomeCargo != "Administrador Master"){
+            limparSessao()
         } else if(quebraURL[4] == "dash_sre" && nomeCargo != "Engenheiro SRE"){
             limparSessao()
-        } else if(nomeCargo != "GAMEOPS" && quebraURL[4] != ("dash_adm" || "dash_sre")) {
+        } else if(nomeCargo != "GAMEOPS" && nomeCargo != "Administrador Master" && quebraURL[4] != ("dash_sre" || "dash_adm")) { 
             limparSessao()
         }
     }
