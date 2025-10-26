@@ -4,16 +4,6 @@ function entrar() {
 
     if (emailVar == "" || senhaVar == "") {
         msg_erro.innerHTML = `Preencha todos os campos!`
-    } if (emailVar == "gamecore.adm@gmail.com" && senhaVar == "gamecoreacess1234") {
-        sessionStorage.NOME_GAMECORE = `Perfil Administrativo`
-        sessionStorage.EMAIL_GAMECORE = emailVar
-        sessionStorage.SENHA_GAMECORE = senhaVar
-        setTimeout(function () {
-                        window.location = "aceitarEmpresas.html";
-                        console.log("tamo dentro!");
-
-                    }, 1000); 
-
     } else {
 
         console.log("FORM LOGIN: ", emailVar);
@@ -43,6 +33,8 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
+                    //Chama a função para buscar as permissões antes de redirecionar
+                    buscarEsalvarPermissoes(fk_cargo_func);
 
 
                     setTimeout(function () {
@@ -69,4 +61,64 @@ function entrar() {
             console.log(erro);
         })
     }
+}
+
+function buscarEsalvarPermissoes(fk_cargo) {
+
+    if (!fk_cargo) {
+
+        sessionStorage.setItem('PERMISSOES_USUARIO', '[]');
+        console.log("Usuário logado sem FK_CARGO. Assumindo permissões vazias.");
+        
+        setTimeout(() => {
+            window.location = "index.html";
+        }, 500);
+        return;
+    }
+
+    fetch("/cargos/buscarPermissoes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+
+            fkCargoServer: fk_cargo
+
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                
+                sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
+
+                console.log("Permissões salvas com sucesso:", json.permissoes);
+                console.log("Permissões salvas com sucesso:", sessionStorage.getItem("PERMISSOES_USUARIO"));
+
+                setTimeout(function () {
+                    window.location = "index.html";
+                }, 1000); 
+            });
+
+        } else {
+
+            console.error("Erro ao buscar permissões do cargo:", resposta.statusText);
+            sessionStorage.setItem('PERMISSOES_USUARIO', '[]');
+            
+            setTimeout(() => {
+                window.location = "index.html";
+            }, 500);
+        }
+        
+    }).catch(function (erro) {
+
+        console.error("Erro no fetch de permissões:", erro);
+
+        sessionStorage.setItem('PERMISSOES_USUARIO', '[]'); // Falhou? Bloqueia, deixando as permissões "zeradas"
+        
+        setTimeout(() => {
+            window.location = "index.html";
+        }, 500);
+    });
 }
