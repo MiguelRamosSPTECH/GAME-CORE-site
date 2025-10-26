@@ -48,7 +48,7 @@ function cadastrar() {
       } else if (nomeEmpresarialVar.length < 10) {
        msg_erro.innerHTML = `Nome Empresarial muito pequeno. Mínimo : 10`
    } else if (cnpjVar.length != 14){
-       msg_erro.innerHTML = `Insira um CNPJ de 14 caracteres`
+       msg_erro.innerHTML = `Insira um CNPJ de 16 caracteres`
    } else if (nomeRepresentanteVar.length < 3) {
        msg_erro.innerHTML = `Insira um nome de representante válido! Nome muito pequeno.`
    } else if (emailVar.length < 5) {
