@@ -34,7 +34,7 @@ function entrar() {
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
                     //Chama a função para buscar as permissões antes de redirecionar
-                    buscarEsalvarPermissoes(fk_cargo_func);
+                    //buscarEsalvarPermissoes(fk_cargo_func);
 
 
                     setTimeout(function () {
