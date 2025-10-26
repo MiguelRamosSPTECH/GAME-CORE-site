@@ -3,6 +3,7 @@ function validarSessao() {
 
     var nomeCargo = sessionStorage.NOME_CARGO
     var quebraURL = window.location.href.split(`/`)
+    console.log(quebraURL)
     if(quebraURL[3] == "dashboard") {
         if(quebraURL[4] == "dash_adm" && nomeCargo != "Administrador Master") {
             limparSessao()
