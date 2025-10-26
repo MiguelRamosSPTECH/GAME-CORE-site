@@ -28,7 +28,8 @@ function autenticar(req, res) {
                             cpf: resultadoAutenticar[0].cpf,
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
-                            idEmpresa: resultadoAutenticar[0].idEmpresa
+                            idEmpresa: resultadoAutenticar[0].idEmpresa,
+                            nomeCargo: resultadoAutenticar[0].nomeCargo
                             //fk_cargo: resultadoAutenticar[0].fk_cargo_func
 
                         });
@@ -57,7 +58,6 @@ function cadastrarFunc(req, res) {
     var cpf = req.body.cpfServer;
     var senha = req.body.senhaServer;
     var fk_cargo = req.body.cargoServer;
-    //var fk_empresa = req.body.fkEmpresaServer;
  
 
     if (nome == undefined) {
@@ -90,7 +90,37 @@ function cadastrarFunc(req, res) {
     }
 }
 
+
+
+function editarFunc(req, res){
+
+    var funcionario = req.body.nomeFuncServer
+    var cargo = req.body.idCargoServer
+    var id_do_func = req.body.idFunc
+    var email = req.body.emailFuncServer
+    var cpf = req.body.cpfFuncServer
+    var senha = req.body.senhaFuncServer
+
+    usuarioModel.editarFunc(funcionario, email, cpf, senha, cargo, id_do_func)
+        .then(
+        function(resultado){
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao alterar o cargo! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+        );
+
+}
+
 module.exports = {
     autenticar,
-    cadastrarFunc
+    cadastrarFunc,
+    editarFunc
 }

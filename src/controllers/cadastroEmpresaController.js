@@ -13,15 +13,20 @@ function cadastrar(req, res) {
     // Faça as validações dos valores
     if (nomeEmpresarial == undefined) {
         res.status(400).send("O nome empresarial está indefinido!");
-    } else if (cnpj == undefined) {
+    } 
+    else if (cnpj == undefined) {
         res.status(400).send("Seu CNPJ está indefinido!");
-    } else if (nomeRepresentante == undefined) {
+    } 
+    else if (nomeRepresentante == undefined) {
         res.status(400).send("O nome do representante está indefinido!");
-    } else if (email == undefined) {
+    } 
+    else if (email == undefined) {
         res.status(400).send("Seu email corporativo está indefinido!");
-    } else if (cpf == undefined) {
+    } 
+    else if (cpf == undefined) {
         res.status(400).send("Seu CPF está indefinido!");
-    } else if (senha == undefined) {
+    } 
+    else if (senha == undefined) {
         res.status(400).send("Sua senha está indefinida!");
     } else {
 

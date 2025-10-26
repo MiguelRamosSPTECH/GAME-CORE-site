@@ -10,7 +10,7 @@
     <title>EDIT SERVER | DBGWATCH</title>
 </head>
 <!-- <body onload="changeElementInPage(), exibirLayouts()"> -->
-<body onload="exibirLayouts()">
+<body onload="exibirLayouts(), validarSessao()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="area-logoff">
-                    <div class="circle-option logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </div>
                 </div>
@@ -55,15 +55,15 @@
                                         <div class="info-input">
                                             <label for="ipt_nome">Nome</label>
                                             <input type="text" id="ipt_nome" placeholder="Nome do servidor..."
-                                                onkeyup="showInfoInput(this)">
+                                                onkeydown="showInfoInput(this)">
                                         </div>
                                         <div class="info-input">
                                             <label for="ipt_nome">Apelido (Alias)</label>
-                                            <input type="text" id="ipt_apelido" placeholder="Apelido do servidor...">
+                                            <input type="text" id="ipt_apelido" placeholder="Apelido do servidor..." onkeydown="showInfoInput(this)">
                                         </div>
                                         <div class="info-input">
                                             <label for="ipt_regiao">Região</label>
-                                            <input id="ipt_regiao" onchange="showInfoInput(this)"
+                                            <input id="ipt_regiao" onkeydown="showInfoInput(this)"
                                                 placeholder="Região do servidor...">
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                     <div class="inputs second-group">
                                         <div class="info-input">
                                             <label for="ipt_configuracao">Configuração Inicial</label>
-                                            <select id="ipt_configuracao" onchange="showInfoInput(this)">
+                                            <select id="ipt_configuracao" onclick="showInfoInput(this)">
                                                 <option value="">-----</option>
                                             </select>
                                         </div>

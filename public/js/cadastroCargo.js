@@ -34,11 +34,13 @@
 
                     console.log("Permissões Selecionadas: " + permissoesSelecionadasVar)
 
-                    mensagem_erro.innerHTML =
-                        "Cargo criado com sucesso!";
-                        setTimeout(() => {
-                        // window.location = "login.html";
-                    }, "2000");
+                    alert(`Cargo ${cargoVar} criado com sucesso`)
+
+                    //mensagem_erro.innerHTML =
+                    //    "Cargo criado com sucesso!";
+                    //    setTimeout(() => {
+                    //    window.location = "login.html";
+                    //}, "2000");
                     limparFormulario();
                 }
                 else {
@@ -52,5 +54,19 @@
 
             return false;
     }
+
+
+
+//var permissoesNecessarias = [6];
+//
+//function iniciarPagina() {
+//
+//      validarSessao();
+//
+//      setTimeout(function() {
+//          checarPermissoes(permissoesNecessarias);
+//      }, 200);
+//
+//}
 
     
