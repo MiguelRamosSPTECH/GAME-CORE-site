@@ -41,13 +41,21 @@ function entrar() {
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.NOME_CARGO = json.nomeCargo;
+
 
 
                     setTimeout(function () {
-                        window.location = "index.html";
-                        console.log("ENTROUUUU");
+                        if(sessionStorage.NOME_CARGO == "Administrador Master") {
+                             window.location = "../dashboard/dash_adm/funcionarios/index.html";
+                        } else if(sessionStorage.NOME_CARGO == "GAMEOPS") {
+                            window.location = "../dashboard/index.html"
+                        } else if(sessionStorage.NOME_CARGO == "Engenheiro SRE") {
+                            window.location = "../dashboard/dash_sre"
+                        }
+                        
 
-                    }, 1000); // apenas para exibir o loading
+                    }, 500); // apenas para exibir o loading
 
                 });
 
