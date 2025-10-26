@@ -32,6 +32,7 @@ function carregarConfigs() {
                             <div class="icons-bottom" id="componentes_${contador}">
                             </div>
                             <button onclick="usarLayout(${layout.id})">USAR LAYOUT</button>
+                            <button onclick="edicaoLayout(${layout.id})">EDITAR LAYOUT</button>
                         </div>                          
                     `
                         contador++;
@@ -97,4 +98,9 @@ function usarLayout(idLayout) {
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
         });
+}
+
+function edicaoLayout(idLayout){
+    sessionStorage.ID_LAYOUT = idLayout;
+    window.location='./edit_layout.html';
 }
