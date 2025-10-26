@@ -84,8 +84,13 @@ function cadastrar() {
                         const idEmpresaGerado = json.idEmpresa;
 
                         if (idEmpresaGerado) {
+
                             sessionStorage.ID_EMPRESA = idEmpresaGerado;
+
                             console.log("Cadastro de empresa realizado com sucesso. ID:", idEmpresaGerado);
+
+                            alert("Cadastro realizado com sucesso!")
+
                             window.location.href = "login.html";
 
 

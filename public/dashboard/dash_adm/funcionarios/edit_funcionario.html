@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,7 @@
 </head>
 
 
-<body onload="buscarCargos(), validarSessao()">
+<body onload="validarSessao(), buscarCargos(), buscarFunc(), receberCampos(), iniciarPagina()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -26,7 +27,7 @@
                     </div>
                     <div class="circle-option">
                         <i class="fa-solid fa-address-card"></i>
-                    </div>                    
+                    </div>
                 </div>
                 <div class="area-logoff">
                     <div class="circle-option logoff" onclick="limparSessao()">
@@ -34,7 +35,7 @@
                 </div>
                 </div>
             </div>
-        </div>    
+        </div>
         <div class="content-dash">
             <div class="card-cadastro">
                 <div class="content-cadastro">
@@ -50,21 +51,31 @@
                                     </div>
                                     <div class="inputs">
                                         <div class="info-input">
-                                            <label for="ipt_nome">Nome</label>
-                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..." onkeyup="showInfoInput(this)">
+                                            <label for="funcionario">Escolha o Funcionário</label>
+                                            <select id="funcionario">
+                                                <option value="">-----</option>
+                                            </select>
                                         </div>
                                         <div class="info-input">
-                                            <label for="ipt_email">Email</label>
-                                            <input id="ipt_email" onkeyup="showInfoInput(this)" placeholder="Email do funcionario...">
+                                            <label for="ipt_nome">Novo Nome</label>
+                                            <input id="ipt_nome" onclick="showInfoInput(this)"
+                                                placeholder="Nome do funcionário...">
+                                        </div>
+                                        <div class="info-input">
+                                            <label for="ipt_email">Novo Email</label>
+                                            <input id="ipt_email" onclick="showInfoInput(this)"
+                                                placeholder="Email do funcionário...">
                                         </div>
                                         <div class="info-input-duplo">
                                             <div class="input-duplo">
-                                                <label for="ipt_cpf">CPF</label>
-                                                <input id="ipt_cpf" onkeyup="showInfoInput(this)" placeholder="CPF do funcionário...">
+                                                <label for="ipt_cpf">Novo CPF</label>
+                                                <input id="ipt_cpf" onclick="showInfoInput(this)"
+                                                    placeholder="CPF do funcionário...">
                                             </div>
                                             <div class="input-duplo">
-                                                <label for="ipt_senha">Senha</label>
-                                                <input id="ipt_senha" onkeyup="showInfoInput(this)" placeholder="Senha do funcionário...">
+                                                <label for="ipt_senha">Nova Senha</label>
+                                                <input id="ipt_senha" onclick="showInfoInput(this)"
+                                                    placeholder="Senha do funcionário...">
                                             </div>
                                         </div>
                                     </div>
@@ -75,14 +86,14 @@
                                     </div>
                                     <div class="inputs second-group">
                                         <div class="info-input second">
-                                            <label for="ipt_cargo">Cargos</label>
-                                                <select id="ipt_cargo" onclick="showInfoInput(this)">
-                                                    <option value="">-----</option>
-                                                </select>
+                                            <label for="ipt_cargo">Novo Cargo</label>
+                                            <select id="ipt_cargo" onclick="showInfoInput(this)">
+                                                <option value="">-----</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>  
+                            </div>
                             <div class="desc-campo">
                                 <span id="title-campo"></span>
                                 <span id="descricao-campo"></span>
@@ -106,15 +117,16 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                              
-                        </div>  
+                            </div>
+                        </div>
                         <div class="area-buttons">
                             <button onclick="window.location.href='./index.html'">CANCELAR</button>
-                            <button id="confirm" onclick="alterarCargo()">CONFIRMAR</button>
-                        </div>                  
+                            <button id="confirm" onclick="editarFunc()">CONFIRMAR</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>    
-    </div>    
+        </div>
 </body>
+
 </html>

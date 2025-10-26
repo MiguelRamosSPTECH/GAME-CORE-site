@@ -26,7 +26,24 @@ function cadastrarFunc(nome, email, cpf, senha, fk_cargo) {
     return database.executar(instrucaoSql);
 }
 
+
+
+
+function editarFunc(nomeFuncionario, emailFuncionario, cpfFuncionario, senhaFuncionario, idCargoFuncionario, idFunc){
+
+    var edicao = `
+    
+        
+        UPDATE Funcionario f SET f.nome = '${nomeFuncionario}', f.email = '${emailFuncionario}', f.cpf = '${cpfFuncionario}', f.senha = '${senhaFuncionario}', f.fk_cargo_func = (SELECT id FROM Cargo WHERE id = ${idCargoFuncionario}) WHERE f.id = ${idFunc}
+
+    `
+    console.log("Alterando o Usuário")
+    return database.executar(edicao)
+
+}
+
 module.exports = {
     autenticar,
-    cadastrarFunc
+    cadastrarFunc,
+    editarFunc
 };
