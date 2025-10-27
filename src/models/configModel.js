@@ -79,7 +79,7 @@ async function listarLayout(idLayout, idEmpresa) {
 	INNER JOIN metrica m ON
         m.id = cs.fk_metrica_cs
 	WHERE e.id = ${idEmpresa} AND l.id = ${idLayout}
-    ORDER BY l.id, c.nome;
+    ORDER BY c.nome;
     `;
     // console.log(instrucaoSql);
     return database.executar(instrucaoSql);
