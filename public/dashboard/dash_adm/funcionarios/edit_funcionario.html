@@ -14,7 +14,7 @@
 </head>
 
 
-<body onload="validarSessao(), buscarCargos(), buscarFunc(), receberCampos()">
+<body onload="validarSessao(), buscarCargos(), buscarFunc()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -51,29 +51,23 @@
                                     </div>
                                     <div class="inputs">
                                         <div class="info-input">
-                                            <label for="funcionario">Escolha o Funcionário</label>
-                                            <select id="funcionario">
-                                                <option value="">-----</option>
-                                            </select>
-                                        </div>
-                                        <div class="info-input">
-                                            <label for="ipt_nome">Novo Nome</label>
+                                            <label for="ipt_nome">Nome</label>
                                             <input id="ipt_nome" onclick="showInfoInput(this)"
                                                 placeholder="Nome do funcionário...">
                                         </div>
                                         <div class="info-input">
-                                            <label for="ipt_email">Novo Email</label>
+                                            <label for="ipt_email">Email</label>
                                             <input id="ipt_email" onclick="showInfoInput(this)"
                                                 placeholder="Email do funcionário...">
                                         </div>
                                         <div class="info-input-duplo">
                                             <div class="input-duplo">
-                                                <label for="ipt_cpf">Novo CPF</label>
+                                                <label for="ipt_cpf">CPF</label>
                                                 <input id="ipt_cpf" onclick="showInfoInput(this)"
                                                     placeholder="CPF do funcionário...">
                                             </div>
                                             <div class="input-duplo">
-                                                <label for="ipt_senha">Nova Senha</label>
+                                                <label for="ipt_senha">Senha</label>
                                                 <input id="ipt_senha" onclick="showInfoInput(this)"
                                                     placeholder="Senha do funcionário...">
                                             </div>
@@ -86,7 +80,7 @@
                                     </div>
                                     <div class="inputs second-group">
                                         <div class="info-input second">
-                                            <label for="ipt_cargo">Novo Cargo</label>
+                                            <label for="ipt_cargo">Cargo</label>
                                             <select id="ipt_cargo" onclick="showInfoInput(this)">
                                                 <option value="">-----</option>
                                             </select>

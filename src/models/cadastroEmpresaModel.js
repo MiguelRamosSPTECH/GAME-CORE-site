@@ -40,21 +40,21 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
 
 
 
-    for (i = 1; i < 7; i++){
+    // for (i = 1; i < 7; i++){
 
-    var permFunc = `
+    // var permFunc = `
 
-        INSERT INTO PermissaoCargo (fk_permissao_pc, fk_cargo_pc, permissoes)
-        VALUES (
-                ${i},
-                ${idCargo},
-                ${i}
-                );
-                `;
+    //     INSERT INTO PermissaoCargo (fk_permissao_pc, fk_cargo_pc, permissoes)
+    //     VALUES (
+    //             ${i},
+    //             ${idCargo},
+    //             ${i}
+    //             );
+    //             `;
 
-    let cadPermissaoCargoMaster = await database.executar(permFunc)
+    // let cadPermissaoCargoMaster = await database.executar(permFunc)
 
-    }
+    // }
     
     return {idEmpresa:idEmpresa};
 

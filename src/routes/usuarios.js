@@ -16,4 +16,12 @@ router.post("/editarFunc", function (req, res) {
     usuarioController.editarFunc(req, res);
 })
 
+router.get(`/allFunc/:idEmpresa`, function(req,res) {
+    usuarioController.allFunc(req,res);
+})
+
+router.get(`/findByIdFunc/:idEmpresa/:idFunc`, function(req,res) {
+    usuarioController.findByIdFunc(req,res);
+})
+
 module.exports = router;

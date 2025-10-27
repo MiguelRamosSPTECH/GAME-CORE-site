@@ -1,4 +1,5 @@
 var database = require("../database/config");
+const { all } = require("../routes/cadastrarServidor");
 
 function enviarCadastroServidor(apelido, macadress, regiao, idEmpresa, idLayout) {
     console.log("ACESSEI O MODEL DE CADASTRO DE SERVIDOR. ID da Empresa:", idEmpresa);
@@ -57,11 +58,17 @@ function editarServer(apelido, macadress, regiao, fk_idEmpresa, fk_layout, fk_se
 
 }
 
+function allServidores(idEmpresa) {
+    var querySql = `SELECT * FROM servidor where fk_empresa_servidor = ${idEmpresa};`
+    return database.executar(querySql);
+}
+
 
 
 module.exports = {
     enviarCadastroServidor,
     exibeLayout,
     buscarServidor,
-    editarServer
+    editarServer,
+    allServidores
 };
