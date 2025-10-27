@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=BBH+Sans+Bogle&display=swap');
-html, * {
+
+html,
+* {
     margin: 0;
     left: 0;
 }
+
 .container-all {
     height: 100vh;
     width: 100%;
@@ -11,7 +14,7 @@ html, * {
     align-items: center;
     justify-content: space-between;
     background-color: #0a061b;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 /* -------- SIDEBAR -------- */
@@ -31,6 +34,7 @@ html, * {
     width: 100%;
     height: 14%;
 }
+
 .logo-dbg img {
     width: 100%;
     height: 100%;
@@ -44,6 +48,7 @@ html, * {
     width: 50%;
     height: 75%;
 }
+
 .principal-options {
     height: 85%;
     width: 100%;
@@ -53,6 +58,7 @@ html, * {
     gap: 25px;
     flex-direction: column;
 }
+
 .circle-option {
     font-size: 20px;
     color: #231f39;
@@ -67,10 +73,12 @@ html, * {
     transition: all 0.2s ease;
     box-shadow: 0 3px 6px rgba(207, 204, 204, 0.2);
 }
+
 .circle-option:hover {
     transform: scale(1.15);
     background-color: #bdb5b5;
 }
+
 .area-logoff {
     display: flex;
     align-items: center;
@@ -79,11 +87,13 @@ html, * {
     width: 100%;
 
 }
+
 .logoff {
     height: 50%;
     border: 2px solid red;
     color: red;
 }
+
 /* -------- MAIN CONTEÚDO -------- */
 .main {
     margin-left: 80px;
@@ -109,6 +119,7 @@ html, * {
     height: 20%;
     width: 93%;
 }
+
 .title-search {
     width: 55%;
     display: flex;
@@ -134,7 +145,7 @@ html, * {
     background-color: transparent;
     outline: none;
     border: none;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
     color: rgb(189, 188, 188);
 }
 
@@ -167,7 +178,7 @@ html, * {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .novo-layout:hover {
@@ -204,10 +215,12 @@ main {
     gap: 10px;
     cursor: pointer;
 }
+
 .card:hover {
     cursor: pointer;
     border: 2px solid rgb(56, 56, 175);
 }
+
 .card button {
     border-radius: 5px;
     outline: none;
@@ -215,12 +228,13 @@ main {
     width: 50%;
     height: 7.5%;
     background-color: peru;
-    font-family: "Poppins",sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 700;
     color: white;
     transition: 0.2s ease-in-out;
     cursor: pointer;
 }
+
 .card button:hover {
     transform: scale(1.1);
 }
@@ -234,7 +248,8 @@ main {
 .card h2 {
     color: #f1d7d7;
     font-size: xx-large;
-    width: 80%;
+    width: 95%;
+    text-align: center;
 }
 
 
@@ -252,7 +267,7 @@ main {
     gap: 45px;
     font-size: large;
     color: white;
-    font-family: "BBH Sans Bogle",sans-serif;
+    font-family: "BBH Sans Bogle", sans-serif;
 }
 
 .icon-item {
@@ -262,24 +277,29 @@ main {
     font-size: 22px;
     height: 100%;
 }
-.icon-ram,.icon-cpu, .icon-disco {
+
+.icon-ram,
+.icon-cpu,
+.icon-disco {
     background-image: url('../../assets/imgs/icon-ram-config.png');
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 50px;
-    height: 150px;
+    width: 45px;
+    height: 120px;
 }
+
 .icon-cpu {
     background-image: url('../../assets/imgs/icon-cpu-config.png');
 }
+
 .icon-disco {
     background-image: url('../../assets/imgs/icon-disco.png');
 }
 
 .icon-item span {
     margin-top: 6px;
-    font-size: 13px;
+    font-size: 17px;
 }
 
 .top-bar {
@@ -297,6 +317,3 @@ main {
     letter-spacing: 1px;
     color: #fff;
 }
-
-
-
