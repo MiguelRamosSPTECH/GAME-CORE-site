@@ -22,13 +22,14 @@ html, * {
     height: 100%;
     width: 6.5%;
     background-color: #231f39;
-    /* border-bottom-right-radius: 8.5px;
-    border-top-right-radius: 8.5px; */
+    border-bottom-right-radius: 8.5px;
+    border-top-right-radius: 8.5px;
     transition: width 0.4s ease;
 }
 
 .nav-lateral:hover {
-    width: 10%;
+    width: 16%;
+    z-index: 15;
 }
 
 .logo-dbg {
@@ -68,16 +69,14 @@ html, * {
     color: #231f39;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-     background-color: #d9d9d9;
-    width: 40px;
-    height: 40px;
-     border-radius: 50px;
+    justify-content: center;
+    background-color: #d9d9d9;
+    width: 80%;
+    height: 9%;
+    border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 3px 6px rgba(207, 204, 204, 0.2);
-    padding: 0 10px;
-    gap: 10px;
 }
 .circle-option:hover {
     transform: scale(1.15);
@@ -96,6 +95,27 @@ html, * {
     height: 50%;
     border: 2px solid red;
     color: red;
+}
+
+.texto-oculto {
+    display: none;
+    font-size: 14px;
+    color: #231f39;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.nav-lateral:hover .texto-oculto {
+    display: flex;
+    visibility: visible;
+}
+
+
+.nav-lateral:hover .circle-option {
+    width: 130px;
+    justify-content: flex-start;
+    border-radius: 25px;
+    gap: 10px;
+    padding: 0 10px;
 }
 
 /*CONTEUDO PRINCIPAL*/
@@ -271,25 +291,4 @@ table tr th {
 }
 .ipt_idServer {
     display: none;
-}
-
-
-.texto-oculto {
-    opacity: 0;
-    visibility: hidden;
-    white-space: nowrap;
-    font-size: 14px;
-    color: #231f39;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.nav-lateral:hover .texto-oculto {
-    opacity: 1;
-    visibility: visible;
-}
-
-
-.nav-lateral:hover .circle-option {
-    width: 130px;
-    justify-content: flex-start;
 }

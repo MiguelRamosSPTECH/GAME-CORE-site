@@ -1,26 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="css/dash_sre.css">
-<link rel="stylesheet" href="css/dash/desc_server.css">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../css/dash_sre.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="conteudo">
-
+    <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
                 <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
@@ -53,18 +46,17 @@
             </div>
         </div>
         <div class="corpo">
-
             <div class="painel">
-                <span style="font-size: 40px; color: white;">Painel de controle da Saúde do Jogo</span>
-                <br>
-                <span style="font-size: 20px; color: white;">Atualizado em: 13/10/2025 14:59:07</span>
+                <div class="agrupa-infos">
+                    <span class="title-page">Painel de controle da Saúde do Jogo</span>
+                    <span>Atualizado em: 13/10/2025 14:59:07</span>                    
+                </div>
+                <div class="status">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>STATUS GERAL:<span class="check"> ÓTIMO</span></span>
+                </div>
             </div>
 
-            <div class="status">
-                <span style="font-size: 37px; color: white;">STATUS GERAL: <span
-                        style="color: green; font-size: 37px;">ÓTIMO</span> </span>
-
-            </div>
 
 
             <div class="grafico">
@@ -72,52 +64,33 @@
             </div>
 
 
-                        <div class="kpi1">
-                                <b><span style="font-size: 23px;">Margem de Capacidade</span></b>
-                                <br> <br><br>
-                                <div class="linha_espacada">
-                                        <b><span style="font-size: 38px;">25%</span></b>
-                                                            <b><span style="font-size: 38px;">ÓTIMO</span></b>
-                                    </div>
-                                <br> <br> <br>
+            <div class="kpi1">
+                <span class="title-kpi">Margem de Capacidade</span>
+                <div class="linha_espacada">
+                    <span class="dado-kpi">25%</span>
+                    <span class="check-kpi"><i class="fa-solid fa-circle-check"></i> ÓTIMO</span>
+                </div>
+                 <span class="descricao-kpi">Mínimo: 15% | Capacidade livre para picos</span>
+            </div>
+            <div class="kpi2">
+                <span class="title-kpi">Taxa de Desconexões</span>
+                <div class="linha_espacada">
+                    <span class="dado-kpi">0.08%</span>
+                    <span class="check-kpi"><i class="fa-solid fa-circle-check"></i> ÓTIMO</span>
+                </div>
+                <span class="descricao-kpi">Meta: < 0.15% | 80 desconexões/10.000</span>
+            </div>
+            <div class="kpi3">
+                <span class="title-kpi">Jogadores impactados por Latência</span>
+                <div class="linha_espacada">
+                    <span class="dado-kpi">5.2%</span>
+                    <span class="alert-kpi"><i class="fa-solid fa-bell"></i> ATENÇÃO</span>
+                </div>
+                <span class="descricao-kpi">Meta: < 4% | Latência Média Jogo: 120ms</span>
+            </div>
 
-                                <span style="font-size: 20px;">Mínimo: 15% | Capacidade livre para picos</span>
-                            </div>
-
-
-                        <div class="kpi2">
-                                                <b><span style="font-size: 23px;">Taxa de Desconexões
-                        Críticas</span></b>
-                                <br> <br><br>
-                                <div class="linha_espacada">
-                                        <b><span style="font-size: 38px;">0.08%</span></b>
-                                                            <b><span style="font-size: 38px;">ÓTIMO</span></b>
-                                    </div>
-                                <br> <br> <br>
-
-                                <span style="font-size: 20px;">Meta: < 0.15% | 80 desconexões/10.000</span>
-                                    </div>
-
-
-                        <div class="kpi3">
-                                                <b><span style="font-size: 23px;">Jogadores Impactados por
-                        Latência</span></b>
-                                <br> <br><br>
-                                <div class="linha_espacada">
-                                        <b><span style="font-size: 38px;">5.2%</span></b>
-                                                            <b><span style="font-size: 38px;">ATENÇÃO</span></b>
-                                    </div>
-                                <br> <br> <br>
-
-                                <span style="font-size: 20px;">Meta: < 4% | Latência Média Jogo: 120ms</span>
-                                    </div>
-
-                       
-                   
         </div>
-           
     </div>
-       
     <script>
         const ctx = document.getElementById('graficoUsuarios').getContext('2d');
 
