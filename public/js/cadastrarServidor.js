@@ -1,5 +1,6 @@
 console.log("JSSSS")
 var idEmpresa = sessionStorage.ID_EMPRESA;
+var listaServidores = [];
 
 const mapaDeMetricas = {
     'CPU': ['%'],
@@ -41,86 +42,8 @@ function showInfoInput(input) {
 
 
 
-// =========================================== NAO
-// array global que armazena todas as configurações (componente - metrica)
-const configuracoes = [];
-
-document.addEventListener('DOMContentLoaded', () => {
-    const componenteSelect = document.getElementById('selectComponente');
-    const metricaSelect = document.getElementById('selectMetrica');
-    const btnAdicionar = document.getElementById('btnAdicionar');
-    const listaConfiguracoes = document.getElementById('listaConfiguracoes');
-
-    componenteSelect.addEventListener('change', (event) => {
-        const componenteEscolhido = componenteSelect.value;
-        metricaSelect.innerHTML = '<option value="">Selecione uma métrica</option>';
-        
-        if (componenteEscolhido && mapaDeMetricas[componenteEscolhido]) {
-            mapaDeMetricas[componenteEscolhido].forEach(metrica => {
-                const option = document.createElement('option');
-                option.value = metrica;
-                option.textContent = metrica;
-                metricaSelect.appendChild(option);
-            });
-        }
-    });
-
-    btnAdicionar.addEventListener('click', () => {
-        const componente = componenteSelect.value;
-        const metrica = metricaSelect.value;
-
-        if (!componente || !metrica) {
-            alert('Escolha um componente e uma métrica antes de adicionar.');
-            return;
-        }
-
-        const jaExiste = configuracoes.some(c => c.componente === componente);
-        // retorna true já existe um componente configurado
-
-        if (jaExiste) {
-            alert(`O componente ${componente} já foi configurado.`);
-            return;
-        }
-
-        configuracoes.push({ componente, metrica });
-
-        const item = document.createElement('div');
-
-        item.textContent = `${componente} → ${metrica}`;
-        // item.textContent = `${componente} >> ${metrica}`;
-
-        listaConfiguracoes.appendChild(item);
-        // console.log(configuracoes)
-    });
-});
-
-// async function exibirLayout(){
-
-    //var idEmpresa = sessionStorage.ID_EMPRESA;
-
-//     fetch(`/cargos/buscar/${idEmpresa}`, { cache: 'no-store' })
-//         .then(response => response.json())
-//         .then(resposta => {
-//             console.log("Dado recebido: ", resposta);
-
-//             var select = document.getElementById("ipt_configuracao");
-//             select.innerHTML = '<option value="">Selecionar</option>';
-
-//             resposta.forEach(layout => {
-//             select.innerHTML += `<option value="${layout.id}">${layout.nome}</option>`;
-//             return idLayout = layout.id
-//         });
-//         console.log("Options do select:", select.innerHTML);
-
-//         console.log("ID do cargo" + idLayout)
-
-//         })
-//         .catch(erro => console.error("Erro:", erro));
-
-
-// }
-
 async function exibirLayouts() {
+
     const idEmpresa = sessionStorage.ID_EMPRESA;
     console.log("ID Empresa:", sessionStorage.ID_EMPRESA);
     if (!idEmpresa) return;
@@ -137,7 +60,11 @@ async function exibirLayouts() {
             option.value = layout.id;
             option.textContent = layout.nome;
             select.appendChild(option);
+
+            return idLayout = layout.id;
+
         });
+
 
     } catch (erro) {
         console.error("Erro ao carregar layouts: ", erro);
@@ -145,55 +72,75 @@ async function exibirLayouts() {
 }
 
 
-function cadastrarServidor(){
-    // nova função
+
+async function buscarServidor() {
+
+    await fetch(`/cadastrarServidor/buscarServidor/${idEmpresa}`, { cache: 'no-store' })
+        .then(response => response.json())
+        .then(resposta => {
+            console.log("Dado recebido: ", resposta);
+
+            var select = document.getElementById("servidor");
+            select.innerHTML = '<option value="">Selecionar</option>';
+
+            resposta.forEach(servidor => {
+                select.innerHTML += `<option value="${servidor.id}">${servidor.apelido}</option>`;
+
+                return servidor
+
+            });
+
+            listaServidores = resposta
+
+            console.log("Options do select:", select.innerHTML);
+
+        })
+        .catch(erro => console.error("Erro:", erro));
+
+}
+
+
+
+async function receberCamposLayout() {
+
+    var inputs = document.querySelectorAll('#servidor')
+
+    console.log(inputs)
+
+    for (let i = 0; i < inputs.length; i++) {
+
+        inputs[i].addEventListener('change', () => {
+
+            let idSelect = inputs[i].value
+
+            var idServidor = listaServidores.find(layout => layout.id == idSelect)
+            sessionStorage.ID_SERVIDOR_MODIFICADO = idServidor.id;
+
+            var apelido = document.getElementById("ipt_apelido");
+            var apelidoServidor = listaServidores.find(layout => layout.id == idSelect)
+            apelido.value = apelidoServidor.apelido;
+
+            var macAdress = document.getElementById("ipt_nome");
+            var macAdressServidor = listaServidores.find(layout => layout.id == idSelect)
+            macAdress.value = macAdressServidor.macadress;
+
+            var regiao = document.getElementById("ipt_regiao");
+            var regiaoServidor = listaServidores.find(layout => layout.id == idSelect)
+            regiao.value = regiaoServidor.localizacao;
+
+        })
+
+    }
+
 }
 
 
 function enviarCadastroServidor() {
-    console.log(configuracoes)
-    for (const {componente,metrica} of configuracoes){
-        console.log(componente)
-        console.log(metrica)
-    }
 
-    const hostnameVar = ipt_hostname.value;
-    const ipVar = ipt_ip.value;
-    const localizacaoVar = ipt_localizacao.value;
-
-    // const componentesSelecionados = [];
-    // document.querySelectorAll('#monitoramento-opcoes input[name="componente"]:checked').forEach(c => {
-    //     componentesSelecionados.push(c.value);
-    // });
-
-    // const metricasSelecionadas = [];
-    // document.querySelectorAll('#metricas-opcoes-container input[name="unidade_metrica"]:checked').forEach(c => {
-    //     metricasSelecionadas.push(c.value);
-    // });
-
-    const idEmpresaVar = sessionStorage.ID_EMPRESA;
-
-
-    if (
-        !hostnameVar.trim() ||
-        !ipVar.trim() ||
-        !localizacaoVar.trim() ||
-        configuracoes.length === 0
-        // componentesSelecionados.length === 0 ||
-        // metricasSelecionadas.length === 0
-    ) {
-
-        console.error("ERRO: Preencha os campos e selecione Componentes e Métricas.");
-
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML = "(Mensagem de erro)";
-        finalizarAguardar();
-        return false;
-
-    }
-
-
-
+    let apelidoServidor = ipt_apelido.value;
+    let macadressServidor = ipt_nome.value;
+    let regiaoServidor = ipt_regiao.value;
+    let idLayoutServidor = idLayout;
 
     fetch("/cadastrarServidor/cadastrar", {
         method: "POST",
@@ -201,13 +148,12 @@ function enviarCadastroServidor() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            hostnameServer: hostnameVar,
-            ipServer: ipVar,
-            localizacaoServer: localizacaoVar,
-            configuracaoServer: configuracoes,
-            // componenteServer: componentesSelecionados,
-            // metricaServer: metricasSelecionadas,
-            idEmpresaServer: idEmpresaVar
+
+            apelidoServidorServer : apelidoServidor,
+            macadressServer : macadressServidor,
+            regiaoServidorServer: regiaoServidor,
+            idEmpresaServer: idEmpresa,
+            idLayoutServer : idLayoutServidor
 
         }),
     })
@@ -221,13 +167,13 @@ function enviarCadastroServidor() {
                     "Cadastro realizado com sucesso!";
 
                 setTimeout(() => {
-                    // window.location = "login.html";
+                    window.location = "../dashboard/index.html";
                 }, "2000");
 
                 // limparFormulario();
                 // finalizarAguardar();
             } else {
-                throw "Houve um erro ao tentar realizar o cadastro!";
+                throw "Houve um erro ao tentar realizar o cadastro de servidor!";
             }
         })
         .catch(function (resposta) {
@@ -238,4 +184,65 @@ function enviarCadastroServidor() {
     return false;
 
 
+}
+
+
+function editarServer() {
+
+    let apelidoServidor = ipt_apelido.value;
+    let macadressServidor = ipt_nome.value;
+    let regiaoServidor = ipt_regiao.value;
+    let idLayoutServidor = idLayout;
+    var id_do_servidor = sessionStorage.ID_SERVIDOR_MODIFICADO;
+
+
+    console.log("ID do layout: ", idLayoutServidor);
+    console.log("ID do servidor: ", id_do_servidor)
+
+
+    fetch("/cadastrarServidor/editarServer", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+            apelidoServidorServer : apelidoServidor,
+            macadressServer : macadressServidor,
+            regiaoServidorServer: regiaoServidor,
+            idEmpresaServer: idEmpresa,
+            idLayoutServer : idLayoutServidor,
+            idServidorServer : id_do_servidor
+
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                cardErro.style.display = "block";
+
+                mensagem_erro.innerHTML =
+                    "Alteração realizada com sucesso!";
+
+                console.log("Servidor alterado com sucesso!")
+
+                alert("Servidor Alterado com sucesso!")
+
+                setTimeout(() => {
+                     window.location = "../dashboard/index.html";
+                }, "2000");
+
+                // limparFormulario();
+                finalizarAguardar();
+            } else {
+                throw "Houve um erro ao tentar realizar a alteração!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            finalizarAguardar();
+        });
+
+    return false;
 }
