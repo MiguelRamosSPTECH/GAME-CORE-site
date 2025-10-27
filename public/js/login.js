@@ -33,7 +33,6 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
-
                     setTimeout(function () {
                         if(sessionStorage.NOME_CARGO == "Administrador Master") {
                              window.location = "../dashboard/dash_adm/funcionarios/index.html";
