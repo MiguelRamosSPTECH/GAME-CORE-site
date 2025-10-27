@@ -1,4 +1,5 @@
-var database = require("../database/config")
+var database = require("../database/config");
+const { all } = require("../routes/cargos");
 
 async function criar(nome, permissoes, fk_empresa){
 
@@ -84,11 +85,23 @@ function buscarPermissoesPorCargo(idCargo) {
     return database.executar(instrucaoSql);
 }
 
+//implementar inner join dps
+function allCargos(idEmpresa) {
+    var querySql = `select c.nome as nomeCargo, p.nome as nomePermissao from cargo c
+                    inner join permissaocargo ps on
+                    ps.fk_cargo_pc = c.id
+                    inner join permissao p on
+                    p.id = ps.fk_permissao_pc
+                    where c.fk_empresa_cargo = ${idEmpresa}`
+    return database.executar(querySql);
+}
+
 
 
 module.exports = {
     criar,
     buscar,
     buscarFunc,
-    buscarPermissoesPorCargo
+    buscarPermissoesPorCargo,
+    allCargos
 };

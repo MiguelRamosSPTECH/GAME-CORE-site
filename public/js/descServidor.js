@@ -102,3 +102,29 @@ function descricaoChamado() {
       backgroundModal.style.display = "none"
     }
 }
+
+function allServidores() {
+  var idEmpresa = sessionStorage.ID_EMPRESA;
+  fetch(`/cadastrarServidor/allServidores/${idEmpresa}`, {
+    method: "GET"
+  })
+  .then(async resposta => {
+      let allServidores = await resposta.json();
+      let tabelaServidores = document.getElementById('tabela_servidores')
+      let acumulaServidores = ""
+      allServidores.forEach(servidor => {
+        acumulaServidores+=`
+            <tr class="background-linha">
+                  <td onclick="window.location.href='servidores/desc_servidor.html?=${servidor.fk_empresa_servidor}'">${servidor.apelido}</td>
+                  <td>${servidor.macadress}</td>
+                  <td>${servidor.localizacao}</td>
+                  <td class="bloco-alertas critico" style="color: green;">Ativo</td>
+                  <td class="bloco-alertas">5</td>
+                  <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='servidores/edit_servidor.html?=${servidor.fk_empresa_servidor}'"></i></td>
+            </tr>        
+        `
+      });
+      tabelaServidores.innerHTML+= acumulaServidores
+    
+  })
+}
