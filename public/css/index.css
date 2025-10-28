@@ -127,7 +127,7 @@ nav ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 180%;
+    width: 100%;
     position: absolute;
     padding-right: 20px;
 }
@@ -410,7 +410,7 @@ nav ul {
 }
 
 .conteudo-servicos {
-    align-items: end;
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 5rem;
@@ -421,7 +421,6 @@ nav ul {
     display: flex;
     flex-direction: column;
     align-items: end;
-    cursor: pointer;
 }
 
 .conteudo-servicos section h2 {
@@ -880,6 +879,25 @@ footer {
         padding: 15px 0;
     }
 
+    .first-texts {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 180%;
+        position: absolute;
+        padding-right: 20px;
+
+    }
+
+    .first-texts span {
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: 900;
+
+    }
+
     .nome {
         flex-direction: column;
         gap: 15px;
@@ -958,6 +976,20 @@ footer {
         min-height: 300px;
     }
 
+    .negocio {
+        background: #ebe5e5;
+        color: #2b2b2b;
+        padding: 140px 0px;
+        height: 200vh;
+    }
+
+    .negocio h3 {
+        color: #4a1f86;
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+
     .negocio .quem-somos {
         font-size: 95px;
         top: -55px;
@@ -980,8 +1012,21 @@ footer {
     .nossotime .time-text {
         display: none;
     }
-    .nossotime{
+
+    .nossotime {
         padding: 10px;
+    }
+
+    .nossotime {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        height: 120vh;
+        background: #000;
+        color: #ebe5e5;
+        padding: 30px 90px;
+        position: relative;
+        overflow: hidden;
     }
 
     .time-container h3 {
@@ -1016,9 +1061,20 @@ footer {
         flex-direction: column;
     }
 
-    .quem-somos-container {
-        margin-bottom: 20px;
+    .quem-somos-container h3 {
+        top: 50px;
     }
+
+    .servicos-container h3{
+        bottom: 20px;
+
+    }
+
+    .quem-somos-container h3{
+        top: 0;
+
+    }
+
 
     .servico {
         gap: 5px;
@@ -1034,6 +1090,34 @@ footer {
 
     .servicos-container {
         margin-bottom: 80px;
+    }
+
+    .conteudo-servicos {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+        z-index: 1;
+
+    }
+
+    .conteudo-servicos section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .conteudo-servicos section p {
+        font-weight: 500;
+        text-align: center;
+        width: 70%;
+    }
+
+    .servico-desloca {
+        position: relative;
+        left: 0;
+
     }
 
     .servicos-container h3 {
