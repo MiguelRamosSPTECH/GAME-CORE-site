@@ -103,3 +103,33 @@ function cadastrarFunc() {
 
         return false;
     }
+
+
+    function allFunc() {
+        let idEmpresa = sessionStorage.ID_EMPRESA;
+        fetch(`/usuarios/allFunc/${idEmpresa}`, {
+            method: "GET"
+        })
+        .then(async resposta => {
+            if(resposta.ok) {
+                let funcionarios = await resposta.json();
+                console.log(funcionarios);
+                let areaFuncionarios = document.getElementById('table_func')
+                let stringFuncionarios = ""
+                funcionarios.forEach(funcionario => {
+                    stringFuncionarios+=`
+                            <tr class="background-linha">
+                                <td class="celula_func">${funcionario.id}</td>
+                                <td class="celula_func">${funcionario.nome}</td>
+                                <td class="celula_func cpf">${funcionario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</td>
+                                <td class="celula_func bloco-centro">${funcionario.nomeCargo}</td>
+                                <td class="bloco-centro">5 dias atrás</td>
+                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='./edit_funcionario.html?idFunc=${funcionario.id}'"></i></td>
+                                <td class="circle-delete"><i class="fa-solid fa-trash-arrow-up icon_delete"></i></td>
+                            </tr>                    
+                    `
+                });
+                areaFuncionarios.innerHTML+=stringFuncionarios
+            }
+        })
+    }

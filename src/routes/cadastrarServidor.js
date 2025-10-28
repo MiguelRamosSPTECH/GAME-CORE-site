@@ -26,5 +26,8 @@ router.get("/buscarServidor/:idEmpresa", function (req, res) {
 router.post("/editarServer", function (req, res) {
     cadastroServidorController.editarServer(req, res);
 })
+router.get('/allServidores/:idEmpresa', function(req,res) {
+    cadastroServidorController.allServidores(req,res);
+})
 
 module.exports = router;

@@ -26,5 +26,8 @@ router.get('/buscarFunc/:idEmpresa', function(req, res){
 router.post("/buscarPermissoes", function(req, res) {
     cargoController.buscarPermissoes(req, res);
 });
+router.get("/allCargos/:idEmpresa", function(req,res) {
+    cargoController.allCargos(req,res);
+})
 
 module.exports = router;
