@@ -129,12 +129,11 @@ INSERT INTO Funcionario VALUES (null, "Marcos Silva","msilva@gmail.com","9007284
 INSERT INTO Funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","90072845623","12345678",1,3);
 
 INSERT INTO Permissao (nome) VALUES 
-("Dashboard de Analista"),
-("Dashboard de Suporte"),
-("Cadastro de Funcionário"),
-("Edição de Funcionário"),
-("Cadastro de Servidor"),
-("Criação de Cargo");
+("DASH ADM"),
+("DASH ENG.SRE"),
+("DASH GAMEOPS");
+
+# depois adicionar mais permissões para aplicar os esquema tudo la
 
 insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08","Ala Sul",1,null);
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
@@ -143,7 +142,9 @@ insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
 insert into configuracaoservidor values(null, 85.4, 91.6, 1, 6, 1);
 insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
 insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
-
+insert into permissaocargo values(1,1,0),
+								 (2,2,0),
+                                 (3,3,0);
 select * from Empresa;
 select * from Cargo;
 select * from Permissao;
@@ -154,6 +155,13 @@ select * from Servidor;
 select * from componente;
 select * from metrica;
 select * from ConfiguracaoServidor;
+
+select c.nome, p.nome from cargo c
+inner join permissaocargo ps on
+ps.fk_cargo_pc = c.id
+inner join permissao p on
+p.id = ps.fk_permissao_pc;
+
 -- SELECT QUE RETORNA NOME DE SERVIDOR E OS
 -- COMPONENTES / METRICAS SELECIONADAS
 -- -- --- --- refazer
@@ -188,3 +196,4 @@ c.id = cs.fk_componente_cs
 inner join metrica m on
 m.id = cs.fk_metrica_cs
 where e.id = 4;
+

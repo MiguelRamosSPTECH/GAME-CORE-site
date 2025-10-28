@@ -1,4 +1,5 @@
 var cargoModel = require("../models/cargoModel");
+const { all } = require("../routes/cargos");
 
 function criar(req, res){
     var nome = req.body.cargoServer;
@@ -107,9 +108,22 @@ function buscarFunc(req, res){
 //        });
 //}
 
+function allCargos(req,res) {
+    let idEmpresa = req.params.idEmpresa
+    cargoModel.allCargos(idEmpresa)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        } else {
+            res.status(401).json("Nenhum cargo cadastrado!")
+        }
+    })
+}
+
 module.exports = {
     criar,
     buscar,
-    buscarFunc
+    buscarFunc,
+    allCargos
     //buscarPermissoes
 }
