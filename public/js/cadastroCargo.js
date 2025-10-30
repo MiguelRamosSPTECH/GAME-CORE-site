@@ -55,6 +55,41 @@
             return false;
     }
 
+function allCargos() {
+    var idEmpresa = sessionStorage.ID_EMPRESA;
+    fetch(`/cargos/allCargos/${idEmpresa}`, {
+        method: "GET"
+    })
+    .then(async resposta => {
+        let cargos = await resposta.json();
+        let areaCargos = document.getElementById('area_cards')
+        let stringCargos = ""
+        cargos.forEach(cargo => {
+            stringCargos+=`
+                        <div class="card">
+                            <div class="icon-top">
+                                <img src="../../../assets/imgs/icon-cargo.png">
+                            </div>
+                            <h2>${cargo.nomeCargo.toUpperCase()}</h2>
+                            <div class="icons-permissoes">
+                                <div class="permissao">
+                                    <div class="icon-permissao"></div>
+                                    <span>${cargo.nomePermissao}</span>
+                                </div>
+                                <div class="permissao">
+                                    <div class="icon-permissao"></div>
+                                    <span>GERENCIAR SERVIDOR</span>
+                                </div>                                
+                            </div>
+                        </div>             
+            `
+        })
+        areaCargos.innerHTML+=stringCargos
+    })
+}
+
+
+
 
 
 //var permissoesNecessarias = [6];

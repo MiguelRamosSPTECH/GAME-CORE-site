@@ -1,4 +1,5 @@
 var cadastroServidorModel = require("../models/cadastroServidorModel");
+const { all } = require("../routes/cadastrarServidor");
 
 function cadastrarServidor(req, res) {
 
@@ -112,11 +113,23 @@ function editarServer(req, res){
         );
 
 }
+function allServidores(req,res) {
+    var idEmpresa = req.params.idEmpresa;
+    cadastroServidorModel.allServidores(idEmpresa)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        } else {
+            res.status(401).json("Nenhum servidor cadastrado")
+        }
+    })
+}
 
 
 module.exports = {
     cadastrarServidor,
     exibeLayout,
     buscarServidor,
-    editarServer
+    editarServer,
+    allServidores
 };
