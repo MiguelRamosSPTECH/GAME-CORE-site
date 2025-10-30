@@ -42,8 +42,27 @@ function editarFunc(nomeFuncionario, emailFuncionario, cpfFuncionario, senhaFunc
 
 }
 
+function allFunc(idEmpresa) {
+    var querySql = `SELECT f.id, f.nome, f.email, f.cpf, c.nome as nomeCargo FROM funcionario f
+                    INNER JOIN cargo c on
+                    c.id = f.fk_cargo_func
+                    WHERE c.fk_empresa_cargo = ${idEmpresa}`;
+    return database.executar(querySql)
+}
+function findByIdFunc(idFunc, idEmpresa) {
+    var querySql = `SELECT f.id, f.nome, f.email, f.cpf, f.senha, c.nome as nomeCargo, c.id as idCargo FROM funcionario f
+                    INNER JOIN cargo c on
+                    c.id = f.fk_cargo_func
+                    WHERE fk_cargo_func = ${idEmpresa}
+                    AND f.id = ${idFunc};
+                    `
+    return database.executar(querySql);
+}
+
 module.exports = {
     autenticar,
     cadastrarFunc,
-    editarFunc
+    editarFunc,
+    allFunc,
+    findByIdFunc
 };

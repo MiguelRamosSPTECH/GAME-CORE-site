@@ -118,9 +118,34 @@ function editarFunc(req, res){
         );
 
 }
+function allFunc(req,res) {
+    let idEmpresa = req.params.idEmpresa;
+    usuarioModel.allFunc(idEmpresa)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        } else {
+            res.status(401).json("Nenhum funcionário cadastrado")
+        }
+    })
+}
+
+function findByIdFunc(req,res) {
+    const {idEmpresa, idFunc} = req.params;
+    usuarioModel.findByIdFunc(idFunc, idEmpresa)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        } else {
+            window.location.href="index.html"
+        }        
+    })
+}
 
 module.exports = {
     autenticar,
     cadastrarFunc,
-    editarFunc
+    editarFunc,
+    allFunc,
+    findByIdFunc
 }

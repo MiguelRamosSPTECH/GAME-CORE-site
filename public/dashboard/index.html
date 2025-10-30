@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="../css/dash/dash.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>DASHBOARD | GAMEOPS</title>
-    <script src="../../js/sessao.js"></script>
+    <script src="../js/sessao.js"></script>
+    <script src="../js/descServidor.js"></script>
 </head>
-<body onload="validarSessao()">
+<body onload="validarSessao(), allServidores()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -16,20 +17,20 @@
             </div>
             <div class="options-nav">
                 <div class="principal-options">
-                    <div class="circle-option">
-                        <i onclick="window.location.reload()" class="fa-solid fa-house"></i>
+                    <div class="circle-option" onclick="window.location.reload()">
+                        <i class="fa-solid fa-house"></i>
                         <span class="texto-oculto">Início</span>
                     </div>
-                    <div class="circle-option">
-                        <i onclick="window.location.href='./processos/index.html'" class="fa-solid fa-clock"></i>
+                    <div class="circle-option" onclick="window.location.href='./processos/index.html'">
+                        <i class="fa-solid fa-clock"></i>
                           <span class="texto-oculto">Processos</span>
                     </div>
-                    <div class="circle-option">
-                        <i onclick="window.location.href='historico_alerta.html'" class="fa-solid fa-bug"></i>
+                    <div class="circle-option" onclick="window.location.href='historico_alerta.html'">
+                        <i class="fa-solid fa-bug"></i>
                           <span class="texto-oculto">Alertas</span>
                     </div>                      
-                    <div class="circle-option">
-                        <i onclick="window.location.href='./layouts/configs_padrao.html'" class="fa-solid fa-gear"></i>
+                    <div class="circle-option" onclick="window.location.href='./layouts/configs_padrao.html'">
+                        <i class="fa-solid fa-gear"></i>
                         <span class="texto-oculto">Configurações</span>
                     </div>
                 </div>
@@ -72,30 +73,13 @@
                         </div>
                     </div>
                     <div class="area-table">
-                        <table>
+                        <table id="tabela_servidores">
                             <tr>
                                 <th>Servidor</th>
                                 <th>IP</th>
                                 <th>Localização</th>
                                 <th class="bloco-alertas">Status</th>
                                 <th class="bloco-alertas">Alertas em aberto</th>
-                            </tr>
-                            <tr class="background-linha">
-                                <td onclick="window.location.href='servidores/desc_servidor.html'">Servidor Alfa</td>
-                                <td>177.123.199.50</td>
-                                <td>São Paulo</td>
-                                <td class="bloco-alertas critico">Inoperante</td>
-                                <td class="bloco-alertas">5</td>
-                                <input class="ipt_idServer" type="number" value="2">
-                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='servidores/edit_servidor.html'"></i></td>
-                            </tr>
-                            <tr>
-                                <td onclick="window.location.href='servidores/desc_servidor.html'">Servidor Beta</td>
-                                <td>29.239.73.67</td>
-                                <td >Curitiba</td>
-                                <td class="bloco-alertas critico" style="color: green;">Ativo</td>
-                                <td class="bloco-alertas">0</td>
-                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='servidores/edit_servidor.html'"></i></td>
                             </tr>
                         </table>
                     </div>

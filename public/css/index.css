@@ -219,7 +219,6 @@ nav ul {
     height: 180vh;
     position: relative;
     overflow: hidden;
-    border: 1px solid black;
 }
 
 .monitoramento .wrap {
@@ -232,11 +231,13 @@ nav ul {
     position: relative;
     z-index: 1;
 }
+
 .content-sobre-nos {
     display: flex;
     flex-direction: column;
     align-items: end;
 }
+
 .content-sobre-nos button {
     width: 19%;
     padding: 3.5px;
@@ -249,6 +250,7 @@ nav ul {
     outline: none;
     transition: 0.2s ease-in-out;
 }
+
 .content-sobre-nos button:hover {
     transform: scale(1.05);
 }
@@ -300,6 +302,7 @@ nav ul {
     white-space: nowrap;
     font-weight: 700;
 }
+
 #first {
     top: 0px;
 }
@@ -395,32 +398,35 @@ nav ul {
 .servico p {
     color: #5a5667;
     margin: 0;
-}   
+}
 
 .servico-bloco {
     display: flex;
     align-items: center;
 }
+
 .servico-bloco img {
     width: 40%;
 }
 
 .conteudo-servicos {
-    align-items: end;
+    align-items: center;
     display: flex;
     flex-direction: column;
     gap: 5rem;
     z-index: 1;
 }
+
 .conteudo-servicos section {
     display: flex;
     flex-direction: column;
     align-items: end;
-    cursor: pointer;
 }
+
 .conteudo-servicos section h2 {
     font-weight: 900;
 }
+
 .conteudo-servicos section p {
     font-weight: 500;
     text-align: end;
@@ -497,7 +503,8 @@ nav ul {
     flex: 1 1 500px;
     justify-content: center;
 }
-.title-time{
+
+.title-time {
     font-weight: 900;
     font-size: 15px;
     color: white;
@@ -595,13 +602,15 @@ nav ul {
     overflow: hidden;
     height: 150vh;
 }
+
 .v {
     font-size: 250px;
     top: -170px;
 }
+
 .val-title {
-    margin-top: 50px!important;
-    margin-bottom: 200px!important;
+    margin-top: 50px !important;
+    margin-bottom: 200px !important;
 }
 
 .valores-cards {
@@ -632,6 +641,7 @@ nav ul {
 .card:hover {
     transform: scale(1.05);
 }
+
 .card::before {
     content: "";
     position: absolute;
@@ -869,6 +879,25 @@ footer {
         padding: 15px 0;
     }
 
+    .first-texts {
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 180%;
+        position: absolute;
+        padding-right: 20px;
+
+    }
+
+    .first-texts span {
+
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        font-weight: 900;
+
+    }
+
     .nome {
         flex-direction: column;
         gap: 15px;
@@ -898,6 +927,10 @@ footer {
     .gradiente {
         padding: 80px 0;
         text-align: center;
+    }
+
+    .monitoramento {
+        height: 100vh;
     }
 
     .monitoramento .wrap {
@@ -934,12 +967,28 @@ footer {
         font-size: 140px;
         top: -90px;
     }
-    .valores-cards{
+
+    .valores-cards {
         margin-top: 60px;
     }
+
     .card {
-    min-height: 300px;
-}
+        min-height: 300px;
+    }
+
+    .negocio {
+        background: #ebe5e5;
+        color: #2b2b2b;
+        padding: 140px 0px;
+        height: 200vh;
+    }
+
+    .negocio h3 {
+        color: #4a1f86;
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
 
     .negocio .quem-somos {
         font-size: 95px;
@@ -962,6 +1011,22 @@ footer {
 
     .nossotime .time-text {
         display: none;
+    }
+
+    .nossotime {
+        padding: 10px;
+    }
+
+    .nossotime {
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        height: 120vh;
+        background: #000;
+        color: #ebe5e5;
+        padding: 30px 90px;
+        position: relative;
+        overflow: hidden;
     }
 
     .time-container h3 {
@@ -996,8 +1061,24 @@ footer {
         flex-direction: column;
     }
 
-    .quem-somos-container {
-        margin-bottom: 20px;
+    .quem-somos-container h3 {
+        top: 50px;
+    }
+
+    .servicos-container h3{
+        bottom: 20px;
+
+    }
+
+    .quem-somos-container h3{
+        top: 0;
+
+    }
+
+
+    .servico {
+        gap: 5px;
+        padding-top: 30px;
     }
 
     .servico-bloco {
@@ -1011,6 +1092,34 @@ footer {
         margin-bottom: 80px;
     }
 
+    .conteudo-servicos {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 5rem;
+        z-index: 1;
+
+    }
+
+    .conteudo-servicos section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .conteudo-servicos section p {
+        font-weight: 500;
+        text-align: center;
+        width: 70%;
+    }
+
+    .servico-desloca {
+        position: relative;
+        left: 0;
+
+    }
+
     .servicos-container h3 {
         margin-top: 20px;
     }
@@ -1018,9 +1127,10 @@ footer {
     .servico-bloco h2 {
         margin-top: 20px;
     }
+
     .corpo7 {
-    padding: 10px 60px;
-}
+        padding: 10px 60px;
+    }
 
     footer {
         flex-direction: column;

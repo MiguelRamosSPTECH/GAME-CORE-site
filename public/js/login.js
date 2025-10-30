@@ -33,18 +33,15 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
-                    //Chama a função para buscar as permissões antes de redirecionar
-                    //buscarEsalvarPermissoes(fk_cargo_func);
-
-
                     setTimeout(function () {
                         if(sessionStorage.NOME_CARGO == "Administrador Master") {
                              window.location = "../dashboard/dash_adm/funcionarios/index.html";
                         } else if(sessionStorage.NOME_CARGO == "GAMEOPS") {
                             window.location = "../dashboard/index.html"
                         } else if(sessionStorage.NOME_CARGO == "Engenheiro SRE") {
-                            window.location = "../dashboard/dash_sre"
-                        }
+                            window.location = "../dashboard/dash_sre/dashSaudeServidores.html"
+                        } else if(sessionStorage.NOME_CARGO == "GAMECORE") {
+                            window.location = "../aprovar_empresas/aprovar.html"}
                         
 
                     }, 500); // apenas para exibir o loading

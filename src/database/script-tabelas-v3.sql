@@ -8,7 +8,7 @@ nomeEmpresarial varchar(30),
 cnpj char(14),
 email varchar(45),
 -- statusOperacao varchar(45),
-statusAcesso boolean default 1
+statusAcesso char(1) default 1
 );
 
 create table if not exists Cargo(
@@ -26,7 +26,6 @@ email varchar(30),
 cpf char(11),
 senha varchar(45),
 perfilAtivo boolean default 1,
--- userMaster boolean default 0,
 fk_cargo_func int,
 -- fk_empresa_func int,
 -- constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
@@ -122,17 +121,30 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
 ('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
 ('Nintendo', '55123456000155', 'contato@nintendo.com');
 
-
+INSERT INTO Cargo VALUES(null,"Administrador Master",1,1),
+						(null, "Engenheiro SRE",1,1),
+                        (null, "GAMEOPS",1,1);
+INSERT INTO Funcionario VALUES (null, "Paulo Silva","psilva@gmail.com","90072845688","12345678",1,1);
+INSERT INTO Funcionario VALUES (null, "Marcos Silva","msilva@gmail.com","90072845683","12345678",1,2);
+INSERT INTO Funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","90072845623","12345678",1,3);
 
 INSERT INTO Permissao (nome) VALUES 
-("Dashboard de Analista"),
-("Dashboard de Suporte"),
-("Cadastro de Funcionário"),
-("Edição de Funcionário"),
-("Cadastro de Servidor"),
-("Criação de Cargo");
+("DASH ADM"),
+("DASH ENG.SRE"),
+("DASH GAMEOPS");
 
+# depois adicionar mais permissões para aplicar os esquema tudo la
 
+insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08","Ala Sul",1,null);
+insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
+select * from configuracaoservidor;
+insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
+insert into configuracaoservidor values(null, 85.4, 91.6, 1, 6, 1);
+insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
+insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
+insert into permissaocargo values(1,1,0),
+								 (2,2,0),
+                                 (3,3,0);
 select * from Empresa;
 select * from Cargo;
 select * from Permissao;
@@ -143,6 +155,12 @@ select * from Servidor;
 select * from componente;
 select * from metrica;
 select * from ConfiguracaoServidor;
+
+select c.nome, p.nome from cargo c
+inner join permissaocargo ps on
+ps.fk_cargo_pc = c.id
+inner join permissao p on
+p.id = ps.fk_permissao_pc;
 
 -- SELECT QUE RETORNA NOME DE SERVIDOR E OS
 -- COMPONENTES / METRICAS SELECIONADAS
@@ -155,14 +173,6 @@ inner join Permissao p on p.id = pc.fk_permissao_pc
 inner join Cargo c on c.id = pc.fk_cargo_pc
 inner join Empresa e on e.id = c.fk_empresa_cargo;
 
-select * from servidor;
-select * from layout;
-delete from layout where id = 3;
-insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08","Ala Sul",1,null);
-insert into layout values(null, "DESEMPENHO LÓGICO", 1);
-select * from configuracaoservidor;
-insert into configuracaoservidor values(null, 80, 90, 1, 2, 1);
-insert into configuracaoservidor values(null, 90, 95, 1, 1, 1);
 #-----------------------------------------------------------
 ##SCRIPTS ETL
 
@@ -186,3 +196,4 @@ c.id = cs.fk_componente_cs
 inner join metrica m on
 m.id = cs.fk_metrica_cs
 where e.id = 4;
+
