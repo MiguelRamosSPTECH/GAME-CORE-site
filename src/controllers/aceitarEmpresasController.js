@@ -82,9 +82,52 @@ function buscar_Cargos(req, res) {
             );
 }
 
+function atualizar_perfil(req, res) {
+    var novoStatus = req.body.novoStatus;
+    var idEmpresa = req.body.idEmpresa;
+
+    aceitarEmpresaModel.atualizar_perfil(novoStatus, idEmpresa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
+function criar_perfil(req, res) {
+    var novoStatus = req.body.novoStatus;
+    var idEmpresa = req.body.idEmpresa;
+    var nome = req.body.nome;
+
+    aceitarEmpresaModel.criar_perfil(novoStatus, idEmpresa,nome)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        )
+        .catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar o post: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+
+}
+
 
 module.exports = {
     buscar_cards,
     editar,
-    buscar_Cargos
+    buscar_Cargos,
+    atualizar_perfil,
+    criar_perfil
 }

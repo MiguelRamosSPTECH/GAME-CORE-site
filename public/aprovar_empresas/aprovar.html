@@ -171,22 +171,22 @@
 
         function aprovar(i){
         var idEmpresa1 = id[i]
-        editar(idEmpresa1,3)
+        editar(idEmpresa1,3,i)
         }
 
 
         function reprovar(i){
         var idEmpresa2 = id[i]
-        editar(idEmpresa2,2)
+        editar(idEmpresa2,2,i)
 
         }
             
 
 
-        function editar(idEmpresaPassado,novoStatusPassado) {
+        function editar(idEmpresaPassado,novoStatusPassado,indice) {
 
             console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
-            fetch(`/aceitarEmpresas/statusEmpresa`, {
+            fetch(`/aceitarEmpresas/editar`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -201,7 +201,7 @@
                     window.alert("Situação de empresa atualizada com sucesso!");
                     window.location = "aprovar.html"
                 } else if (resposta.status == 404) {
-                    window.alert("Deu 404!");
+                    window.alert("Deu 404! no editar");
                 } else {
                     throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
                 }
@@ -209,11 +209,11 @@
                 console.log(`#ERRO: ${resposta}`);
             });
 
-            buscar_Cargos(idEmpresaPassado)
+            buscar_Cargos(idEmpresaPassado, novoStatusPassado,indice)
         }
 
 
-            function buscar_Cargos(filtropassado) {
+            function buscar_Cargos(filtropassado, novoStatusPassado,indice) {
             
             var filtroVar = filtropassado;
            
@@ -262,43 +262,73 @@
 
             if(id[0] == filtroVar){
                 // atualiza para ativado o perfil do candango, usuario + cargo
-
-            }else if(id[0] == 1){
-                // atualiza para desativo o perfil do candango, usuario + cargo
-                
+                atualizar_perfil(filtroVar, novoStatusPassado,indice)
+            }else {
+                // cria o perfil do candango, usuario + cargo
+                criar_perfil(filtroVar, novoStatusPassado,indice)
 
             }
 
         }
 
             /// função p/ fazer uma das duas coisa a cima
-         //function editar(idEmpresaPassado,novoStatusPassado) {
+         function atualizar_perfil(idEmpresaPassado,novoStatusPassado,indice) {
 
-        //     console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
-        //     fetch(`/aceitarEmpresas/statusEmpresa`, {
-        //         method: "PUT",
-        //         headers: {
-        //             "Content-Type": "application/json"
-        //         },
-        //         body: JSON.stringify({
-        //             novoStatus: novoStatusPassado,
-        //             idEmpresa: idEmpresaPassado
-        //         })
-        //     }).then(function (resposta) {
+            console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+            fetch(`/aceitarEmpresas/atualizar_perfil`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    novoStatus: novoStatusPassado,
+                    idEmpresa: idEmpresaPassado
+                })
+            }).then(function (resposta) {
 
-        //         if (resposta.ok) {
-        //             window.alert("Situação de empresa atualizada com sucesso!");
-        //             window.location = "aprovar.html"
-        //         } else if (resposta.status == 404) {
-        //             window.alert("Deu 404!");
-        //         } else {
-        //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
-        //         }
-        //     }).catch(function (resposta) {
-        //         console.log(`#ERRO: ${resposta}`);
-        //     });
+                if (resposta.ok) {
+                    window.alert("Perfil da empresa atualizado com sucesso");
+                    window.location = "aprovar.html"
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404! no atualizar_perfil");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
 
-        // }
+        }
+
+
+         function criar_perfil(idEmpresaPassado,novoStatusPassado,indice) {
+
+            console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+            fetch(`/aceitarEmpresas/criar_perfil`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nome: nomeEmpresarial[indice],
+                    novoStatus: novoStatusPassado,
+                    idEmpresa: idEmpresaPassado
+                })
+            }).then(function (resposta) {
+
+                if (resposta.ok) {
+                    window.alert("Perfil da empresa criado com sucesso!");
+                    window.location = "aprovar.html"
+                } else if (resposta.status == 404) {
+                    window.alert("Deu 404! no criar_perfil");
+                } else {
+                    throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+                }
+            }).catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+            });
+
+        }
 
 
 
