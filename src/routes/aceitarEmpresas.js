@@ -13,8 +13,8 @@ router.put("/statusEmpresa", function (req, res) {
 });
 
 
-// router.post("/buscarCargos", function (req, res) {
-//     aceitarEmpresasController.buscar_Cargos(req, res);
-// });
+router.post("/buscarCargos", function (req, res) {
+    aceitarEmpresasController.buscar_Cargos(req, res);
+});
 
 module.exports = router;

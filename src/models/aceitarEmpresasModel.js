@@ -21,22 +21,24 @@ function editar(novoStatus, idEmpresa) {
 }
 
 
-// function buscar_Cargos(filtro) {
-//      console.log("ACESSEI O ACEITAR EMPRESAS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", filtro)
+function buscar_Cargos(filtro) {
+     console.log("ACESSEI O ACEITAR EMPRESAS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", filtro)
 
-//     var instrucaoSql = `
-//         SELECT f.perfilAtivo
-//         from Funcionario f
-//         inner join Cargo c on f.fk_cargo_func = c.id
-//         inner join Empresa  e on c.fk_empresa_cargo = e.id
-//         where e.id = ${metrica};
-//     `;
-//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//     return database.executar(instrucaoSql);
-// }
+    var instrucaoSql = `
+        SELECT f.perfilAtivo, e.id
+        from Funcionario f
+        inner join Cargo c on f.fk_cargo_func = c.id
+        inner join Empresa  e on c.fk_empresa_cargo = e.id
+        where e.id = ${filtro}
+        or e.id = 1
+        order by e.id desc;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     buscar_cards,
     editar,
-    // buscar_Cargos
+    buscar_Cargos
 };

@@ -208,113 +208,100 @@
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
+
+            buscar_Cargos(idEmpresaPassado)
         }
 
 
-        //             function criar_cadastro() {
+            function buscar_Cargos(filtropassado) {
             
-        //     var filtroVar = filtro.value;
-        //     tabela_empresas.innerHTML = `
-        //                 <tr class="header_table">
-        //                     <th class="id_table">ID</th>
-        //                     <th>Nome</th>
-        //                     <th>Email</th>
-        //                     <th>ISPB</th>
-        //                     <th>Status Op.</th>
-        //                     <th class="acao_table">Ação</th>
-        //                 </tr>
-        //     `
-        //     fetch("/aceitarEmpresas/buscarCards", {
-        //         method: "POST",
+            var filtroVar = filtropassado;
+           
+            fetch("/aceitarEmpresas/buscar_Cargos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    filtroServer: filtroVar,
+                })
+            }).then(function (resposta) {
+                console.log("ESTOU NO THEN DO entrar()!")
+
+                if (resposta.ok) {
+                    console.log(resposta);
+
+                    resposta.json().then(json => {
+                        console.log(json);
+                        console.log("Esse é o json.stringify" +JSON.stringify(json));
+                        console.log("Tamanho volta" + json.length);
+                
+                        // Zerando os vetores das varievais, para poder repor os valores:
+                                id = []
+                                perfilAtivo = []
+
+                        // Salvando em variaveis os valores retornados
+                        for(i = 0; i < json.length; i++){
+                            id.push(json[i].id);
+                            perfilAtivo.push(json[i].perfilAtivo)
+                        }
+                        
+                        console.log(id);
+
+                    });
+
+                } else {
+
+                    console.log("Houve um erro ao tentar buscar os cards");
+
+                }
+
+            }).catch(function (erro) {
+                console.log(erro);
+            })
+
+            if(id[0] == filtroVar){
+                // atualiza para ativado o perfil do candango, usuario + cargo
+
+            }else if(id[0] == 1){
+                // atualiza para desativo o perfil do candango, usuario + cargo
+                
+
+            }
+
+        }
+
+            /// função p/ fazer uma das duas coisa a cima
+         //function editar(idEmpresaPassado,novoStatusPassado) {
+
+        //     console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+        //     fetch(`/aceitarEmpresas/statusEmpresa`, {
+        //         method: "PUT",
         //         headers: {
         //             "Content-Type": "application/json"
         //         },
         //         body: JSON.stringify({
-        //             filtroServer: filtroVar,
+        //             novoStatus: novoStatusPassado,
+        //             idEmpresa: idEmpresaPassado
         //         })
         //     }).then(function (resposta) {
-        //         console.log("ESTOU NO THEN DO entrar()!")
 
         //         if (resposta.ok) {
-        //             console.log(resposta);
-
-        //             resposta.json().then(json => {
-        //                 console.log(json);
-        //                 console.log("Esse é o json.stringify" +JSON.stringify(json));
-        //                 console.log("Tamanho volta" + json.length);
-                
-        //                 // Zerando os vetores das varievais, para poder repor os valores:
-        //                         id = []
-        //                         nomeEmpresarial =  []
-        //                         nomeRepresentante = []
-        //                         statusOperacao = []
-        //                         statusAcesso = []
-        //                         email = []
-        //                         ispb = []
-
-        //                 // Salvando em variaveis os valores retornados
-        //                 for(i = 0; i < json.length; i++){
-        //                     id.push(json[i].id);
-        //                     nomeEmpresarial.push(json[i].nomeEmpresarial);
-        //                     email.push(json[i].email)
-        //                     nomeRepresentante.push(json[i].nomeRepresentante);
-        //                     ispb.push(json[i].ispb);
-        //                     statusOperacao.push(json[i].statusOperacao);
-        //                     statusAcesso.push(json[i].statusAcesso);
-        //                 }
-                        
-        //                 console.log(id);
-        //                 console.log(nomeEmpresarial);
-        //                 console.log(nomeRepresentante);
-        //                 console.log(statusOperacao);
-        //                 console.log(statusAcesso);
-                        
-        //                 // montando os cards
-        //                 console.log("Tamanho do vetor de id:" + id.length);
-        //                 var status = ''
-        //                 var corTexto = ""
-        //                 for(i = 0; i < id.length; i++){
-        //                     if(statusAcesso[i] == 1){
-        //                         status = 'Pendente'
-        //                         corTexto = `gray`
-        //                     }
-        //                     if(statusAcesso[i] == 2){
-        //                         status = 'Reprovada'
-        //                         corTexto = "red"
-        //                     }
-
-        //                     if(statusAcesso[i] == 3){
-        //                         status = 'Aprovada'
-        //                         corTexto = "green"
-        //                     }
-        //                     tabela_empresas.innerHTML += `
-        //                         <tr>
-        //                             <td class="id_table">${id[i]}</td>
-        //                             <td>${nomeEmpresarial[i]}</td>
-        //                             <td>${email[i]}</td>
-        //                             <td>${ispb[i]}</td>
-        //                             <td style ="color:${corTexto};font-weight:500">${status}</td>
-        //                             <td class="acao_table">
-        //                                 ${status != 'Aprovada' ? `<button style="background-color: 	rgb(30,144,255)" onclick="aprovar(${i})"id=aprovar${i}>Aprovar</button>` : ""}
-        //                                 ${status != 'Reprovada' ? `<button style="background-color:  #ff4040" onclick="reprovar(${i})"id=reprovar${i}>Reprovar</button>` : ""}
-        //                             </td>
-        //                         </tr>`
-        //                     }
-        //             });
-
+        //             window.alert("Situação de empresa atualizada com sucesso!");
+        //             window.location = "aprovar.html"
+        //         } else if (resposta.status == 404) {
+        //             window.alert("Deu 404!");
         //         } else {
-
-        //             console.log("Houve um erro ao tentar buscar os cards");
-
+        //             throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
         //         }
-
-        //     }).catch(function (erro) {
-        //         console.log(erro);
-        //     })
-
-        //     return false;
+        //     }).catch(function (resposta) {
+        //         console.log(`#ERRO: ${resposta}`);
+        //     });
 
         // }
+
+
+
 
 
 
