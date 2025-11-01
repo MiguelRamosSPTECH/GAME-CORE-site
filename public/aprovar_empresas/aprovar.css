@@ -174,3 +174,7 @@ table button {
   border-radius: 5px;
   gap: 15px;
 }
+
+.swal-2 .swal2-timer-progress-bar{
+    background: #2575fc;
+}
