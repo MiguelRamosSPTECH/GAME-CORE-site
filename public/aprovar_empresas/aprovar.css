@@ -1,0 +1,180 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+html {
+    height:100%;
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+    color: black;
+    background-color: #eeeeee;
+}
+
+body{
+    margin: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+}
+.container {
+    height: 95%;
+    width: 95%;
+    display: grid;
+    grid-template-areas:
+    "sideBar header"
+    "sideBar filtros"
+    "sideBar conteudo";
+    grid-template-rows: 15% 10% 75% ; 
+    grid-template-columns:20% 75% ;
+    column-gap: 3%;
+}
+
+.sideBar {
+    grid-area: sideBar;
+    border-radius: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* distribui topo e fim */
+    align-items: center;
+    height: 100%;
+}
+.link-sidebar {
+    height: 60%;
+    cursor: pointer;
+}
+
+.logout-area {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    cursor: pointer;
+}
+
+.header{
+    display: flex; 
+    justify-content: flex-end; 
+    align-items: center; 
+    grid-area: header;
+    gap: 30px;
+    border-radius: 25px;
+    background-color: red;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+#info_login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 30%;
+    height: 65%;
+    border-left: 1.5px solid black;
+}
+#dados_data {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+}
+#agenda_icon {
+    width: 45%;
+}
+#foto_padrao_login {
+    border-radius: 50%;
+    background-image: url('../assets/imgs/foto_perfil_padrao.webp');
+    width: 23.5%;
+    height: 90%;
+    background-position: center;
+    background-size: cover;
+}
+.filtros{
+    grid-area: filtros;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+#title-filtros {
+    text-transform: uppercase;
+    font-weight: 800;
+    color: rgb(32, 32, 32);
+}
+#filtro {
+    height: 50%;
+    font-size: 18.5px;
+    font-family: "Poppins", sans-serif;
+    text-transform: uppercase;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-weight: 700;
+    width: 23%;
+    text-align: center;
+}
+#dados_login {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+}
+#nome_login {
+    font-weight: bold;
+}
+#email_login {
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
+}
+
+.conteudo{
+    padding: 15px;
+    grid-area: conteudo;
+    border-radius: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+table {
+    width: 100%;
+    max-height: 100%;
+}
+table tr th {
+    text-align: start;
+}
+.id_table {
+    width: 50px;
+    text-align: center;
+
+}
+.acao_table {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 10px;
+}
+table button {
+    outline: none;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    width: 85px;
+    border-radius: 25px;
+    color: white;
+}
+
+.caixa {
+  border: 1px solid #000;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  gap: 15px;
+}
+
+.swal-2 .swal2-timer-progress-bar{
+    background: #2575fc;
+}

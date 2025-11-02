@@ -445,6 +445,10 @@ input[type="file"] {
     color: red;
 }
 
+.swal-1 .swal2-timer-progress-bar{
+    background: #2575fc;
+}
+
 
 @media (max-width: 800px) {
     header {
