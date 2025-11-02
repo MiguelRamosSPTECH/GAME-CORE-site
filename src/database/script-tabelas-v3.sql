@@ -8,7 +8,7 @@ nomeEmpresarial varchar(30),
 cnpj char(14),
 email varchar(45),
 -- statusOperacao varchar(45),
-statusAcesso boolean default 1
+statusAcesso char(1) default 1
 );
 
 create table if not exists Cargo(
@@ -31,6 +31,7 @@ fk_cargo_func int,
 -- constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
 constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Cargo(id)
 );
+
 
 create table if not exists Permissao(
 id int primary key auto_increment,
@@ -123,7 +124,8 @@ INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
 
 INSERT INTO Cargo VALUES(null,"Administrador Master",1,1),
 						(null, "Engenheiro SRE",1,1),
-                        (null, "GAMEOPS",1,1);
+                        (null, "GAMEOPS",1,1),
+                        (null, "GAMECORE",1,1);
 INSERT INTO Funcionario VALUES (null, "Paulo Silva","psilva@gmail.com","90072845688","12345678",1,1);
 INSERT INTO Funcionario VALUES (null, "Marcos Silva","msilva@gmail.com","90072845683","12345678",1,2);
 INSERT INTO Funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","90072845623","12345678",1,3);
@@ -197,3 +199,21 @@ inner join metrica m on
 m.id = cs.fk_metrica_cs
 where e.id = 4;
 
+
+INSERT INTO Funcionario (nome, email, cpf, senha, perfilAtivo, fk_cargo_func)
+VALUES ('GAMECORE', 'gamecore@empresa.com', '12345678901', '123', 1, 4);
+
+
+        SELECT f.perfilAtivo
+        from Funcionario f
+        inner join Cargo c on f.fk_cargo_func = c.id
+        inner join Empresa  e on c.fk_empresa_cargo = e.id
+        where e.id = 8
+        or e.id = 1;
+        
+
+select * from empresa;
+
+select * from cargo;
+
+select * from funcionario; 

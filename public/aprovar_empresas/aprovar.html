@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="aprovar.css">
+    <script src="./js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body onload="validarSessaoSynkro()">
+    <div class="container">
+        <div class="sideBar">
+            <img src="../assets/imgs/DBG.-logo2png.png" alt="" height="150px">
+            <a href="" class="link-sidebar">
+                <img src="../assets/imgs/aprovacoes_icon.png" alt="">
+            </a>
+            <div class="logout-area" onclick="sair()">
+                <img src="../assets/imgs/ap_logofo.png" alt="">
+            </div>
+        </div>
+        <div class="header">
+            <div id="dados_data">
+                <span id="dataHeader"></span>
+                <img id="agenda_icon" src="../assets/imgs/ap_icon_agenda.jpg" alt="">
+            </div>
+            <div id="info_login">
+                <div id="foto_padrao_login"></div>
+                <div id="dados_login">
+                    <span id="nome_login">Luciano Macedo</span>
+                    <span id="email_login">luci@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="filtros">
+            <h2 id="title-filtros">Aprovações</h2>
+            <select onchange="criarCards()" id="filtro">
+                <option value="1,2,3">Todas as empresas</option>
+                <option value="1">Pendentes</option>
+                <option value="2">Reprovadas</option>
+                <option value="3">Aprovadas</option>
+            </select>
+        </div>
+        <div class="conteudo" id="div_conteudo">
+            <table id="tabela_empresas"></table>
+        </div>
+    </div>
+
+</body>
+<script>
+
+    function sair() {
+        Swal.fire({
+            title: "Saindo",
+            text: "Encerrando a sessão.",
+            icon: "info",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            customClass: {
+                popup: 'swal-2'
+            }
+        });
+
+        setTimeout(() => {
+            sessionStorage.clear();
+            window.location.href = "../login.html"
+        }, 2100)
+
+        // window.location = "login.html"
+    }
+
+    document.getElementById('dataHeader').textContent = new Date().toLocaleDateString();
+
+    var id = []
+    var nomeEmpresarial = []
+    var nomeRepresentante = []
+    var statusOperacao = []
+    var statusAcesso = []
+
+
+    function criarCards() {
+
+        var filtroVar = filtro.value;
+        tabela_empresas.innerHTML = `
+                        <tr class="header_table">
+                            <th class="id_table">ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>ISPB</th>
+                            <th>Status Op.</th>
+                            <th class="acao_table">Ação</th>
+                        </tr>
+            `
+        fetch("/aceitarEmpresas/buscarCards", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                filtroServer: filtroVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log("Esse é o json.stringify" + JSON.stringify(json));
+                    console.log("Tamanho volta" + json.length);
+
+                    // Zerando os vetores das varievais, para poder repor os valores:
+                    id = []
+                    nomeEmpresarial = []
+                    nomeRepresentante = []
+                    statusOperacao = []
+                    statusAcesso = []
+                    email = []
+                    ispb = []
+
+                    // Salvando em variaveis os valores retornados
+                    for (i = 0; i < json.length; i++) {
+                        id.push(json[i].id);
+                        nomeEmpresarial.push(json[i].nomeEmpresarial);
+                        email.push(json[i].email)
+                        nomeRepresentante.push(json[i].nomeRepresentante);
+                        ispb.push(json[i].ispb);
+                        statusOperacao.push(json[i].statusOperacao);
+                        statusAcesso.push(json[i].statusAcesso);
+                    }
+
+                    console.log(id);
+                    console.log(nomeEmpresarial);
+                    console.log(nomeRepresentante);
+                    console.log(statusOperacao);
+                    console.log(statusAcesso);
+
+                    // montando os cards
+                    console.log("Tamanho do vetor de id:" + id.length);
+                    var status = ''
+                    var corTexto = ""
+                    for (i = 0; i < id.length; i++) {
+                        if (statusAcesso[i] == 1) {
+                            status = 'Pendente'
+                            corTexto = `gray`
+                        }
+                        if (statusAcesso[i] == 2) {
+                            status = 'Reprovada'
+                            corTexto = "red"
+                        }
+
+                        if (statusAcesso[i] == 3) {
+                            status = 'Aprovada'
+                            corTexto = "green"
+                        }
+                        tabela_empresas.innerHTML += `
+                                <tr>
+                                    <td class="id_table">${id[i]}</td>
+                                    <td>${nomeEmpresarial[i]}</td>
+                                    <td>${email[i]}</td>
+                                    <td>${ispb[i]}</td>
+                                    <td style ="color:${corTexto};font-weight:500">${status}</td>
+                                    <td class="acao_table">
+                                        ${status != 'Aprovada' ? `<button style="background-color: 	rgb(30,144,255)" onclick="aprovar(${i})"id=aprovar${i}>Aprovar</button>` : ""}
+                                        ${status != 'Reprovada' ? `<button style="background-color:  #ff4040" onclick="reprovar(${i})"id=reprovar${i}>Reprovar</button>` : ""}
+                                    </td>
+                                </tr>`
+                    }
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar buscar os cards");
+
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+
+    }
+
+    criarCards()
+
+    function aprovar(i) {
+        var idEmpresa1 = id[i]
+        editar(idEmpresa1, 3, i)
+    }
+
+
+    function reprovar(i) {
+        var idEmpresa2 = id[i]
+        editar(idEmpresa2, 2, i)
+
+    }
+
+
+
+    function editar(idEmpresaPassado, novoStatusPassado, indice) {
+
+        console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+        fetch(`/aceitarEmpresas/editar`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                novoStatus: novoStatusPassado,
+                idEmpresa: idEmpresaPassado
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Situação de empresa atualizada com sucesso!");
+                window.location = "aprovar.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404! no editar");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+        buscar_Cargos(idEmpresaPassado, novoStatusPassado, indice)
+    }
+
+
+    function buscar_Cargos(filtropassado, novoStatusPassado, indice) {
+
+        var filtroVar = filtropassado;
+
+        fetch("/aceitarEmpresas/buscar_Cargos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                filtroServer: filtroVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log("Esse é o json.stringify" + JSON.stringify(json));
+                    console.log("Tamanho volta" + json.length);
+
+                    // Zerando os vetores das varievais, para poder repor os valores:
+                    id = []
+                    perfilAtivo = []
+
+                    // Salvando em variaveis os valores retornados
+                    for (i = 0; i < json.length; i++) {
+                        id.push(json[i].id);
+                        perfilAtivo.push(json[i].perfilAtivo)
+                    }
+
+                    console.log(id);
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar buscar os cards");
+
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        if (id[0] == filtroVar) {
+            // atualiza para ativado o perfil do candango, usuario + cargo
+            atualizar_perfil(filtroVar, novoStatusPassado, indice)
+        } else {
+            // cria o perfil do candango, usuario + cargo
+            criar_perfil(filtroVar, novoStatusPassado, indice)
+
+        }
+
+    }
+
+    /// função p/ fazer uma das duas coisa a cima
+    function atualizar_perfil(idEmpresaPassado, novoStatusPassado, indice) {
+
+        console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+        fetch(`/aceitarEmpresas/atualizar_perfil`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                novoStatus: novoStatusPassado,
+                idEmpresa: idEmpresaPassado
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Perfil da empresa atualizado com sucesso");
+                window.location = "aprovar.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404! no atualizar_perfil");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+
+    function criar_perfil(idEmpresaPassado, novoStatusPassado, indice) {
+
+        console.log('editar ->', { idEmpresaPassado, novoStatusPassado });
+        fetch(`/aceitarEmpresas/criar_perfil`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome: nomeEmpresarial[indice],
+                novoStatus: novoStatusPassado,
+                idEmpresa: idEmpresaPassado
+            })
+        }).then(function (resposta) {
+
+            if (resposta.ok) {
+                window.alert("Perfil da empresa criado com sucesso!");
+                window.location = "aprovar.html"
+            } else if (resposta.status == 404) {
+                window.alert("Deu 404! no criar_perfil");
+            } else {
+                throw ("Houve um erro ao tentar realizar a postagem! Código da resposta: " + resposta.status);
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    }
+
+
+
+
+
+
+</script>
+
+</html>

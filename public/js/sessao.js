@@ -4,14 +4,14 @@ function validarSessao() {
     var nomeCargo = sessionStorage.NOME_CARGO
     var quebraURL = window.location.href.split(`/`)
     console.log(nomeCargo)
-    if(quebraURL[3] == "dashboard") {
-        if(quebraURL[4] == "dash_adm" && nomeCargo != "Administrador Master") {
+    if (quebraURL[3] == "dashboard") {
+        if (quebraURL[4] == "dash_adm" && nomeCargo != "Administrador Master") {
             limparSessao()
-        } else if(quebraURL[4] == "dash_sre" && nomeCargo != "Engenheiro SRE"){
+        } else if (quebraURL[4] == "dash_sre" && nomeCargo != "Engenheiro SRE") {
             limparSessao()
-        } else if(quebraURL[4] == ("dash_sre" || "dash_adm") && nomeCargo == "GAMEOPS") { 
+        } else if (quebraURL[4] == ("dash_sre" || "dash_adm") && nomeCargo == "GAMEOPS") {
             limparSessao()
-        } else if(nomeCargo == undefined) {
+        } else if (nomeCargo == undefined) {
             limparSessao()
         }
     }
@@ -28,8 +28,24 @@ function validarSessaoGameCore() {
 }
 
 function limparSessao() {
-    sessionStorage.clear();
-    window.location = "../../../login.html";
+
+    Swal.fire({
+        title: "Saindo",
+        text: "Encerrando a sessão.",
+        icon: "info",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+            popup: 'swal-2'
+        }
+    });
+
+    setTimeout(() => {
+        sessionStorage.clear();
+        window.location = "../../../login.html";
+    }, 2100)
+
 }
 
 
