@@ -26,6 +26,7 @@ chmod 400 "$nome_chave_pem.pem"
 aws ec2 authorize-security-group-ingress --group-id $id_sg --protocol tcp --port 80 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $id_sg --protocol tcp --port 22 --cidr 0.0.0.0/0
 aws ec2 authorize-security-group-ingress --group-id $id_sg --protocol tcp --port 3306 --cidr 0.0.0.0/0
+aws ec2 authorize-security-group-ingress --group-id $id_sg --protocol tcp --port 3333 --cidr 0.0.0.0/0
 
 echo "================================================"
 echo "CRIANDO INSTANCIA"

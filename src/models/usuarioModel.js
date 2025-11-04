@@ -4,8 +4,8 @@ function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var autenticarUser = `
     SELECT f.id, f.nome, f.email, f.cpf, f.senha, c.fk_empresa_cargo as idEmpresa, c.nome as nomeCargo
-    FROM Funcionario f
-    JOIN Cargo c ON  f.fk_cargo_func = c.id
+    FROM funcionario f
+    JOIN cargo c ON  f.fk_cargo_func = c.id
     WHERE f.email = '${email}' AND f.senha = '${senha}';
 `;
 
@@ -18,7 +18,7 @@ function cadastrarFunc(nome, email, cpf, senha, fk_cargo) {
 
     var instrucaoSql = `
 
-        INSERT INTO Funcionario (nome, email, cpf, senha, fk_cargo_func) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${fk_cargo}');
+        INSERT INTO funcionario (nome, email, cpf, senha, fk_cargo_func) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${fk_cargo}');
         
     `;
     
@@ -34,7 +34,7 @@ function editarFunc(nomeFuncionario, emailFuncionario, cpfFuncionario, senhaFunc
     var edicao = `
     
         
-        UPDATE Funcionario f SET f.nome = '${nomeFuncionario}', f.email = '${emailFuncionario}', f.cpf = '${cpfFuncionario}', f.senha = '${senhaFuncionario}', f.fk_cargo_func = (SELECT id FROM Cargo WHERE id = ${idCargoFuncionario}) WHERE f.id = ${idFunc}
+        UPDATE funcionario f SET f.nome = '${nomeFuncionario}', f.email = '${emailFuncionario}', f.cpf = '${cpfFuncionario}', f.senha = '${senhaFuncionario}', f.fk_cargo_func = (SELECT id FROM Cargo WHERE id = ${idCargoFuncionario}) WHERE f.id = ${idFunc}
 
     `
     console.log("Alterando o Usuário")
