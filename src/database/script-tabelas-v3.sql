@@ -2,7 +2,7 @@ drop database if exists gameCore;
 create database if not exists gameCore;
 use gameCore;
 
-create table if not exists Empresa(
+create table if not exists empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(30),
 cnpj char(14),
@@ -11,7 +11,7 @@ email varchar(45),
 statusAcesso char(1) default 1
 );
 
-create table if not exists Cargo(
+create table if not exists cargo(
 id int primary key auto_increment,
 nome varchar(45),
 fk_empresa_cargo int,
@@ -19,7 +19,7 @@ ativo BOOLEAN DEFAULT 1,
 constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id)
 );
 
-create table if not exists Funcionario(
+create table if not exists funcionario(
 id int primary key auto_increment,
 nome varchar(50),
 email varchar(30),
@@ -33,12 +33,12 @@ constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Car
 );
 
 
-create table if not exists Permissao(
+create table if not exists permissao(
 id int primary key auto_increment,
 nome varchar(35)
 );
 
-create table if not exists PermissaoCargo(
+create table if not exists permissaocargo(
 fk_permissao_pc int,
 fk_cargo_pc int,
 permissoes int not null,
@@ -55,7 +55,7 @@ CREATE TABLE layout (
     constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references Empresa(id)
 );
 
-create table if not exists Servidor(
+create table if not exists servidor(
 id int primary key auto_increment,
 apelido varchar(20),
 macadress varchar(20),
@@ -66,19 +66,19 @@ constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servido
 constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) references layout(id)
 );
 
-create table if not exists Metrica(
+create table if not exists metrica(
 id int primary key auto_increment,
 unidadeMedida varchar(15)
 
 );
 
-create table if not exists Componente(
+create table if not exists componente(
 id int primary key auto_increment,
 nome varchar(20)
 
 );
 
-create table if not exists ConfiguracaoServidor(
+create table if not exists configuracaoServidor(
 id int primary key auto_increment,
 alertaLeve varchar(45),
 alertaGrave varchar(45),

@@ -4,6 +4,7 @@ DOCKER_COMPOSE_VERSION="v2.24.5"
 
 #------------BAIXANDO O DOCKER-----------------#
 echo "BAIXANDO DOCKER NA INSTÂNCIA..."
+
 sudo apt-get update 
 sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -54,7 +55,7 @@ version: '3.8'
 services:
   db: 
     image: miguelramoslimadev/atividade-dockerfile:latest    
-    container_name: mysql-gamecore
+    container_name: mysql_gamecore
     restart: unless-stopped
     ports:
     - "3306:3306"
@@ -62,6 +63,12 @@ services:
     - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
+  site:
+    image: miguelramoslimadev/gamecore-site:latest
+    container_name: site_gamecore
+    restart: unless-stopped
+    ports:
+    - "3333:3333"
 
 volumes:
   mysql-data:
@@ -74,7 +81,7 @@ cd "$DIR_CONFIGS"
 #aqui ele pega o docker-compose.yml executa mas libera o terminal tlgd
 sudo /usr/local/bin/docker-compose up -d
 
-echo "VERIFICANDO EXECUÇÃO DO CONTAINER MYSQL"
+echo "VERIFICANDO EXECUÇÃO DOS CONTAINERS"
 sudo /usr/local/bin/docker-compose ps
 
 
