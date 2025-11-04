@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de usuário</title>
     <link rel="stylesheet" href="css/cadastro_login.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <script src="./js/cadastroEmpresa.js" defer></script>
 </head>
 
@@ -36,11 +37,22 @@
                                 <input type="text" placeholder="Nome da Empresa" id="ipt_nome_empresarial">
                             </div>
 
-                            <div class="campo">
+                            <!-- <div class="campo">
                                 <label for="ipt_cnpj">CNPJ</label>
                                 <input type="number" placeholder="00.000.000/0000-00" id="ipt_cnpj" maxlength="14">
+                            </div> -->
+
+                            <div class="campo" id="cpfcnpj">
+                                <div>
+                                    <label for="ipt_cnpj">CNPJ</label>
+                                    <input type="number" placeholder="00.000.000/0000-00" id="ipt_cnpj" maxlength="14">
+                                </div>
+                                <div>
+                                    <label for="ipt_cpfl">CPF</label>
+                                    <input type="number" id="ipt_cpf" maxlength="11" placeholder="000.000.000-00">
+                                </div>
                             </div>
-                            
+
                             <div class="campo">
                                 <label for="ipt_nome_representante">Nome Representante</label>
                                 <input type="text" id="ipt_nome_representante" placeholder="Nome do Representante">
@@ -49,12 +61,12 @@
                             <div class="campo">
                                 <label for="ipt_email">E-mail</label>
                                 <input type="text" placeholder="email@gmail.com" id="ipt_email">
-                            </div>                            
+                            </div>
 
-                            <div class="campo">
+                            <!-- <div class="campo">
                                 <label for="ipt_cpfl">CPF</label>
                                 <input type="number" id="ipt_cpf" maxlength="11" placeholder="000.000.000-00">
-                            </div>
+                            </div> -->
 
                             <div class="campo">
                                 <label for="ipt_email">Senha</label>
