@@ -4,6 +4,7 @@ function entrar() {
 
     if (emailVar == "" || senhaVar == "") {
         msg_erro.innerHTML = `Preencha todos os campos!`
+        return;
     } else {
 
         console.log("FORM LOGIN: ", emailVar);
@@ -26,25 +27,38 @@ function entrar() {
                     console.log(json);
                     console.log(JSON.stringify(json));
 
-                    sessionStorage.ID_EMPRESA = json.idEmpresa; 
+                    sessionStorage.ID_EMPRESA = json.idEmpresa;
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
-                    setTimeout(function () {
-                        if(sessionStorage.NOME_CARGO == "Administrador Master") {
-                             window.location = "../dashboard/dash_adm/funcionarios/index.html";
-                        } else if(sessionStorage.NOME_CARGO == "GAMEOPS") {
-                            window.location = "../dashboard/index.html"
-                        } else if(sessionStorage.NOME_CARGO == "Engenheiro SRE") {
-                            window.location = "../dashboard/dash_sre/dashSaudeServidores.html"
-                        } else if(sessionStorage.NOME_CARGO == "GAMECORE") {
-                            window.location = "../aprovar_empresas/aprovar.html"}
-                        
+                    Swal.fire({
+                        title: "Login realizado!",
+                        text: "Redirecionando...",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        customClass: {
+                            popup: 'swal-1'
+                        }
+                    });
 
-                    }, 500); // apenas para exibir o loading
+                    setTimeout(function () {
+                        if (sessionStorage.NOME_CARGO == "Administrador Master") {
+                            window.location = "../dashboard/dash_adm/funcionarios/index.html";
+                        } else if (sessionStorage.NOME_CARGO == "GAMEOPS") {
+                            window.location = "../dashboard/index.html"
+                        } else if (sessionStorage.NOME_CARGO == "Engenheiro SRE") {
+                            window.location = "../dashboard/dash_sre/dashSaudeServidores.html"
+                        } else if (sessionStorage.NOME_CARGO == "GAMECORE") {
+                            window.location = "../aprovar_empresas/aprovar.html"
+                        }
+
+
+                    }, 2100); // apenas para exibir o loading
 
                 });
 
@@ -55,6 +69,11 @@ function entrar() {
             }
 
         }).catch(function (erro) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Algo deu errado!",
+            });
             console.log(erro);
         })
     }
@@ -66,7 +85,7 @@ function buscarEsalvarPermissoes(fk_cargo) {
 
         sessionStorage.setItem('PERMISSOES_USUARIO', '[]');
         console.log("Usuário logado sem FK_CARGO. Assumindo permissões vazias.");
-        
+
         setTimeout(() => {
             window.location = "index.html";
         }, 500);
@@ -87,7 +106,7 @@ function buscarEsalvarPermissoes(fk_cargo) {
 
         if (resposta.ok) {
             resposta.json().then(json => {
-                
+
                 sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
 
                 console.log("Permissões salvas com sucesso:", json.permissoes);
@@ -95,25 +114,25 @@ function buscarEsalvarPermissoes(fk_cargo) {
 
                 setTimeout(function () {
                     window.location = "index.html";
-                }, 1000); 
+                }, 1000);
             });
 
         } else {
 
             console.error("Erro ao buscar permissões do cargo:", resposta.statusText);
             sessionStorage.setItem('PERMISSOES_USUARIO', '[]');
-            
+
             setTimeout(() => {
                 window.location = "index.html";
             }, 500);
         }
-        
+
     }).catch(function (erro) {
 
         console.error("Erro no fetch de permissões:", erro);
 
         sessionStorage.setItem('PERMISSOES_USUARIO', '[]'); // Falhou? Bloqueia, deixando as permissões "zeradas"
-        
+
         setTimeout(() => {
             window.location = "index.html";
         }, 500);
