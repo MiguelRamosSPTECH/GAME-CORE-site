@@ -147,6 +147,38 @@ insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
 insert into permissaocargo values(1,1,0),
 								 (2,2,0),
                                  (3,3,0);
+                                 
+                                 
+DELIMITER $$
+
+CREATE TRIGGER trg_criar_funcionario_adm_master
+AFTER INSERT ON Cargo
+FOR EACH ROW
+BEGIN
+    -- Declarando variaveis
+    DECLARE nomeEmpresa VARCHAR(45);
+    DECLARE emailGerado VARCHAR(100);
+
+    -- Garante que só vai executar se for criado um cargo master
+    IF NEW.nome = 'Administrador Master' THEN
+        
+        -- Busca o nome da empresa pra colocar no email
+        SELECT nomeEmpresarial INTO nomeEmpresa
+        FROM Empresa
+        WHERE id = NEW.fk_empresa_cargo;
+
+        -- Faz a logica de criar o email, troca espaços por nada e concatena isso com o @ e o .com.br
+        SET nomeEmpresa = REPLACE(nomeEmpresa, ' ', '');
+        SET emailGerado = CONCAT(LOWER(nomeEmpresa), '@', LOWER(nomeEmpresa), '.com.br');
+
+        -- Insere o funcionário padrão
+        INSERT INTO Funcionario (nome, email, senha, perfilAtivo, fk_cargo_func)
+        VALUES ('Administrador Master', emailGerado, '12345678', 3, NEW.id);
+    END IF;
+END $$
+
+DELIMITER ;
+
 select * from Empresa;
 select * from Cargo;
 select * from Permissao;
@@ -217,3 +249,32 @@ select * from empresa;
 select * from cargo;
 
 select * from funcionario; 
+
+
+        SELECT f.perfilAtivo, e.id
+        from Funcionario f
+        inner join Cargo c on f.fk_cargo_func = c.id
+        inner join Empresa  e on c.fk_empresa_cargo = e.id
+        where e.id = 2
+        or e.id = 1
+        order by e.id desc;
+        
+        
+SELECT 
+    e.id AS idEmpresa,
+    c.id AS idCargo,
+    c.ativo
+FROM Cargo c
+INNER JOIN Empresa e 
+    ON c.fk_empresa_cargo = e.id
+WHERE (e.id = 1 OR e.id = 2)
+  AND c.nome = 'Administrador Master'
+ORDER BY e.id DESC;
+
+
+select * from cargo;
+
+delete from cargo
+where id = 1;
+
+select * from cargo;
