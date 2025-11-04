@@ -208,8 +208,8 @@
             }).catch(function (resposta) {
                 console.log(`#ERRO: ${resposta}`);
             });
-
             buscar_Cargos(idEmpresaPassado, novoStatusPassado,indice)
+
         }
 
 
@@ -263,7 +263,7 @@
             if(id[0] == filtroVar){
                 // atualiza para ativado o perfil do candango, usuario + cargo
                 atualizar_perfil(filtroVar, novoStatusPassado,indice)
-            }else {
+            }else if (novoStatusPassado == 3) {
                 // cria o perfil do candango, usuario + cargo
                 criar_perfil(filtroVar, novoStatusPassado,indice)
 

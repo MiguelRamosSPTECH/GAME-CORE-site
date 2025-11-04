@@ -59,7 +59,7 @@ function buscar_Cargos(req, res) {
         aceitarEmpresaModel.buscar_Cargos(filtro)
             .then(
                 function (resultadoBuscarCards) {
-                    console.log(`\nResultados encontrados: ${resultadoBuscarCards.length}`);
+                    console.log(`\nResultados encontrados buscar_cargos: ${resultadoBuscarCards.length}`);
                     console.log(`Resultados: ${JSON.stringify(resultadoBuscarCards)}`); // transforma JSON em String
 
                     if (resultadoBuscarCards.length >= 1) {
