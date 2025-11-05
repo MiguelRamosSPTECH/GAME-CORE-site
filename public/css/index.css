@@ -118,7 +118,7 @@ nav ul {
     display: flex;
     align-items: center;
     flex-direction: column;
-    width: 38%;
+    width: 40%;
     position: absolute;
     margin-bottom: 40px;
 }
@@ -176,7 +176,7 @@ nav ul {
     width: 1000px;
     height: 1000px;
     left: 51%;
-    top: -25%;
+    top: -39%;
     z-index: 500;
 }
 
@@ -190,7 +190,7 @@ nav ul {
     width: 1000px;
     height: 1000px;
     right: 51%;
-    top: -25%;
+    top: -39%;
     z-index: 500;
 }
 
@@ -313,7 +313,7 @@ nav ul {
     text-align: center;
     font-size: 24px;
     margin-bottom: 0px;
-    margin-top: 130px;
+    margin-top: 90px;
     z-index: 1;
     font-weight: 800;
 }
@@ -346,6 +346,7 @@ nav ul {
     margin-top: 10px;
     z-index: 1;
     font-weight: 800;
+    bottom: 40px;
 }
 
 .linha-quem-somos {
@@ -355,10 +356,10 @@ nav ul {
     background-size: cover;
     width: 850px;
     height: 850px;
-    left: -7%;
+    left: -8%;
     top: 20%;
     z-index: 0;
-    transform: scaleX(-1) rotate(5deg);
+    transform: scaleX(-1) rotate(8deg);
     transform-origin: center;
 }
 
@@ -367,8 +368,8 @@ nav ul {
     background-image: url('../assets/imgs/linha-tec-cinza.png');
     background-position: center;
     background-size: cover;
-    width: 1000px;
-    height: 1000px;
+    width: 950px;
+    height: 950px;
     left: 58%;
     top: 232%;
     transform: scaleY(-1) rotate(10deg);
@@ -414,7 +415,7 @@ nav ul {
     text-align: center;
     font-size: 24px;
     margin-bottom: 30px;
-    margin-top: 80px;
+    margin-top: 25px;
     font-weight: 900;
     z-index: 1;
 }
@@ -493,7 +494,7 @@ nav ul {
     top: -75px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 230px;
+    font-size: 220px;
     color: rgba(183, 108, 253, 0.24);
     z-index: 0;
     pointer-events: none;
@@ -508,7 +509,7 @@ nav ul {
     font-size: 24px;
     font-weight: 900;
     margin-bottom: 30px;
-    margin-top: 80px;
+    margin-top: 40px;
     z-index: 1;
 }
 
@@ -641,10 +642,11 @@ nav ul {
 .v {
     font-size: 250px;
     top: -170px;
+    margin-top: 45px;
 }
 
 .val-title {
-    margin-top: 50px !important;
+    margin-top: 20px !important;
     margin-bottom: 200px !important;
 }
 
@@ -924,6 +926,9 @@ footer {
         padding-right: 20px;
 
     }
+    .texts{
+        width: 41%;
+    }
 
     .first-texts span {
 
@@ -1034,14 +1039,16 @@ footer {
         background: #ebe5e5;
         color: #2b2b2b;
         padding: 140px 0px;
-        height: 310vh;
+        height: 320vh;
     }
 
-    .negocio h3 {
+    .avaliacoes-container h3 {
         color: #4a1f86;
         text-align: center;
         font-size: 24px;
-        margin-bottom: 30px;
+        /* margin-bottom: 30px; */
+        /* margin-top: 50px; */
+        bottom: 18px;
     }
 
     .negocio .quem-somos {
@@ -1053,6 +1060,7 @@ footer {
         font-size: 110px;
         top: -65px;
     }
+
 
     .cartoes {
         margin-top: 55px;
@@ -1117,12 +1125,11 @@ footer {
 
 
     .quem-somos-container h3 {
-        margin-top: 50px;
+        margin-top: 30px;
     }
 
     .servicos-container h3 {
-        bottom: 20px;
-
+        bottom: 43px;
     }
 
     .quem-somos-container h3 {
@@ -1130,6 +1137,16 @@ footer {
 
     }
 
+    .val-title {
+    /* margin-top: 20px !important;
+    margin-bottom: 200px !important; */
+    /* margin-top: 50px; */
+    /* top: 50px; */
+    }
+    .vaalores h3{
+        /* margin-top: 50px; */
+        top: 15px;
+    }
 
     .servico {
         gap: 5px;
@@ -1151,7 +1168,7 @@ footer {
         align-items: center;
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 20px;
         z-index: 1;
 
     }
@@ -1200,11 +1217,11 @@ footer {
     }
 
     .linha-tec-right {
-        top: -35%;
+        top: -47%;
     }
 
     .linha-tec-left {
-        top: -35%;
+        top: -47%;
     }
 
 }
