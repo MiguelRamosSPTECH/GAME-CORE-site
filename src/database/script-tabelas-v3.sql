@@ -1,6 +1,6 @@
-drop database if exists gameCore;
-create database if not exists gameCore;
-use gameCore;
+drop database if exists gamecore;
+create database if not exists gamecore;
+use gamecore;
 
 create table if not exists empresa(
 id int primary key auto_increment,
@@ -78,7 +78,7 @@ nome varchar(20)
 
 );
 
-create table if not exists configuracaoServidor(
+create table if not exists configuracaoservidor(
 id int primary key auto_increment,
 alertaLeve varchar(45),
 alertaGrave varchar(45),
@@ -93,7 +93,7 @@ constraint ct_LayoutCs foreign key fklayoutcs(fk_layout) references layout(id)
 
 -- ----------------------------------------------------------------
 -- ESSENCIAL PARA FUNCIONAR O CADASTRO DE SERVIDOR
-INSERT INTO Componente (nome)
+INSERT INTO componente (nome)
 	VALUES 	('CPU'),
 			('CPU_OCIOSA'),
             ('CPU_USUARIOS'),
@@ -107,7 +107,7 @@ INSERT INTO Componente (nome)
             ('DISCO_THROUGHPUT'),
             ('REDE');
         
-INSERT INTO Metrica (unidadeMedida)
+INSERT INTO metrica (unidadeMedida)
 	VALUES 	('%'),
 			('MB'),
 			('GB'),
@@ -117,20 +117,20 @@ INSERT INTO Metrica (unidadeMedida)
             
 -- --------------------------------------------------------------
 
-INSERT INTO Empresa (nomeEmpresarial, cnpj, email) VALUES
+INSERT INTO empresa (nomeEmpresarial, cnpj, email) VALUES
 ('Riot Games', '12345678000190', 'contato@riotgames.com'),
 ('Ubisoft', '98765432000110', 'contato@ubisoft.com'),
 ('Nintendo', '55123456000155', 'contato@nintendo.com');
 
-INSERT INTO Cargo VALUES(null,"Administrador Master",1,1),
+INSERT INTO cargo VALUES(null,"Administrador Master",1,1),
 						(null, "Engenheiro SRE",1,1),
                         (null, "GAMEOPS",1,1),
                         (null, "GAMECORE",1,1);
-INSERT INTO Funcionario VALUES (null, "Paulo Silva","psilva@gmail.com","90072845688","12345678",1,1);
-INSERT INTO Funcionario VALUES (null, "Marcos Silva","msilva@gmail.com","90072845683","12345678",1,2);
-INSERT INTO Funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","90072845623","12345678",1,3);
+INSERT INTO funcionario VALUES (null, "Paulo Silva","psilva@gmail.com","90072845688","12345678",1,1);
+INSERT INTO funcionario VALUES (null, "Marcos Silva","msilva@gmail.com","90072845683","12345678",1,2);
+INSERT INTO funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","90072845623","12345678",1,3);
 
-INSERT INTO Permissao (nome) VALUES 
+INSERT INTO permissao (nome) VALUES 
 ("DASH ADM"),
 ("DASH ENG.SRE"),
 ("DASH GAMEOPS");
@@ -152,7 +152,7 @@ insert into permissaocargo values(1,1,0),
 DELIMITER $$
 
 CREATE TRIGGER trg_criar_funcionario_adm_master
-AFTER INSERT ON Cargo
+AFTER INSERT ON cargo
 FOR EACH ROW
 BEGIN
     -- Declarando variaveis
@@ -180,15 +180,15 @@ END $$
 DELIMITER ;
 
 select * from Empresa;
-select * from Cargo;
-select * from Permissao;
-select * from PermissaoCargo;
-select * from Funcionario;
+select * from cargo;
+select * from permissao;
+select * from permissaoCargo;
+select * from funcionario;
 select * from layout;
-select * from Servidor;
+select * from seervidor;
 select * from componente;
 select * from metrica;
-select * from ConfiguracaoServidor;
+select * from configuracaoservidor;
 
 select c.nome, p.nome from cargo c
 inner join permissaocargo ps on
@@ -202,10 +202,10 @@ p.id = ps.fk_permissao_pc;
 
 # SELECT que retorna o cargo, suas respectivas permissões e a empresa que os detêm
 select e.nomeEmpresarial as "Nome da Empresa", c.nome as "Nome do Cargo", p.nome as "Permissões"
-from PermissaoCargo pc
-inner join Permissao p on p.id = pc.fk_permissao_pc
-inner join Cargo c on c.id = pc.fk_cargo_pc
-inner join Empresa e on e.id = c.fk_empresa_cargo;
+from permissaocargo pc
+inner join permissao p on p.id = pc.fk_permissao_pc
+inner join cargo c on c.id = pc.fk_cargo_pc
+inner join empresa e on e.id = c.fk_empresa_cargo;
 
 #-----------------------------------------------------------
 ##SCRIPTS ETL
@@ -232,7 +232,7 @@ m.id = cs.fk_metrica_cs
 where e.id = 4;
 
 
-INSERT INTO Funcionario (nome, email, cpf, senha, perfilAtivo, fk_cargo_func)
+INSERT INTO funcionario (nome, email, cpf, senha, perfilAtivo, fk_cargo_func)
 VALUES ('GAMECORE', 'gamecore@empresa.com', '12345678901', '123', 1, 4);
 
 
@@ -252,9 +252,9 @@ select * from funcionario;
 
 
         SELECT f.perfilAtivo, e.id
-        from Funcionario f
-        inner join Cargo c on f.fk_cargo_func = c.id
-        inner join Empresa  e on c.fk_empresa_cargo = e.id
+        from funcionario f
+        inner join cargo c on f.fk_cargo_func = c.id
+        inner join empresa  e on c.fk_empresa_cargo = e.id
         where e.id = 2
         or e.id = 1
         order by e.id desc;
@@ -264,8 +264,8 @@ SELECT
     e.id AS idEmpresa,
     c.id AS idCargo,
     c.ativo
-FROM Cargo c
-INNER JOIN Empresa e 
+FROM cargo c
+INNER JOIN empresa e 
     ON c.fk_empresa_cargo = e.id
 WHERE (e.id = 1 OR e.id = 2)
   AND c.nome = 'Administrador Master'
