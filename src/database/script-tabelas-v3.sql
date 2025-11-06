@@ -7,7 +7,6 @@ id int primary key auto_increment,
 nomeEmpresarial varchar(30),
 cnpj char(14),
 email varchar(45),
--- statusOperacao varchar(45),
 statusAcesso char(1) default 1
 );
 
@@ -16,7 +15,7 @@ id int primary key auto_increment,
 nome varchar(45),
 fk_empresa_cargo int,
 ativo BOOLEAN DEFAULT 1,
-constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references Empresa(id)
+constraint ct_fkEmpresaCargo foreign key fkempresacargo(fk_empresa_cargo) references empresa(id)
 );
 
 create table if not exists funcionario(
@@ -29,7 +28,7 @@ perfilAtivo boolean default 1,
 fk_cargo_func int,
 -- fk_empresa_func int,
 -- constraint ct_fkEmpresa_func foreign key fkempresafunc(fk_empresa_func) references Empresa(id),
-constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references Cargo(id)
+constraint ct_fkCargo_func foreign key fkcargofunc(fk_cargo_func) references cargo(id)
 );
 
 
@@ -43,8 +42,8 @@ fk_permissao_pc int,
 fk_cargo_pc int,
 permissoes int not null,
 primary key(fk_permissao_pc, fk_cargo_pc),
-constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references Permissao(id),
-constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references Cargo(id)
+constraint ct_fkPermissaoPc foreign key fkpermissaopc(fk_permissao_pc) references permissao(id),
+constraint ct_fkCargoPc foreign key fkcargopc(fk_cargo_pc) references cargo(id)
 );
 
 CREATE TABLE layout (
@@ -52,7 +51,7 @@ CREATE TABLE layout (
 	nome VARCHAR(45),
     emUso tinyint,
     fk_empresa_layout int,
-    constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references Empresa(id)
+    constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references empresa(id)
 );
 
 create table if not exists servidor(
@@ -62,7 +61,7 @@ macadress varchar(20),
 localizacao varchar(30),
 fk_empresa_servidor int,
 fk_layout int,
-constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references Empresa(id),
+constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references empresa(id),
 constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) references layout(id)
 );
 
@@ -85,8 +84,8 @@ alertaGrave varchar(45),
 fk_metrica_cs int,
 fk_componente_cs int,
 fk_layout int,
-constraint ct_fkMetricaCs foreign key fkmetricacs(fk_metrica_cs) references Metrica(Id),
-constraint ct_fkComponenteCs foreign key fkcomponentecs(fk_componente_cs) references Componente(Id),
+constraint ct_fkMetricaCs foreign key fkmetricacs(fk_metrica_cs) references metrica(Id),
+constraint ct_fkComponenteCs foreign key fkcomponentecs(fk_componente_cs) references componente(Id),
 constraint ct_LayoutCs foreign key fklayoutcs(fk_layout) references layout(id)
 );
 
@@ -164,7 +163,7 @@ BEGIN
         
         -- Busca o nome da empresa pra colocar no email
         SELECT nomeEmpresarial INTO nomeEmpresa
-        FROM Empresa
+        FROM empresa
         WHERE id = NEW.fk_empresa_cargo;
 
         -- Faz a logica de criar o email, troca espaços por nada e concatena isso com o @ e o .com.br
@@ -172,20 +171,20 @@ BEGIN
         SET emailGerado = CONCAT(LOWER(nomeEmpresa), '@', LOWER(nomeEmpresa), '.com.br');
 
         -- Insere o funcionário padrão
-        INSERT INTO Funcionario (nome, email, senha, perfilAtivo, fk_cargo_func)
+        INSERT INTO funcionario (nome, email, senha, perfilAtivo, fk_cargo_func)
         VALUES ('Administrador Master', emailGerado, '12345678', 3, NEW.id);
     END IF;
 END $$
 
 DELIMITER ;
 
-select * from Empresa;
+select * from empresa;
 select * from cargo;
 select * from permissao;
-select * from permissaoCargo;
+select * from permissaocargo;
 select * from funcionario;
 select * from layout;
-select * from seervidor;
+select * from servidor;
 select * from componente;
 select * from metrica;
 select * from configuracaoservidor;

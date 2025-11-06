@@ -2,6 +2,8 @@
 
 DOCKER_COMPOSE_VERSION="v2.24.5"
 
+
+
 #------------BAIXANDO O DOCKER-----------------#
 echo "BAIXANDO DOCKER NA INSTÂNCIA..."
 
@@ -20,6 +22,10 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 echo "EXECUTANDO ARQUIVO DE INSTALAÇÃO DO DOCKER"
 
+#garante que docker vai funcionar nas proximas linhas de comando, daemon, leva um pouco de tempo
+sudo systemctl start docker
+sudo systemctl enable docker
+sleep 10  
 
 echo "DOCKER baixado e configurado com sucesso!!!"
 echo sudo docker -v
@@ -38,7 +44,7 @@ echo "Versão do docker compose:"
 #-------------------------------------------------------------#
 
 #CONFIGS MYSQL
-DIR_CONFIGS="/config-containers"
+DIR_CONFIGS="~/config-containers"
 COMPOSE_FILE="$DIR_CONFIGS/docker-compose.yml"
 
 #DADOS MYSQL
@@ -53,6 +59,14 @@ sudo cat > "$COMPOSE_FILE" << EOF
 version: '3.8'
 
 services:
+  site:
+    image: miguelramoslimadev/site-gamecore:latest
+    container_name: site_gamecore
+    restart: unless-stopped
+    depends_on:
+    - db
+    ports:
+    - "3333:3333"
   db: 
     image: miguelramoslimadev/atividade-dockerfile:latest    
     container_name: mysql_gamecore
@@ -63,14 +77,6 @@ services:
     - mysql-data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "$MYSQL_ROOT_PASSWORD"
-  site:
-    image: miguelramoslimadev/gamecore-site:latest
-    container_name: site_gamecore
-    restart: unless-stopped
-    depends_on:
-      - db
-    ports:
-    - "3333:3333"
 
 volumes:
   mysql-data:
@@ -81,7 +87,7 @@ echo "Iniciando container MYSQL isolado com o Docker compose men"
 
 cd "$DIR_CONFIGS"
 #aqui ele pega o docker-compose.yml executa mas libera o terminal tlgd
-sudo /usr/local/bin/docker-compose up --scale site=2 -d
+sudo /usr/local/bin/docker-compose up -d
 
 echo "VERIFICANDO EXECUÇÃO DOS CONTAINERS"
 sudo /usr/local/bin/docker-compose ps
