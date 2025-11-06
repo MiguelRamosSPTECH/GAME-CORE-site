@@ -67,6 +67,8 @@ services:
     image: miguelramoslimadev/gamecore-site:latest
     container_name: site_gamecore
     restart: unless-stopped
+    depends_on:
+      - db
     ports:
     - "3333:3333"
 
@@ -79,7 +81,7 @@ echo "Iniciando container MYSQL isolado com o Docker compose men"
 
 cd "$DIR_CONFIGS"
 #aqui ele pega o docker-compose.yml executa mas libera o terminal tlgd
-sudo /usr/local/bin/docker-compose up -d
+sudo /usr/local/bin/docker-compose up --scale site=2 -d
 
 echo "VERIFICANDO EXECUÇÃO DOS CONTAINERS"
 sudo /usr/local/bin/docker-compose ps
