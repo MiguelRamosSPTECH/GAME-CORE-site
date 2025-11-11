@@ -5,8 +5,9 @@ use gamecore;
 create table if not exists empresa(
 id int primary key auto_increment,
 nomeEmpresarial varchar(30),
-cnpj char(14),
+cnpj char(14) unique,
 email varchar(45),
+nomeRepresentante varchar(25),
 statusAcesso char(1) default 1
 );
 
