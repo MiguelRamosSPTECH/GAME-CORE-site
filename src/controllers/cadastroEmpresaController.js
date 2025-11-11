@@ -6,8 +6,6 @@ function cadastrar(req, res) {
     var cnpj = req.body.cnpjServer
     var nomeRepresentante = req.body.nomeRepresentanteServer
     var email = req.body.emailServer
-    var cpf = req.body.cpfServer
-    var senha = req.body.senhaServer
 
 
     // Faça as validações dos valores
@@ -22,16 +20,10 @@ function cadastrar(req, res) {
     } 
     else if (email == undefined) {
         res.status(400).send("Seu email corporativo está indefinido!");
-    } 
-    else if (cpf == undefined) {
-        res.status(400).send("Seu CPF está indefinido!");
-    } 
-    else if (senha == undefined) {
-        res.status(400).send("Sua senha está indefinida!");
-    } else {
+    }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        cadastroEmpresaModel.cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpf, senha)
+        cadastroEmpresaModel.cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email)
             .then(
                 function (resultado) {
                     res.json(resultado);
