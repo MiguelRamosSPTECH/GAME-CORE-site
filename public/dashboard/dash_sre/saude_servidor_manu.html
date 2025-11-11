@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Saúde do Servidor</title>
+
     <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
-    <script src="../../js/sessao.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-
-    <title>Dashboard - Saúde do Servidor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
-    
 <div class="container-all">
-        <div class="nav-lateral">
+    <div class="nav-lateral">
             <div class="logo-dbg">
                 <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
             </div>
@@ -45,23 +40,150 @@
                 </div>
             </div>
         </div>
+
     <div class="dashboard">
-        
         <div class="grafico_visao_geral">
-            <h2>Saúde do Servidor</h2>
-            <div class="grafico_linhas">
-                <div class="grafico">
-                    aqui vai ta o grafico de linhas
+            <h2>Saúde do Servidor - Visão Geral</h2>
+
+            <div class="conteudo_graficos">
+                <div class="grafico_linhas">
+                    <canvas id="graficoLinha"></canvas>
+                    <div class="legenda_grafico">
+                        <div class="icone-alerta">
+                            <img src="../../assets/imgs/ponto_exclamacao.png" alt="!">
+                        </div>
+                        <p>
+                            A CPU impacta diretamente o desempenho, a capacidade de resposta e a estabilidade de um servidor,
+                            pois é responsável por executar tarefas e gerenciar processos.
+                        </p>
+                    </div>
                 </div>
-                <div class="legenda_grafico">
-                    <img src="../../assets/imgs/ponto_exclamacao.png">
-                    <p>legenda do grafico</p>
-                </div>
+
+                <div class="grafico_radar">
+            <h3>Utilização de Componente</h3>
+            <div class="radar-area">
+              <canvas id="graficoRadar"></canvas>
+              <div id="legendRadar" class="legend-container" aria-hidden="true">
+              </div>
+            </div>
+          </div>
             </div>
         </div>
-
+    </div>
 </div>
-</div>
 
+<script>
+const ctxLinha = document.getElementById('graficoLinha');
+const ctxRadar = document.getElementById('graficoRadar');
+
+// Gráfico de Linhas
+new Chart(ctxLinha, {
+    type: 'line',
+    data: {
+        labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
+        datasets: [
+            {
+                label: 'Desempenho',
+                data: [20, 30, 25, 40, 50],
+                borderColor: '#1e90ff',
+                backgroundColor: 'transparent',
+                tension: 0.4,
+                borderWidth: 2,
+                pointRadius: 4,
+            },
+            {
+                label: 'Tempo de Resposta',
+                data: [10, 8, 35, 30, 32],
+                borderColor: '#00bfff',
+                backgroundColor: 'transparent',
+                tension: 0.4,
+                borderWidth: 2,
+                pointRadius: 4,
+            },
+            {
+                label: 'Quantidade de Processos',
+                data: [0, 12, 20, 15, 40],
+                borderColor: '#00ced1',
+                backgroundColor: 'transparent',
+                tension: 0.4,
+                borderWidth: 2,
+                pointRadius: 4,
+            }
+        ]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: { color: '#e8e8e8' }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: '#e8e8e8' },
+                grid: { color: '#3b3663' }
+            },
+            y: {
+                ticks: { color: '#e8e8e8' },
+                grid: { color: '#3b3663' }
+            }
+        }
+    }
+});
+
+// Gráfico Radar
+const radarChart = new Chart(ctxRadar, {
+  type: 'radar',
+  data: {
+    labels: ['CPU', 'RAM', 'Disco', 'Rede', 'Cache'],
+    datasets: [
+      {
+        label: 'CPU',
+        data: [70, 60, 50, 40, 65],
+        borderColor: '#ffea00',
+        backgroundColor: 'rgba(255, 234, 0,0.25)',
+        pointBackgroundColor: '#ffea00',
+      },
+      {
+        label: 'RAM',
+        data: [60, 75, 65, 50, 60],
+        borderColor: '#00ff05',
+        backgroundColor: 'rgba(0, 255, 5,0.25)',
+        pointBackgroundColor: '#00ff05',
+      },
+      {
+        label: 'Disco',
+        data: [55, 50, 80, 45, 70],
+        borderColor: '#e800ff',
+        backgroundColor: 'rgba(232, 0, 255,0.25)',
+        pointBackgroundColor: '#e800ff',
+      }
+    ]
+  },
+  options: {
+    plugins: {
+      legend: { display: false } // desativa a legenda nativa pra poder criar na mao
+    },
+    scales: {
+      r: {
+        angleLines: { color: '#3b3663' },
+        grid: { color: '#3b3663' },
+        pointLabels: { color: '#e8e8e8' },
+        ticks: { display: false }
+      }
+    }
+  }
+});
+
+const legendContainer = document.getElementById('legendRadar');
+const legendItems = radarChart.data.datasets.map(ds => `
+  <div class="legend-item">
+    <span class="legend-color-box" style="background:${ds.borderColor}"></span>
+    ${ds.label}
+  </div>
+`).join('');
+legendContainer.innerHTML = legendItems;
+
+
+</script>
 </body>
 </html>
