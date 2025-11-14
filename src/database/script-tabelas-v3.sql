@@ -55,15 +55,21 @@ CREATE TABLE layout (
     constraint ct_fkempresalayout foreign key fkempresalayout(fk_empresa_layout) references empresa(id)
 );
 
+CREATE TABLE IF NOT EXISTS regiao(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    codregiao VARCHAR(10) UNIQUE
+);
+
 create table if not exists servidor(
 id int primary key auto_increment,
 apelido varchar(20),
 macadress varchar(20),
-localizacao varchar(30),
+fk_regiao int,
 fk_empresa_servidor int,
 fk_layout int,
 constraint ct_fkEmpresaServidor foreign key fkempresaservidor(fk_empresa_servidor) references empresa(id),
-constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) references layout(id)
+constraint ct_fkLayoutServidor foreign key fklayoutservidor(fk_layout) references layout(id),
+constraint ct_fkRegiao foreign key fkregiao(fk_regiao) references regiao(id)
 );
 
 create table if not exists metrica(
@@ -137,7 +143,8 @@ INSERT INTO permissao (nome) VALUES
 
 # depois adicionar mais permissões para aplicar os esquema tudo la
 
-insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08","Ala Sul",1,null);
+insert into regiao values (null, "BR-1");
+insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08",1,1,null);
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
 select * from configuracaoservidor;
 insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
@@ -237,9 +244,9 @@ VALUES ('GAMECORE', 'gamecore@empresa.com', '12345678901', '123', 1, 4);
 
 
         SELECT f.perfilAtivo
-        from Funcionario f
-        inner join Cargo c on f.fk_cargo_func = c.id
-        inner join Empresa  e on c.fk_empresa_cargo = e.id
+        from funcionario f
+        inner join cargo c on f.fk_cargo_func = c.id
+        inner join empresa  e on c.fk_empresa_cargo = e.id
         where e.id = 8
         or e.id = 1;
         
@@ -273,8 +280,5 @@ ORDER BY e.id DESC;
 
 
 select * from cargo;
-
-delete from cargo
-where id = 1;
 
 select * from cargo;
