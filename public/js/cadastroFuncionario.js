@@ -1,3 +1,4 @@
+
 function showInfoInput(input) {
     var divRastrear = document.getElementById('rastrear')
     var valorAtualRastrear = document.getElementById('value_atual')
@@ -7,10 +8,10 @@ function showInfoInput(input) {
     var valorInput = input.value
     var descricaoCampos = {
         "nome": "Complete este campo com o nome do seu funcionário! Lembre-se de colocar o nome completo para melhor identificação!",
-        "email":"Complete este campo com o email do seu funcionário! Nesta parte você pode colocar um email de sua preferência, pois será por este email que ele se logará na dashboard! Sem necessidade de ser o email real.",
-        "senha":"Complete este campo com a senha de acesso do seu funcionário para acessar a dashboard! Escolha uma senha forte, com pelo menos uma letra maíscula e um símbolo, tendo no mínimo 8 caracteres!",
-        "cpf":"Complete este campo com o CPF do seu funcionário, preste MUITA ATENÇÃO, pois deve ser de fato o cpf real do seu funcionário.",
-        "cargo":"Aqui, você pode escolher um cargo para seu funcionário! Para editar as permissões do cargo você deve ir na aba de cargos no canto lateral da dash, onde temos a barra lateral!"
+        "email": "Complete este campo com o email do seu funcionário! Nesta parte você pode colocar um email de sua preferência, pois será por este email que ele se logará na dashboard! Sem necessidade de ser o email real.",
+        "senha": "Complete este campo com a senha de acesso do seu funcionário para acessar a dashboard! Escolha uma senha forte, com pelo menos uma letra maíscula e um símbolo, tendo no mínimo 8 caracteres!",
+        "cpf": "Complete este campo com o CPF do seu funcionário, preste MUITA ATENÇÃO, pois deve ser de fato o cpf real do seu funcionário.",
+        "cargo": "Aqui, você pode escolher um cargo para seu funcionário! Para editar as permissões do cargo você deve ir na aba de cargos no canto lateral da dash, onde temos a barra lateral!"
     }
     // divRastrear.style.display = "flex"
     tituloInput.innerText = `${input_prefixo[1].toUpperCase()} DO FUNCIONÁRIO`
@@ -20,116 +21,181 @@ function showInfoInput(input) {
 
 function cadastrarFunc() {
 
-        //aguardar();
+    //aguardar();
 
-        var nomeVar = ipt_nome.value;
-        var emailVar = ipt_email.value;
-        var cpfVar = ipt_cpf.value;
-        var senhaVar = ipt_senha.value;
-        var cargoVar = idCargo;
-        var fk_empresaVar = sessionStorage.ID_EMPRESA;
+    var nomeVar = ipt_nome.value;
+    var emailVar = ipt_email.value;
+    var cpfVar = ipt_cpf.value;
+    var senhaVar = ipt_senha.value;
+    var cargoVar = idCargo;
+    var fk_empresaVar = sessionStorage.ID_EMPRESA;
 
-        console.log("Cargo: ", cargoVar);
-
-
-        if (
-            nomeVar == "" ||
-            emailVar == "" ||
-            cpfVar == "" || 
-            senhaVar == ""
-        ) {
-            //cardErro.style.display = "block";
-            mensagem_erro.innerHTML =
-                "(Mensagem de erro para todos os campos em branco)";
-
-            finalizarAguardar();
-            return false;
-        }// else {
-         //   setInterval(sumirMensagem, 5000);
-        //}
+    console.log("Cargo: ", cargoVar);
 
 
-        fetch("/usuarios/cadastrarFunc", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+    if (
+        nomeVar == "" ||
+        emailVar == "" ||
+        cpfVar == "" ||
+        senhaVar == ""
+    ) {
+        //cardErro.style.display = "block";
+        mensagem_erro.innerHTML =
+            "(Mensagem de erro para todos os campos em branco)";
 
-                nomeServer: nomeVar,
-                emailServer: emailVar,
-                cpfServer: cpfVar,
-                senhaServer: senhaVar,
-                cargoServer: cargoVar,
-                fkEmpresaServer: fk_empresaVar
-
-            }),
-        })
-            .then(function (resposta) {
-                console.log("resposta: ", resposta);
-
-                if (resposta.ok) {
-
-                    sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.CPF_USUARIO = json.cpf;
-                    sessionStorage.ID_CARGO = json.fk_cargo;
-                    sessionStorage.ID_EMPRESA = json.fk_empresa;
-                    
-                    if (json.permissoes) {
-
-                        sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
-                        
-                    }
-
-                    //mensagem_erro.innerHTML =
-                    //    "Cadastro realizado com sucesso!";
-
-                    alert("Cadastro realizado com sucesso!")
-
-                    //setTimeout(() => {
-                    //    window.location = "login.html";
-                    //}, "2000");
-
-                    finalizarAguardar();
-                } else {
-                    throw "Houve um erro ao tentar realizar o cadastro!";
-                }
-            })
-            .catch(function (resposta) {
-                console.log(`#ERRO: ${resposta}`);
-            });
-
+        finalizarAguardar();
         return false;
-    }
+    }// else {
+    //   setInterval(sumirMensagem, 5000);
+    //}
 
 
-    function allFunc() {
-        let idEmpresa = sessionStorage.ID_EMPRESA;
-        fetch(`/usuarios/allFunc/${idEmpresa}`, {
-            method: "GET"
+    fetch("/usuarios/cadastrarFunc", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            cpfServer: cpfVar,
+            senhaServer: senhaVar,
+            cargoServer: cargoVar,
+            fkEmpresaServer: fk_empresaVar
+
+        }),
+    })
+        .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+
+                sessionStorage.ID_USUARIO = json.id;
+                sessionStorage.NOME_USUARIO = json.nome;
+                sessionStorage.EMAIL_USUARIO = json.email;
+                sessionStorage.CPF_USUARIO = json.cpf;
+                sessionStorage.ID_CARGO = json.fk_cargo;
+                sessionStorage.ID_EMPRESA = json.fk_empresa;
+
+                if (json.permissoes) {
+
+                    sessionStorage.setItem('PERMISSOES_USUARIO', JSON.stringify(json.permissoes));
+
+                }
+
+                //mensagem_erro.innerHTML =
+                //    "Cadastro realizado com sucesso!";
+
+                alert("Cadastro realizado com sucesso!")
+
+                //setTimeout(() => {
+                //    window.location = "login.html";
+                //}, "2000");
+
+                finalizarAguardar();
+            } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+            }
         })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+        });
+
+    return false;
+}
+
+function allFunc() {
+    let idEmpresa = sessionStorage.ID_EMPRESA;
+    fetch(`/usuarios/allFunc/${idEmpresa}`, {
+        method: "GET"
+    })
         .then(async resposta => {
-            if(resposta.ok) {
+            if (resposta.ok) {
                 let funcionarios = await resposta.json();
                 console.log(funcionarios);
                 let areaFuncionarios = document.getElementById('table_func')
                 let stringFuncionarios = ""
                 funcionarios.forEach(funcionario => {
-                    stringFuncionarios+=`
+                    stringFuncionarios += `
                             <tr class="background-linha">
                                 <td class="celula_func">${funcionario.id}</td>
                                 <td class="celula_func">${funcionario.nome}</td>
                                 <td class="celula_func cpf">${funcionario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")}</td>
                                 <td class="celula_func bloco-centro">${funcionario.nomeCargo}</td>
                                 <td class="bloco-centro">5 dias atrás</td>
-                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="window.location.href='./edit_funcionario.html?idFunc=${funcionario.id}'"></i></td>
-                                <td class="circle-delete"><i class="fa-solid fa-trash-arrow-up icon_delete"></i></td>
+                                <td class="icon_edit"><i class="fa-solid fa-pen-to-square" onclick="idFunc=${funcionario.id}, telaEditarFunc()"></i></td>
+                                <td class="circle-delete" onclick="deletarFunc(${idEmpresa},${funcionario.id})"><i class="fa-solid fa-trash-arrow-up icon_delete"></i></td>
                             </tr>                    
                     `
                 });
-                areaFuncionarios.innerHTML+=stringFuncionarios
+                areaFuncionarios.innerHTML += stringFuncionarios
             }
         })
+}
+
+function deletarFunc(idEmpresa, idFunc) {
+    Swal.fire({
+        title: "Deletar funcionário?",
+        text: "Não é possível restaurar após deleção",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33", 
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, deletar!",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+
+        
+        if (result.isConfirmed) {
+
+            fetch(`/usuarios/deletarFunc/${idEmpresa}/${idFunc}`, {
+                method: "DELETE" 
+            })
+                .then(function (resposta) {
+
+                    if (resposta.ok) {  
+                        
+                        Swal.fire({
+                            title: "Deletado!",
+                            text: "Funcionário deletado com sucesso.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.reload(); 
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Falha ao deletar. Verifique as permissões ou se o ID existe.",
+                            icon: "error"
+                        });
+
+                    }
+                })
+                .catch(function (erro) {
+
+                    Swal.fire({
+                        title: "Erro de Conexão!",
+                        text: "Não foi possível conectar ao servidor para deletar.",
+                        icon: "error"
+                    });
+                    console.error("Erro no fetch DELETE:", erro);
+                });
+        }
+    });
+}
+
+function telaEditarFunc(){
+    let permissoes = sessionStorage.PERMISSOES_USUARIO
+    console.log(permissoes)
+    if (permissoes.includes(4)){
+        window.location="./edit_funcionario.html"
+    } else {
+        Swal.fire({
+            icon:"error",
+            text:"Você não tem permissão para editar funcionários"
+        })
     }
+}

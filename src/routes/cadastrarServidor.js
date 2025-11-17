@@ -29,5 +29,8 @@ router.post("/editarServer", function (req, res) {
 router.get('/allServidores/:idEmpresa', function(req,res) {
     cadastroServidorController.allServidores(req,res);
 })
+router.delete('/deletarServidor/:idEmpresa/:id_do_servidor', function(req,res) {
+    cadastroServidorController.deletarServidor(req,res);
+})
 
 module.exports = router;

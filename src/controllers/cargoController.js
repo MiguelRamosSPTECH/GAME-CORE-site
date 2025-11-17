@@ -67,47 +67,6 @@ function buscarFunc(req, res){
         );
 }
 
-
-
-//function buscarPermissoes(req, res) {
-//
-//    var fk_cargo = req.body.fkCargoServer; 
-//
-//    if (fk_cargo == undefined) {
-//        res.status(400).send("ID do Cargo indefinido!");
-//        return;
-//    }
-//
-//    cargoModel.buscarPermissoesPorCargo(fk_cargo)
-//        .then(function(resultado) {
-//
-//            if (resultado.length > 0) {
-//
-//                var permissoes = [];
-//
-//                for (let i = 0; i < resultado.length; i++) {
-//
-//                    permissoes.push(resultado[i].fk_permissao_pc);
-//
-//                }
-//            
-//                res.json({ permissoes: permissoes });
-//
-//            } else {
-//
-//                res.json({ permissoes: [] }); 
-//
-//            }
-//        }).catch(function (erro) {
-//
-//            console.log(erro);
-//
-//            console.log("Houve um erro ao buscar permissões! Erro: ", erro.sqlMessage);
-//            
-//            res.status(500).json(erro.sqlMessage);
-//        });
-//}
-
 function allCargos(req,res) {
     let idEmpresa = req.params.idEmpresa
     cargoModel.allCargos(idEmpresa)
@@ -120,10 +79,60 @@ function allCargos(req,res) {
     })
 }
 
+function deletarCargo(req,res){
+    const {idEmpresa, idCargo} = req.params;
+    cargoModel.deletarCargo(idEmpresa, idCargo)
+    .then(resposta => {
+        if(resposta.affectedRows > 0) {
+            res.status(200).send("Deletado com sucesso.")
+        } else {
+            res.status(404).send("Nenhum cargo encontrado para o ID especificado na empresa.")
+        }        
+    })
+}
+
+function buscarPermissoes(req, res) {
+
+    var fk_cargo = req.body.fkCargoServer; 
+
+    if (fk_cargo == undefined) {
+        res.status(400).send("ID do Cargo indefinido!");
+        return;
+    }
+
+    cargoModel.buscarPermissoesPorCargo(fk_cargo)
+        .then(function(resultado) {
+
+            if (resultado.length > 0) {
+
+                var permissoes = [];
+
+                for (let i = 0; i < resultado.length; i++) {
+                    permissoes.push(resultado[i].fk_permissao_pc);
+                }
+
+                res.json({ permissoes: permissoes });
+
+            } else {
+
+                res.json({ permissoes: [] }); 
+
+            }
+        }).catch(function (erro) {
+
+            console.log(erro);
+
+            console.log("Houve um erro ao buscar permissões! Erro: ", erro.sqlMessage);
+
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     criar,
     buscar,
     buscarFunc,
-    allCargos
-    //buscarPermissoes
+    allCargos,
+    deletarCargo,
+    buscarPermissoes
 }

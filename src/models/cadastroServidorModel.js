@@ -46,11 +46,11 @@ function buscarServidor(fk_empresa_server){
 
 }
 
-function editarServer(apelido, macadress, regiao, fk_idEmpresa, fk_layout, fk_servidor){
+function editarServer(apelido, regiao, fk_idEmpresa, fk_layout, fk_servidor){
 
     var editandoServer = `
     
-    UPDATE Servidor s SET s.apelido = '${apelido}', s.macadress = '${macadress}', s.localizacao = '${regiao}', s.fk_empresa_servidor = '${fk_idEmpresa}', s.fk_layout = (SELECT id FROM Layout l WHERE l.id = ${fk_layout}) WHERE s.id = ${fk_servidor}
+    UPDATE Servidor s SET s.apelido = '${apelido}',  s.localizacao = '${regiao}', s.fk_empresa_servidor = '${fk_idEmpresa}', s.fk_layout = (SELECT id FROM Layout l WHERE l.id = ${fk_layout}) WHERE s.id = ${fk_servidor}
 
     `
 
@@ -63,6 +63,11 @@ function allServidores(idEmpresa) {
     return database.executar(querySql);
 }
 
+function deletarServidor(idEmpresa, id_do_servidor ){
+    var deletarSql = `DELETE FROM SERVIDOR WHERE ID = ${id_do_servidor} and FK_EMPRESA_SERVIDOR = ${idEmpresa};`
+    return database.executar(deletarSql)
+}
+
 
 
 module.exports = {
@@ -70,5 +75,6 @@ module.exports = {
     exibeLayout,
     buscarServidor,
     editarServer,
-    allServidores
+    allServidores,
+    deletarServidor
 };
