@@ -24,4 +24,8 @@ router.get(`/findByIdFunc/:idEmpresa/:idFunc`, function(req,res) {
     usuarioController.findByIdFunc(req,res);
 })
 
+router.delete(`/deletarFunc/:idEmpresa/:idFunc`, function(req,res) {
+    usuarioController.deletarFunc(req,res);
+})
+
 module.exports = router;

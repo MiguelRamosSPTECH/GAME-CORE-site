@@ -258,6 +258,24 @@ html, * {
 .area-buttons button:hover {
     transform: scale(1.05);
 }
+
+.deletar {
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    background-color: #9b3737;
+    font-family: "Poppins",sans-serif;
+    width: 12%;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out
+}
+
+.deletar:hover {
+    transform: scale(1.05);
+}
+
 #confirm {
     background-color: #74ce3a;
 }
