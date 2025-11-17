@@ -90,13 +90,12 @@ function buscarServidor(req, res){
 function editarServer(req, res){
 
     var apelido = req.body.apelidoServidorServer;
-    var macadress = req.body.macadressServer;
     var regiao = req.body.regiaoServidorServer;
     var idEmpresa = req.body.idEmpresaServer;
     var layout = req.body.idLayoutServer;
     var servidor = req.body.idServidorServer;
 
-    cadastroServidorModel.editarServer(apelido, macadress, regiao, idEmpresa, layout, servidor)
+    cadastroServidorModel.editarServer(apelido, regiao, idEmpresa, layout, servidor)
         .then(
         function(resultado){
                 res.json(resultado);
@@ -125,11 +124,23 @@ function allServidores(req,res) {
     })
 }
 
+function deletarServidor(req,res) {
+    const {idEmpresa, id_do_servidor} = req.params;
+    cadastroServidorModel.deletarServidor(idEmpresa, id_do_servidor)
+    .then(resposta => {
+        if(resposta.affectedRows > 0) {
+            res.status(200).send("Deletado com sucesso.")
+        } else {
+            res.status(404).send("Nenhum servidor encontrado para o ID especificado na empresa.")
+        }        
+    })
+}
 
 module.exports = {
     cadastrarServidor,
     exibeLayout,
     buscarServidor,
     editarServer,
-    allServidores
+    allServidores,
+    deletarServidor
 };

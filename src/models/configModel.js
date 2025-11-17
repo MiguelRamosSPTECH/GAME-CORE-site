@@ -136,8 +136,37 @@ async function editarLayout(nomeLayout, ListaChecked, fk_empresa_cargo, idLayout
 }
 
 
+async function deletarLayout(idEmpresa, idLayout){
+    const queryLimparServidor = `
+        UPDATE SERVIDOR SET FK_LAYOUT = NULL WHERE FK_LAYOUT = ${idLayout};
+    `;
+    
+    const queryLimparConfig = `
+        UPDATE CONFIGURACAOSERVIDOR SET FK_LAYOUT = NULL WHERE FK_LAYOUT = ${idLayout};
+    `;
+
+    const queryDeletarLayout = `
+        DELETE FROM LAYOUT WHERE ID = ${idLayout} AND FK_EMPRESA_LAYOUT = ${idEmpresa};
+    `;
+
+    try {
+        await database.executar(queryLimparServidor);
+        
+        await database.executar(queryLimparConfig);
+
+        const resultado = await database.executar(queryDeletarLayout);
+    
+        return resultado;
+
+    } catch (erro) {
+        console.error("Erro ao deletar layout ou limpar referências:", erro);
+        throw erro; 
+    }
+}
+
 module.exports = {
     criarLayout,
     listarLayout,
-    editarLayout
+    editarLayout,
+    deletarLayout
 };

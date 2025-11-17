@@ -8,6 +8,7 @@
     <title>DASHBOARD | GAMEOPS</title>
     <script src="../js/sessao.js"></script>
     <script src="../js/descServidor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body onload="validarSessao(), allServidores()">
     <div class="container-all">
@@ -69,7 +70,7 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </div>
                         <div class="add-server">
-                            <i onclick="window.location.href='./servidores/create_servidor.html'" class="fa-solid fa-plus"></i>
+                            <i onclick="telaCriarServidor()" class="fa-solid fa-plus"></i>
                         </div>
                     </div>
                     <div class="area-table">

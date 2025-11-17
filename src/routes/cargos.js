@@ -29,5 +29,8 @@ router.post("/buscarPermissoes", function(req, res) {
 router.get("/allCargos/:idEmpresa", function(req,res) {
     cargoController.allCargos(req,res);
 })
+router.delete("/deletarCargo/:idEmpresa/:idCargo", function(req,res) {
+    cargoController.deletarCargo(req,res);
+})
 
 module.exports = router;

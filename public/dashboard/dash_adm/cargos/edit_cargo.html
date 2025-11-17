@@ -11,7 +11,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="../../../js/sessao.js"></script>
     <script src="../../../js/cadastroCargo.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body onload="validarSessao()">
@@ -39,10 +39,12 @@
         <div class="content-dash">
             <div class="content-cards">
                 <header>
-                    <h1><span>CRIANDO</span> CARGO</h1>
+                    <h1><span>EDITANDO</span> CARGO</h1>
                     <div class="actions">
+                        <button class="cancel" onclick="deletarCargo()"
+                            >DELETAR CARGO</button>
                         <button class="cancel" onclick="window.location='./index.html'">CANCELAR</button>
-                        <button class="create" onclick="cadastrar()">CRIAR CARGO</button>
+                        <button class="create" onclick="cadastrar()">EDITAR CARGO</button>
                     </div>
                 </header>
 
