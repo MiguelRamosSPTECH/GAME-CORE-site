@@ -1,12 +1,12 @@
 var database = require("../database/config")
 
-async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFunc, senhaFunc) {
-    console.log("ACESSEI O MODEL DE CADASTRO DE SERVIDOR");
+async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email) {
+    console.log("ACESSEI O MODEL DE CADASTRO DE EMPRESA");
     
     let empresaDB = `
 
-        INSERT INTO Empresa (nomeEmpresarial, cnpj, email)
-        VALUES ('${nomeEmpresarial}', '${cnpj}', '${email}');
+        INSERT INTO empresa (nomeEmpresarial, cnpj, email, nomeRepresentante)
+        VALUES ('${nomeEmpresarial}', '${cnpj}', '${email}','${nomeRepresentante}');
 
     `;
     let cadEmpresa = await database.executar(empresaDB);
@@ -19,24 +19,24 @@ async function cadastrar(nomeEmpresarial, cnpj, nomeRepresentante, email, cpfFun
 
     let cargoRootDB = `
     
-        INSERT INTO Cargo (nome, fk_empresa_cargo) 
+        INSERT INTO cargo (nome, fk_empresa_cargo) 
         VALUES ('Administrador Master', '${idEmpresa}');
 
     `
     let cadCargoRoot = await database.executar(cargoRootDB);
-    let idCargo = cadCargoRoot.insertId;
+    // let idCargo = cadCargoRoot.insertId;
     console.log("Inserindo cargo de administrador ao usuário" + cadCargoRoot)
 
-    let funcDB = `
+    // let funcDB = `
 
-        INSERT INTO Funcionario (nome, email, cpf, senha, fk_cargo_func)
-        VALUES ('${nomeRepresentante}', '${email}', '${cpfFunc}', '${senhaFunc}', '${idCargo}');
+    //     INSERT INTO funcionario (nome, email, cpf, senha, fk_cargo_func)
+    //     VALUES ('${nomeRepresentante}', '${email}', '${cpfFunc}', '${senhaFunc}', '${idCargo}');
 
-    `;
+    // `;
 
-    let cadFunc = await database.executar(funcDB);
-    console.log("Executando a instrução SQL (Funcionário): \n" + funcDB)
-    console.log("Funcionário cadastrado com sucesso!");
+    // let cadFunc = await database.executar(funcDB);
+    // console.log("Executando a instrução SQL (Funcionário): \n" + funcDB)
+    // console.log("Funcionário cadastrado com sucesso!");
 
 
 

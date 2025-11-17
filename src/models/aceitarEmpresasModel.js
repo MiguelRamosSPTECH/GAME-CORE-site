@@ -21,22 +21,56 @@ function editar(novoStatus, idEmpresa) {
 }
 
 
-// function buscar_Cargos(filtro) {
-//      console.log("ACESSEI O ACEITAR EMPRESAS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", filtro)
+function buscar_Cargos(filtro) {
+     console.log("ACESSEI O ACEITAR EMPRESAS MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", filtro)
 
-//     var instrucaoSql = `
-//         SELECT f.perfilAtivo
-//         from Funcionario f
-//         inner join Cargo c on f.fk_cargo_func = c.id
-//         inner join Empresa  e on c.fk_empresa_cargo = e.id
-//         where e.id = ${metrica};
-//     `;
-//     console.log("Executando a instrução SQL: \n" + instrucaoSql);
-//     return database.executar(instrucaoSql);
-// }
+    var instrucaoSql = `
+SELECT 
+    e.id AS idEmpresa,
+    c.id AS idCargo,
+    c.ativo
+    FROM Cargo c
+    INNER JOIN Empresa e 
+    ON c.fk_empresa_cargo = e.id
+    WHERE (e.id = 1 OR e.id = ${filtro})
+    AND c.nome = 'Administrador Master'
+    ORDER BY e.id DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 
+function atualizar_perfil(novoStatus, idEmpresa) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoStatus, idEmpresa);
+    var instrucaoSql = `
+        UPDATE Funcionario f
+        INNER JOIN Cargo c ON f.fk_cargo_func = c.id
+        INNER JOIN Empresa e ON c.fk_empresa_cargo = e.id
+        SET f.perfilAtivo = ${novoStatus}
+        WHERE e.id = ${idEmpresa};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+
+function criar_perfil(novoStatus, idEmpresa, nome) {
+    console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoStatus, idEmpresa);
+    var emailFuncionario = `${nome}@email.com`;
+    var senhaFuncionario = `${nome}${Math.floor(Math.random() * 10000)}`;
+
+    
+    var instrucaoSql = `
+        INSERT INTO Cargo (nome, fk_empresa_cargo, ativo)
+        VALUES ('Administrador Master', ${idEmpresa}, 1);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
 module.exports = {
     buscar_cards,
     editar,
-    // buscar_Cargos
+    buscar_Cargos,
+    atualizar_perfil,
+    criar_perfil
 };

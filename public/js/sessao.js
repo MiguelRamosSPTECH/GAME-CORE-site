@@ -56,8 +56,24 @@ function validarSessaoGameCore() {
 }
 
 function limparSessao() {
-    sessionStorage.clear();
-    window.location = "../../../login.html";
+
+    Swal.fire({
+        title: "Saindo",
+        text: "Encerrando a sessão.",
+        icon: "info",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        customClass: {
+            popup: 'swal-2'
+        }
+    });
+
+    setTimeout(() => {
+        sessionStorage.clear();
+        window.location = "../../../login.html";
+    }, 2100)
+
 }
 
 

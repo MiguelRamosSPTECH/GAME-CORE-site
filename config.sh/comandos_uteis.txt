@@ -1,0 +1,2 @@
+# verficar logs na instancia p ver se o script de configuracao de software funcionou
+cat /var/log/cloud-init-output.log

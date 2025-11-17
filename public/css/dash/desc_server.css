@@ -501,7 +501,7 @@ html, * {
     display: flex;
     gap: 1.5px;
     flex-direction: column;
-    background-color: gray;
+    background-color: rgb(255, 255, 255);
     border-radius: 10px;
     width: 20%;
     height: 75%;
