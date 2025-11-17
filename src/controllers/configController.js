@@ -76,11 +76,23 @@ function editarLayout(req, res) {
                 }
             );
     }
+}
 
+function deletarLayout(req, res){
+    const {idEmpresa, idLayout} = req.params;
+    configModel.deletarLayout(idEmpresa, idLayout)
+    .then(resposta => {
+        if(resposta.affectedRows > 0) {
+            res.status(200).send("Deletado com sucesso.")
+        } else {
+            res.status(404).send("Nenhum layout encontrado para o ID especificado na empresa.")
+        }        
+    })
 }
 
 module.exports = {
     criarLayout,
     listarLayout,
-    editarLayout
+    editarLayout,
+    deletarLayout
 }
