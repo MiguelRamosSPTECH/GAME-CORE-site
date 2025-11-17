@@ -4,6 +4,7 @@ function entrar() {
 
     if (emailVar == "" || senhaVar == "") {
         msg_erro.innerHTML = `Preencha todos os campos!`
+        return;
     } else {
 
         console.log("FORM LOGIN: ", emailVar);
@@ -97,7 +98,7 @@ function entrar() {
                         }
 
 
-                    }, 500); // apenas para exibir o loading
+                    }, 2100); // apenas para exibir o loading
 
                 });
 
@@ -108,6 +109,11 @@ function entrar() {
             }
 
         }).catch(function (erro) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Algo deu errado!",
+            });
             console.log(erro);
         })
     }

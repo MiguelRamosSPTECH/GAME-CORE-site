@@ -15,7 +15,7 @@ function cadastrarFunc(nome, email, cpf, senha, fk_cargo) {
 
     let instrucaoSql = `
 
-        INSERT INTO Funcionario (nome, email, cpf, senha, fk_cargo_func) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${fk_cargo}');
+        INSERT INTO funcionario (nome, email, cpf, senha, fk_cargo_func) VALUES ('${nome}', '${email}', '${cpf}', '${senha}', '${fk_cargo}');
         
     `;
 
@@ -31,7 +31,7 @@ function editarFunc(nomeFuncionario, emailFuncionario, cpfFuncionario, senhaFunc
     var edicao = `
     
         
-        UPDATE Funcionario f SET f.nome = '${nomeFuncionario}', f.email = '${emailFuncionario}', f.cpf = '${cpfFuncionario}', f.senha = '${senhaFuncionario}', f.fk_cargo_func = (SELECT id FROM Cargo WHERE id = ${idCargoFuncionario}) WHERE f.id = ${idFunc}
+        UPDATE funcionario f SET f.nome = '${nomeFuncionario}', f.email = '${emailFuncionario}', f.cpf = '${cpfFuncionario}', f.senha = '${senhaFuncionario}', f.fk_cargo_func = (SELECT id FROM Cargo WHERE id = ${idCargoFuncionario}) WHERE f.id = ${idFunc}
 
     `
     console.log("Alterando o Usuário")

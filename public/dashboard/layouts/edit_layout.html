@@ -13,7 +13,7 @@
     <script src="../../js/descServidor.js"></script>
     <script src="../../js/sessao.js"></script>
     <script src="../../js/criarConfig.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
 <body onload="validarSessao(),listarLayout()">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="area-logoff">
-                    <div class="circle-option logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </div>
                 </div>

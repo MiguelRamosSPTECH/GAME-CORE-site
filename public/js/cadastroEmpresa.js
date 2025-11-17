@@ -1,31 +1,18 @@
 // APLICANDO MÁSCARA NOS INPUT CNPJ E CPF
-var campoCpf= document.getElementById('ipt_cpf')
 var campoCnpj = document.getElementById('ipt_cnpj')
-var inputs = [campoCpf, campoCnpj]
-inputs.forEach(input => {
-    input.addEventListener('keydown', () => {
-        var valueInput = input.value;
-            if(valueInput.length == input.maxLength) {
-                if(input.id == "ipt_cpf") {
-                    valueInput = valueInput.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
-                    //esse replace pega \d{3} = intervalo de 3 numeros consecutivos e guarda em um grupo, em ordem, ou seja, grupo 1,2,3,4.
-                    // dai () => guarda isso, essa ordem e o grupo, dai no segundo parametro ele só concatena esses grupos com a string correta do cpf.
-                    input.type = "text"
-                    input.maxLength = 14
-                    input.value = valueInput   
-                } else {
-                    valueInput = valueInput.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4.$5")
-                    input.type = "text"
-                    input.maxLength = 18
-                    input.value = valueInput
-                }
-            } else {
-                input.type = "number"
-                input.value = valueInput.replace(/[^\d]/g, "") //qualquer caracter que nao seja numero em todas as ocorrencias /[^\d]/g por ""
-                input.maxLength = input.id == "ipt_cpf" ? 11 : 14
-            }
+    campoCnpj.addEventListener('keydown', () => {
+        var valueInput = campoCnpj.value;
+        if (valueInput.length == campoCnpj.maxLength) {
+                valueInput = valueInput.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4.$5")
+                campoCnpj.type = "text"
+                campoCnpj.maxLength = 18
+                campoCnpj.value = valueInput
+        } else {
+            campoCnpj.type = "number"
+            campoCnpj.value = valueInput.replace(/[^\d]/g, "") //qualquer caracter que nao seja numero em todas as ocorrencias /[^\d]/g por ""
+            campoCnpj.maxLength = 14
+        }
     })
-})
 
 
 function cadastrar() {
@@ -33,33 +20,25 @@ function cadastrar() {
     var cnpjVar = ipt_cnpj.value.replace(/[^\d]/g, "");
     var nomeRepresentanteVar = ipt_nome_representante.value;
     var emailVar = ipt_email.value;
-    var cpfVar = ipt_cpf.value.replace(/[^\d]/g, "");
-    var senhaVar = ipt_senha.value;
     if (
         nomeEmpresarialVar == "" ||
-        cnpjVar == "" ||
         nomeRepresentanteVar == "" ||
         emailVar == "" ||
-        cpfVar == "" ||
-        senhaVar == ""
+        cnpjVar == ""
     ) {
         // ERRO
         msg_erro.innerHTML = "Preencha todos os campos!"
-      } else if (nomeEmpresarialVar.length < 10) {
-       msg_erro.innerHTML = `Nome Empresarial muito pequeno. Mínimo : 10`
-   } else if (cnpjVar.length != 14){
-       msg_erro.innerHTML = `Insira um CNPJ de 16 caracteres`
-   } else if (nomeRepresentanteVar.length < 3) {
-       msg_erro.innerHTML = `Insira um nome de representante válido! Nome muito pequeno.`
-   } else if (emailVar.length < 5) {
-       msg_erro.innerHTML = `Preencha um email válido! Email muito pequeno.`
-   } else if (!emailVar.includes("@") || !emailVar.includes(".")) {
-       msg_erro.innerHTML = `Insira um e-mail válido! Precisa ter "@" e "."`
-   }  else if (cpfVar.length != 11){
-       msg_erro.innerHTML = `Insira um CPF válido!`
-   } else if (senhaVar.length < 5) {
-       msg_erro.innerHTML = `Insira uma senha válida! Senha muito curta.`
-   } else {
+    } else if (nomeEmpresarialVar.length < 10) {
+        msg_erro.innerHTML = `Nome Empresarial muito pequeno. Mínimo : 10`
+    } else if (cnpjVar.length != 14) {
+        msg_erro.innerHTML = `Insira um CNPJ de 16 caracteres`
+    } else if (nomeRepresentanteVar.length < 3) {
+        msg_erro.innerHTML = `Insira um nome de representante válido! Nome muito pequeno.`
+    } else if (emailVar.length < 5) {
+        msg_erro.innerHTML = `Preencha um email válido! Email muito pequeno.`
+    } else if (!emailVar.includes("@") || !emailVar.includes(".")) {
+        msg_erro.innerHTML = `Insira um e-mail válido! Precisa ter "@" e "."`
+    } else {
         fetch("/cadastroEmpresa/cadastrar", {
             method: "POST",
             headers: {
@@ -69,9 +48,7 @@ function cadastrar() {
                 nomeEmpresarialServer: nomeEmpresarialVar,
                 cnpjServer: cnpjVar,
                 nomeRepresentanteServer: nomeRepresentanteVar,
-                emailServer: emailVar,
-                cpfServer: cpfVar,
-                senhaServer: senhaVar
+                emailServer: emailVar
 
             })
         })
@@ -89,9 +66,24 @@ function cadastrar() {
 
                             console.log("Cadastro de empresa realizado com sucesso. ID:", idEmpresaGerado);
 
-                            alert("Cadastro realizado com sucesso!")
+                            // alert("Cadastro realizado com sucesso!")
 
-                            window.location.href = "login.html";
+                            Swal.fire({
+                                title: "Cadastro realizado!",
+                                text: "Redirecionando para login...",
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 2000,
+                                timerProgressBar: true,
+                                customClass: {
+                                    popup: 'swal-1'
+                                }
+                            });
+
+                            setTimeout(() => {
+                                window.location.href = "login.html";
+                            }, 2100)
+
 
 
                         } else {
@@ -103,6 +95,11 @@ function cadastrar() {
                 }
             })
             .catch(function (resposta) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Algo deu errado!",
+                });
                 console.log(`#ERRO: ${resposta}`);
             });
 
