@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, * {
+    margin: 0;
+    left: 0;
+}
+body {
+    background-color: #0a061b;
+}
+
+/* CONTAINER GERAL */
+.container-all {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-family: "Poppins", sans-serif;
+}
+
+.nav-lateral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 6.5%;
+    background-color: #231f39;
+    border-bottom-right-radius: 8.5px;
+    border-top-right-radius: 8.5px;
+}
+
+.logo-dbg {
+    width: 100%;
+    height: 14%;
+}
+.logo-dbg img {
+    width: 100%;
+    height: 100%;
+}
+
+.options-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    width: 50%;
+    height: 75%;
+}
+.principal-options {
+    height: 85%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    flex-direction: column;
+}
+.circle-option {
+    font-size: 20px;
+    color: #231f39;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d9d9d9;
+    width: 80%;
+    height: 9%;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 3px 6px rgba(207, 204, 204, 0.2);
+}
+.circle-option:hover {
+    transform: scale(1.15);
+    background-color: #bdb5b5;
+}
+.area-logoff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    width: 100%;
+}
+.logoff {
+    height: 50%;
+    border: 2px solid red;
+    color: red;
+}
+
+
+.background-modal {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: rgba(128, 128, 128, 0.541);
+}
+
+/* Parte nova */
+
+.resto{
+    height: 100%;
+    flex-grow: 1;
+    background-color: red;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1,3fr;
+}
