@@ -1,189 +1,334 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Saúde do Servidor</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Saúde do Servidor</title>
 
-    <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
+
 <div class="container-all">
-    <div class="nav-lateral">
-            <div class="logo-dbg">
-                <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
-            </div>
-            <div class="options-nav ">
-                <div class="principal-options">
-                    <div class="circle-option">
-                        <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-house"></i>
-                        <span class="texto-oculto">Início</span>
-                    </div>
-                    <div class="circle-option">
-                        <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
-                        <span class="texto-oculto">Alertas</span>
-                    </div>
-                    <div class="circle-option">
-                        <i class="fa-solid fa-notes-medical" onclick="window.location.href='#'"></i>
-                        <span class="texto-oculto">Configurações</span>
-                    </div>
-                </div>
-                <div class="area-logoff">
-                    <div class="circle-option logoff" onclick="limparSessao()">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <span class="texto-oculto" style="color: red;">Sair</span>
-                    </div>
-                </div>
-            </div>
+
+
+  <div class="nav-lateral">
+    <div class="logo-dbg">
+      <img src="../../assets/imgs/DBG.-logo2png.png">
+    </div>
+
+    <div class="options-nav">
+      <div class="principal-options">
+        <div class="circle-option">
+          <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-house"></i>
         </div>
 
-    <div class="dashboard">
-        <div class="grafico_visao_geral">
-            <h2>Saúde do Servidor - Visão Geral</h2>
+        <div class="circle-option">
+          <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
+        </div>
 
-            <div class="conteudo_graficos">
-                <div class="grafico_linhas">
-                    <canvas id="graficoLinha"></canvas>
-                    <div class="legenda_grafico">
-                        <div class="icone-alerta">
-                            <img src="../../assets/imgs/ponto_exclamacao.png" alt="!">
-                        </div>
-                        <p>
-                            A CPU impacta diretamente o desempenho, a capacidade de resposta e a estabilidade de um servidor,
-                            pois é responsável por executar tarefas e gerenciar processos.
-                        </p>
-                    </div>
-                </div>
+        <div class="circle-option">
+          <i onclick="window.location.href='#'" class="fa-solid fa-notes-medical"></i>
+        </div>
+      </div>
 
-                <div class="grafico_radar">
-            <h3>Utilização de Componente</h3>
-            <div class="radar-area">
-              <canvas id="graficoRadar"></canvas>
-              <div id="legendRadar" class="legend-container" aria-hidden="true">
-              </div>
+      <div class="area-logoff">
+        <div class="circle-option logoff" onclick="limparSessao()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <main class="content">
+
+    <header class="header">
+      <h1>Saúde do Servidor - Visão Geral</h1>
+    </header>
+
+    <section class="grid-dashboard">
+
+
+      <div class="card card-mainchart">
+        <div class="legend">
+          <span class="leg-dot blue"></span> Desempenho
+          <span class="leg-dot purple"></span> Tempo de Espera
+        </div>
+        <canvas id="mainChart"></canvas>
+      </div>
+<div class="card card-memoria">
+    <div class="memoria-section-header">
+        <h2>Taxa de Swap</h2>
+    </div>
+    <div class="memoria-chart-container">
+        <canvas id="swapChart"></canvas>
+    </div>
+
+    <hr class="memoria-divider">
+
+    <div class="memoria-section-header">
+        <h2>Utilização RAM</h2>
+    </div>
+    <div class="memoria-ram-content">
+        <canvas id="ramChart"></canvas>
+        <div class="ram-legend">
+            <div class="leg-item">
+                <span class="leg-dot small blue"></span> Disponível
+                <span class="ram-percent">12.5%</span>
             </div>
-          </div>
+            <div class="leg-item">
+                <span class="leg-dot small purple"></span> Utilizada
+                <span class="ram-percent">87.5%</span>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-const ctxLinha = document.getElementById('graficoLinha');
-const ctxRadar = document.getElementById('graficoRadar');
+<div class="card card-cpu">
+    </div>
 
-// Gráfico de Linhas
-new Chart(ctxLinha, {
-    type: 'line',
-    data: {
-        labels: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'],
-        datasets: [
-            {
-                label: 'Desempenho',
-                data: [20, 30, 25, 40, 50],
-                borderColor: '#1e90ff',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-            },
-            {
-                label: 'Tempo de Resposta',
-                data: [10, 8, 35, 30, 32],
-                borderColor: '#00bfff',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-            },
-            {
-                label: 'Quantidade de Processos',
-                data: [0, 12, 20, 15, 40],
-                borderColor: '#00ced1',
-                backgroundColor: 'transparent',
-                tension: 0.4,
-                borderWidth: 2,
-                pointRadius: 4,
-            }
-        ]
+<div class="card card-processes">
+    </div>
+
+<div class="card card-threads">
+    </div>
+
+<div class="card card-cpu">
+    </div>
+
+<div class="card card-processes">
+    </div>
+
+<div class="card card-threads">
+    </div>
+
+      <!-- CPU -->
+      <div class="card card-cpu">
+        <h2>Tempo de CPU</h2>
+        <p class="sub">Usuário VS Sistema</p>
+
+        <div class="cpu-bars">
+          <div class="cpu-row"><div class="cpu-fill cpu-user" style="width:60%"></div></div>
+          <div class="cpu-row"><div class="cpu-fill cpu-user2" style="width:45%"></div></div>
+
+          <div class="cpu-scale">
+            <span>0%</span><span>50%</span><span>100%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROCESSOS -->
+      <div class="card card-processes">
+        <h2>Total de Processos em Execução</h2>
+
+        <div class="proc-top">
+          <div class="green-dot"></div>
+          <div class="proc-number">345</div>
+          <div class="proc-change">+ 2%</div>
+        </div>
+
+        <hr class="proc-sep">
+
+        <p class="proc-sub">Processo que mais consome CPU</p>
+        <p class="proc-name"><strong>minecraft-inicializator-server</strong> (70%)</p>
+      </div>
+
+     
+
+      <!-- THREADS -->
+      <div class="card card-threads">
+
+        <div class="threads-header">
+     <h3>Contagem de Threads</h3>
+          <div id="threadsLegend" class="chart-legend"></div> 
+    </div>
+
+        <div class="threads-content-area">
+     <div class="threads-left">
+      <canvas id="threadsChart"></canvas>
+     </div>
+
+     <div class="threads-right">
+      <div class="warning-icon">!</div>
+      <p>O aumento significa um vazamento de recursos na aplicação, esgotando o kernel e gerando instabilidade.</p>
+     </div>
+    </div>
+
+   </div>
+
+    </section>
+
+  </main>
+</div>
+
+<script>
+function limparSessao() { console.log("Sessão encerrada."); }
+
+const labels = ["Item 1","Item 2","Item 3","Item 4","Item 5"];
+
+
+new Chart(document.getElementById("mainChart"), {
+  type: "line",
+  data: {
+    labels,
+    datasets: [
+      { label: "Desempenho", data: [12,15,38,30,50], borderColor: "#55c0ff", pointBackgroundColor:"#55c0ff", tension:0.3, borderWidth:3, fill:false },
+      { label: "Tempo de Espera", data: [6,9,16,12,33], borderColor: "#9a7bff", pointBackgroundColor:"#9a7bff", tension:0.3, borderWidth:3, fill:false }
+    ]
+  },
+  options: {
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ legend:{ display:false } },
+    scales:{
+      x:{ ticks:{ color:"#bfbfbf" }, grid:{ color:"rgba(255,255,255,0.08)" } },
+      y:{ ticks:{ color:"#bfbfbf" }, grid:{ color:"rgba(255,255,255,0.08)" } }
+    }
+  }
+});
+
+
+
+new Chart(document.getElementById("swapChart"), {
+    type:"line",
+    data:{
+        labels,
+        datasets:[{
+            label:"Swap",
+            data:[18,26,22,35,37],
+            borderColor:"#55c0ff",
+            pointBackgroundColor:"#55c0ff",
+            borderWidth:3,
+            tension:0.3,
+            fill:false
+        }]
     },
-    options: {
-        plugins: {
-            legend: {
-                labels: { color: '#e8e8e8' }
+    options:{
+        responsive:true,
+        maintainAspectRatio:false, 
+        plugins:{ legend:{ display:false } },
+        layout: {
+            padding: {
+                left: 10,
+                right: 10,
+                top: 10,
+                bottom: 10
             }
         },
-        scales: {
-            x: {
-                ticks: { color: '#e8e8e8' },
-                grid: { color: '#3b3663' }
+        scales:{
+            x:{
+                ticks:{
+                    color:"#bfbfbf",
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0
+                },
+                grid:{
+                    color:"rgba(255,255,255,0.08)"
+                },
+                beginAtZero: false
             },
-            y: {
-                ticks: { color: '#e8e8e8' },
-                grid: { color: '#3b3663' }
+            y:{
+                ticks:{
+                    color:"#bfbfbf",
+                    mirror: false,
+                    padding: 5
+                },
+                grid:{
+                    color:"rgba(255,255,255,0.08)"
+                },
+                beginAtZero: false,
+                min: 15,
+                max: 40
             }
         }
     }
 });
 
-// Gráfico Radar
-const radarChart = new Chart(ctxRadar, {
-  type: 'radar',
-  data: {
-    labels: ['CPU', 'RAM', 'Disco', 'Rede', 'Cache'],
-    datasets: [
-      {
-        label: 'CPU',
-        data: [70, 60, 50, 40, 65],
-        borderColor: '#ffea00',
-        backgroundColor: 'rgba(255, 234, 0,0.25)',
-        pointBackgroundColor: '#ffea00',
-      },
-      {
-        label: 'RAM',
-        data: [60, 75, 65, 50, 60],
-        borderColor: '#00ff05',
-        backgroundColor: 'rgba(0, 255, 5,0.25)',
-        pointBackgroundColor: '#00ff05',
-      },
-      {
-        label: 'Disco',
-        data: [55, 50, 80, 45, 70],
-        borderColor: '#e800ff',
-        backgroundColor: 'rgba(232, 0, 255,0.25)',
-        pointBackgroundColor: '#e800ff',
-      }
-    ]
+
+new Chart(document.getElementById("ramChart"), {
+ type:"doughnut",
+ data:{
+  labels:["Disponível","Utilizada"],
+  datasets:[
+   {
+    data:[12.5,87.5],
+    backgroundColor:["#55c0ff","#9a7bff"],
+    borderWidth:6,
+    borderColor:"#151025",
+    hoverOffset: 4 
+   }
+  ]
+ },
+ options:{
+  responsive:true,
+  maintainAspectRatio:true,
+  plugins:{ 
+   legend:{ display:false } 
   },
-  options: {
-    plugins: {
-      legend: { display: false } // desativa a legenda nativa pra poder criar na mao
-    },
-    scales: {
-      r: {
-        angleLines: { color: '#3b3663' },
-        grid: { color: '#3b3663' },
-        pointLabels: { color: '#e8e8e8' },
-        ticks: { display: false }
-      }
-    }
+  
+  cutout: '70%', 
+  layout: {
+   padding: 5
   }
+
+ }
 });
 
-const legendContainer = document.getElementById('legendRadar');
-const legendItems = radarChart.data.datasets.map(ds => `
-  <div class="legend-item">
-    <span class="legend-color-box" style="background:${ds.borderColor}"></span>
-    ${ds.label}
-  </div>
-`).join('');
-legendContainer.innerHTML = legendItems;
 
-
+new Chart(document.getElementById("threadsChart"), {
+    type:"bar",
+    data:{
+    labels:["Item 1","Item 2","Item 3","Item 4"],
+    datasets:[
+    {
+    label:"Item", 
+    data:[8,14,19,22],
+    
+    backgroundColor:[
+            '#61D8DE', 
+            '#4A90E2',
+            '#3A7BDA', 
+            '#2C5D9F'  
+    ],
+    borderWidth: 1,
+    borderColor: '#0a061b' 
+    }
+    ]
+    },
+    options:{
+    responsive:true,
+    maintainAspectRatio:false,
+    plugins:{ 
+    legend:{ 
+    display: true, 
+    position: 'top', 
+        labels: {
+            boxWidth: 15, 
+            padding: 20, 
+            color: '#bfbfbf'
+        }
+    } 
+    },
+    animation:false, 
+    scales: {
+    x: {
+    ticks: { color: "#bfbfbf" },
+    grid: { display: false }
+    },
+    y: {
+    ticks: { color: "#bfbfbf" },
+    grid: { color: "rgba(255,255,255,0.08)" } 
+    }
+    }
+    }
+});
 </script>
+
 </body>
 </html>
