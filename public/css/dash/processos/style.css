@@ -254,6 +254,20 @@ table {
     max-height: 85%;
     border-collapse: collapse;
 }
+table button {
+    outline: none;
+    border: none;
+    background-color: rgb(240, 84, 56);
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: 0.2s ease-in-out;
+    color: rgb(252, 205, 197);
+    font-weight: 800;
+}
+table button:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+}
 table tr th,td {
     text-align: start;
     padding: 5px;
