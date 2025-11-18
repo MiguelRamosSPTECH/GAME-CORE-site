@@ -3,7 +3,7 @@ var database = require("../database/config");
 function buscar(idEmpresa){
     var instrucaoSql = `
         SELECT id, nome 
-        FROM Layout 
+        FROM layout 
         WHERE fk_empresa_layout = ${idEmpresa};
     `;
 

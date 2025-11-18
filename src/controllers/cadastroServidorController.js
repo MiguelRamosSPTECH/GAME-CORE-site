@@ -1,5 +1,5 @@
 var cadastroServidorModel = require("../models/cadastroServidorModel");
-const { all } = require("../routes/cadastrarServidor");
+
 
 function cadastrarServidor(req, res) {
 
@@ -19,11 +19,7 @@ function cadastrarServidor(req, res) {
     } else if (idEmpresa == undefined) {
         res.status(400).send("O ID da empresa não foi fornecido!");
         return;
-    } else if (layout == undefined) {
-        res.status(400).send("O ID do layout não foi fornecido!");
-        return;
-    }
-    else {
+    } else {
         cadastroServidorModel.enviarCadastroServidor(apelido, macadress, regiao, idEmpresa, layout)
             .then(
                 function (resultado) {
@@ -40,6 +36,20 @@ function cadastrarServidor(req, res) {
                 }
             );
     }
+}
+
+function allRegioes(req,res) {
+    cadastroServidorModel.allRegioes()
+    .then(resposta => {
+        res.status(200).json(resposta);
+    }).catch(erro => {
+        console.log(erro);
+        console.log(
+            "\nHouve um erro ao buscar as regiões! Erro: ",
+            erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+    });
 }
 
 function exibeLayout(req, res){
@@ -142,5 +152,6 @@ module.exports = {
     buscarServidor,
     editarServer,
     allServidores,
-    deletarServidor
+    deletarServidor,
+    allRegioes
 };

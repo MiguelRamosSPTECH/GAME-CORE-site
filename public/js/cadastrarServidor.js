@@ -40,6 +40,22 @@ function showInfoInput(input) {
     valorAtualRastrear.innerText = valorInput
 }
 
+function puxaRegioes() {
+    fetch(`/cadastrarServidor/allRegioes`, {
+        method: "GET"
+    })
+    .then(response => response.json())
+    .then(regioes => {
+        const selectRegiao = document.getElementById("ipt_regiao");
+
+            regioes.forEach(regiao => {
+                selectRegiao.innerHTML += `<option value="${regiao.id}">${regiao.codregiao}</option>`;
+            });
+        })
+        .catch(erro => {
+            console.error("Erro ao carregar regiões: ", erro);
+        });
+}
 
 
 async function exibirLayouts() {
@@ -53,38 +69,19 @@ async function exibirLayouts() {
         const layouts = await response.json();
 
         const select = document.getElementById("ipt_configuracao");
-        select.innerHTML = '<option value="">Selecionar</option>';
 
         layouts.forEach(layout => {
-            const option = document.createElement("option");
-            option.value = layout.id;
-            option.textContent = layout.nome;
-            select.appendChild(option);
-
-            return idLayout = layout.id;
-
+            select.innerHTML+= `<option value="${layout.id}">${layout.nome}</option>`;
         });
 
+        if(window.location.href.includes("edit_servidor.html")) {
+            console.log("hahaha")
+            buscarDados()
+        }
 
     } catch (erro) {
         console.error("Erro ao carregar layouts: ", erro);
-    }
-}
-
-
-
-async function buscarServidor() {
-
-    const servidorString = sessionStorage.getItem("SERVIDOR_JSON");
-    const servidorObjeto = JSON.parse(servidorString);
-
-    let apelidoServidor = servidorObjeto.apelido;
-    let macadressServidor = servidorObjeto.macadress;
-    let regiaoServidor = servidorObjeto.localizacao;
-
-    span_macaddress.innerHTML = macadressServidor
-    span_apelido.innerHTML = apelidoServidor
-    span_regiao.innerHTML = regiaoServidor
+    }  
 }
 
 
@@ -128,7 +125,8 @@ function enviarCadastroServidor() {
     let apelidoServidor = ipt_apelido.value;
     let macadressServidor = ipt_nome.value;
     let regiaoServidor = ipt_regiao.value;
-    let idLayoutServidor = idLayout;
+    let idLayoutServidor = ipt_configuracao.value;
+
 
     fetch("/cadastrarServidor/cadastrar", {
         method: "POST",
@@ -149,24 +147,17 @@ function enviarCadastroServidor() {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                //cardErro.style.display = "block";
-
-                //mensagem_erro.innerHTML =
-                    //"Cadastro realizado com sucesso!";
-
+                
                 setTimeout(() => {
-                    window.location = "../dashboard/index.html";
-                }, "2000");
+                    window.location = "../index.html";
+                }, 1000);
 
-                // limparFormulario();
-                // finalizarAguardar();
             } else {
                 throw "Houve um erro ao tentar realizar o cadastro de servidor!";
             }
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            // finalizarAguardar();
         });
 
     return false;
@@ -185,7 +176,7 @@ function editarServer() {
     var id_do_servidor = servidorObjeto.id;
 
     console.log("ID do layout: ", idLayoutServidor);
-    console.log("ID do servidor: ", id_do_servidor)
+    console.log("ID do servidor: ", id_do_servidor);
 
 
     fetch("/cadastrarServidor/editarServer", {
@@ -267,7 +258,7 @@ function deletarServidor() {
                             text: "Servidor deletado com sucesso.",
                             icon: "success"
                         }).then(() => {
-                            window.location.reload();
+                            window.location.href="../index.html";
                         });
 
                     } else {
@@ -291,4 +282,15 @@ function deletarServidor() {
                 });
         }
     });
+}
+
+function buscarDados() {
+    let dados = sessionStorage.getItem("SERVIDOR_JSON");
+    let dadosServidor = JSON.parse(dados);
+
+
+    ipt_apelido.value = dadosServidor.apelido;
+    ipt_nome.value = dadosServidor.macadress;
+    ipt_regiao.value = parseInt(dadosServidor.fk_regiao); 
+    ipt_configuracao.value = dadosServidor.fk_layout;
 }

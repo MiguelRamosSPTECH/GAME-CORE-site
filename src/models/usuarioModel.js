@@ -4,8 +4,8 @@ function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     var autenticarUser = `
     SELECT f.id, f.nome, f.email, f.cpf, f.senha, f.fk_cargo_func, c.fk_empresa_cargo AS idEmpresa
-    FROM Funcionario f
-    JOIN Cargo c ON  f.fk_cargo_func = c.id
+    FROM funcionario f
+    JOIN cargo c ON  f.fk_cargo_func = c.id
     WHERE f.email = '${email}' AND f.senha = '${senha}';`
     return database.executar(autenticarUser)
 }

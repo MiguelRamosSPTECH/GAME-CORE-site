@@ -14,7 +14,7 @@
     <title>CREATE SERVER | DBGWATCH</title>
 </head>
 
-<body onload="exibirLayouts(), validarSessao()">
+<body onload="exibirLayouts(), validarSessao(), puxaRegioes()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="inputs">
                                         <div class="info-input">
-                                            <label for="ipt_nome">Apelido (Alias)</label>
+                                            <label for="ipt_apelido">Apelido (Alias)</label>
                                             <input type="text" id="ipt_apelido" onkeydown="showInfoInput(this)"
                                                 placeholder="Apelido do servidor...">
                                         </div>
@@ -68,8 +68,9 @@
                                         </div>
                                         <div class="info-input">
                                             <label for="ipt_regiao">Região</label>
-                                            <input id="ipt_regiao" onkeydown="showInfoInput(this)"
-                                                placeholder="Região do servidor...">
+                                            <select id="ipt_regiao" onclick="showInfoInput(this)">
+                                                <option value="null">-----</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +82,7 @@
                                         <div class="info-input">
                                             <label for="ipt_configuracao">Configuração Inicial</label>
                                             <select id="ipt_configuracao" onclick="showInfoInput(this)">
-                                                <option value="">-----</option>
+                                                <option value="null">-----</option>
                                             </select>
                                         </div>
                                     </div>
