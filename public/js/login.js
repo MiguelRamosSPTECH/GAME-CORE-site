@@ -20,6 +20,7 @@ function entrar() {
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
+
             if (resposta.ok) {
                 console.log(resposta);
 
@@ -34,27 +35,66 @@ function entrar() {
                     sessionStorage.ID_USUARIO = json.id;
                     sessionStorage.NOME_CARGO = json.nomeCargo;
 
-                    Swal.fire({
-                        title: "Login realizado!",
-                        text: "Redirecionando...",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 2000,
-                        timerProgressBar: true,
-                        customClass: {
-                            popup: 'swal-1'
-                        }
-                    });
+                    var fk_cargo_func = json.fk_cargo_func;
+                    buscarEsalvarPermissoes(fk_cargo_func)
 
                     setTimeout(function () {
-                        if (sessionStorage.NOME_CARGO == "Administrador Master") {
-                            window.location = "../dashboard/dash_adm/funcionarios/index.html";
-                        } else if (sessionStorage.NOME_CARGO == "GAMEOPS") {
+                        let permissoes = sessionStorage.PERMISSOES_USUARIO
+
+                        if (permissoes.includes(1) && permissoes.includes(2)) {
+                            Swal.fire({
+                                title: "Qual tela gostaria de acessar?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#ae00ffff",
+                                cancelButtonColor: "rgba(24, 43, 219, 1)",
+                                confirmButtonText: "SRE",
+                                cancelButtonText: "GameOps"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                                } else {
+                                    window.location = "../dashboard/index.html"
+                                }
+                            });
+                        } else if(permissoes.includes(1) && permissoes.includes(3)){
+                            Swal.fire({
+                                title: "Qual tela gostaria de acessar?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#ae00ffff",
+                                cancelButtonColor: "rgba(24, 43, 219, 1)",
+                                confirmButtonText: "Administrador",
+                                cancelButtonText: "GameOps"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location = "../dashboard/dash_adm/funcionarios/index.html"
+                                } else {
+                                    window.location = "../dashboard/index.html"
+                                }
+                            });
+                        } else if(permissoes.includes(2) && permissoes.includes(3)){
+                            Swal.fire({
+                                title: "Qual tela gostaria de acessar?",
+                                icon: "question",
+                                showCancelButton: true,
+                                confirmButtonColor: "#ae00ffff",
+                                cancelButtonColor: "rgba(24, 43, 219, 1)",
+                                confirmButtonText: "Administrador",
+                                cancelButtonText: "SRE"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location = "../dashboard/dash_adm/funcionarios/index.html"
+                                } else {
+                                    window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                                }
+                            });
+                        }else if (permissoes.includes(1)) {
                             window.location = "../dashboard/index.html"
-                        } else if (sessionStorage.NOME_CARGO == "Engenheiro SRE") {
-                            window.location = "../dashboard/dash_sre/dashSaudeServidores.html"
-                        } else if (sessionStorage.NOME_CARGO == "GAMECORE") {
-                            window.location = "../aprovar_empresas/aprovar.html"
+                        }else if (permissoes.includes(2)) {
+                            window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                        } else if (permissoes.includes(3)) {
+                            window.location = "../dashboard/dash_adm/funcionarios/index.html"
                         }
 
 
@@ -113,7 +153,7 @@ function buscarEsalvarPermissoes(fk_cargo) {
                 console.log("Permissões salvas com sucesso:", sessionStorage.getItem("PERMISSOES_USUARIO"));
 
                 setTimeout(function () {
-                    window.location = "index.html";
+                  //  window.location = "index.html";
                 }, 1000);
             });
 
@@ -123,7 +163,7 @@ function buscarEsalvarPermissoes(fk_cargo) {
             sessionStorage.setItem('PERMISSOES_USUARIO', '[]');
 
             setTimeout(() => {
-                window.location = "index.html";
+                //window.location = "index.html";
             }, 500);
         }
 
@@ -134,7 +174,7 @@ function buscarEsalvarPermissoes(fk_cargo) {
         sessionStorage.setItem('PERMISSOES_USUARIO', '[]'); // Falhou? Bloqueia, deixando as permissões "zeradas"
 
         setTimeout(() => {
-            window.location = "index.html";
+            //window.location = "index.html";
         }, 500);
     });
 }

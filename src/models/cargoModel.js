@@ -1,30 +1,30 @@
 var database = require("../database/config");
 const { all } = require("../routes/cargos");
 
-async function criar(nome, permissoes, fk_empresa){
+async function criar(nome, permissoes, fk_empresa) {
 
 
 
-        console.log("Permissões Cadastradas: " + permissoes)
+    console.log("Permissões Cadastradas: " + permissoes)
 
-        let dbCargo = `
+    let dbCargo = `
 
             INSERT INTO Cargo (nome, fk_empresa_cargo) VALUES ('${nome}', '${fk_empresa}');
 
         `;
-        console.log("Cargo Cadastrado: \n" + dbCargo);
+    console.log("Cargo Cadastrado: \n" + dbCargo);
 
-        let cadCargo = await database.executar(dbCargo);
+    let cadCargo = await database.executar(dbCargo);
 
-        let idCargo = cadCargo.insertId;
-
-
+    let idCargo = cadCargo.insertId;
 
 
 
-        for (i = 0; i < permissoes.length; i++){
 
-            var dbPermissaoCargo = `
+
+    for (i = 0; i < permissoes.length; i++) {
+
+        var dbPermissaoCargo = `
 
                     INSERT INTO PermissaoCargo (fk_permissao_pc, fk_cargo_pc, permissoes)
                     VALUES (
@@ -35,15 +35,15 @@ async function criar(nome, permissoes, fk_empresa){
 
                 `;
 
-            let cadPermissaoCargo = await database.executar(dbPermissaoCargo)
+        let cadPermissaoCargo = await database.executar(dbPermissaoCargo)
 
-        }
+    }
 
-        return {idCargo:idCargo};
+    return { idCargo: idCargo };
 
 }
 
-function buscar(fk_empresa){
+function buscar(fk_empresa) {
 
     var instrucaoSql = `
 
@@ -53,10 +53,10 @@ function buscar(fk_empresa){
 
     console.log("Buscando Cargo por Empresa Registrada: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
-        
+
 }
 
-function buscarFunc(fk_empresa){
+function buscarFunc(fk_empresa) {
 
     var buscaFunc = `
     
@@ -96,12 +96,39 @@ function allCargos(idEmpresa) {
     return database.executar(querySql);
 }
 
+async function deletarCargo(idEmpresa, idCargo) {
+    const queryLimparFuncionario = `
+        UPDATE FUNCIONARIO SET FK_CARGO_FUNC = NULL WHERE FK_CARGO_FUNC = ${idCargo};
+    `;
 
+    const queryLimparPc = `
+        UPDATE PERMISSAOCARGO SET FK_CARGO_PC = 1 WHERE FK_CARGO_PC = ${idCargo};
+    `;
+
+    const queryDeletarCargo = `
+        DELETE FROM CARGO WHERE ID = ${idCargo} AND FK_EMPRESA_CARGO = ${idEmpresa};
+    `;
+
+    try {
+        await database.executar(queryLimparFuncionario);
+
+        await database.executar(queryLimparPc);
+
+        const resultado = await database.executar(queryDeletarCargo);
+
+        return resultado;
+
+    } catch (erro) {
+        console.error("Erro ao deletar cargo ou limpar referências:", erro);
+        throw erro;
+    }
+}
 
 module.exports = {
     criar,
     buscar,
     buscarFunc,
     buscarPermissoesPorCargo,
-    allCargos
+    allCargos,
+    deletarCargo
 };

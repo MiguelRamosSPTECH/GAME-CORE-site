@@ -29,8 +29,8 @@ function autenticar(req, res) {
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
                             idEmpresa: resultadoAutenticar[0].idEmpresa,
-                            nomeCargo: resultadoAutenticar[0].nomeCargo
-                            //fk_cargo: resultadoAutenticar[0].fk_cargo_func
+                            //nomeCargo: resultadoAutenticar[0].nomeCargo
+                            fk_cargo_func: resultadoAutenticar[0].fk_cargo_func
 
                         });
 
@@ -136,8 +136,18 @@ function findByIdFunc(req,res) {
     .then(resposta => {
         if(resposta.length > 0) {
             res.status(200).json(resposta)
+        }       
+    })
+}
+
+function deletarFunc(req,res) {
+    const {idEmpresa, idFunc} = req.params;
+    usuarioModel.deletarFunc(idFunc, idEmpresa)
+    .then(resposta => {
+        if(resposta.affectedRows > 0) {
+            res.status(200).send("Deletado com sucesso.")
         } else {
-            window.location.href="index.html"
+            res.status(404).send("Nenhum funcionário encontrado para o ID especificado na empresa.")
         }        
     })
 }
@@ -147,5 +157,6 @@ module.exports = {
     cadastrarFunc,
     editarFunc,
     allFunc,
-    findByIdFunc
+    findByIdFunc,
+    deletarFunc
 }

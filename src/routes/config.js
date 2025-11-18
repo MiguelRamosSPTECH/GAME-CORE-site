@@ -16,4 +16,8 @@ router.put("/editarLayout/:idLayout", function (req, res) {
     configController.editarLayout(req, res);
 });
 
+router.delete("/deletarLayout/:idEmpresa/:idLayout", function (req, res){
+    configController.deletarLayout(req,res);
+})
+
 module.exports = router;

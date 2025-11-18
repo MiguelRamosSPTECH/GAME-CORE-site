@@ -79,3 +79,4 @@ function edicaoLayout(idLayout) {
     sessionStorage.ID_LAYOUT = idLayout;
     window.location = './edit_layout.html';
 }
+

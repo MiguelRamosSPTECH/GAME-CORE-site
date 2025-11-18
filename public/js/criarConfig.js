@@ -113,7 +113,7 @@ function listarLayout() {
                 const metrica = i.unidadeMedida;
                 const alertaLeve = i.alertaLeve;
                 const alertaGrave = i.alertaGrave;
- 
+
                 // console.log(componente,metrica,alertaLeve,alertaGrave);
 
                 const divs = document.querySelectorAll(".opcoes-metricas");
@@ -236,5 +236,61 @@ function editarLayout() {
             });
         return false;
     }
+}
 
+function deletarLayout() {
+
+    let idEmpresa = sessionStorage.ID_EMPRESA;
+    let idLayout = sessionStorage.ID_LAYOUT;
+
+    Swal.fire({
+        title: "Deletar layout?",
+        text: "Não é possível restaurar após deleção",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Sim, deletar!",
+        cancelButtonText: "Cancelar"
+    }).then((result) => {
+
+
+        if (result.isConfirmed) {
+
+            fetch(`/config/deletarLayout/${idEmpresa}/${idLayout}`, {
+                method: "DELETE"
+            })
+                .then(function (resposta) {
+
+                    if (resposta.ok) {
+
+                        Swal.fire({
+                            title: "Deletado!",
+                            text: "Layout deletado com sucesso.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.reload();
+                        });
+
+                    } else {
+
+                        Swal.fire({
+                            title: "Erro!",
+                            text: "Falha ao deletar. Verifique as permissões ou se o ID existe.",
+                            icon: "error"
+                        });
+
+                    }
+                })
+                .catch(function (erro) {
+
+                    Swal.fire({
+                        title: "Erro de Conexão!",
+                        text: "Não foi possível conectar ao servidor para deletar.",
+                        icon: "error"
+                    });
+                    console.error("Erro no fetch DELETE:", erro);
+                });
+        }
+    });
 }

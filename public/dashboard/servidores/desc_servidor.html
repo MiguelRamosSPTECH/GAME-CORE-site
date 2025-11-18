@@ -12,6 +12,7 @@
     <script src="../../js/descServidor.js" defer></script>
     <script src="../../js/sessao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"> defer</script> <!-- APEX CHARTS --->
     <title>DASHBOARD | GAMEOPS</title>
 </head>
 
@@ -65,221 +66,247 @@
                         </button>
                     </div>
                 </div>
+                <div class="area-containers-dados">
+                    <!-- PRIMEIRO CONTAINER DE AGRUPAMENTO DE DADOS (GRÁFICOS E KPIS) -->
+                    <div class="first-container">
+                            <!-- AREA KPIS -->
+                            <div class="area-kpis">
+                                <div class="kpi">
+                                    <div class="title-kpi">
+                                        CPU
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="dados-kpi">
+                                        <div class="dado-porcentagem">
+                                            68% <span>/82.35%</span>
+                                        </div>
+                                    </div>
+                                    <div class="progresso-kpi">
+                                        <div class="barra-fundo">
+                                            <div class="progresso-barra">
 
-                <div class="linha-header">
-                    <!-- AREA KPIS -->
-                    <div class="area-kpis">
-                        <div class="kpi">
-                            <div class="title-kpi">CPU</div>
-                            <div class="dados-kpi">
-                                <div class="dado-porcentagem">
-                                    68% <span>/82.35%</span>
-                                </div>
-                                <div class="up-down-indicator">
-                                    5%
-                                    <div class="img-indicator"></div>
-                                </div>
-                            </div>
-                            <div class="progresso-kpi">
-                                <div class="barra-fundo">
-                                    <div class="progresso-barra">
-
+                                            </div>
+                                        </div>
+                                        <label>Disponível - <span>14.35%</span></label>
                                     </div>
                                 </div>
-                                <label>Disponível - <span>14.35%</span></label>
-                            </div>
-                        </div>
-                        <div class="kpi">
-                            <div class="title-kpi">RAM</div>
-                            <div class="dados-kpi">
-                                <div class="dado-porcentagem">
-                                    40% <span>/91.6%</span>
-                                </div>
-                                <div class="up-down-indicator">
-                                    5%
-                                    <div class="img-indicator"></div>
-                                </div>
-                            </div>
-                            <div class="progresso-kpi">
-                                <div class="barra-fundo">
-                                    <div class="progresso-barra">
+                                <div class="kpi">
+                                    <div class="title-kpi">
+                                        RAM
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="dados-kpi">
+                                        <div class="dado-porcentagem">
+                                            40% <span>/91.6%</span>
+                                        </div>
+                                    </div>
+                                    <div class="progresso-kpi">
+                                        <div class="barra-fundo">
+                                            <div class="progresso-barra">
 
+                                            </div>
+                                        </div>
+                                        <label>Disponível - <span>51.6%</span></label>
                                     </div>
                                 </div>
-                                <label>Disponível - <span>51.6%</span></label>
-                            </div>
-                        </div>
-                        <div class="kpi">
-                            <div class="title-kpi">RAM SWAP</div>
-                            <div class="dados-kpi">
-                                <div class="dado-porcentagem">
-                                    1% <span>/12.8%</span>
-                                </div>
-                                <div class="up-down-indicator">
-                                    50%
-                                    <div class="img-indicator"></div>
-                                </div>
-                            </div>
-                            <div class="progresso-kpi">
-                                <div class="barra-fundo">
-                                    <div class="progresso-barra">
+                                <div class="kpi">
+                                    <div class="title-kpi">
+                                        RAM SWAP
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="dados-kpi">
+                                        <div class="dado-porcentagem">
+                                            1% <span>/12.8%</span>
+                                        </div>
+                                    </div>
+                                    <div class="progresso-kpi">
+                                        <div class="barra-fundo">
+                                            <div class="progresso-barra">
 
+                                            </div>
+                                        </div>
+                                        <label>Disponível - <span>11.8%</span></label>
                                     </div>
                                 </div>
-                                <label>Disponível - <span>11.8%</span></label>
-                            </div>
-                        </div>
-                        <div class="kpi">
-                            <div class="title-kpi">CPU USER</div>
-                            <div class="dados-kpi">
-                                <div class="dado-porcentagem">
-                                    40% <span>/72.35%</span>
-                                </div>
-                                <div class="up-down-indicator">
-                                    5%
-                                    <div class="img-indicator"></div>
-                                </div>
-                            </div>
-                            <div class="progresso-kpi">
-                                <div class="barra-fundo">
-                                    <div class="progresso-barra">
+                                <div class="kpi">
+                                    <div class="title-kpi">
+                                        CPU USER
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="dados-kpi">
+                                        <div class="dado-porcentagem">
+                                            40% <span>/72.35%</span>
+                                        </div>
+                                    </div>
+                                    <div class="progresso-kpi">
+                                        <div class="barra-fundo">
+                                            <div class="progresso-barra">
 
+                                            </div>
+                                        </div>
+                                        <label>Disponível - <span>32.35%</span></label>
                                     </div>
                                 </div>
-                                <label>Disponível - <span>32.35%</span></label>
+                            </div>
+                        <div class="second-row">
+                            <!-- AREA CONTAINERS -->
+                            <div class="first-part-containers">
+                                <div class="kpis-container">
+                                    <div class="title-container">
+                                        <span>CONTAINERS</span>
+                                        <select name="" id="filtro-container">
+                                            <option value="">TODOS</option>
+                                            <option value="">mc-container-1</option>
+                                        </select>
+                                    </div>
+                                    <div class="area-kpis-container">
+                                        <div class="kpi-container">
+                                            <div class="title-kpi-container">
+                                                TICKS POR SEGUNDO
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </div>
+                                            <div class="dado-kpi-container">
+                                                <span>20</span> /20
+                                            </div>
+                                        </div>
+                                        <div class="kpi-container">
+                                            <div class="title-kpi-container">
+                                                THROTTLED TIME
+                                                <i class="fa-solid fa-circle-info"></i>
+                                            </div>
+                                            <div class="dado-kpi-container">
+                                                <span style="color: gold;">3</span> /5 min
+                                            </div>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                                <div class="area-lista-processos">
+                                    <div class="title-lista-processos">
+                                        <span id="title-text">PROCESSOS</span>
+                                        <span id="desc-title">Top processos que mais estão consumindo recursos</span>
+                                    </div>
+                                    <table class="lista-processos">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Nome</th>
+                                            <th scope="col">Cpu (%)</th>
+                                            <th scope="col">Ram (%)</th>
+                                            <th scope="col">I/O (%)</th>
+                                            <th scope="col" class="status-process">Status</th>
+                                            </tr>
+                                        </thead>     
+                                        <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>   
+                                        <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>                                         <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>                                         <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>                                         <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>                                         <tbody>
+                                            <tr>
+                                            <td>Code.exe</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td>30</td>
+                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                            
+                                        </tbody>                                                                        
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="second-part-containers">
+                                <div class="area-grafico-comparation">
+                                    <div id="grafico-barra"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="second-container">
+
+                        <div class="area-lista-servidores">
+                            <div class="title-lista-servidores">
+                               <span id="titl">Servidores críticos</span>
+                               <span>Baseado na quantidade de alertas</span>
+                            </div>
+                            <div class="lista-servidores">
+                                <table>
+                                    <tbody>
+                                        <tr style="background-color: #f3464a;">
+                                            <td>🇧🇷</td>
+                                            <td>minecraft-main</td>
+                                            <td style="color: gold;"><i class="fa-solid fa-circle-chevron-right"></i></td>
+                                            <td class="qtd-alertas-list">5</td>
+                                        </tr>
+                                        <tr style="border-bottom: 1px solid gray;">
+                                            <td>🇧🇷</td>
+                                            <td>minecraft-main</td>
+                                            <td style="color: gold;"><i class="fa-solid fa-circle-chevron-right"></i></td>
+                                            <td class="qtd-alertas-list">5</td>
+                                        </tr>                                        
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                    </div>
-                    <div class="info-servidor">
-                        <div class="circle-notification">
-                            1
-                        </div>
-                        <div class="title-servidor">
-                            <span>SERVIDOR 09829</span> - V1.MAIN
-                        </div>
-                        <div class="row-info-servidor">
-                            <div class="img-servidor"></div>
-                            <div class="problemas-encontrados">
-                                <span>1</span> problema(s)
-                                <span id="not_resolved">NÃO</span> solucionados!
+                        <div class="area-lista-alertas">
+                            <div class="title-lista-alertas">
+                                <img src="../../assets/imgs/alert-flash.png" id="alert-flash" alt="">
+                                Problema(s) Pendente(s)
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="second-row">
-                    <!-- AREA CONTAINERS -->
-                    <div class="area-containers">
-                        <div class="filtro-container">
-                            FILTRAR CONTAINERS --
-                            <select name="" id="select-containers">
-                                <option value="">TODOS</option>
-                            </select>
-                        </div>
-                        <div class="row-containers">
-                            <div class="kpis-containers">
-                                <div class="kpi-container">
-                                    <div class="title-kpi-container">
-                                        ALERTAS
+                            <div class="alerta" onclick="descricaoChamado()">
+                                <div class="nivel-alerta">
+                                    <div class="content-nivel">
+                                        CRÍTICO
                                     </div>
-                                    <span class="dado-kpi-container">
-                                        3
-                                    </span>
                                 </div>
-                                <div class="kpi-container">
-                                    <div class="title-kpi-container">
-                                        THROTTLED TIME
-                                    </div>
-                                    <span class="dado-kpi-container">
-                                        2 / <span class="limite-kpi-container">5</span>
-                                        <span class="texto-pequeno">min</span>
-                                    </span>
+                                <div class="title-alerta">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    CPU EM ALTO ESTRESSE
                                 </div>
-                                <div class="kpi-container">
-                                    <div class="title-kpi-container">
-                                        TICKS POR SEGUNDO
-                                    </div>
-                                    <span class="dado-kpi-container">
-                                        20 / <span class="limite-kpi-container">20</span>
-                                    </span>
+                                <div class="desc-alerta">
+                                    Resumo do alerta que vou colocar ainda mano
+                                </div>
+                                <div class="tempo-decorrido-alerta">
+                                    <i class="fa-regular fa-clock"></i>
+                                    2 minuto(s) atrás
                                 </div>
                             </div>
-                            <div class="grafico-containers">
-                                <canvas id="graficos"></canvas>
-                            </div>
                         </div>
                     </div>
-                    <!-- AREA BOAS PRATICAS -->
-                    <div class="boas-praticas">
-                        <h5>ITENS A VERIFICAR QUANDO VISUALIZAR-SE UM ALERTA</h5>
-                        <div class="sessao-boa-pratica">
-                            <div class="area-icon">
-                                <img src="../../assets/imgs/escolher-icon.png" alt="">
-                            </div>
-                            <span><span class="forte">ESCOLHER</span> configurações que se adaptem ao alerta</span>
-                        </div>
-                        <div class="sessao-boa-pratica">
-                            <div class="area-icon">
-                                <img src="../../assets/imgs/verificar-icon.png" alt="">
-                            </div>
-                            <span><span class="forte">VERIFICAR</span> histórico de alertas e ler relatório para
-                                informações detalhadas</span>
-                        </div>
-                        <div class="sessao-boa-pratica">
-                            <div class="area-icon">
-                                <img class="icon_atualizar" src="../../assets/imgs/atualizar-icon.png" alt="">
-                            </div>
-                            <span><span class="forte">ATUALIZAR</span> status do alerta conforme processo de
-                                resolução.</span>
-                        </div>
-                        <div class="sessao-boa-pratica">
-                            <div class="area-icon">
-                                <img class="icon_checar" src="../../assets/imgs/checar-icon.png" alt="">
-                            </div>
-                            <span><span class="forte">CHECKAR</span> outros servidores após certeza de que o problema
-                                foi resolvido.</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="last-row">
-                    <div class="alerta-jira" onclick="descricaoChamado()">
-                        <div class="title-alerta">
-                            <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                            <div class="circle-status">asd</div>
-                        </div>
-                        <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                        <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                        <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                    </div>
-                    <div class="alerta-jira">
-                        <div class="title-alerta">
-                            <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                            <div class="circle-status">asd</div>
-                        </div>
-                        <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                        <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                        <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                    </div>
-                    <div class="alerta-jira">
-                        <div class="title-alerta">
-                            <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                            <div class="circle-status">asd</div>
-                        </div>
-                        <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                        <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                        <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                    </div>
-                    <div class="alerta-jira">
-                        <div class="title-alerta">
-                            <strong>PROBLEMA NO SERVIDOR V1.MAIN</strong>
-                            <div class="circle-status">asd</div>
-                        </div>
-                        <span><strong>RESUMO: </strong>RAM ACIMA DE 95%!!! Sujeito à crashar o container</span>
-                        <strong>STATUS: <span class="status_jira">PENDENTE...</span></strong>
-                        <strong>TEMPO EM ABERTO: <span class="timer_jira">3 min, 20 seg</span></strong>
-                    </div>
-
                 </div>
             </div>
         </div>
