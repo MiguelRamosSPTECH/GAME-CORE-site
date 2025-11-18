@@ -33,4 +33,8 @@ router.delete('/deletarServidor/:idEmpresa/:id_do_servidor', function(req,res) {
     cadastroServidorController.deletarServidor(req,res);
 })
 
+router.get('/allRegioes', function(req,res) {
+    cadastroServidorController.allRegioes(req,res);
+})
+
 module.exports = router;

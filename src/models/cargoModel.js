@@ -9,7 +9,7 @@ async function criar(nome, permissoes, fk_empresa) {
 
     let dbCargo = `
 
-            INSERT INTO Cargo (nome, fk_empresa_cargo) VALUES ('${nome}', '${fk_empresa}');
+            INSERT INTO cargo (nome, fk_empresa_cargo) VALUES ('${nome}', '${fk_empresa}');
 
         `;
     console.log("Cargo Cadastrado: \n" + dbCargo);
@@ -26,9 +26,9 @@ async function criar(nome, permissoes, fk_empresa) {
 
         var dbPermissaoCargo = `
 
-                    INSERT INTO PermissaoCargo (fk_permissao_pc, fk_cargo_pc, permissoes)
+                    INSERT INTO permissaocargo (fk_permissao_pc, fk_cargo_pc, permissoes)
                     VALUES (
-                        (SELECT id FROM Permissao WHERE id = ${permissoes[i]}),
+                        (SELECT id FROM permissao WHERE id = ${permissoes[i]}),
                         ${idCargo},
                         ${permissoes[i]}
                     );
@@ -47,7 +47,7 @@ function buscar(fk_empresa) {
 
     var instrucaoSql = `
 
-        SELECT id, nome FROM Cargo where fk_empresa_cargo = ${fk_empresa}
+        SELECT id, nome FROM cargo where fk_empresa_cargo = ${fk_empresa}
 
     `;
 
@@ -61,9 +61,9 @@ function buscarFunc(fk_empresa) {
     var buscaFunc = `
     
         SELECT f.id, f.nome, f.email, f.cpf, f.senha, f.perfilAtivo, fk_cargo_func 
-        FROM Funcionario f
-        JOIN Cargo c on c.id = f.fk_cargo_func
-        JOIN Empresa e on e.id = c.fk_empresa_cargo
+        FROM funcionario f
+        JOIN cargo c on c.id = f.fk_cargo_func
+        JOIN empresa e on e.id = c.fk_empresa_cargo
         WHERE e.id = ${fk_empresa};
 
     `;
@@ -77,7 +77,7 @@ function buscarFunc(fk_empresa) {
 
 function buscarPermissoesPorCargo(idCargo) {
     var instrucaoSql = `
-        SELECT fk_permissao_pc FROM PermissaoCargo 
+        SELECT fk_permissao_pc FROM permissaocargo 
         WHERE fk_cargo_pc = ${idCargo}
     `;
 
@@ -98,15 +98,15 @@ function allCargos(idEmpresa) {
 
 async function deletarCargo(idEmpresa, idCargo) {
     const queryLimparFuncionario = `
-        UPDATE FUNCIONARIO SET FK_CARGO_FUNC = NULL WHERE FK_CARGO_FUNC = ${idCargo};
+        UPDATE funcionario SET fk_cargo_func = NULL WHERE fk_cargo_func = ${idCargo};
     `;
 
     const queryLimparPc = `
-        UPDATE PERMISSAOCARGO SET FK_CARGO_PC = 1 WHERE FK_CARGO_PC = ${idCargo};
+        UPDATE permissaocargo SET fk_cargo_pc = 1 WHERE fk_cargo_pc = ${idCargo};
     `;
 
     const queryDeletarCargo = `
-        DELETE FROM CARGO WHERE ID = ${idCargo} AND FK_EMPRESA_CARGO = ${idEmpresa};
+        DELETE FROM cargo WHERE id = ${idCargo} AND fk_empresa_cargo = ${idEmpresa};
     `;
 
     try {

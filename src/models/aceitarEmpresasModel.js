@@ -29,8 +29,8 @@ SELECT
     e.id AS idEmpresa,
     c.id AS idCargo,
     c.ativo
-    FROM Cargo c
-    INNER JOIN Empresa e 
+    FROM cargo c
+    INNER JOIN empresa e 
     ON c.fk_empresa_cargo = e.id
     WHERE (e.id = 1 OR e.id = ${filtro})
     AND c.nome = 'Administrador Master'
@@ -43,9 +43,9 @@ SELECT
 function atualizar_perfil(novoStatus, idEmpresa) {
     console.log("ACESSEI O AVISO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function editar(): ", novoStatus, idEmpresa);
     var instrucaoSql = `
-        UPDATE Funcionario f
-        INNER JOIN Cargo c ON f.fk_cargo_func = c.id
-        INNER JOIN Empresa e ON c.fk_empresa_cargo = e.id
+        UPDATE funcionario f
+        INNER JOIN cargo c ON f.fk_cargo_func = c.id
+        INNER JOIN empresa e ON c.fk_empresa_cargo = e.id
         SET f.perfilAtivo = ${novoStatus}
         WHERE e.id = ${idEmpresa};
     `;
@@ -61,7 +61,7 @@ function criar_perfil(novoStatus, idEmpresa, nome) {
 
     
     var instrucaoSql = `
-        INSERT INTO Cargo (nome, fk_empresa_cargo, ativo)
+        INSERT INTO cargo (nome, fk_empresa_cargo, ativo)
         VALUES ('Administrador Master', ${idEmpresa}, 1);
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);

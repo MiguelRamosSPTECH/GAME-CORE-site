@@ -12,9 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <title>EDIT SERVER | DBGWATCH</title>
 </head>
-<!-- <body onload="changeElementInPage(), exibirLayouts()"> -->
 
-<body onload="exibirLayouts(), /*validarSessao(),*/ receberCamposLayout(), buscarServidor()">
+<body onload="exibirLayouts(), /*validarSessao(),*/ receberCamposLayout(), puxaRegioes()">
     <div class="container-all">
         <div class="nav-lateral">
             <div class="logo-dbg">
@@ -57,26 +56,19 @@
                                         <span id="text-title">Informações básicas</span>
                                     </div>
                                     <div class="inputs">
-                                        <!-- <div class="info-input">
-                                            <label for="servidor">Escolha o Servidor</label>
-                                            <select id="servidor">
-                                                <option value="">-----</option>
-                                            </select>
-                                        </div> -->
                                         <div class="info-input">
-                                            <label for="ipt_nome">Apelido (Alias) atual: <span
-                                                    id="span_apelido"></span></label>
+                                            <label for="ipt_apelido">Apelido (Alias)</label>
                                             <input type="text" id="ipt_apelido" onkeydown="showInfoInput(this)"
-                                                placeholder="Novo apelido do servidor...">
+                                                placeholder="Apelido do servidor...">
                                         </div>
                                         <div class="info-input">
-                                            <label for="ipt_nome">MACADRESS: <span id="span_macaddress"></span></label>
-                                            <div id="ipt_nome"></div>
+                                            <label for="ipt_nome">MACADRESS</label>
+                                            <input type="text" id="ipt_nome" placeholder="Nome do servidor..."
+                                                onkeydown="showInfoInput(this)">
                                         </div>
-                                        <div class="info-input">
-                                            <label for="ipt_regiao">Região atual: <span id="span_regiao"></span></label>
-                                            <input id="ipt_regiao" onkeydown="showInfoInput(this)"
-                                                placeholder="Nova região do servidor...">
+                                      <div class="info-input">
+                                            <label for="ipt_regiao">Região</label>
+                                            <select id="ipt_regiao" onclick="showInfoInput(this)"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +80,7 @@
                                         <div class="info-input">
                                             <label for="ipt_configuracao">Configuração Inicial</label>
                                             <select id="ipt_configuracao" onclick="showInfoInput(this)">
-                                                <option value="">-----</option>
+                                                <option value="null">Selecionar</option>
                                             </select>
                                         </div>
                                     </div>

@@ -98,7 +98,7 @@ function allServidores() {
             <tr class="background-linha">
                   <td>${servidor.apelido}</td>
                   <td>${servidor.macadress}</td>
-                  <td>${servidor.localizacao}</td>
+                  <td>${servidor.codregiao}</td>
                   <td class="bloco-alertas critico" style="color: green;">Ativo</td>
                   <td class="bloco-alertas">5</td>
                   <td class="icon_edit" onclick="editar('${servidor.apelido}')"><i class="fa-solid fa-pen-to-square"></i></td>

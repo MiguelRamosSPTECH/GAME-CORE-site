@@ -57,7 +57,7 @@ CREATE TABLE layout (
 
 CREATE TABLE IF NOT EXISTS regiao(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-    codregiao VARCHAR(10) UNIQUE
+    codregiao VARCHAR(25) UNIQUE
 );
 
 create table if not exists servidor(
@@ -139,25 +139,48 @@ INSERT INTO funcionario VALUES (null, "Victor Silva","vsilva@gmail.com","9007284
 INSERT INTO permissao (nome) VALUES 
 ("DASH ADM"),
 ("DASH ENG.SRE"),
-("DASH GAMEOPS");
-
+("DASH GAMEOPS"),
+("EDIT FUNC"),
+("CAD SERVIDOR"),
+("CAD CARGO");
 # depois adicionar mais permissões para aplicar os esquema tudo la
 
-insert into regiao values (null, "BR-1");
-insert into servidor values (null, "V1.MAIN","10-68-38-9B-8A-08",1,1,null);
+INSERT INTO regiao VALUES (null, "sa-leste-1"); -- América do Sul (São Paulo)
+INSERT INTO regiao VALUES (null, "us-leste-1"); -- EUA (Norte da Virginia)
+INSERT INTO regiao VALUES (null, "eu-oeste-1"); -- Europa (Irlanda)
+INSERT INTO regiao VALUES (null, "ap-sudeste-2"); -- Ásia-Pacífico (Sydney)
+
+-- Zonas de Disponibilidade (Sub-regiões)
+-- AZs para sa-leste-1 (São Paulo)
+INSERT INTO regiao VALUES (null, "sa-leste-1-a");
+INSERT INTO regiao VALUES (null, "sa-leste-1-b");
+
+-- AZs para us-leste-1 (N. Virginia)
+INSERT INTO regiao VALUES (null, "us-leste-1-a");
+INSERT INTO regiao VALUES (null, "us-leste-1-b");
+
+-- AZs para eu-oeste-1 (Irlanda)
+INSERT INTO regiao VALUES (null, "eu-oeste-1-a");
+INSERT INTO regiao VALUES (null, "eu-oeste-1-b");
+
+
+
+insert into servidor values (null, "M1.MAIN","34:60:f9:55:51:71",1,1,null);
+
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
-select * from configuracaoservidor;
+
 insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
 insert into configuracaoservidor values(null, 85.4, 91.6, 1, 6, 1);
 insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
 insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
-insert into permissaocargo values(1,1,0),
-								 (2,2,0),
-                                 (3,3,0);
-                                 
+insert into permissaocargo values(3,1,0),
+								 (4,1,0),
+                                 (6,1,0),
+                                 (2,2,0),
+                                 (1,3,0),
+                                 (5,3,0);
                                  
 DELIMITER $$
-
 CREATE TRIGGER trg_criar_funcionario_adm_master
 AFTER INSERT ON cargo
 FOR EACH ROW
@@ -186,6 +209,7 @@ END $$
 
 DELIMITER ;
 
+select * from regiao;
 select * from empresa;
 select * from cargo;
 select * from permissao;
@@ -196,6 +220,14 @@ select * from servidor;
 select * from componente;
 select * from metrica;
 select * from configuracaoservidor;
+
+UPDATE servidor s SET s.apelido = 'filho da puta', s.fk_regiao = 2, s.fk_empresa_servidor = 1 , s.fk_layout = 1 WHERE s.id = 2;
+
+
+SELECT s.*, r.* FROM servidor s
+    INNER JOIN regiao r ON s.fk_regiao
+    where fk_empresa_servidor = 1
+    and r.id = s.fk_regiao;
 
 select c.nome, p.nome from cargo c
 inner join permissaocargo ps on
