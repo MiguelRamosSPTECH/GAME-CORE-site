@@ -1,51 +1,30 @@
-const ctx = document.getElementById('graficos');
-let listaServidores = [];
-
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['CONTAINER 1', 'CONTAINER 2', 'CONTAINER 3'],
-    datasets: [
-      {
-        label: 'CPU',
-        data: [12, 19, 3, 5, 2, 3],
-        borderWidth: 3
-      },
-      {
-        label: 'RAM',
-        data: [12, 50, 10, 5, 2, 30],
-        borderWidth: 3
-      },
-      {
-        label: 'I/O',
-        data: [5, 25, 0, 20, 5, 10],
-        borderWidth: 3
-      }
-    ],
+var options = {
+  chart: {
+    type: 'bar',
+    stacked: true,
   },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-        ticks: {
-          font: {
-            size: 13,
-            weight: "lighter"
-          }
-        }
-      },
-      x: {
-        ticks: {
-          font: {
-            size: 15,
-            weight: "lighter"
-          }
-        }
-      }
+  series: [{
+    data: [{
+      x: 'mc-container-1',
+      y: 12
+    }, 
+    {
+      x: 'mc-container-2',
+      y: 18
+    }, {
+
+      x: 'mc-container-3',
+      y: 20
     },
-    responsive: true
-  }
-});
+    {
+      x: 'host',
+      y: 50
+    }]
+  }]
+}
+
+var chart = new ApexCharts(document.querySelector("#grafico-barra"), options);
+chart.render()
 
 
 function showMetrics(elemento) {
