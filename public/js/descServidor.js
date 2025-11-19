@@ -1,30 +1,56 @@
-var options = {
-  chart: {
-    type: 'bar',
-    stacked: true,
-  },
-  series: [{
-    data: [{
-      x: 'mc-container-1',
-      y: 12
-    }, 
-    {
-      x: 'mc-container-2',
-      y: 18
-    }, {
-
-      x: 'mc-container-3',
-      y: 20
-    },
-    {
-      x: 'host',
-      y: 50
-    }]
-  }]
-}
+ var options = {
+  
+        series: [
+            {
+              data: [53, 32, 33, 52, 13, 44, 32]
+            },
+            {
+              data: [44, 55, 41, 64, 22, 43, 21]
+            }, 
+            {
+              data: [12, 17, 11, 9, 15, 11, 20]
+            },
+        ],
+          chart: {
+          type: 'bar',
+          height: 430,
+          width: 400,
+        },
+        colors: ['#9c18daff', '#008FFB', '#e76e0bff'],
+        foreColor: '#ffffffff',
+        plotOptions: {
+          bar: {
+            horizontal: true,
+            dataLabels: {
+              position: 'top',
+            },
+          },
+        },
+        dataLabels: {
+          enabled: true,
+          offsetX: -6,
+          style: {
+            fontSize: '13px',
+            colors: ['#ffffffff'],
+            
+          },
+        },
+        stroke: {
+          show: true,
+          width: 1,
+          colors: ['#fff'],
+        },
+        tooltip: {
+          shared: true,
+          intersect: false
+        },
+        xaxis: {
+          categories: ["mc-container-1", "mc-container-2", "mc-container-3"],
+        },
+        };
 
 var chart = new ApexCharts(document.querySelector("#grafico-barra"), options);
-chart.render()
+chart.render();
 
 
 function showMetrics(elemento) {
