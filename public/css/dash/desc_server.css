@@ -106,11 +106,19 @@ html, * {
     height: 5%;
     width: 100%;
 }
+.servidor-name {
+    display: flex;
+    align-items: center;
+    color: #f1d7d7;
+    font-weight: 800;
+    font-size: 20px;
+    width: 32.5%;
+}
 .filtro-config {
     height: 100%;
-    width: 50%;
+    width: 45%;
     display: flex;
-    gap: 15px;
+    justify-content: end;
     color: white;
     font-weight: 700;
     align-items: center;
@@ -119,7 +127,7 @@ html, * {
     width: 50%;
     height: 100%;
     align-items: center;
-    justify-content: start;
+    justify-content: end;
     display: flex;
     gap: 5px;
 }
@@ -127,7 +135,7 @@ html, * {
     font-family: "Poppins", sans-serif;
     background-color: #b4b4b4;
     font-weight: 700;
-    width: 82.5%;
+    width: 85%;
     text-align: center;
     outline: none;
     border: none;
@@ -138,7 +146,7 @@ html, * {
     justify-content: center;
     background-color: #678aff;
     border-radius: 50%;
-    width: 7.5%;
+    width: 8.5%;
     height: 75%;
     cursor: pointer;
     transition: 0.2s ease-in-out;
@@ -147,31 +155,28 @@ html, * {
 .circle-configuration:hover {
     transform: scale(1.1);
 }
-.change-server {
-    width: 50%;
+.infos-add{
+    width: 20%;
     display: flex;
     align-items: center;
+    gap: 10px;
     justify-content: end;
 }
-.change-server button {
-    background-color: #744576;
-    width: 25%;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
+
+.area-clock {
+    color: #dfe1ff;
+    font-size: 11.5px;
 }
-.change-server button:hover {
-    transform: scale(1.01);
-    background-color: #c324c9c7;
-    border-radius: 5px;
-}
-.change-server a {
-    text-decoration: none;
-    font-weight: 800;
-    font-family: "Poppins", sans-serif;
+.area-clock span {
     color: white;
+    font-weight: 600;
 }
+
+#info-popup {
+    font-size: 22.5px;
+    color: #f1d7d7;
+}
+
 .area-containers-dados {
     justify-content: space-between;
     display: flex;
@@ -228,7 +233,7 @@ html, * {
 }
 .dado-porcentagem {
     width: 75%;
-    font-size: 26px;
+    font-size: 30px;
     color: white;
     font-weight: 600;
 }
@@ -273,21 +278,46 @@ html, * {
     border-radius: 15px;
 }
 .progresso-barra {
+    display: flex;
+    flex-direction: row;
     width: 70%;
     height: 100%;
     background-color: #5896bb;
     border-radius: 15px;
 }
+.lgnd {
+    color: white!important;
+    font-style:normal!important;
+    font-weight: 800;
+}
 .progresso-kpi label {
-    color: #b4b4b4;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     font-style: italic;
     font-size: 11.5px;
 }
 .progresso-kpi span {
-    color: white;
-    font-weight: 900;
-    font-style: normal;
+    color: rgb(177, 176, 176);
+    font-style: italic;
 }
+.bar-moderated {
+    height: 100%;
+    width: 5px;
+    background-color: #fad73e;
+    color: transparent;
+    position: relative;
+    left: 85%;
+}
+.bar-alert {
+    height: 100%;
+    width: 5px;
+    background-color: #ac0509;
+    color: transparent;
+    position: relative;
+    left: 100%;
+}
+
 
 /* segunda parte de dados */
 .second-row {
@@ -490,19 +520,19 @@ table th {
     font-size: 11px;
     color: #8d8d8d;
     font-style: italic;
-    height: 20%;
-    width: 95%;
+    height: 22.5%;
+    width: 90%;
 }
 .lista-servidores {
     max-height: 75%;
-    width: 95%;
+    width: 90%;
     overflow-y: auto;
 }
 .lista-servidores::-webkit-scrollbar {
   width: 0px;
 }
 .lista-servidores table {
-    width: 95%;
+    width: 100%;
     border-collapse: collapse
 }
 

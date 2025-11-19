@@ -49,6 +49,7 @@
             <div class="container-dash-server">
                 <!-- AREA DAS FILTROS -->
                 <div class="area-filtros">
+                    <span class="servidor-name">SERVIDOR MINECRAFT-MAIN</span>
                     <div class="filtro-config">
                         CONFIGURAÇÃO ESCOLHIDA -
                         <div class="select-option">
@@ -60,10 +61,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="change-server">
-                        <button>
-                            <a href="../index.html">ALTERAR SERVIDOR</a>
-                        </button>
+                    <div class="infos-add">
+                        <div class="area-clock">
+                            <i class="fa-regular fa-clock"></i> Atualização: <span>2 minutos atrás</span>
+                        </div>
+                        <i class="fa-solid fa-circle-info" id="info-popup"></i>
                     </div>
                 </div>
                 <div class="area-containers-dados">
@@ -72,79 +74,82 @@
                             <!-- AREA KPIS -->
                             <div class="area-kpis">
                                 <div class="kpi">
-                                    <div class="title-kpi">
-                                        CPU
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
+                                    <div class="title-kpi">CPU</div>
                                     <div class="dados-kpi">
                                         <div class="dado-porcentagem">
-                                            68% <span>/82.35%</span>
-                                        </div>
+                                            68%</div>
                                     </div>
                                     <div class="progresso-kpi">
                                         <div class="barra-fundo">
                                             <div class="progresso-barra">
-
+                                                <div class="bar-moderated"></div>
+                                                <div class="bar-alert"></div>
                                             </div>
                                         </div>
-                                        <label>Disponível - <span>14.35%</span></label>
+                                        <label>
+                                            <span><span style="color: #ac9305;font-weight: 900;">|</span> Moredado -<span class="moderado-legend lgnd"> 85%</span></span>
+                                            <span><span style="color: #ac0509;font-weight: 900;">|</span> Grave -<span class="grave-legend lgnd"> 90%</span></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="kpi">
-                                    <div class="title-kpi">
-                                        RAM
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
+                                    <div class="title-kpi">RAM</div>
                                     <div class="dados-kpi">
                                         <div class="dado-porcentagem">
-                                            40% <span>/91.6%</span>
+                                            40%
                                         </div>
                                     </div>
                                     <div class="progresso-kpi">
                                         <div class="barra-fundo">
                                             <div class="progresso-barra">
-
+                                                <div class="bar-moderated">a</div>
+                                                <div class="bar-alert"></div>
                                             </div>
                                         </div>
-                                        <label>Disponível - <span>51.6%</span></label>
+                                        <label>
+                                            <span><span style="color: #ac9305;font-weight: 900;">|</span> Moredado -<span class="moderado-legend lgnd"> 85%</span></span>
+                                            <span><span style="color: #ac0509;font-weight: 900;">|</span> Grave -<span class="grave-legend lgnd"> 90%</span></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="kpi">
-                                    <div class="title-kpi">
-                                        RAM SWAP
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
+                                    <div class="title-kpi">RAM SWAP</div>
                                     <div class="dados-kpi">
                                         <div class="dado-porcentagem">
-                                            1% <span>/12.8%</span>
+                                            1%
                                         </div>
                                     </div>
                                     <div class="progresso-kpi">
                                         <div class="barra-fundo">
                                             <div class="progresso-barra">
-
+                                                <div class="bar-moderated">a</div>
+                                                <div class="bar-alert"></div>
                                             </div>
                                         </div>
-                                        <label>Disponível - <span>11.8%</span></label>
+                                        <label>
+                                            <span><span style="color: #ac9305;font-weight: 900;">|</span> Moredado -<span class="moderado-legend lgnd"> 85%</span></span>
+                                            <span><span style="color: #ac0509;font-weight: 900;">|</span> Grave -<span class="grave-legend lgnd"> 90%</span></span>
+                                        </label>
                                     </div>
                                 </div>
                                 <div class="kpi">
-                                    <div class="title-kpi">
-                                        CPU USER
-                                        <i class="fa-solid fa-circle-info"></i>
-                                    </div>
+                                    <div class="title-kpi">CPU USER</div>
                                     <div class="dados-kpi">
                                         <div class="dado-porcentagem">
-                                            40% <span>/72.35%</span>
+                                            40%
                                         </div>
                                     </div>
                                     <div class="progresso-kpi">
                                         <div class="barra-fundo">
                                             <div class="progresso-barra">
-
+                                                <div class="bar-moderated">a</div>
+                                                <div class="bar-alert"></div>
                                             </div>
                                         </div>
-                                        <label>Disponível - <span>32.35%</span></label>
+                                        <label>
+                                            <span><span style="color: #ac9305;font-weight: 900;">|</span> Moredado -<span class="moderado-legend lgnd"> 85%</span></span>
+                                            <span><span style="color: #ac0509;font-weight: 900;">|</span> Grave -<span class="grave-legend lgnd"> 90%</span></span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -203,48 +208,7 @@
                                             <td>30</td>
                                             <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
                                             </tr>                                            
-                                        </tbody>   
-                                        <tbody>
-                                            <tr>
-                                            <td>Code.exe</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
-                                            </tr>                                            
-                                        </tbody>                                         <tbody>
-                                            <tr>
-                                            <td>Code.exe</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
-                                            </tr>                                            
-                                        </tbody>                                         <tbody>
-                                            <tr>
-                                            <td>Code.exe</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
-                                            </tr>                                            
-                                        </tbody>                                         <tbody>
-                                            <tr>
-                                            <td>Code.exe</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
-                                            </tr>                                            
-                                        </tbody>                                         <tbody>
-                                            <tr>
-                                            <td>Code.exe</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td>30</td>
-                                            <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
-                                            </tr>                                            
-                                        </tbody>                                                                        
+                                        </tbody>                                                                      
                                     </table>
                                 </div>
                             </div>
@@ -265,7 +229,7 @@
                             <div class="lista-servidores">
                                 <table>
                                     <tbody>
-                                        <tr style="background-color: #f3464a;">
+                                        <tr style="background-color: #cf494b;">
                                             <td>🇧🇷</td>
                                             <td>minecraft-main</td>
                                             <td style="color: gold;"><i class="fa-solid fa-circle-chevron-right"></i></td>
