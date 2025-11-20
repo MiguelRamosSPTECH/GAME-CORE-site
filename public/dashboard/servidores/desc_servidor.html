@@ -9,6 +9,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../../js/process/descServidorProcess.js" defer></script>
     <script src="../../js/descServidor.js" defer></script>
     <script src="../../js/sessao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
@@ -16,7 +17,7 @@
     <title>DASHBOARD | GAMEOPS</title>
 </head>
 
-<body onload="validarSessao()">
+<body onload="validarSessao(), verificaLayoutServidor()">
     <div class="background-modal"></div>
     <div class="container-all">
         <div class="nav-lateral">
@@ -49,13 +50,11 @@
             <div class="container-dash-server">
                 <!-- AREA DAS FILTROS -->
                 <div class="area-filtros">
-                    <span class="servidor-name">SERVIDOR MINECRAFT-MAIN</span>
+                    <span class="servidor-name" id="nome_servidor"></span>
                     <div class="filtro-config">
                         CONFIGURAÇÃO ESCOLHIDA -
                         <div class="select-option">
-                            <select name="" id="select_configurations">
-                                <option value="">DESEMPENHO LÓGICO DE JOGO</option>
-                            </select>
+                            <div id="select_configurations"></div>
                             <div class="circle-configuration">
                                 <i class="fa-solid fa-gear" onclick="abrirModalConfigs()"></i>
                             </div>
@@ -288,7 +287,7 @@
             <div class="title-componentes">
                 <strong>COMPONENTES DE SERVIDOR</strong>
             </div>
-            <div class="content-componentes">
+            <div class="content-componentes" id="area_cards_componentes">
                 <div class="card-componente">
                     <div class="title-card">
                         <span>CPU</span>

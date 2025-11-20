@@ -41,7 +41,7 @@ function showInfoInput(input) {
 }
 
 function puxaRegioes() {
-    fetch(`/cadastrarServidor/allRegioes`, {
+    fetch(`/servidores/allRegioes`, {
         method: "GET"
     })
     .then(response => response.json())
@@ -75,7 +75,6 @@ async function exibirLayouts() {
         });
 
         if(window.location.href.includes("edit_servidor.html")) {
-            console.log("hahaha")
             buscarDados()
         }
 
@@ -128,7 +127,7 @@ function enviarCadastroServidor() {
     let idLayoutServidor = ipt_configuracao.value;
 
 
-    fetch("/cadastrarServidor/cadastrar", {
+    fetch("/servidores/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -173,13 +172,13 @@ function editarServer() {
     let apelidoServidor = ipt_apelido.value;
     let regiaoServidor = ipt_regiao.value;
     let idLayoutServidor = ipt_configuracao.value;
-    var id_do_servidor = servidorObjeto.id;
+    var id_do_servidor = servidorObjeto.idServidor;
 
     console.log("ID do layout: ", idLayoutServidor);
     console.log("ID do servidor: ", id_do_servidor);
 
 
-    fetch("/cadastrarServidor/editarServer", {
+    fetch("/servidores/editarServer", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -246,7 +245,7 @@ function deletarServidor() {
 
         if (result.isConfirmed) {
 
-            fetch(`/cadastrarServidor/deletarServidor/${idEmpresa}/${id_servidor}`, {
+            fetch(`/servidores/deletarServidor/${idEmpresa}/${id_servidor}`, {
                 method: "DELETE"
             })
                 .then(function (resposta) {

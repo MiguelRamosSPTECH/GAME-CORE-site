@@ -146,6 +146,18 @@ function deletarServidor(req,res) {
     })
 }
 
+function getDataLayoutsServidor(req,res) {
+    const idServidor = req.params.idServidor;
+    cadastroServidorModel.getDataLayoutsServidor(idServidor)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        } else {
+            res.status(404).json("Nenhum dado de layout encontrado para o servidor especificado.")
+        }
+    })
+}
+
 module.exports = {
     cadastrarServidor,
     exibeLayout,
@@ -153,5 +165,6 @@ module.exports = {
     editarServer,
     allServidores,
     deletarServidor,
-    allRegioes
+    allRegioes,
+    getDataLayoutsServidor
 };
