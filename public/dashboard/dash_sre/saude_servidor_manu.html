@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -107,7 +107,7 @@
 <div class="card card-threads">
     </div>
 
-      <!-- CPU -->
+      
       <div class="card card-cpu">
         <h2>Tempo de CPU</h2>
         <p class="sub">Usuário VS Sistema</p>
@@ -122,7 +122,6 @@
         </div>
       </div>
 
-      <!-- PROCESSOS -->
       <div class="card card-processes">
         <h2>Total de Processos em Execução</h2>
 
@@ -140,7 +139,6 @@
 
      
 
-      <!-- THREADS -->
       <div class="card card-threads">
 
         <div class="threads-header">
@@ -328,6 +326,238 @@ new Chart(document.getElementById("threadsChart"), {
     }
     }
 });
+</script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Saúde do Servidor</title>
+
+  <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+<div class="container-all">
+
+  <div class="nav-lateral">
+    <div class="logo-dbg">
+      <img src="../../assets/imgs/DBG.-logo2png.png">
+    </div>
+
+    <div class="options-nav">
+      <div class="principal-options">
+        <div class="circle-option">
+          <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-house"></i>
+        </div>
+
+        <div class="circle-option">
+          <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
+        </div>
+
+        <div class="circle-option">
+          <i onclick="window.location.href='#'" class="fa-solid fa-notes-medical"></i>
+        </div>
+      </div>
+
+      <div class="area-logoff">
+        <div class="circle-option logoff" onclick="limparSessao()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="container">
+
+    <div class="bloco-esquerda">
+
+      <!-- KPIs -->
+      <div class="kpis">
+        <div class="card kpi-processos">
+          <h5>Total de Processos em Execução</h5>
+          <h3>345</h3>
+        </div>
+
+        <div class="card kpi-cpu">
+          <h4>Tempo de CPU</h4>
+          <p>Usuário VS Sistema</p>
+          <canvas id="cpuChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Desempenho / Tempo de Espera -->
+      <div class="card-grafico">
+        <h3 class="titulo">Desempenho x Tempo de Espera</h3>
+        <canvas id="desempenhoChart"></canvas>
+      </div>
+
+      <!-- Taxa de Swap + Utilização RAM -->
+      <div class="blocos-mistos">
+
+        <div class="graficoSwap bloco-meio">
+          <h3 class="titulo">Taxa de Swap</h3>
+          <canvas id="swapChart"></canvas>
+        </div>
+
+        <div class="graficoRam bloco-meio">
+          <h3 class="titulo">Utilização RAM</h3>
+
+          <div class="pie-area">
+            <canvas id="ramChart" width="200"></canvas>
+          </div>
+
+          <div class="legenda-pie">
+            <div class="disp">Disponível</div>
+            <div class="util">Utilizada</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Bloco direita -->
+    <div class="bloco-direita">
+
+      <div class="cima">
+          <div class="card-kpi-alertas">
+          <h3 class="titulo">Qtd. alertas no último mês</h3>
+          <h1 style="font-size:40px;">14</h1>
+        </div>
+
+        <div class="uiverse">
+    <span class="tooltip"><img src="../../assets/imgs/jira_icon.png" alt="Alert Icon" width="15px"></span>
+    <span onclick="window.location.href='https://gamecore.atlassian.net/jira/software/projects/KAN/list?jql=project%20%3D%20%22KAN%22%20ORDER%20BY%20created%20DESC'">
+        Ver Alertas
+    </span>
+</div>
+      </div>
+      
+      <div class="baixo">
+      <div class="card-correlacao">
+        <h3 class="titulo">Tendência e Correlação de Alertas</h3>
+        <canvas id="alertasChart"></canvas>
+      </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+
+ <script>
+
+// function criarGraficoSeguro(ctx, config) {
+//   if (ctx._chartInstance) {
+//     ctx._chartInstance.destroy();
+//   }
+//   ctx._chartInstance = new Chart(ctx, config);
+// }
+
+
+// criarGraficoSeguro(document.getElementById("cpuChart"), {
+//   type: "line",
+//   data: {
+//     labels: ["Item 1","Item 2","Item 3","Item 4","Item 5"],
+//     datasets: [
+//       { label: "Usuário", data: [12, 19, 3, 5, 22], borderWidth: 2 },
+//       { label: "Sistema", data: [8, 11, 15, 9, 18], borderWidth: 2 }
+//     ]
+//   },
+//   options: { responsive: true, maintainAspectRatio: false }
+// });
+
+
+// criarGraficoSeguro(document.getElementById("desempenhoChart"), {
+//   type: "line",
+//   data: {
+//     labels: ["Item 1","Item 2","Item 3","Item 4","Item 5"],
+//     datasets: [
+//       { label: "Desempenho", data: [15, 10, 35, 28, 50], borderWidth: 2 },
+//       { label: "Tempo de Espera", data: [8, 14, 20, 18, 32], borderWidth: 2 }
+//     ]
+//   },
+//   options: { responsive: true, maintainAspectRatio: false }
+// });
+
+
+// criarGraficoSeguro(document.getElementById("swapChart"), {
+//   type: "line",
+//   data: {
+//     labels: ["Item1","Item2","Item3","Item4","Item5"],
+//     datasets: [
+//       { label: "Swap (%)", data: [20,28,25,35,37], borderWidth: 2 }
+//     ]
+//   },
+//   options: { responsive: true, maintainAspectRatio: false }
+// });
+
+// criarGraficoSeguro(document.getElementById("ramChart"), {
+//   type: "doughnut",
+//   data: {
+//     labels: ["Disponível","Utilizada"],
+//     datasets: [
+//       { data: [60,40], backgroundColor: ["#56d4ff","#1bb6c7"] }
+//     ]
+//   },
+//   options: { responsive: true, maintainAspectRatio: false}
+// });
+
+
+// criarGraficoSeguro(document.getElementById("alertasChart"), {
+//   type: "bar",
+//   data: {
+//     labels: ["0","2","4","6","8","10","12","14"],
+//     datasets: [
+//       { label: "Alertas", data: [2,3,4,5,6,4,3,2], borderWidth: 2 }
+//     ]
+//   },
+//   options: { responsive: true, maintainAspectRatio: false }
+// });
+
+
+const graficoBarraLinha = new Chart(ctx, {
+    data: {
+        datasets: [{
+            type: 'bar',
+            label: 'Alertas',
+            data: [0, 2, 4, 6, 8, 10, 12, 14],
+        }, {
+            type: 'line',
+            label: 'CPU',
+            data: [0, 1, 2, 3, 4, 5, 6, 7],
+        }, {
+            type: 'line',
+            label: 'RAM',
+            data: [0,2, 5, 4, 7, 3, 2, 4],
+        },{
+            type: 'line',
+            label: 'Processos',
+            data: [0, 1, 2, 1, 3, 4, 1, 2],
+        }
+      
+      ],
+        labels: ['0', '2', '4', '6', '8', '10', '12', '14']
+    },
+    options: options
+});
+ 
+
+
 </script>
 
 </body>
