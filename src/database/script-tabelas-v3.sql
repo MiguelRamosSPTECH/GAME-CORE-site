@@ -310,7 +310,48 @@ WHERE (e.id = 1 OR e.id = 2)
   AND c.nome = 'Administrador Master'
 ORDER BY e.id DESC;
 
+select * from servidor;
+select * from layout;
+select  * from configuracaoservidor;
 
-select * from cargo;
+# puxar configuracao do servidor caso tenha, se nao só pega as infos do servidor
+select 
+	s.*,
+	s.fk_layout as idlayout, 
+    l.nome as nomeLayout,
+    c.nome as nomeComponente, 
+    m.unidadeMedida  
+from servidor s
+left join layout l on
+l.id = s.fk_layout 
+left join configuracaoservidor cs on
+cs.fk_layout =  s.fk_layout
+left join componente c on
+c.id = cs.fk_componente_cs
+left join metrica m on
+m.id = cs.fk_metrica_cs
+where s.id = 1;
 
-select * from cargo;
+# ver layouts em uso por empresa
+UPDATE layout
+set emUso = case 
+	when id = 1 then 1
+	else 0
+end
+where fk_empresa_layout = 1;
+
+#buscando layout + sua configuracaoa
+select 
+	l.nome as nomeLayout,
+    m.unidadeMedida,
+    c.nome as nomeComponente
+from layout l
+inner join configuracaoservidor cs on
+cs.fk_layout = l.id
+inner join componente c on
+c.id = cs.fk_componente_cs
+inner join metrica m on
+m.id  = cs.fk_metrica_cs
+where l.fk_empresa_layout = 1
+and l.id = 1
+and emUso = 1;

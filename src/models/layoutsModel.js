@@ -28,7 +28,42 @@ function buscarCompleto(idEmpresa) {
         return database.executar(instrucaoSql);
 }
 
+function usarLayout(idLayout, idEmpresa) {
+    var instrucaoSql = `
+        UPDATE layout
+        set emUso = case 
+            when id = ${idLayout} then 1
+            else 0
+        end
+        where fk_empresa_layout = ${idEmpresa};
+    `;
+    return database.executar(instrucaoSql);
+}
+
+function buscarLayoutConfiguracao(idLayout, idEmpresa) {
+    var instrucaoSql = `
+        select 
+            l.nome as nomeLayout,
+            m.unidadeMedida,
+            c.nome as nomeComponente
+        from layout l
+        inner join configuracaoservidor cs on
+        cs.fk_layout = l.id
+        inner join componente c on
+        c.id = cs.fk_componente_cs
+        inner join metrica m on
+        m.id  = cs.fk_metrica_cs
+        where l.fk_empresa_layout = ${idEmpresa}
+        and l.id = ${idLayout}
+        and l.emUso = 1;
+    `;
+    console.log("Buscando layout em uso e suas configurações: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+
+}
 module.exports = {
     buscar,
-    buscarCompleto
+    buscarCompleto,
+    usarLayout,
+    buscarLayoutConfiguracao
 };

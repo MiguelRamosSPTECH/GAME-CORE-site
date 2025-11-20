@@ -51,20 +51,21 @@ function buscarServidor(fk_empresa_server){
 }
 
 function editarServer(apelido, regiao, fk_idEmpresa, fk_layout, fk_servidor){
-    fk_layout = fk_layout == "null" ? null : fk_layout;
-    var editandoServer = `
     
-    UPDATE servidor s SET s.apelido = '${apelido}', s.fk_regiao = ${regiao}, s.fk_empresa_servidor = '${fk_idEmpresa}' , s.fk_layout = ${fk_layout} WHERE s.id = ${fk_servidor}
-    `
+    console.log("LAYOUT CUZAO: ", fk_layout)
+    var editandoServer = `
+    UPDATE servidor SET apelido = '${apelido}', fk_regiao = ${regiao}, fk_empresa_servidor = '${fk_idEmpresa}' , fk_layout = ${fk_layout == "null" ? null : fk_layout} WHERE id = ${fk_servidor};
+    `;
+    console.log("SQL DE EDIÇÃO: ", editandoServer)
     return database.executar(editandoServer)
 
 }
 
 function allServidores(idEmpresa) {
     var querySql = `
-    SELECT s.*, r.* FROM servidor s
+    SELECT s.*, s.id as idServidor, r.* FROM servidor s
     INNER JOIN regiao r ON s.fk_regiao
-    where fk_empresa_servidor = 1
+    where fk_empresa_servidor = ${idEmpresa}
     and r.id = s.fk_regiao;`
     return database.executar(querySql);
 }
@@ -75,6 +76,28 @@ function deletarServidor(idEmpresa, id_do_servidor ){
 }
 
 
+function getDataLayoutsServidor(idServidor) {
+    var querySql = `
+    select 
+        s.*,
+        s.fk_layout as idlayout, 
+        l.nome as nomeLayout,
+        c.nome as nomeComponente, 
+        m.unidadeMedida  
+    from servidor s
+    left join layout l on
+    l.id = s.fk_layout 
+    left join configuracaoservidor cs on
+    cs.fk_layout =  s.fk_layout
+    left join componente c on
+    c.id = cs.fk_componente_cs
+    left join metrica m on
+    m.id = cs.fk_metrica_cs
+    where s.id = ${idServidor};`
+    return database.executar(querySql);
+}  
+
+
 
 module.exports = {
     enviarCadastroServidor,
@@ -83,5 +106,6 @@ module.exports = {
     editarServer,
     allServidores,
     deletarServidor,
-    allRegioes
+    allRegioes,
+    getDataLayoutsServidor
 };

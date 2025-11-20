@@ -111,7 +111,7 @@ function descricaoChamado() {
 
 function allServidores() {
   var idEmpresa = sessionStorage.ID_EMPRESA;
-  fetch(`/cadastrarServidor/allServidores/${idEmpresa}`, {
+  fetch(`/servidores/allServidores/${idEmpresa}`, {
     method: "GET"
   })
     .then(async resposta => {
@@ -120,9 +120,10 @@ function allServidores() {
       var tabelaServidores = document.getElementById('tabela_servidores')
       var acumulaServidores = ""
       listaServidores.forEach(servidor => {
+        console.log(servidor)
         acumulaServidores += `
             <tr class="background-linha">
-                  <td>${servidor.apelido}</td>
+                  <td onclick="location.href='./servidores/desc_servidor.html?idServidor=${servidor.idServidor}'">${servidor.apelido}</td>
                   <td>${servidor.macadress}</td>
                   <td>${servidor.codregiao}</td>
                   <td class="bloco-alertas critico" style="color: green;">Ativo</td>

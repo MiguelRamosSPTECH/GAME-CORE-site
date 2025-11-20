@@ -75,6 +75,34 @@ function carregarConfigs() {
         })
 }
 
+
+function usarLayout(idLayout) {
+    let idEmpresa = sessionStorage.ID_EMPRESA
+    fetch(`/layouts/usarLayout/${idLayout}/${idEmpresa}`, {
+        method: "PUT"
+    })
+        .then(async resposta => {
+            if (resposta.ok) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Layout em uso foi atualizado.",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    window.location.reload();
+                })
+                sessionStorage.ID_LAYOUT = idLayout;
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro ao alterar layout!',
+                    text: 'Tente novamente mais tarde.',
+                })
+            }
+        })  
+
+}
+
 function edicaoLayout(idLayout) {
     sessionStorage.ID_LAYOUT = idLayout;
     window.location = './edit_layout.html';

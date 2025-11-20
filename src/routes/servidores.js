@@ -37,4 +37,8 @@ router.get('/allRegioes', function(req,res) {
     cadastroServidorController.allRegioes(req,res);
 })
 
+router.get('/dataLayoutsServidor/:idServidor', function(req,res) {
+    cadastroServidorController.getDataLayoutsServidor(req,res);
+})
+
 module.exports = router;

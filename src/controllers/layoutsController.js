@@ -24,7 +24,32 @@ function buscarCompleto(req,res) {
     ;
 }
 
+function usarLayout(req,res) {
+    const {idLayout, idEmpresa } = req.params;
+    layoutsModel.usarLayout(idLayout, idEmpresa)
+    .then(result => res.status(201).json(result))
+    .catch(erro => {
+        console.log(erro)
+        res.status(500).json(erro.sqlMessage);
+    })
+    ;
+}
+
+function buscarLayoutConfiguracao(req, res) {
+    const { idLayout, idEmpresa } = req.params;
+
+    layoutsModel.buscarLayoutConfiguracao(idLayout, idEmpresa)
+        .then(result => res.json(result))
+        .catch(erro => {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
+
 module.exports = {
     buscar,
-    buscarCompleto
+    buscarCompleto,
+    usarLayout,
+    buscarLayoutConfiguracao
 };
