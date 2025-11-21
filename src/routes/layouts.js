@@ -14,7 +14,7 @@ router.put("/usarLayout/:idLayout/:idEmpresa", (req, res) => {
     layoutsController.usarLayout(req, res);
 });
 
-router.get("/buscarLayoutConfiguracao/:idLayout/:idEmpresa", (req, res) => {
+router.get("/buscarLayoutConfiguracao/:idEmpresa", (req, res) => {
     layoutsController.buscarLayoutConfiguracao(req, res);
 });
 

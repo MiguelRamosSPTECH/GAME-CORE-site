@@ -14,7 +14,7 @@ function verificaLayoutServidor() {
             let configs_layout = null
             //buscando layout em uso e seus dados
             if(data[0].nomeLayout == null){
-                await fetch(`/layouts/buscarLayoutConfiguracao/${sessionStorage.ID_LAYOUT}/${sessionStorage.ID_EMPRESA}`, {
+                await fetch(`/layouts/buscarLayoutConfiguracao/${sessionStorage.ID_EMPRESA}`, {
                     method: "GET",
                 })
                 .then(async response => {
