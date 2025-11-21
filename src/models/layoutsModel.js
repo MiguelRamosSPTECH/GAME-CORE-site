@@ -40,12 +40,14 @@ function usarLayout(idLayout, idEmpresa) {
     return database.executar(instrucaoSql);
 }
 
-function buscarLayoutConfiguracao(idLayout, idEmpresa) {
+function buscarLayoutConfiguracao(idEmpresa) {
     var instrucaoSql = `
         select 
             l.nome as nomeLayout,
             m.unidadeMedida,
-            c.nome as nomeComponente
+            c.nome as nomeComponente,
+            cs.alertaLeve,
+            cs.alertaGrave
         from layout l
         inner join configuracaoservidor cs on
         cs.fk_layout = l.id
@@ -54,7 +56,6 @@ function buscarLayoutConfiguracao(idLayout, idEmpresa) {
         inner join metrica m on
         m.id  = cs.fk_metrica_cs
         where l.fk_empresa_layout = ${idEmpresa}
-        and l.id = ${idLayout}
         and l.emUso = 1;
     `;
     console.log("Buscando layout em uso e suas configurações: \n" + instrucaoSql);
