@@ -274,6 +274,8 @@
             </div>
         </div>
     </div>
+
+    <!-- modal de configurações -->
     <div class="modal">
         <div class="title-modal">
             <span><strong>CONFIGURAÇÃO SELECIONADA: </strong>DESEMPENHO LÓGICO DO JOGO</span>
@@ -287,7 +289,7 @@
             <div class="title-componentes">
                 <strong>COMPONENTES DE SERVIDOR</strong>
             </div>
-            <div class="content-componentes" id="area_cards_componentes">
+            <div class="content-componentes">
                 <div class="card-componente">
                     <div class="title-card">
                         <span>CPU</span>
@@ -313,8 +315,7 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> User
-                                    CPU USE
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU USUARIOS
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
@@ -331,14 +332,13 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> System
-                                    CPU USE
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU SISTEMA
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
                             <div class="group-opcao-metrica">
                                 <div class="opcao">
-                                    <input type="radio" name="opt_system_cpu"> %
+                                    <input type="radio" name="opt_system_cpu"> %    
                                 </div>
                             </div>
                             <div class="inputs-alertas">
@@ -349,13 +349,13 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> LOADAVG
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU LOADAVG
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
                             <div class="group-opcao-metrica">
                                 <div class="opcao">
-                                    <input type="radio" name="opt_loadavg"> Quantidade
+                                    <input type="radio" name="opt_loadavg"> Numérico
                                 </div>
                             </div>
                             <div class="inputs-alertas">
@@ -366,8 +366,7 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU
-                                    OCIOSA
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU OCIOSA
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
@@ -381,6 +380,23 @@
                                 <input type="number" placeholder="Alerta grave">
                             </div>
                         </div>
+                        <div class="opcoes-metricas">
+                            <div class="opcao-componente">
+                                <div>
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> CPU FREQ
+                                </div>
+                                <i class="fa-solid fa-angles-left"></i>
+                            </div>
+                            <div class="group-opcao-metrica">
+                                <div class="opcao">
+                                    <input type="radio" name="opt_frequencia_cpu"> MHZ
+                                </div>
+                            </div>
+                            <div class="inputs-alertas">
+                                <input type="number" placeholder="Alerta leve">
+                                <input type="number" placeholder="Alerta grave">
+                            </div>
+                        </div>                        
                     </div>
                 </div>
                 <div class="card-componente">
@@ -414,8 +430,7 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> RAM
-                                    SWAP
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> RAM SWAP
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
@@ -438,8 +453,7 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> RAM
-                                    DISP.
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> RAM DISP
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
@@ -492,17 +506,16 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox">
-                                    THROUGHPUT (I/O)
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> DISCO THROUGHPUT
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>
                             <div class="group-opcao-metrica">
                                 <div class="opcao">
-                                    <input type="radio" name="opt_throughput"> MB/s
+                                    <input type="radio" name="opt_throughput"> MBS
                                 </div>
                                 <div class="opcao">
-                                    <input type="radio" name="opt_throughput"> GB/s
+                                    <input type="radio" name="opt_throughput"> GBS
                                 </div>
                             </div>
                             <div class="inputs-alertas">
@@ -513,8 +526,7 @@
                         <div class="opcoes-metricas">
                             <div class="opcao-componente">
                                 <div>
-                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> DISCO
-                                    LIVRE
+                                    <input class="check-componente" onclick="showMetrics(this)" type="checkbox"> DISCO LIVRE
                                 </div>
                                 <i class="fa-solid fa-angles-left"></i>
                             </div>

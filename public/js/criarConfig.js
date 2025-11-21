@@ -75,7 +75,8 @@ function criarLayout() {
 }
 
 function listarLayout() {
-    const idLayoutVar = sessionStorage.ID_LAYOUT;
+    const URLParams = new URLSearchParams(window.location.search);
+    const idLayoutVar = URLParams.get('idLayout');
     const idEmpresaVar = sessionStorage.ID_EMPRESA;
 
     if (!idLayoutVar || !idEmpresaVar) {

@@ -105,6 +105,7 @@ INSERT INTO componente (nome)
             ('CPU_USUARIOS'),
             ('CPU_SISTEMA'),
             ('CPU_LOADAVG'),
+            ('CPU_FREQ'),
 			('RAM'),
             ('RAM_DISP'),
             ('RAM_SWAP'),
@@ -119,6 +120,7 @@ INSERT INTO metrica (unidadeMedida)
 			('GB'),
             ('MBS'),
 			('GBS'),
+            ('MHZ'),
 			('Numérico');
             
 -- --------------------------------------------------------------
@@ -170,9 +172,11 @@ insert into servidor values (null, "M1.MAIN","34:60:f9:55:51:71",1,1,null);
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
 
 insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
-insert into configuracaoservidor values(null, 85.4, 91.6, 1, 6, 1);
+insert into configuracaoservidor values(null, 85.4, 91.6, 6, 6, 1);
 insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
 insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
+
+
 insert into permissaocargo values(3,1,0),
 								 (4,1,0),
                                  (6,1,0),
@@ -339,7 +343,7 @@ set emUso = case
 	else 0
 end
 where fk_empresa_layout = 1;
-
+select * from configuracaoservidor;
 #buscando layout + sua configuracaoa
 select 
 	l.nome as nomeLayout,

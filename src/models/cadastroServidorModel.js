@@ -83,7 +83,9 @@ function getDataLayoutsServidor(idServidor) {
         s.fk_layout as idlayout, 
         l.nome as nomeLayout,
         c.nome as nomeComponente, 
-        m.unidadeMedida  
+        m.unidadeMedida,
+        cs.alertaLeve,
+        cs.alertaGrave  
     from servidor s
     left join layout l on
     l.id = s.fk_layout 
