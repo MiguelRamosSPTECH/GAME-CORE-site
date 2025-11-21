@@ -36,9 +36,9 @@ function usarLayout(req,res) {
 }
 
 function buscarLayoutConfiguracao(req, res) {
-    const { idLayout, idEmpresa } = req.params;
+    const idEmpresa = req.params.idEmpresa;
 
-    layoutsModel.buscarLayoutConfiguracao(idLayout, idEmpresa)
+    layoutsModel.buscarLayoutConfiguracao(idEmpresa)
         .then(result => res.json(result))
         .catch(erro => {
             console.log(erro);
