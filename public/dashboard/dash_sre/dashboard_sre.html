@@ -43,53 +43,66 @@
                 </div>
             </div>
         </div>
+
+
+        
         <div class="corpo">
-            <div class="painel">
-                <div class="agrupa-infos">
-                    <span class="title-page">Painel de controle da Saúde do Jogo</span>
-                    <span>Atualizado em: 13/10/2025 14:59:07</span>                    
-                </div>
-                <div class="status">
-                    <i class="fa-solid fa-circle-check"></i>
-                    <span>STATUS GERAL:<span class="check"> ÓTIMO</span></span>
-                </div>
-            </div>
-
-
-
-            <div class="grafico">
-                <canvas id="graficoUsuarios"></canvas>
-            </div>
-
+            <div class="intervalo" >Intervalos de um Desvio-Padrão previstos para os proximos dias  
+              <img onclick="mostrar_aviso()" class="toll_tip" src="../../assets/imgs/toll tip.png" height="45px"></div>
 
             <div class="kpi1">
-                <span class="title-kpi">Margem de Capacidade</span>
-                <div class="linha_espacada">
-                    <span class="dado-kpi">25%</span>
-                    <span class="check-kpi"><i class="fa-solid fa-circle-check"></i> ÓTIMO</span>
-                </div>
-                 <span class="descricao-kpi">Mínimo: 15% | Capacidade livre para picos</span>
-            </div>
+            <p class="titulo_kpi">CPU Esperada:</p>             </div>
+
+        
             <div class="kpi2">
-                <span class="title-kpi">Taxa de Desconexões</span>
-                <div class="linha_espacada">
-                    <span class="dado-kpi">0.08%</span>
-                    <span class="check-kpi"><i class="fa-solid fa-circle-check"></i> ÓTIMO</span>
-                </div>
-                <span class="descricao-kpi">Meta: < 0.15% | 80 desconexões/10.000</span>
-            </div>
-            <div class="kpi3">
-                <span class="title-kpi">Jogadores impactados por Latência</span>
-                <div class="linha_espacada">
-                    <span class="dado-kpi">5.2%</span>
-                    <span class="alert-kpi"><i class="fa-solid fa-bell"></i> ATENÇÃO</span>
-                </div>
-                <span class="descricao-kpi">Meta: < 4% | Latência Média Jogo: 120ms</span>
-            </div>
+            <p class="titulo_kpi">RAM Esperada:</p>    </div>
+
+            <div class="vazio">d</div>
+            <div class="graf">e</div>
 
         </div>
+
+        <div class="direita_pai">
+
+        <div class="direita1">  aodhoaudhoauhdoa      </div>
+        <div class="direita2">  2222222222222222      </div>
+
+            
+        </div>            
+
+
     </div>
+
+
+    <div id="popup" class="popup">
+    <div class="popup_conteudo">
+        <p>Nos períodos informados abaixo, aproximadamente 68% do tempo, a porcentagem de uso estará dentro da sua respectiva faixa prevista</p>
+
+        <button onclick="fechar_popup()" class="fechar_popup">Fechar</button>
+    </div>
+</div>
     <script>
+
+      function mostrar_aviso() {
+    document.getElementById("popup").style.display = "flex";
+}
+
+function fechar_popup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
         const ctx = document.getElementById('graficoUsuarios').getContext('2d');
 
         new Chart(ctx, {
