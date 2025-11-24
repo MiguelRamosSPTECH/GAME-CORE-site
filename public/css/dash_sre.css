@@ -386,7 +386,7 @@ transform: translateX(-50%)
 .lista_sv td {
     padding: 8px 12px;
     border-bottom: 1px solid #444;
-    font-size: 18px;
+    font-size: 1.8vh;
 }
 
 #graf_pizza{
@@ -398,6 +398,7 @@ transform: translateX(-50%)
 .titulo{
     position: absolute;
     color: #f1d7d7;
-    top: 2%;
+    top: 0.8%;
     left: 6.5%;
+    font-size: 5vh ;
 }

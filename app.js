@@ -25,6 +25,7 @@ var config = require("./src/routes/config");
 var configGlobal = require("./src/routes/configuracaoGlobal");
 var layouts = require("./src/routes/layouts");
 var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
+var sre_futuroRouter =  require("./src/routes/sre_futuro");
 
 
 
@@ -45,6 +46,7 @@ app.use("/config", config);
 app.use("/configuracaoGlobal", configGlobal);
 app.use("/layouts", layouts);
 app.use("/aceitarEmpresas", aceitarEmpresasRouter);
+app.use("/sre_futuro", sre_futuroRouter);
 
 
 
