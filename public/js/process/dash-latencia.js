@@ -94,7 +94,7 @@ new Chart(dash_erro, {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
-            ctx.font = "bold 40px sans-serif";
+            ctx.font = "bold 30px sans-serif";
             ctx.textAlign = "center";
             ctx.fillStyle = "#ff9393ff"
             ctx.fillText("70%", x, y);
@@ -133,7 +133,7 @@ new Chart(dash_gauge_carga1, {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
-            ctx.font = "bold 15px sans-serif";
+            ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
             ctx.fillStyle = "#fff"
             ctx.fillText("2.2 procs", x, y);
@@ -167,7 +167,7 @@ new Chart(dash_gauge_carga5, {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
-            ctx.font = "bold 15px sans-serif";
+            ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
             ctx.fillStyle = "#fff"
             ctx.fillText("5.7 procs", x, y);
@@ -201,7 +201,7 @@ new Chart(dash_gauge_carga15, {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
-            ctx.font = "bold 15px sans-serif";
+            ctx.font = "bold 12px sans-serif";
             ctx.textAlign = "center";
             ctx.fillStyle = "#fff"
             ctx.fillText("10.2 procs", x, y);
