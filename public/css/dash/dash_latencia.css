@@ -275,7 +275,7 @@ html, * {
     align-items: center;
     text-align: center;
 }
-.real-grafico-carga1{
+.real-grafico-carga{
     display: flex;
     width: 100%;
     height: 70%;
@@ -293,8 +293,8 @@ html, * {
     text-align: center
 }
 #gauge-carga1, #gauge-carga5, #gauge-carga15{
-    max-width: 55% !important;
-    max-height: 55% !important;
+    max-width: 75% !important;
+    max-height: 75% !important;
 }
 .tempo-carga{
     display: flex;
@@ -350,6 +350,9 @@ html, * {
     text-align: start;
     color: #fff;
 }
+.nome-proc-container span{
+    font-size: 12px;
+}
 .container-servidor{
     display: flex;
     width: 25%;
@@ -358,6 +361,9 @@ html, * {
     justify-content: center;
     text-align: end;
     color: #fff;
+}
+.container-servidor span{
+    font-size: 12px;
 }
 .texto-uso-cpu-agregada{
     display: flex;
@@ -398,12 +404,15 @@ html, * {
     color: #fff;
     font-size: 12px;
 }
+.texto-limite span{
+    font-size: 9px;
+}
 
 
 
 
 /*TÍTULO E KPI'S*/
-.topo-pagina .titulo h2{
+.topo-pagina .titulo h3{
     display: flex;
     color: aliceblue;
     flex-direction: column;
