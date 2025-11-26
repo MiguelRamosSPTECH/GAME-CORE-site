@@ -338,7 +338,7 @@ transform: translateX(-50%)
 
 
 .metade {
-    border: solid #911;
+    border: 0.3vh solid #911;
     border-radius: 15px;
     background-color: #231f39;
     height: 85%;

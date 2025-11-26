@@ -52,16 +52,16 @@
 
             <div class="kpi1">
                 <p class="titulo_kpi">CPU Esperada:</p>
-                <div class="metade">
-                    <p class="desc_metade">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                <div class="metade" id="box_1cpu">
+                    <p class="desc_metade" id="atual_cpu">2ª metade de novembro <b>(<u>atual)</u></b></p>
 
-                    <p class="medida_metade">77%  a 97%</p>
+                    <p class="medida_metade" id="1_cpu">77%  a 97%</p>
                 </div>
 
-                <div class="metade">
-                    <p class="desc_metade">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                <div class="metade" id="box_2cpu">
+                    <p class="desc_metade" id="proxima_cpu">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
 
-                    <p class="medida_metade">80%  a 87%</p>
+                    <p class="medida_metade" id="2_cpu">80%  a 87%</p>
                 </div>
 
         
@@ -71,16 +71,16 @@
             <div class="kpi2">
             <p class="titulo_kpi">RAM Esperada:</p>
         
-                            <div class="metade" style="border-color: green;">
-                    <p class="desc_metade">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                    <div class="metade" style="border-color: green;" id="box_1ram">
+                    <p class="desc_metade" id="atual_ram">2ª metade de novembro <b>(<u>atual)</u></b></p>
 
-                    <p class="medida_metade">55% a 60%</p>
+                    <p class="medida_metade" id="1_ram">55% a 60%</p>
                 </div>
 
-                <div class="metade" style="border-color: yellow;">
-                    <p class="desc_metade">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                <div class="metade" style="border-color: yellow; " id="box_2ram">
+                    <p class="desc_metade" id="proxima_ram">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
 
-                    <p class="medida_metade">66% a 70%</p>
+                    <p class="medida_metade" id="2_ram">66% a 70%</p>
                 </div>
         </div>
 
@@ -319,7 +319,12 @@ function fechar_popup() {
 <script>
 // Script backend em si:
 
-    entrar()
+var alertaGravevar = 0
+var alertaLevevar = 0
+
+
+
+entrar()
 
  function entrar() {
         
@@ -346,11 +351,18 @@ function fechar_popup() {
                 // Salvar no sessionStorage = sessionStorage.EMAIL_USUARIO = json.email;
                 resposta.json().then(json => {
                     console.log(json);
+                    console.log("Print do SRE FUTURO:");
+                    
                     console.log(JSON.stringify(json));
-                    // sessionStorage.EMAIL_USUARIO = json.email;
-                    // sessionStorage.NOME_USUARIO = json.nome;
-                    // sessionStorage.ID_USUARIO = json.id;
-                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    
+                    alertaLevevar = Number ((json[0].alertaLeve));
+                    alertaGravevar = Number ((json[0].alertaGrave));
+
+                    buscarServidores()
+                
+                    
+                    
 
                 });
 
@@ -369,6 +381,231 @@ function fechar_popup() {
 
         return false;
     }
+
+    
+    var nomesServidores = []
+    var localizacaoServidores = []
+
+
+  function buscarServidores() {
+        
+        var idEmpresa = sessionStorage.ID_EMPRESA
+
+        console.log("FORM idEmpresa: ", idEmpresa);
+
+
+        fetch(`/sre_futuro/buscar/`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServer: idEmpresa,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                // PEGAR do sessionStorage = var idEmpresa = sessionStorage.ID_EMPRESA;
+                // Salvar no sessionStorage = sessionStorage.EMAIL_USUARIO = json.email;
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log("Print do SRE FUTURO: Lista de servidores:");
+                    
+                    console.log(JSON.stringify(json));
+
+                        for(i = 0; i < json.length; i++){
+                            nomesServidores.push(json[i].apelido);
+                            localizacaoServidores.push(json[i].localizacao);
+                        }
+
+                        montar()
+                    
+                    
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o as previsões com alertas!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+
+
+    async function carregarDados() {
+      const caminho = window.location.pathname;
+
+      // Detecta se a URL é /ver/arquivo ou /dados/arquivo
+      const isVer = caminho.includes("/ver/");
+      const isDados = caminho.includes("/dados/");
+
+      const arquivo = caminho.split(isVer ? "/ver/" : "/dados/")[1];
+
+      if (!arquivo) {
+        document.getElementById('raw-data').textContent =
+          "❌ Nenhum arquivo informado.";
+        return;
+      }
+
+      // Monta a rota correta para buscar os dados
+      const resposta = await fetch(`/s3Route/dados/${arquivo}`);
+      const data = await resposta.json();
+
+      document.getElementById("raw-data").textContent =
+        JSON.stringify(data, null, 2);
+
+      if (isDados) return;
+
+      if (!Array.isArray(data) || data.length === 0) return;
+
+      const keys = Object.keys(data[0]);
+      const labelKey = keys[0];
+      const valueKey = keys[1];
+
+      const labels = data.map(d => d[labelKey]);
+      const values = data.map(d => Number(d[valueKey]) || 0);
+
+      document.getElementById("charts").style.display = "block";
+
+      new Chart(document.getElementById('chart1'), {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: valueKey,
+            data: values
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    // carregarDados();
+
+
+    var kpis = {
+        cpumin1 : 0,
+        cpumax1: 0,
+        cpumin2: 0,
+        cpumax2: 0,
+
+        rammin1: 0,
+        rammax1: 0,
+        rammin2: 0,
+        rammax2: 0,
+    }
+
+
+
+
+
+
+
+// montando o Site:
+
+
+function montar() {
+
+    var dataAtual = new Date();
+    var mes = dataAtual.getMonth()
+    var dia = dataAtual.getDate()
+
+    var nomesMeses = [
+    "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+]
+
+    var texto = ''
+    var texto2 = ''
+
+
+    if(dia <= 15){
+        texto += "2ª"
+        texto2 += `1ª metade de ${nomesMeses[mes +1]} <b>(<u>seguinte)</u></b>`
+    }else{
+        texto += "1ª"
+        texto2 += `2ª metade de ${nomesMeses[mes]} <b>(<u>seguinte)</u></b>`
+    }
+    
+
+    texto += ` metade de ${nomesMeses[mes]} <b>(<u>atual)</u></b>`
+    
+
+    document.getElementById("atual_cpu").innerHTML = texto
+    document.getElementById("atual_ram").innerHTML = texto
+
+    document.getElementById("proxima_ram").innerHTML = texto2
+    document.getElementById("proxima_cpu").innerHTML = texto2
+
+
+
+    texto = `${kpis.cpumin1}%  a ${kpis.cpumax1}%`
+    texto2 = `${kpis.cpumin2}%  a ${kpis.cpumax2}%`
+
+    document.getElementById("1_cpu").innerHTML = texto
+    document.getElementById("2_cpu").innerHTML = texto2
+
+
+    texto = `${kpis.rammin1}%  a ${kpis.rammax1}%`
+    texto2 = `${kpis.rammin2}%  a ${kpis.rammax2}%`
+
+    document.getElementById("1_ram").innerHTML = texto
+    document.getElementById("2_ram").innerHTML = texto2
+
+
+    // cores das caixas das KPIs:
+    if(kpis.cpumax1 >= alertaLevevar){
+        document.getElementById("box_1cpu").style.borderColor  = "yellow";
+    } else {document.getElementById("box_1cpu").style.borderColor  = "green";}
+
+    if(kpis.cpumax1 >= alertaGravevar){
+        document.getElementById("box_1cpu").style.borderColor  = "red";
+    }
+
+
+
+    if(kpis.cpumax2 >= alertaLevevar){
+        document.getElementById("box_2cpu").style.borderColor  = "yellow";
+    }else {document.getElementById("box_2cpu").style.borderColor  = "green";}
+
+    if(kpis.cpumax2 >= alertaGravevar){
+        document.getElementById("box_2cpu").style.borderColor  = "red";
+    }
+
+
+    if(kpis.rammax1 >= alertaLevevar){
+        document.getElementById("box_1ram").style.borderColor  = "yellow";
+    }else {document.getElementById("box_1ram").style.borderColor  = "green";}
+
+    if(kpis.rammax1 >= alertaGravevar){
+        document.getElementById("box_1ram").style.borderColor  = "red";
+    }
+
+
+    if(kpis.rammax2 >= alertaLevevar){
+        document.getElementById("box_2ram").style.borderColor  = "yellow";
+    }else {document.getElementById("box_2ram").style.borderColor  = "green";}
+
+    if(kpis.rammax2 >= alertaGravevar){
+        document.getElementById("box_2ram").style.borderColor  = "red";
+    }
+
+}
 
 
 </script>
