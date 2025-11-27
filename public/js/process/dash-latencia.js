@@ -217,3 +217,71 @@ new Chart(dash_gauge_carga15, {
         }
     }
 });
+
+
+const NOME_ARQUIVO = 'dados.json';
+// URL
+const URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+// Chaves pro gráfico
+const CHAVE_ROTULO = 'Mês'; // Eixo X
+const CHAVE_VALOR = 'UsoCPU'; // Eixo Y
+async function buscarDados() {
+    // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+    const ctx = document.getElementById('grafico');
+    const carregamento = document.getElementById('area_comparativo_servidores');
+    carregamento.innerHTML = 'Carregando dados...'; 
+    try {
+        // requisição à API
+        const resposta = await fetch(URL_API);
+        // descreve erros 
+        if (!resposta.ok) {
+            const erroDetalhe = await resposta.text();
+            throw new Error(`Erro ${resposta.status}: Falha na API: ${erroDetalhe.substring(0, 100)}`);
+        }
+        // converte a resposta para JSON!!!!!
+        const data = await resposta.json();
+        // limpa a mensagem de carregamento
+        carregamento.innerHTML = '';
+        carregamento.appendChild(ctx); // Garante que o canvas volte
+        // verifica e Processa os Dados para o Chart.js
+        if (!Array.isArray(data) || data.length === 0) {
+            console.warn("Erro nos dados recebidos");
+            carregamento.innerHTML = `<div style="color: orange; padding: 20px;">⚠️ Dados vazios para plotar o gráfico.</div>`;
+            return;
+        }
+        // extrai os valores para os eixos
+        const labels = data.map(d => d[CHAVE_ROTULO]); 
+        const valores = data.map(d => Number(d[CHAVE_VALOR]) || 0);
+        // GRÁFICO
+        Chart.defaults.color = '#FFFFFF'
+        
+        new Chart(ctx, {
+            
+            type: 'bar', 
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: `Desempenho: ${CHAVE_VALOR}`,
+                    data: valores,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: CHAVE_VALOR }
+                    }
+                }
+            }
+        });
+    } catch (error) {
+        // Captura e exibe erros
+        console.error("Erro ao carregar ou plotar dados:", error);
+        carregamento.innerHTML = `<div style="color: red; padding: 20px;"> Falha ao carregar dados. ${error.message}</div>`;
+    }
+}
+window.onload = buscarDados;
