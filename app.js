@@ -25,7 +25,7 @@ var config = require("./src/routes/config");
 var configGlobal = require("./src/routes/configuracaoGlobal");
 var layouts = require("./src/routes/layouts");
 var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
-var s3Router = require('./s3-viewer/src/routes/s3Route');
+var s3Router = require('./src/routes/s3Route');
 
 
 app.use(express.json());

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../css/dash/css_joao.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <script src="../../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body>
+    <div class="corpo">
+        <div class="nav-lateral">
+            <div class="logo-dbg">
+                <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
+            </div>
+            <div class="options-nav ">
+                <div class="principal-options">
+                    <div class="circle-option">
+                        <i onclick="window.location.href='#'" class="fa-solid fa-house"></i>
+                        <span class="texto-oculto">Início</span>
+                    </div>
+                    <div class="circle-option">
+                        <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
+                        <span class="texto-oculto">Alertas</span>
+                    </div>
+                    <div class="circle-option">
+                        <i class="fa-solid fa-notes-medical"
+                            onclick="window.location.href='dashSaudeServidores.html'"></i>
+                        <span class="texto-oculto">Configurações</span>
+                    </div>
+                </div>
+                <div class="area-logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="texto-oculto" style="color: red;">Sair</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="titulo">
+            <select class="select_tempo" id="">
+                <option value="dia">SEMANA</option>
+                <option value="mes">MÊS ATUAL</option>
+            </select>
+            Desempenho médio geral dos servidores esse mês
+        </div>
+        <div class="area_dashboard">
+            <div class="container_auxiliar">
+                <div class="area_kpi">
+                    <div class="kpi" id="area_mtbf">Tempo Médio Entre Falhas (MTBF) <span id="mtbf"
+                            style="color: red;">1 Dia</span></div>
+                    <div class="kpi" id="area_mttr" style="border-left: 1px solid #b4b4b4;">Tempo médio de reparo (MTTR)
+                        <span id="mttr" style="color: yellow;">40 minutos</span>
+                    </div>
+                </div>
+                <div class="area_comparativo_servidores" id="area_comparativo_servidores">
+                    <canvas id="grafico"></canvas>
+                </div>
+            </div>
+            <div class="area_listas">
+                <div class="lista_componentes">Causas mais comuns de alertas</div>
+                <div class="lista_servidores">
+                    <div style="border-bottom: 1px solid #b4b4b4;" class="titulo_lista_servidores">
+                        <select name="" id="">
+                            <option value="cpu">CPU</option>
+                            <option value="ram">RAM</option>
+                            <option value="disco">DISCO</option>
+                            <option value="rede">REDE</option>
+                        </select>
+                        <span>Servidores</span>
+                    </div>
+                    <div>alekalekalek</div>
+                    <div>zoiozoiozoio</div>
+                </div>
+                <div class="previsoes"> <img src="../../assets/imgs/icone_previsoes.png" alt="" width="30px"> Ir para
+                    previsões</div>
+            </div>
+        </div>
+    </div>
+    <script>
+    const NOME_ARQUIVO = 'dados.json';
+
+    // URL
+    const URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+
+    // Chaves pro gráfico
+    const CHAVE_ROTULO = 'Mês'; // Eixo X
+    const CHAVE_VALOR = 'UsoCPU'; // Eixo Y
+
+    async function buscarDados() {
+        // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+        const ctx = document.getElementById('grafico');
+        const carregamento = document.getElementById('area_comparativo_servidores');
+
+        carregamento.innerHTML = 'Carregando dados...'; 
+
+        try {
+            // requisição à API
+            const resposta = await fetch(URL_API);
+
+            // descreve erros 
+            if (!resposta.ok) {
+                const erroDetalhe = await resposta.text();
+                throw new Error(`Erro ${resposta.status}: Falha na API: ${erroDetalhe.substring(0, 100)}`);
+            }
+
+            // converte a resposta para JSON!!!!!
+            const data = await resposta.json();
+
+            // limpa a mensagem de carregamento
+            carregamento.innerHTML = '';
+            carregamento.appendChild(ctx); // Garante que o canvas volte
+
+            // verifica e Processa os Dados para o Chart.js
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn("Erro nos dados recebidos");
+                carregamento.innerHTML = `<div style="color: orange; padding: 20px;">⚠️ Dados vazios para plotar o gráfico.</div>`;
+                return;
+            }
+
+            // extrai os valores para os eixos
+            const labels = data.map(d => d[CHAVE_ROTULO]); 
+            const valores = data.map(d => Number(d[CHAVE_VALOR]) || 0);
+
+            // GRÁFICO
+
+            Chart.defaults.color = '#FFFFFF'
+            
+            new Chart(ctx, {
+                
+                type: 'bar', 
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: `Desempenho: ${CHAVE_VALOR}`,
+                        data: valores,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: CHAVE_VALOR }
+                        }
+                    }
+                }
+            });
+
+        } catch (error) {
+            // Captura e exibe erros
+            console.error("Erro ao carregar ou plotar dados:", error);
+            carregamento.innerHTML = `<div style="color: red; padding: 20px;"> Falha ao carregar dados. ${error.message}</div>`;
+        }
+    }
+    window.onload = buscarDados;
+</script>
+</body>
+
+</html>
