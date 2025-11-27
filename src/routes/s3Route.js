@@ -9,7 +9,7 @@ router.get('/dados/:arquivo', (req, res) => {
 });
 
 router.get('/ver/:arquivo', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'dashboard_joao.html'));
+  res.sendFile(path.join(__dirname, '../../public/dashboard', 'latencia.html'));
 });
 
 module.exports = router;
