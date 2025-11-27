@@ -225,7 +225,7 @@ select * from componente;
 select * from metrica;
 select * from configuracaoservidor;
 
-UPDATE servidor s SET s.apelido = 'filho da puta', s.fk_regiao = 2, s.fk_empresa_servidor = 1 , s.fk_layout = 1 WHERE s.id = 2;
+UPDATE servidor s SET s.apelido = 'teste_001', s.fk_regiao = 2, s.fk_empresa_servidor = 1 , s.fk_layout = 1 WHERE s.id = 2;
 
 
 SELECT s.*, r.* FROM servidor s
