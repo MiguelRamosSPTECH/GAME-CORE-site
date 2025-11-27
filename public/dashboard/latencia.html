@@ -49,12 +49,17 @@
         </div>
 
         <!-- Corpo do dash: -->
-
         <div class="corpo-dash">
             <div class="topo-pagina">
                 <div class="titulo">
+                    <div class="titulo-linha">
 
-                    <h2>TÉCNICO - LATÊNCIA E ATRASOS | ÚLTIMAS 6 HORAS | SERVIDOR V1.MAIN</h2>
+                    </div>
+                    <div class="texto-titulo">
+
+                        <h3>TÉCNICO - LATÊNCIA E ATRASOS | DE 30 EM 30 MINUTOS | SERVIDOR V1.MAIN</h3>
+
+                    </div>
 
                 </div>
                 <div class="botao-sair">
@@ -64,31 +69,206 @@
                 </div>
             </div>
             <div class="kpis">
+                <div class="kpi-latencia">
+                    <div class="titulo-latencia">
 
+                        <h3>Latência</h3>
 
+                    </div>
+                    <div class="gauge-latencia">
 
+                        <canvas id="gauge-kpi-latencia"></canvas>
+
+                    </div>
+                    <div class="limite-requisicoes">
+                        <div class="limite-maximo">
+                            <h3>Limite Máximo: <span style="color: #74ce3a;">50ms</span></h3>
+                        </div>
+                        <div class="taxa-reqs">
+                            <h3>98% REQS < 50ms</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-erro">
+                    <div class="titulo-erro">
+
+                        <h3>Taxa de Falha dos Containers</h3>
+
+                    </div>
+                    <div class="gauge-erro">
+
+                        <canvas id="gauge-latencia-erro"></canvas>
+
+                    </div>
+                    <div class="limite-erro">
+                        <div class="limites">
+                            <span style="color:#63d551">Taxa em 0%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#ffda55">Entre +0% e 50%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#f3464a">Acima de 50%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-falha">
+                    <div class="titulo-falha">
+
+                        <h3>Probabilidade de Falha Sistêmica</h3>
+
+                    </div>
+                    <div class="taxa-falha">
+
+                        <h1>0%</h1>
+
+                    </div>
+                    <div class="limite-falha">
+                        <div class="limites">
+                            <span style="color:#63d551">Taxa em 0%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#ffda55">Entre +0% e 50%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#f3464a">Acima de 50%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="texto-meio">
-
-                <h2>Saturação (Risco Iminente)</h2>
+                <div class="divisao-texto-meio">
+                    <div class="linha-meio">
+                    </div>
+                </div>
+                <div class="divisao-texto-meio">
+                    <h3>Saturação (Risco Iminente)</h3>
+                </div>
+                <div class="divisao-texto-meio">
+                    <div class="linha-meio">
+                    </div>
+                </div>
 
             </div>
             <div class="risco-iminente">
                 <div class="grafico-cpu-agregada">
-
-
-
+                    <div class="titulo-cpu-agregada">
+                        <div class="texto-uso-cpu-agregada">
+                            <h3>Uso Médio de CPU entre Todos os Containers (CPU Agregada)</h3>
+                        </div>
+                        <div class="linha-limite-maximo">
+                            <div class="linha">
+                                <div class="linha-mesmo">
+                                </div>
+                            </div>
+                            <div class="texto-limite">
+                                <span>Limite Máximo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="cpu-agregada"></canvas>
+                    </div>
                 </div>
                 <div class="procs">
                     <div class="carga-procs">
+                        <div class="titulo-carga">
+                            <h4>Média de Processos em Fila de Execução via Tempo</h4>
+                        </div>
+                        <div class="gauge-carga">
+                            <div class="carga1">
 
+                                <div class="real-grafico-carga">
 
+                                    <canvas id="gauge-carga1"></canvas>
 
+                                </div>
+
+                                <div class="tempo-carga">
+
+                                    <h4>1 minuto</h4>
+
+                                </div>
+
+                            </div>
+                            <div class="carga5">
+
+                                <div class="real-grafico-carga">
+
+                                    <canvas id="gauge-carga5"></canvas>
+
+                                </div>
+
+                                <div class="tempo-carga">
+
+                                    <h4>5 minutos</h4>
+
+                                </div>
+
+                            </div>
+                            <div class="carga15">
+
+                                <div class="real-grafico-carga">
+
+                                    <canvas id="gauge-carga15"></canvas>
+
+                                </div>
+
+                                <div class="tempo-carga">
+
+                                    <h4>15 minutos</h4>
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="lista-procs">
-
-
-
+                        <div class="titulo-lista">
+                            <h3>TOP 5 Processos que Mais Consomem CPU</h3>
+                        </div>
+                        <div class="corpo-lista">
+                            <div class="item1">
+                                <div class="nome-proc-container">
+                                    <span>minecraft-inicializator-server</span>
+                                </div>
+                                <div class="container-servidor">
+                                    <span>(CPU: 70% | cont-1)</span>
+                                </div>
+                            </div>
+                            <div class="item2">
+                                <div class="nome-proc-container">
+                                    <span>createworld-inicializator</span>
+                                </div>
+                                <div class="container-servidor">
+                                    <span>(CPU: 55% | cont-3)</span>
+                                </div>
+                            </div>
+                            <div class="item3">
+                                <div class="nome-proc-container">
+                                    <span>spawnmob-map</span>
+                                </div>
+                                <div class="container-servidor">
+                                    <span>(CPU: 47% | cont-2)</span>
+                                </div>
+                            </div>
+                            <div class="item4">
+                                <div class="nome-proc-container">
+                                    <span>creeper_explosion-action</span>
+                                </div>
+                                <div class="container-servidor">
+                                    <span>(CPU: 35% | cont-1)</span>
+                                </div>
+                            </div>
+                            <div class="item5">
+                                <div class="nome-proc-container">
+                                    <span>nether-inicializator</span>
+                                </div>
+                                <div class="container-servidor">
+                                    <span>(CPU: 32% | cont-1)</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,6 +276,13 @@
 
 
     </div>
+
+    <!--Pegando as extensões (plugins) do chartjs para fazer os dashes-->
+    <!--Linha: -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+    <!--Chamando Script do Dashboard-->
+    <script src="../js/process/dash-latencia.js"></script>
 </body>
 
 </html>

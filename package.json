@@ -3,19 +3,35 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon --exec node app.js"
   },
-  "author": "Feito pelos desenvolvedores @ São Paulo Tech School / Bandtec Digital School",
-  "license": "MIT",
   "dependencies": {
     "apexcharts": "^5.3.6",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.17.1",
+    "express": "^4.21.1",
     "mysql2": "^3.9.4",
     "nodemon": "^2.0.7",
-    "path": "^0.12.7"
-  }
+    "path": "^0.12.7",
+    "aws-sdk": "^2.1478.0",
+    "ejs": "^3.1.10",
+    "papaparse": "^5.4.1"
+  },
+  "devDependencies": {
+  "nodemon": "^3.1.0"
+  },
+    "keywords": [
+    "s3",
+    "express",
+    "ejs",
+    "chartjs",
+    "papaparse",
+    "aws-sdk",
+    "minio"
+  ],
+  "author": "Feito pelos desenvolvedores @ São Paulo Tech School / Bandtec Digital School",
+  "license": "MIT"
 }
