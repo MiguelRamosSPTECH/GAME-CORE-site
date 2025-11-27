@@ -25,7 +25,7 @@ var config = require("./src/routes/config");
 var configGlobal = require("./src/routes/configuracaoGlobal");
 var layouts = require("./src/routes/layouts");
 var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
-
+var s3Router = require('./s3-viewer/src/routes/s3Route');
 
 
 app.use(express.json());
@@ -45,7 +45,7 @@ app.use("/config", config);
 app.use("/configuracaoGlobal", configGlobal);
 app.use("/layouts", layouts);
 app.use("/aceitarEmpresas", aceitarEmpresasRouter);
-
+app.use('/s3Route', s3Router);
 
 
 app.listen(PORTA_APP, function () {

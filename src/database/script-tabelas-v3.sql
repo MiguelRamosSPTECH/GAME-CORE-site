@@ -244,11 +244,12 @@ p.id = ps.fk_permissao_pc;
 -- -- --- --- refazer
 
 # SELECT que retorna o cargo, suas respectivas permissões e a empresa que os detêm
-select e.nomeEmpresarial as "Nome da Empresa", c.nome as "Nome do Cargo", p.nome as "Permissões"
+select e.nomeEmpresarial as "Nome da Empresa", f.nome as "Nome do Funcionário", c.nome as "Nome do Cargo", p.nome as "Permissões"
 from permissaocargo pc
 inner join permissao p on p.id = pc.fk_permissao_pc
 inner join cargo c on c.id = pc.fk_cargo_pc
-inner join empresa e on e.id = c.fk_empresa_cargo;
+inner join empresa e on e.id = c.fk_empresa_cargo
+inner join funcionario f on c.id = f.fk_cargo_func;
 
 #-----------------------------------------------------------
 ##SCRIPTS ETL
