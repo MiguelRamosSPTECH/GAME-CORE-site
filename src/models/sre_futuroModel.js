@@ -24,7 +24,7 @@ function buscar(id) {
         apelido, 
     localizacao
     from Servidor   
-    where fk_empresa_servidor =  ${id}
+    where fk_empresa_servidor =  1
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);

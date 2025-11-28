@@ -138,7 +138,7 @@
 </div>
 
 
-<p class="titulo">SRE - Previsão de consumo |  Servidor v1.main </p>
+<p class="titulo">SRE - Previsão de consumo |  Servidores </p>
     <script>
 
       function mostrar_aviso() {
@@ -216,7 +216,7 @@ function fechar_popup() {
                     legend: { display: true },
                     title: {
                         display: true,
-                        text: 'Evolução e previsão da media mensal de uso de CPU e RAM',
+                        text: 'Evolução e previsão da media mensal de uso de CPU e RAM (ultimos 30 e proximos 15 dias)',
                         color: 'white',
                         font: {
                             size: 20,
@@ -324,7 +324,7 @@ var alertaLevevar = 0
 
 
 
-entrar()
+// entrar()
 
  function entrar() {
         
@@ -403,7 +403,7 @@ entrar()
                 idServer: idEmpresa,
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
+            console.log("ESTOU NO THEN DO buscarServidores()!")
 
             if (resposta.ok) {
                 console.log(resposta);
@@ -419,6 +419,8 @@ entrar()
                             nomesServidores.push(json[i].apelido);
                             localizacaoServidores.push(json[i].localizacao);
                         }
+
+
 
                         montar()
                     
@@ -441,61 +443,6 @@ entrar()
 
         return false;
     }
-
-
-
-    async function carregarDados() {
-      const caminho = window.location.pathname;
-
-      // Detecta se a URL é /ver/arquivo ou /dados/arquivo
-      const isVer = caminho.includes("/ver/");
-      const isDados = caminho.includes("/dados/");
-
-      const arquivo = caminho.split(isVer ? "/ver/" : "/dados/")[1];
-
-      if (!arquivo) {
-        document.getElementById('raw-data').textContent =
-          "❌ Nenhum arquivo informado.";
-        return;
-      }
-
-      // Monta a rota correta para buscar os dados
-      const resposta = await fetch(`/s3Route/dados/${arquivo}`);
-      const data = await resposta.json();
-
-      document.getElementById("raw-data").textContent =
-        JSON.stringify(data, null, 2);
-
-      if (isDados) return;
-
-      if (!Array.isArray(data) || data.length === 0) return;
-
-      const keys = Object.keys(data[0]);
-      const labelKey = keys[0];
-      const valueKey = keys[1];
-
-      const labels = data.map(d => d[labelKey]);
-      const values = data.map(d => Number(d[valueKey]) || 0);
-
-      document.getElementById("charts").style.display = "block";
-
-      new Chart(document.getElementById('chart1'), {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [{
-            label: valueKey,
-            data: values
-          }]
-        },
-        options: {
-          responsive: true,
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    // carregarDados();
 
 
     var kpis = {
@@ -534,7 +481,7 @@ function montar() {
     var texto2 = ''
 
 
-    if(dia <= 15){
+    if(dia >= 15){
         texto += "2ª"
         texto2 += `1ª metade de ${nomesMeses[mes +1]} <b>(<u>seguinte)</u></b>`
     }else{
@@ -607,6 +554,73 @@ function montar() {
 
 }
 
+
+
+
+
+
+
+// Pegando os valores do bucket:
+    
+    buscarDados()
+
+    async function buscarDados() {
+
+    let NOME_ARQUIVO = 'pix/dados.json';
+
+    // URL
+    let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+
+    // Chaves pro gráfico
+    let CHAVE_ROTULO = 'AnoMes'; // Eixo X
+    let CHAVE_VALOR = 'QUANTIDADE'; // Eixo Y
+
+
+        // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+        
+        // const ctx = document.getElementById('grafico');
+        // const carregamento = document.getElementById('area_comparativo_servidores');
+
+        // carregamento.innerHTML = 'Carregando dados...'; 
+
+        try {
+            // requisição à API
+            let resposta = await fetch(URL_API);
+
+            // descreve erros 
+            if (!resposta.ok) {
+                let erroDetalhe = await resposta.text();
+                throw new Error(`Erro ${resposta.status}: Falha na API: ${erroDetalhe.substring(0, 100)}`);
+            }
+            
+            // converte a resposta para JSON!!!!!
+            let data = await resposta.json();
+
+            // // limpa a mensagem de carregamento
+            // carregamento.innerHTML = '';
+            // carregamento.appendChild(ctx); // Garante que o canvas volte
+
+            // verifica e Processa os Dados para o Chart.js
+            if (!Array.isArray(data) || data.length === 0) {
+                console.warn("Erro nos dados recebidos");
+                // carregamento.innerHTML = `<div style="color: orange; padding: 20px;">⚠️ Dados vazios para plotar o gráfico.</div>`;
+                return;
+            }
+
+            // extrai os valores para os eixos
+            const labels = data.map(d => d[CHAVE_ROTULO]); 
+            const valores = data.map(d => Number(d[CHAVE_VALOR]) || 0);
+
+            alert(labels + valores)
+        }
+                 catch (error) {
+            // Captura e exibe erros
+            console.error("Erro ao carregar os dados:", error);
+        }
+
+        console.log("");
+        
+    }
 
 </script>
 
