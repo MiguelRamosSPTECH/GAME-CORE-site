@@ -385,6 +385,8 @@ var alertaLevevar = 0
     
     var nomesServidores = []
     var localizacaoServidores = []
+    var macServidor = []
+    var idServidor = []
 
 
   function buscarServidores() {
@@ -418,6 +420,9 @@ var alertaLevevar = 0
                         for(i = 0; i < json.length; i++){
                             nomesServidores.push(json[i].apelido);
                             localizacaoServidores.push(json[i].localizacao);
+                            macServidor.push(json[i].macadress);
+                            idServidor.push(json[i].id);
+
                         }
 
 
@@ -561,31 +566,70 @@ function montar() {
 
 
 // Pegando os valores do bucket:
-    
-    buscarDados()
 
-    async function buscarDados() {
+var CpuServidores = {}
+var RamServidores = {}
 
-    let NOME_ARQUIVO = 'pix/dados.json';
+    mandarBuscar ()
 
-    // URL
-    let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+    async function mandarBuscar (){
+            
 
-    // Chaves pro gráfico
-    let CHAVE_ROTULO = 'AnoMes'; // Eixo X
-    let CHAVE_VALOR = 'QUANTIDADE'; // Eixo Y
-
-
-        // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+        // Logica para pegar os dados de todos os servidores daquela empresa:]
         
-        // const ctx = document.getElementById('grafico');
-        // const carregamento = document.getElementById('area_comparativo_servidores');
+        for ( var i = 0; i < macServidor.length; i++){
 
-        // carregamento.innerHTML = 'Carregando dados...'; 
+            let NOME_ARQUIVO = `${dia}/${macServidor[i]}/dados_capturados.csv`;
+            let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+            await buscarDados(URL_API, macServidor[i],"CpuServidores","RamServidores", "cpu_porcentagem","ram_porcentagem")
+            // Adiona os valores de CPU e RAM nos objetos criados acima de todos os servidores cadastrados, do dia de hoje
+        }
 
-        try {
-            // requisição à API
-            let resposta = await fetch(URL_API);
+
+
+        // IMPORTANTE --- essa função tem que ser executada dentro da ultima buscarDados, ela vai prever os alertas
+
+        for (let j = 0; j < macServidor.length; j++){
+        
+            
+            var somaX = 0, somaY = 0, somaXY = 0, somaX2 = 0;
+            
+            for(let i = 0; i < x.length; i++) {
+                somaX += CpuServidores.macServidor[i];
+                somaY += ymacServidor[i];
+                somaXY += xmacServidor[i] * ymacServidor[i];
+                somaX2 += xmacServidor[i] * xmacServidor[i];
+            }
+            
+            let b = (x.length * somaXY - somaX * somaY) / (x.length * somaX2 - (somaX * somaX));
+            let a = (somaY - b * somaX) / x.length;
+            
+            
+        }
+
+
+
+
+    }
+        
+        
+        
+        
+        async function buscarDados(URL_API,mac,obj1, obj2, valor1, valor2) {
+            
+            
+
+            
+            // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+            
+            // const ctx = document.getElementById('grafico');
+            // const carregamento = document.getElementById('area_comparativo_servidores');
+            
+            // carregamento.innerHTML = 'Carregando dados...'; 
+            
+            try {
+                // requisição à API
+                let resposta = await fetch(URL_API);
 
             // descreve erros 
             if (!resposta.ok) {
@@ -607,11 +651,13 @@ function montar() {
                 return;
             }
 
-            // extrai os valores para os eixos
-            const labels = data.map(d => d[CHAVE_ROTULO]); 
-            const valores = data.map(d => Number(d[CHAVE_VALOR]) || 0);
 
-            alert(labels + valores)
+            // extrai os valores para os eixos
+
+            obj1.mac = data.map(d => Number(d[valor1])); 
+            obj2.mac = data.map(d => Number(d[valor2]) || 0);
+
+            console.log(labels + valores)
         }
                  catch (error) {
             // Captura e exibe erros
