@@ -1,46 +1,3 @@
-let dash_cpu = document.getElementById("cpu-agregada");
-const limiteMaximo = 70;
-
-const linhaLimite = {
-  afterDraw({ctx, chartArea, scales:{y}}) {
-    const ypos = y.getPixelForValue(limiteMaximo);
-    ctx.strokeStyle = 'red';
-    ctx.setLineDash([0]);
-    ctx.beginPath();
-    ctx.moveTo(chartArea.left, ypos);
-    ctx.lineTo(chartArea.right, ypos);
-    ctx.stroke();
-  }
-};
-
-new Chart(dash_cpu, {
-    type: 'line',
-    data: {
-        labels: ['13:00', '13:30', '14:00', '14:30', '15:00', '15:30'],
-        datasets: [{
-            label: 'Consumo de CPU (%)',
-            data: [0, 20, 40, 60, 80, 100],
-            borderwidth: 2,
-            borderColor: 'rgba(75, 192, 192, 1)',
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            tension: 0.4,
-            fill: true
-        }]
-    },  
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    },
-    plugins: [linhaLimite]
-});
-
-
-
-
 
 const dash_latencia = document.getElementById("gauge-kpi-latencia")
 
@@ -55,7 +12,7 @@ new Chart(dash_latencia, {
         }]
     },
     plugins: [{
-        afterDraw(c){
+        afterDraw(c) {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
@@ -70,8 +27,8 @@ new Chart(dash_latencia, {
         circumference: 180,
         cutout: "70%",
         plugins: {
-            legend: {display: false},
-            tooltip: {enabled: false}
+            legend: { display: false },
+            tooltip: { enabled: false }
         }
     }
 });
@@ -90,7 +47,7 @@ new Chart(dash_erro, {
         }]
     },
     plugins: [{
-        afterDraw(c){
+        afterDraw(c) {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
@@ -105,8 +62,8 @@ new Chart(dash_erro, {
         circumference: 180,
         cutout: "70%",
         plugins: {
-            legend: {display: false},
-            tooltip: {enabled: false}
+            legend: { display: false },
+            tooltip: { enabled: false }
         }
     }
 });
@@ -129,7 +86,7 @@ new Chart(dash_gauge_carga1, {
         }]
     },
     plugins: [{
-        afterDraw(c){
+        afterDraw(c) {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
@@ -144,8 +101,8 @@ new Chart(dash_gauge_carga1, {
         circumference: 180,
         cutout: "70%",
         plugins: {
-            legend: {display: false},
-            tooltip: {enabled: false}
+            legend: { display: false },
+            tooltip: { enabled: false }
         }
     }
 });
@@ -163,7 +120,7 @@ new Chart(dash_gauge_carga5, {
         }]
     },
     plugins: [{
-        afterDraw(c){
+        afterDraw(c) {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
@@ -178,8 +135,8 @@ new Chart(dash_gauge_carga5, {
         circumference: 180,
         cutout: "70%",
         plugins: {
-            legend: {display: false},
-            tooltip: {enabled: false}
+            legend: { display: false },
+            tooltip: { enabled: false }
         }
     }
 });
@@ -197,7 +154,7 @@ new Chart(dash_gauge_carga15, {
         }]
     },
     plugins: [{
-        afterDraw(c){
+        afterDraw(c) {
             let ctx = c.ctx,
                 x = c.width / 2,
                 y = c.height / 1.05;
@@ -212,24 +169,26 @@ new Chart(dash_gauge_carga15, {
         circumference: 180,
         cutout: "70%",
         plugins: {
-            legend: {display: false},
-            tooltip: {enabled: false}
+            legend: { display: false },
+            tooltip: { enabled: false }
         }
     }
 });
 
 
-const NOME_ARQUIVO = 'dados.json';
+
+
+const NOME_ARQUIVO = 'dados_capturados.json';
 // URL
 const URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
 // Chaves pro gráfico
-const CHAVE_ROTULO = 'Mês'; // Eixo X
-const CHAVE_VALOR = 'UsoCPU'; // Eixo Y
+const CHAVE_ROTULO = 'identificacao_container'; // Eixo X
+const CHAVE_VALOR = 'cpu_porcentagem'; // Eixo Y
 async function buscarDados() {
     // Referência ao canvas principal e ao container auxiliar para mensagens de erro
-    const ctx = document.getElementById('grafico');
-    const carregamento = document.getElementById('area_comparativo_servidores');
-    carregamento.innerHTML = 'Carregando dados...'; 
+    const ctx = document.getElementById('cpu-agregada');
+    const carregamento = document.getElementById('area-grafico-cpu-agregada');
+    carregamento.innerHTML = 'Carregando dados...';
     try {
         // requisição à API
         const resposta = await fetch(URL_API);
@@ -250,34 +209,52 @@ async function buscarDados() {
             return;
         }
         // extrai os valores para os eixos
-        const labels = data.map(d => d[CHAVE_ROTULO]); 
+        const labels = data.map(d => d[CHAVE_ROTULO]);
         const valores = data.map(d => Number(d[CHAVE_VALOR]) || 0);
+        console.log(labels)
         // GRÁFICO
         Chart.defaults.color = '#FFFFFF'
-        
-        new Chart(ctx, {
-            
-            type: 'bar', 
+
+        let dash_cpu = document.getElementById("cpu-agregada");
+        const limiteMaximo = 70;
+
+        const linhaLimite = {
+            afterDraw({ ctx, chartArea, scales: { y } }) {
+                const ypos = y.getPixelForValue(limiteMaximo);
+                ctx.strokeStyle = 'red';
+                ctx.setLineDash([0]);
+                ctx.beginPath();
+                ctx.moveTo(chartArea.left, ypos);
+                ctx.lineTo(chartArea.right, ypos);
+                ctx.stroke();
+            }
+        };
+
+        new Chart(dash_cpu, {
+            type: 'line',
             data: {
                 labels: labels,
                 datasets: [{
-                    label: `Desempenho: ${CHAVE_VALOR}`,
+                    label: `Consumo de CPU (%)`,
                     data: valores,
+                    borderwidth: 2,
                     borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.4,
+                    fill: true
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false,
                 scales: {
                     y: {
-                        beginAtZero: true,
-                        title: { display: true, text: CHAVE_VALOR }
+                        beginAtZero: true
                     }
                 }
-            }
+            },
+            plugins: [linhaLimite]
         });
+
     } catch (error) {
         // Captura e exibe erros
         console.error("Erro ao carregar ou plotar dados:", error);
