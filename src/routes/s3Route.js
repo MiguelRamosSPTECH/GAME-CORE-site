@@ -9,8 +9,8 @@ router.get('/dados/*', (req, res) => {
   s3Controller.lerArquivo(req, res);
 });
 
-router.get('/ver/*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'dashboard_joao.html'));
+router.get('/ver/:arquivo', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../public/dashboard', 'latencia.html'));
 });
 
 
