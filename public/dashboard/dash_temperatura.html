@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperatura | Dashboard</title>
+    <link rel="stylesheet" href="../css/dash/dash_temperatura.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/dash_temperatura.js" defer></script>
+    <script src="../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body onload="validarSessao(), buscarParametrosDashTemp()">
+    <div class="container-all">
+
+        <div class="nav-lateral">
+            <div class="logo-dbg">
+                <img src="../assets/imgs/DBG.-logo2png.png" alt="">
+            </div>
+            <div class="options-nav ">
+                <div class="principal-options">
+                    <div class="circle-option">
+                        <i onclick="window.location.href='#'" class="fa-solid fa-house"></i>
+                        <span class="texto-oculto">Início</span>
+                    </div>
+                    <div class="circle-option">
+                        <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
+                        <span class="texto-oculto">Alertas</span>
+                    </div>
+                    <div class="circle-option">
+                        <i class="fa-solid fa-notes-medical"
+                            onclick="window.location.href='dashSaudeServidores.html'"></i>
+                        <span class="texto-oculto">Configurações</span>
+                    </div>
+                </div>
+                <div class="area-logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="texto-oculto" style="color: red;">Sair</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="corpo-dash">
+
+
+            <section class="topo-pagina">
+                <div class="titulo">
+                    <h2>TÉCNICO - TEMPERATURA DA CPU | ÚLTIMOS 30 MINUTOS | SERVIDOR V1.MAIN</h2>
+                </div>
+            </section>
+
+
+            <section class="kpis">
+
+                <div class="kpi kpi-uso">
+                    <div class="kpi-titulo">Uso</div>
+                    <div class="kpi-content">
+                        <div class="kpi-subtit">
+                            <div>
+                                <span class="maior cor1">50</span><span class="maior cor1">%</span>
+                                <span class="menor">+3.2</span>%
+                            </div>
+                            <div class="tit-alert">
+                                <div>
+                                    Moderado: <span id="uso-a1">80</span>%
+                                </div>
+                                <div>
+                                    Grave: <span id="uso-a2">90</span>%
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="kpi kpi-temp">
+                    <div class="kpi-titulo">Temperatura</div>
+                    <div class="kpi-content">
+                        <div class="kpi-subtit">
+                            <div>
+                                <span class="maior cor4">50</span><span class="maior cor4">°C</span>
+                                <span class="menor">+3.2</span>°C
+                            </div>
+                            <div class="tit-alert">
+                                <div>
+                                    Moderado: <span id="temp-a1">80</span>°C
+                                </div>
+                                <div>
+                                    Crítico: <span id="temp-a2">90</span>°C
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="kpi kpi-freq">
+
+                    <div class="kpi-titulo freq1">Frequência</div>
+
+                    <div class="kpi-content kc-freq">
+
+                        <div class="col">
+                            <span class="tit">Min. disponível</span>
+                            <span class="cont-menor">1.5</span>
+                        </div>
+
+                        <div class="col">
+                            <span class="tit">Atual</span>
+                            <span class="cont-maior">1.5</span>
+                        </div>
+
+                        <div class="col">
+                            <span class="tit">Máx. disponível</span>
+                            <span class="cont-menor">1.5</span>
+                        </div>
+
+                    </div>
+
+                    <span class="freq-resumo cor1">Operação normal</span>
+
+                </div>
+
+
+                <div class="kpi kpi-t-crit">
+                    <div class="kpi-titulo">Tempo acima da temperatura permitida <span> +85°C</span></div>
+                    <div class="kpi-content">
+                        <span class="maior-t-crit cor3">5 min</span>
+                    </div>
+                    <div class="crit-labels">
+                        <div class="crit-label">
+                            <span class="tit">Excelente</span>
+                            <span class="cor1">&lt; 2 min</span>
+                        </div>
+                        <div class="crit-label">
+                            <span class="tit">titu</span>
+                            <span class="cor2">2 - 5 min</span>
+                        </div>
+                        <div class="crit-label">
+                            <span class="tit">titu</span>
+                            <span class="cor3">5 - 12 min</span>
+                        </div>
+                        <div class="crit-label">
+                            <span class="tit">titu</span>
+                            <span class="cor4">&gt; 12 min</span>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section class="bloco-fim">
+
+                <section class="esq">
+
+                    <div class="resumo cor3">
+                        <!-- <div class="resumo-titulo">Análise</div> -->
+                        <div class="resumo-txt">Possível limitação térmica: temperatura elevada e queda de frequência.
+
+                            Processador trabalhando no limite com alta frequência.
+                        </div>
+                    </div>
+
+                    <section class="graficos">
+
+                        <div class="graf-temp">
+                            <canvas id="myChartTemp"></canvas>
+                        </div>
+
+                        <div class="graf-uso">
+                            <canvas id="myChartUso"></canvas>
+                        </div>
+
+                    </section>
+
+                </section>
+
+
+                <section class="dir">
+
+                    <div class="processos">
+                        <div class="processos-titulo">Processos que mais consomem CPU</div>
+                        <div class="processos-lista">
+                            <div class="processo-item">
+                                <span class="processo-nome">chrome.exe</span>
+                                <span class="processo-cpu">45%</span>
+                            </div>
+                            <div class="processo-item">
+                                <span class="processo-nome">node.exe</span>
+                                <span class="processo-cpu">28%</span>
+                            </div>
+                            <div class="processo-item">
+                                <span class="processo-nome">mysqld.exe</span>
+                                <span class="processo-cpu">18%</span>
+                            </div>
+                            <div class="processo-item">
+                                <span class="processo-nome">svchost.exe</span>
+                                <span class="processo-cpu">12%</span>
+                            </div>
+                            <div class="processo-item">
+                                <span class="processo-nome">explorer.exe</span>
+                                <span class="processo-cpu">8%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="servidores">Acesso aos servidores</div>
+
+                </section>
+
+            </section>
+
+
+        </section>
+
+
+    </div>
+</body>
+
+</html>
