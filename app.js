@@ -27,6 +27,7 @@ var layouts = require("./src/routes/layouts");
 var aceitarEmpresasRouter = require("./src/routes/aceitarEmpresas");
 var sre_futuroRouter = require("./src/routes/sre_futuro");
 var s3Router = require('./src/routes/s3Route');
+var dashTemperatura = require("./src/routes/dashTemperatura");
 
 
 app.use(express.json());
@@ -48,6 +49,10 @@ app.use("/layouts", layouts);
 app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 app.use("/sre_futuro", sre_futuroRouter);
 app.use('/s3Route', s3Router);
+<<<<<<< HEAD
+=======
+app.use("/dashTemperatura", dashTemperatura);
+>>>>>>> 61cc0114f9bf6d07f93ea84c7e6ae4d5541efe6b
 
 app.listen(PORTA_APP, function () {
     console.log(`
