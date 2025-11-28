@@ -402,13 +402,12 @@ margin-bottom: 10px;
 }
 
 .container-all {
-height: 100vh;
-width: 100%;
-display: flex;
-align-items: center;
-justify-content: space-between;
-background-color: #0a061b;
-font-family: "Poppins",sans-serif;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #0a061b;
+  font-family: "Poppins", sans-serif;
 }
 
 .nav-lateral {
@@ -509,6 +508,8 @@ transition: opacity 0.3s ease, visibility 0.3s ease;
   width: 68%;
   display: flex;
   flex-direction: column;
+  gap: 25px;
+  height: 100%;
 }
 
 .bloco-direita {
@@ -518,14 +519,26 @@ transition: opacity 0.3s ease, visibility 0.3s ease;
   gap: 25px;
   background-color: #1b1533;
   border-radius: 10px;
-  border: #bdb5b5 solid 1px ;
+  border: #bdb5b5 solid 1px;
+  padding: 15px;
+  height: 100%;
+  
 }
 
-.cima{
+.cima {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  flex-shrink: 0;
+  min-height: 100px;
+  max-height: 120px;
+}
+
+.baixo {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* .botaoJira{
@@ -619,11 +632,16 @@ svg:hover .tooltip {
   border: #bdb5b5 solid 1px ;
 }
 
-.card-correlacao{
-  background-color: red;
+.card-correlacao {
+  height: 100%;
+  background-color: #1b1533;
   padding: 15px;
+  border-radius: 10px;
+  border: #bdb5b5 solid 1px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
-
 .card-kpi-alertas{
   margin: 10px;
   background-color: #3d3761;
@@ -638,8 +656,30 @@ svg:hover .tooltip {
   gap: 10px;
 }
 
-.kpi-processos, .kpi-cpu {
+.kpi-processos {
   width: 50%;
+}
+
+
+.kpi-cpu {
+  width: 50%;
+  padding: 15px;
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.kpi-cpu h4,
+.kpi-cpu p {
+  flex-shrink: 0;
+  margin-bottom: 5px;
+}
+
+.kpi-cpu canvas {
+  flex-grow: 1;
+  height: 50% !important;
+  width: 100% !important;
 }
 
 .kpi-processos h5 {
@@ -652,9 +692,13 @@ svg:hover .tooltip {
 }
 
 .card-grafico {
-
+  background-color: #1b1533;
   border-radius: 10px;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 280px;
 }
 
 .titulo {
@@ -663,7 +707,6 @@ svg:hover .tooltip {
   margin-bottom: 12px;
 }
 
-
 .blocos-mistos {
   display: flex;
   width: 100%;
@@ -671,29 +714,42 @@ svg:hover .tooltip {
   background-color: #1b1533;
   border-radius: 10px;
   border: #bdb5b5 solid 1px;
+  padding: 15px;
+  min-height: 250px;
+
 }
 
 .bloco-meio {
   width: 50%;
 }
 
-.graficoSwap{
-
-  border-radius: 10px;
-  padding: 15px;
-
+.graficoSwap {
+  width: 50%;
+  padding: 0 15px 15px 0;
+  display: flex;
+  flex-direction: column;
 }
 
-.graficoRam{
-  
+.card-grafico canvas,
+.kpi-cpu canvas,
+.graficoSwap canvas,
+.card-correlacao canvas {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+
+.graficoRam {
   border-radius: 10px;
   padding: 15px;
+  min-height: 200px;
 }
 
 .pie-area {
   width: 100%;
   display: flex;
   justify-content: center;
+  max-height: 150px;
 }
 
 .legenda-pie {
