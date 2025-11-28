@@ -43,7 +43,7 @@ function buscar(req, res) {
     if (id == undefined) {
         res.status(400).send("Seu id está undefined!");
     } else {
-        sre_futuroModel.entrar(id)
+        sre_futuroModel.buscar(id)
             .then(
                 function (resultadoAutenticar) {
                     console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);

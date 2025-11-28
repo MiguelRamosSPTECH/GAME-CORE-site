@@ -8,7 +8,7 @@ router.post("/entrar", function (req, res) {
 });
 
 router.post("/buscar", function (req, res) {
-    sre_futuroController.entrar(req, res);
+    sre_futuroController.buscar(req, res);
 });
 
 module.exports = router;

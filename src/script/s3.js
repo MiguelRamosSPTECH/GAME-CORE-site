@@ -8,7 +8,9 @@ async function lerArquivo(req, res) {
   try {
     const fileKey = req.params.arquivo;
 
-    if (!/^[\w.\-]+$/.test(fileKey)) {
+    // regex ->  só aceita oq tá dentro do [], agora aceita sub caminho também - pode botar barra, pra navegar nas pastas
+
+    if (!/^[\w.\-\/]+$/.test(fileKey)) {
       return res.status(400).send('❌ Nome de arquivo inválido.');
     }
 
