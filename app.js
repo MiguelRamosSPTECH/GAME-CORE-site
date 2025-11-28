@@ -49,10 +49,7 @@ app.use("/layouts", layouts);
 app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 app.use("/sre_futuro", sre_futuroRouter);
 app.use('/s3Route', s3Router);
-<<<<<<< HEAD
-=======
 app.use("/dashTemperatura", dashTemperatura);
->>>>>>> 61cc0114f9bf6d07f93ea84c7e6ae4d5541efe6b
 
 app.listen(PORTA_APP, function () {
     console.log(`

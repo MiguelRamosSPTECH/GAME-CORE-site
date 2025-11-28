@@ -9,11 +9,13 @@ router.get('/dados/*', (req, res) => {
   s3Controller.lerArquivo(req, res);
 });
 
-router.get('/ver/:arquivo', (req, res) => {
+router.get('/ver/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/dashboard', 'latencia.html'));
 });
 
-
+//router.get('/ver/*', (req, res) => {
+//  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'dashboard_joao.html'));
+//});
 
 // Precisa do * pra interpretar a /
 router.get('/arquivo/*', (req, res) => {
