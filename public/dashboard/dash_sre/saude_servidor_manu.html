@@ -339,10 +339,11 @@ new Chart(document.getElementById("threadsChart"), {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Saúde do Servidor</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../../js/process/dash-saude-servidor.js"></script>
 
   <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
@@ -393,7 +394,7 @@ new Chart(document.getElementById("threadsChart"), {
         <div class="card kpi-cpu">
           <h4>Tempo de CPU</h4>
           <p>Usuário VS Sistema</p>
-          <canvas id="cpuChart"></canvas>
+          <canvas id="cpuChart"  height="100"></canvas>
         </div>
       </div>
 
@@ -460,102 +461,202 @@ new Chart(document.getElementById("threadsChart"), {
 
 
  <script>
-
-// function criarGraficoSeguro(ctx, config) {
-//   if (ctx._chartInstance) {
-//     ctx._chartInstance.destroy();
-//   }
-//   ctx._chartInstance = new Chart(ctx, config);
-// }
-
-
-// criarGraficoSeguro(document.getElementById("cpuChart"), {
-//   type: "line",
-//   data: {
-//     labels: ["Item 1","Item 2","Item 3","Item 4","Item 5"],
-//     datasets: [
-//       { label: "Usuário", data: [12, 19, 3, 5, 22], borderWidth: 2 },
-//       { label: "Sistema", data: [8, 11, 15, 9, 18], borderWidth: 2 }
-//     ]
-//   },
-//   options: { responsive: true, maintainAspectRatio: false }
-// });
-
-
-// criarGraficoSeguro(document.getElementById("desempenhoChart"), {
-//   type: "line",
-//   data: {
-//     labels: ["Item 1","Item 2","Item 3","Item 4","Item 5"],
-//     datasets: [
-//       { label: "Desempenho", data: [15, 10, 35, 28, 50], borderWidth: 2 },
-//       { label: "Tempo de Espera", data: [8, 14, 20, 18, 32], borderWidth: 2 }
-//     ]
-//   },
-//   options: { responsive: true, maintainAspectRatio: false }
-// });
-
-
-// criarGraficoSeguro(document.getElementById("swapChart"), {
-//   type: "line",
-//   data: {
-//     labels: ["Item1","Item2","Item3","Item4","Item5"],
-//     datasets: [
-//       { label: "Swap (%)", data: [20,28,25,35,37], borderWidth: 2 }
-//     ]
-//   },
-//   options: { responsive: true, maintainAspectRatio: false }
-// });
-
-// criarGraficoSeguro(document.getElementById("ramChart"), {
-//   type: "doughnut",
-//   data: {
-//     labels: ["Disponível","Utilizada"],
-//     datasets: [
-//       { data: [60,40], backgroundColor: ["#56d4ff","#1bb6c7"] }
-//     ]
-//   },
-//   options: { responsive: true, maintainAspectRatio: false}
-// });
-
-
-// criarGraficoSeguro(document.getElementById("alertasChart"), {
-//   type: "bar",
-//   data: {
-//     labels: ["0","2","4","6","8","10","12","14"],
-//     datasets: [
-//       { label: "Alertas", data: [2,3,4,5,6,4,3,2], borderWidth: 2 }
-//     ]
-//   },
-//   options: { responsive: true, maintainAspectRatio: false }
-// });
-
-
-const graficoBarraLinha = new Chart(ctx, {
+  new Chart(document.getElementById("cpuChart"), {
+    type: "line",
     data: {
-        datasets: [{
-            type: 'bar',
-            label: 'Alertas',
-            data: [0, 2, 4, 6, 8, 10, 12, 14],
-        }, {
-            type: 'line',
-            label: 'CPU',
-            data: [0, 1, 2, 3, 4, 5, 6, 7],
-        }, {
-            type: 'line',
-            label: 'RAM',
-            data: [0,2, 5, 4, 7, 3, 2, 4],
-        },{
-            type: 'line',
-            label: 'Processos',
-            data: [0, 1, 2, 1, 3, 4, 1, 2],
+      labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
+      datasets: [
+        {
+          label: "Sistema",
+          data: [10, 22, 28, 33, 40],
+          borderColor: "#9a7bff",
+          pointBackgroundColor: "#9a7bff",
+          tension: 0.3,
+          borderWidth: 2,
+          fill: false
+        },
+        {
+          label: "Usuário",
+          data: [8, 17, 26, 29, 36],
+          borderColor: "#55c0ff",
+          pointBackgroundColor: "#55c0ff",
+          tension: 0.3,
+          borderWidth: 2,
+          fill: false
         }
-      
-      ],
-        labels: ['0', '2', '4', '6', '8', '10', '12', '14']
+      ]
     },
-    options: options
-});
- 
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'bottom',
+          align: 'center',
+          labels: {
+            color: "#fff",
+            boxWidth: 10,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: "#bbb" },
+          grid: { display: false }
+        },
+        y: {
+          ticks: { color: "#bbb" },
+          grid: { color: "rgba(255,255,255,0.08)" },
+      
+          min: 0,
+          max: 100, 
+        }
+      }
+    }
+  });
+
+
+  // ======== Desempenho x Tempo de Espera ========
+
+  new Chart(document.getElementById("desempenhoChart"), {
+    type: "line",
+    data: {
+      labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
+      datasets: [
+        {
+          label: "Desempenho",
+          data: [12, 15, 38, 30, 50],
+          borderColor: "#55c0ff",
+          pointBackgroundColor: "#55c0ff",
+          tension: 0.3,
+          borderWidth: 3,
+          fill: false
+        },
+        {
+          label: "Tempo de Espera",
+          data: [6, 9, 16, 12, 33],
+          borderColor: "#9a7bff",
+          pointBackgroundColor: "#9a7bff",
+          tension: 0.3,
+          borderWidth: 3,
+          fill: false
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          labels: {
+            color: "#fff",
+            usePointStyle: true,
+            boxWidth: 10
+          }
+        }
+      },
+      scales: {
+        x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
+        y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
+      }
+    }
+  });
+
+
+  // ======== Swap ========
+
+  new Chart(document.getElementById("swapChart"), {
+    type: "line",
+    data: {
+      labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
+      datasets: [{
+        label: "Swap",
+        data: [18, 26, 22, 35, 37],
+        borderColor: "#55c0ff",
+        pointBackgroundColor: "#55c0ff",
+        borderWidth: 3,
+        tension: 0.3,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
+        y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
+      }
+    }
+  });
+
+
+  // ======== RAM (Doughnut) ========
+
+  new Chart(document.getElementById("ramChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["Disponível", "Utilizada"],
+      datasets: [{
+        data: [12.5, 87.5],
+        backgroundColor: ["#55c0ff", "#9a7bff"],
+        borderWidth: 5,
+        borderColor: "#151025"
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      cutout: "70%",
+      plugins: { legend: { display: false } }
+    }
+  });
+
+
+  // ======== Tendência e Correlação de Alertas ========
+  // HISTOGRAMA + LINHA (igual protótipo)
+
+  new Chart(document.getElementById("alertasChart"), {
+    type: "bar",
+    data: {
+      labels: ["0", "2", "4", "6", "8", "10", "12", "14"],
+      datasets: [
+        {
+          type: "bar",
+          label: "Alertas",
+          data: [2, 3, 5, 6, 4, 3, 4, 2],
+          backgroundColor: "rgba(85,192,255,0.7)",
+          borderColor: "#55c0ff",
+          borderWidth: 1
+        },
+        {
+          type: "line",
+          label: "Tendência",
+          data: [1, 3, 4, 5, 3, 4, 4.5, 6],
+          borderColor: "#9a7bff",
+          pointBackgroundColor: "#9a7bff",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          labels: { color: "#fff" }
+        }
+      },
+      scales: {
+        x: { ticks: { color: "#ccc" }, grid: { display: false } },
+        y: { ticks: { color: "#ccc" }, grid: { color: "rgba(255,255,255,0.08)" } }
+      }
+    }
+  });
 
 
 </script>
