@@ -94,9 +94,9 @@
         <div class="direita_pai">
 
         <div class="direita1">
-            <p class="titulo_direita1">Servidores com alertas previstos em 6 horas</p>    
+            <p class="titulo_direita1">Servidores com Risco de Alerta nas próximas 3 horas</p>    
 
-            <table class="lista_sv">
+            <table class="lista_sv" id="tabela">
                 <tr>
                     
                 </tr>
@@ -117,7 +117,7 @@
 
 
         <div class="direita2"> 
-            <p class="titulo_direita1">Alertas previstos por componente em 6 horas</p>                
+            <p class="titulo_direita1">Alertas previstos por componente em 3 horas</p>                
             
             <canvas id="graf_pizza"></canvas>
         </div>
@@ -569,6 +569,9 @@ function montar() {
 
 var CpuServidores = {}
 var RamServidores = {}
+var horarioServidores = {}
+var terAlertaLevesServidores = {}
+var terAlertaGravesServidores = {}
 
     mandarBuscar ()
 
@@ -583,28 +586,6 @@ var RamServidores = {}
             let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
             await buscarDados(URL_API, macServidor[i],"CpuServidores","RamServidores", "cpu_porcentagem","ram_porcentagem")
             // Adiona os valores de CPU e RAM nos objetos criados acima de todos os servidores cadastrados, do dia de hoje
-        }
-
-
-
-        // IMPORTANTE --- essa função tem que ser executada dentro da ultima buscarDados, ela vai prever os alertas
-
-        for (let j = 0; j < macServidor.length; j++){
-        
-            
-            var somaX = 0, somaY = 0, somaXY = 0, somaX2 = 0;
-            
-            for(let i = 0; i < x.length; i++) {
-                somaX += CpuServidores.macServidor[i];
-                somaY += ymacServidor[i];
-                somaXY += xmacServidor[i] * ymacServidor[i];
-                somaX2 += xmacServidor[i] * xmacServidor[i];
-            }
-            
-            let b = (x.length * somaXY - somaX * somaY) / (x.length * somaX2 - (somaX * somaX));
-            let a = (somaY - b * somaX) / x.length;
-            
-            
         }
 
 
@@ -654,10 +635,19 @@ var RamServidores = {}
 
             // extrai os valores para os eixos
 
-            obj1.mac = data.map(d => Number(d[valor1])); 
-            obj2.mac = data.map(d => Number(d[valor2]) || 0);
+            obj1[mac] = data.map(d => Number(d[valor1]));
+            obj2[mac] = data.map(d => Number(d[valor2]) || 0);
+            horarioServidores[mac] = data.map(d => Number(d[timestamp]));
 
-            console.log(labels + valores)
+
+
+            // Se for a ultima chamada dessa função, ela faz o codigo abaixo, que gera o predict de alerta pra cada servidor
+            
+            if (mac == macServidor[macServidor.length -1]){
+                
+                fazerPredict()
+
+            }
         }
                  catch (error) {
             // Captura e exibe erros
@@ -668,6 +658,193 @@ var RamServidores = {}
         
     }
 
+
+    function fazerPredict() {
+
+    const agora = Date.now();
+    const referencia = 10800000; // 3 horas em ms
+
+    // Pra cada servidor capturado vai rodar esse for
+    for (let j = 0; j < macServidor.length; j++) {
+
+        const mac = macServidor[j]; // servidor atual
+        const dadosCPU = CpuServidores[mac];
+        const horarios = horarioServidores[mac];
+
+        // Filtrar pra pegar só as ultimas 3hrs pra ser mais preciso no predict
+        var cpu3h = [];
+        var horarios3h = [];
+
+        for (let i = 0; i < horarios.length; i++) {
+            if ((agora - horarios[i]) <= referencia) {
+                cpu3h.push(dadosCPU[i]);
+                horarios3h.push(horarios[i]);
+            }
+        }
+
+        const n = cpu3h.length;
+
+        // Criar o vetor X [0,1,2,3] já que o gap de tempo tem que ser o mesmo sempre
+        var x = [];
+        for (var i = 0; i < n; i++) {
+            x.push(i);
+        }
+
+        
+        var y = cpu3h; // dados das ultimas 3hrs
+
+        // Somatórias
+        var somaX = 0;
+        var somaY = 0;
+        var somaXY = 0;
+        var somaX2 = 0;
+
+        for (let i = 0; i < n; i++) {
+            somaX += x[i];
+            somaY += y[i];
+            somaXY += x[i] * y[i];
+            somaX2 += x[i] * x[i];
+        }
+
+        // Coeficientes da regressão linear (a + b*x)
+        var b = (n * somaXY - somaX * somaY) / (n * somaX2 - somaX * somaX);
+        var a = (somaY - b * somaX) / n;
+
+        // Logica da previsão da bagaceira:
+
+        // var proximoX = n; // próximo índice
+        // var previsao = a + b * proximoX; // formula para prever os proximos valores
+
+        if (b > 0){
+                    var horarioAlertaLeve = (alertaLevevar - a) / b
+
+                    var horarioAlertaGrave = (alertaGravevar - a) / b
+
+            // Isso me dá daqui a quantas medidas vai ter o alerta
+        }
+
+
+        if(horarioAlertaLeve < n){
+            terAlertaLevesServidores[mac]=horarioAlertaLeve
+        }
+        
+        if(horarioAlertaGrave < n){
+            terAlertaGravesServidores[mac]=horarioAlertaGrave
+        }
+    }
+
+}
+
+
+
+
+function listarServidores() {
+
+    var tabela = document.getElementById("tabela");
+
+    var linhas = ""
+
+    var listaRanking = []
+
+    for (var i = 0; i < macServidor.length; i++) {
+        var mac = macServidor[i];
+
+        // Cria um objeto para cada servidor e salva em listaRaking
+        var obj = {
+            mac: mac,
+            nome: nomesServidores[mac], // se tiver isso
+            leve: terAlertaLevesServidores[mac] != undefined ? terAlertaLevesServidores[mac] : null,
+            grave: terAlertaGravesServidores[mac] != undefined ? terAlertaGravesServidores[mac] : null
+        };
+
+        listaRanking.push(obj);
+
+    }
+
+    //  Ordenar por quem vai ter o alerta primeiro
+    // Selection short
+
+        for (var i = 0; i < listaRanking.length - 1; i++) {
+
+        var indiceMenor = i
+
+        for (var j = i + 1; j < listaRanking.length; j++) {
+
+            // ---- valor do j ----
+            var tempoA
+
+            if (listaRanking[j].grave !== null && listaRanking[j].grave !== undefined) {
+                tempoA = listaRanking[j].grave;
+            } else if (listaRanking[j].leve !== null && listaRanking[j].leve !== undefined) {
+                tempoA = listaRanking[j].leve;
+            } else {
+                tempoA = Infinity;
+            }
+
+            // ---- valor do índiceMenor ----
+            var tempoB;
+
+            if (listaRanking[indiceMenor].grave !== null && listaRanking[indiceMenor].grave !== undefined) {
+                tempoB = listaRanking[indiceMenor].grave;
+            } else if (listaRanking[indiceMenor].leve !== null && listaRanking[indiceMenor].leve !== undefined) {
+                tempoB = listaRanking[indiceMenor].leve;
+            } else {
+                tempoB = Infinity;
+            }
+
+            // compara os tempos de execução
+            if (tempoA < tempoB) {
+                indiceMenor = j;
+            }
+        }
+
+        // Troca
+        if (indiceMenor != i) {
+            var aux = listaRanking[i];
+            listaRanking[i] = listaRanking[indiceMenor];
+            listaRanking[indiceMenor] = aux;
+        }
+    }
+
+    // -----------------------------------------------------------------
+    // Monta as linhas da tabela em si
+    // ----------------------------- ----------------------------------
+    for (var i = 0; i < listaRanking.length; i++) {
+
+        var sv = listaRanking[i];
+        var cor = "green"
+        var tempo = "-"
+
+        if (sv.grave !== null) {
+            cor = "red"
+            tempo = sv.grave.toFixed(2)
+        }
+        else if (sv.leve !== null) {
+            cor = "orange"
+            tempo = sv.leve.toFixed(2)
+        }
+
+        linhas += 
+            "<tr>" +
+                '<td><img src="../../assets/imgs/bandeira_brasil.png" width="50%"></td>' +
+                "<td>" + sv.nome + "</td>" +
+                '<td style="color:' + cor + '; font-weight:bold;">' + tempo + "</td>" +
+            "</tr>"
+    }
+
+    // Preencher tabela
+    tabela.innerHTML =
+        "<tr>" +
+            "<th>Pais</th>" +
+            "<th>Servidor</th>" +
+            "<th>Previsão</th>" +
+        "</tr>" +
+        linhas
+}
+
+
 </script>
 
 </html>
+
+
