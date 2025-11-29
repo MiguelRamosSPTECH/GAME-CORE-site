@@ -13,6 +13,11 @@ router.get('/ver/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/dashboard', 'latencia.html'));
 });
 
+router.get('/ver/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'saude_servidor_manu.html'));
+});
+
+
 //router.get('/ver/*', (req, res) => {
 //  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'dashboard_joao.html'));
 //});
