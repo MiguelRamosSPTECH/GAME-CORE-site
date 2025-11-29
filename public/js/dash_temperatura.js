@@ -1,3 +1,8 @@
+let limiteUso1;
+let limiteUso2;
+const limiteTemp1 = 80
+const limiteTemp2 = 90
+
 function buscarParametrosDashTemp() {
     var idEmpresa = sessionStorage.ID_EMPRESA;
     fetch(`/dashTemperatura/buscarParametros/${idEmpresa}`, {
@@ -20,6 +25,8 @@ function buscarParametrosDashTemp() {
                         // console.log(config.alertaGrave)
                         document.getElementById('uso-a1').innerHTML = Number(config.alertaLeve).toFixed(0);
                         document.getElementById('uso-a2').innerHTML = Number(config.alertaGrave).toFixed(0);
+                        limiteUso1 = Number(config.alertaLeve);
+                        limiteUso2 = Number(config.alertaGrave);
                     }
 
                     if (config.nomeComponente == 'CPU_FREQ') {
@@ -27,8 +34,6 @@ function buscarParametrosDashTemp() {
                         // console.log(config.alertaLeve)
                         // console.log(config.alertaGrave)
                         // console.log(typeof config.alertaGrave)
-                        document.getElementById('temp-a1').innerHTML = Number(config.alertaLeve).toFixed(0);
-                        document.getElementById('temp-a2').innerHTML = Number(config.alertaGrave).toFixed(0);
                     }
 
                 });
@@ -41,76 +46,6 @@ function buscarParametrosDashTemp() {
 }
 
 
-//grafico 1 ---------------------------------------------
-const ctxTemp = document.getElementById('myChartTemp');
-const labelsTemp = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'];
-const dataTemp = {
-    labels: labelsTemp,
-    datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgba(38, 173, 173, 1)',
-        tension: 0.1
-    }]
-};
-const configTemp = {
-    type: 'line',
-    data: dataTemp,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Temperatura'
-            }
-        },
-        backgroundColor: 'rgba(38, 173, 173, 0.4)'
-    },
-};
-
-new Chart(ctxTemp, configTemp);
-//grafico 1 ---------------------------------------------
-
-
-//grafico 2 ---------------------------------------------
-const ctxUso = document.getElementById('myChartUso');
-const labelsUso = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul'];
-const dataUso = {
-    labels: labelsUso,
-    datasets: [{
-        label: 'My First Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        fill: false,
-        borderColor: 'rgba(169, 63, 218, 1)',
-        tension: 0.1
-    }]
-};
-const configUso = {
-    type: 'line',
-    data: dataUso,
-    options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Uso'
-            }
-        },
-        backgroundColor: 'rgba(169, 63, 218, 0.4)'
-    },
-};
-
-new Chart(ctxUso, configUso);
-//grafico 2 ---------------------------------------------
 
 // S3 ---------------------------------------------
 async function buscarArquivoPedroProc() {
@@ -140,7 +75,7 @@ async function buscarArquivoPedroProc() {
 }
 
 async function buscarArquivoPedroMed() {
-    const resposta = await fetch(`/dashTemperatura/dados_pedro/dados_capturados.json`, {
+    const resposta = await fetch(`/dashTemperatura/dados_pedro/medicoes.json`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -151,9 +86,12 @@ async function buscarArquivoPedroMed() {
             if (resposta.ok) {
 
                 // console.log(resposta);
-                // console.log(medicoes);
+                console.log(medicoes);
 
                 // atualizarKpis(medicoes);
+                Chart.defaults.color = '#ddddddff';
+                plotarTemperatura(medicoes);
+                plotarUsoCPU(medicoes);
 
                 // return medicoes;
             }
@@ -247,13 +185,10 @@ function atualizarKpis(allMedicoes) {
     valorKpiTemp.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
     simboloPorcent.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
 
-    const limiteTempA1 = parseFloat(document.getElementById('temp-a1').textContent);
-    const limiteTempA2 = parseFloat(document.getElementById('temp-a2').textContent);
-
-    if (tempAtualMedicao <= limiteTempA1) {
+    if (tempAtualMedicao <= limiteTemp1) {
         valorKpiTemp.classList.add('cor1');
         simboloPorcent.classList.add('cor1');
-    } else if (tempAtualMedicao <= limiteTempA2) {
+    } else if (tempAtualMedicao <= limiteTemp2) {
         valorKpiTemp.classList.add('cor3');
         simboloPorcent.classList.add('cor3');
     } else {
@@ -263,10 +198,10 @@ function atualizarKpis(allMedicoes) {
 
 
     // -----------------------------
-    const tempoAcimaLimite = calcularTempoAcimaLimite(medicoesFiltradas, limiteTempA1);
+    const tempoAcimaLimite = calcularTempoAcimaLimite(medicoesFiltradas, limiteTemp1);
     // console.log(tempoAcimaLimite);
 
-    document.getElementById('limite-temp-crit').innerHTML = limiteTempA1;
+    document.getElementById('limite-temp-crit').innerHTML = limiteTemp1;
     document.getElementById('tempo-acima-limite').innerHTML = tempoAcimaLimite + ' min';
 
     const tempoAcumulado = document.getElementById('tempo-acima-limite');
@@ -314,3 +249,229 @@ function calcularTempoAcimaLimite(medicoesFiltradas, limiteTemperatura) {
     return Math.round(tempoAcumulado / 60);
 }
 
+
+
+
+
+function plotarUsoCPU(allMedicoes) {
+
+    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date("2025-11-15T21:33:30"); // data fixa para teste
+
+
+    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+
+
+    const medicoesFiltradas = allMedicoes.filter(m => {
+        return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
+    })
+    // console.log(allMedicoes);
+    // console.log(medicoesFiltradas);
+    // console.log(medicoesFiltradas.map(m => m['timestamp']));
+    // console.log(medicoesFiltradas.map(m => m.timestamp.substring(11, 16)));
+
+
+
+
+
+    const graphUso = document.getElementById('myChartUso');
+
+    const labelsUso = medicoesFiltradas.map(m => m.timestamp.substring(11, 16));
+    const dataMedicoes = medicoesFiltradas.map(m => m.cpu_porcentagem);
+    // console.log(dataMedicoes);
+
+    const dataUso = {
+        labels: labelsUso,
+        datasets: [{
+            label: 'CPU (%)',
+            data: dataMedicoes,
+            fill: false,
+            borderColor: 'rgba(169, 63, 218, 1)',
+            borderWidth: 1.8,
+            tension: 0.1,
+            pointRadius: 1.5,
+            pointHoverRadius: 3
+        },
+        {
+            label: 'Moderado',
+            data: linhaHorizontal(limiteUso1, labelsUso.length),
+            borderColor: 'rgba(163, 119, 54, 1)',
+            borderWidth: 1.6,
+            borderDash: [10, 8],
+            pointRadius: 0,
+        },
+        {
+            label: 'Grave',
+            data: linhaHorizontal(limiteUso2, labelsUso.length),
+            borderColor: 'rgba(161, 50, 50, 1)',
+            borderWidth: 1.6,
+            borderDash: [10, 8],
+            pointRadius: 0,
+        }
+        ]
+    };
+
+    const configUso = {
+        type: 'line',
+        data: dataUso,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Uso de CPU (%)'
+                }
+            },
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            scales: {
+                x: {
+                    ticks: {
+                        callback: function (value, index, ticks) {
+                            return index % 5 === 0 ? this.getLabelForValue(value) : '';
+                        }
+                    },
+                    border: {
+                        display: true,
+                        color: 'rgba(134, 134, 134, 1)',
+                        width: 1
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(139, 139, 139, 0.27)'
+                    }
+                },
+                y: {
+                    border: {
+                        display: true,
+                        color: 'rgba(134, 134, 134, 1)',
+                        width: 1
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(139, 139, 139, 0.27)'
+                    }
+                }
+            }
+        },
+    };
+
+    new Chart(graphUso, configUso);
+}
+
+
+
+function plotarTemperatura(allMedicoes) {
+
+    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date("2025-11-15T21:33:30"); // data fixa para teste
+
+
+    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+
+
+    const medicoesFiltradas = allMedicoes.filter(m => {
+        return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
+    })
+    // console.log(allMedicoes);
+    // console.log(medicoesFiltradas);
+    // console.log(medicoesFiltradas.map(m => m['timestamp']));
+    // console.log(medicoesFiltradas.map(m => m.timestamp.substring(11, 16)));
+
+
+
+    const graphTemp = document.getElementById('myChartTemp');
+
+    const labelsTemp = medicoesFiltradas.map(m => m.timestamp.substring(11, 16));
+    const dataMedicoes = medicoesFiltradas.map(m => m.temperatura_cpu);
+    // console.log(dataMedicoes);
+
+    const dataTemp = {
+        labels: labelsTemp,
+        datasets: [{
+            label: 'CPU (°C)',
+            data: dataMedicoes,
+            fill: false,
+            borderColor: 'rgba(169, 63, 218, 1)',
+            borderWidth: 1.8,
+            tension: 0.1,
+            pointRadius: 1.5,
+            pointHoverRadius: 3
+        },
+        {
+            label: `Moderado`,
+            data: linhaHorizontal(limiteTemp1, labelsTemp.length),
+            borderColor: 'rgba(163, 119, 54, 1)',
+            borderWidth: 1.6,
+            borderDash: [10, 8],
+            pointRadius: 0,
+        },
+        {
+            label: 'Grave',
+            data: linhaHorizontal(limiteTemp2, labelsTemp.length),
+            borderColor: 'rgba(161, 50, 50, 1)',
+            borderWidth: 1.6,
+            borderDash: [10, 8],
+            pointRadius: 0,
+        }
+        ]
+    };
+
+    const configTemp = {
+        type: 'line',
+        data: dataTemp,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Temperatura de CPU (°C)'
+                }
+            },
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            scales: {
+                x: {
+                    ticks: {
+                        callback: function (value, index, ticks) {
+                            return index % 5 === 0 ? this.getLabelForValue(value) : '';
+                        }
+                    },
+                    border: {
+                        display: true,
+                        color: 'rgba(134, 134, 134, 1)',
+                        width: 1
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(139, 139, 139, 0.27)'
+                    }
+                },
+                y: {
+                    border: {
+                        display: true,
+                        color: 'rgba(134, 134, 134, 1)',
+                        width: 1
+                    },
+                    grid: {
+                        display: true,
+                        color: 'rgba(139, 139, 139, 0.27)'
+                    }
+                }
+            }
+        },
+    };
+
+    new Chart(graphTemp, configTemp);
+}
+
+
+function linhaHorizontal(valor, quantidade) {
+    return Array(quantidade).fill(valor);
+}
