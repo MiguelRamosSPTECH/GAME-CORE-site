@@ -225,6 +225,12 @@
             const picoMaxRamKPI = Number(data[CHAVE_PICO_MAX_RAM_KPI]) || 0;
             const picoMaxProcessosKPI = Number(data[CHAVE_PICO_MAX_PROCESSOS_KPI]) || 0;
 
+
+            //consts novas pra poder colocar a bolinha do grafico so quando atingir o maximo
+            const maxCpu = Math.max(...valoresPicoCpuMes);
+            const maxRam = Math.max(...valoresPicoRamMes);
+            const maxProcessos = Math.max(...valoresPicoProcessosMes);
+
             
           
             if (document.getElementById('totalProcessosExec')) document.getElementById('totalProcessosExec').innerText = totalProcessos;
@@ -300,8 +306,8 @@
                         {
                             label: "Desempenho",
                             data: valoresDesempenho,
-                            borderColor: "#55c0ff",
-                            pointBackgroundColor: "#55c0ff",
+                            borderColor: "#ffea00",
+                            pointBackgroundColor: "#ffea00",
                             tension: 0.3,
                             borderWidth: 3,
                             fill: false
@@ -309,8 +315,8 @@
                         {
                             label: "Tempo de Espera",
                             data: valoresEspera,
-                            borderColor: "#9a7bff",
-                            pointBackgroundColor: "#9a7bff",
+                            borderColor: "#00ffdb",
+                            pointBackgroundColor: "#00ffdb",
                             tension: 0.3,
                             borderWidth: 3,
                             fill: false
@@ -346,8 +352,8 @@
                     datasets: [{
                         label: "Swap",
                         data: valoresSwap,
-                        borderColor: "#55c0ff",
-                        pointBackgroundColor: "#55c0ff",
+                        borderColor: "#ff8a00",
+                        pointBackgroundColor: "#ff8a00",
                         borderWidth: 3,
                         tension: 0.3,
                         fill: false
@@ -372,8 +378,8 @@
                     labels: ["Disponível", "Utilizada"],
                     datasets: [{
                         data: valoresRam,
-                        backgroundColor: ["#55c0ff", "#9a7bff"],
-                        borderWidth: 5,
+                        backgroundColor: ["#55c0ff", "#9a7bff"],    
+                        borderWidth: 1,
                         borderColor: "#151025"
                     }]
                 },
@@ -393,26 +399,59 @@
                     labels: labelsMensais, 
                     datasets: [
                         {
-                            type: "bar",
-                            label: "Alertas Mensais",
-                            data: valoresAlertasMes, 
-                            backgroundColor: "rgba(85,192,255,0.7)",
-                            borderColor: "#55c0ff",
-                            borderWidth: 1,
-                            yAxisID: 'yAlertas' 
-                        },
-                        {
                             type: "line",
-                            label: "Pico Máx. CPU (%)",
+                            label: "Pico Máx. CPU ",
                             data: valoresPicoCpuMes, 
-                            borderColor: "#9a7bff",
-                            pointBackgroundColor: "#9a7bff",
+                            borderColor: "#e24747",
+                            pointBackgroundColor: "#e24747",
                             borderWidth: 2,
                             fill: false,
                             tension: 0.3,
-                            yAxisID: 'yCpu' 
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxCpu ? 2 : 0; 
+                            }, 
                         },
-                        
+                        {
+                            type: "line",
+                            label: "Pico Máx. RAM",
+                            data: valoresPicoRamMes, 
+                            borderColor: "#4777e2",
+                            pointBackgroundColor: "#4777e2",
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxRam ? 2 : 0
+                            }, 
+                        },
+                        {
+                            type: "line",
+                            label: "Pico Máx. Processos",
+                            data: valoresPicoProcessosMes, 
+                            borderColor: "#fb00ff",
+                            pointBackgroundColor: "#fb00ff",
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxProcessos ? 2 : 0; 
+                            }, 
+                        },
+                        {
+                            type: "bar",
+                            label: "Alertas Mensais",
+                            data: valoresAlertasMes, 
+                            backgroundColor: "#f7fb78",
+                            borderColor: "#f7fb78",
+                            borderWidth: 1,
+                            yAxisID: 'yAlertas' 
+                        }
                     ]
                 },
                 options: {
@@ -438,7 +477,7 @@
                             grid: { drawOnChartArea: false }, 
                             title: { display: true, text: 'Pico CPU (%)', color: '#fff' },
                             min: 0,
-                            max: 100
+                            max: 300
                         }
                     }
                 }
