@@ -158,6 +158,16 @@ function getDataLayoutsServidor(req,res) {
     })
 }
 
+function getByApelido(req,res) {
+    const apelido = req.params.apelido;
+    cadastroServidorModel.getByApelido(apelido)
+    .then(resposta => {
+        if(resposta.length > 0) {
+            res.status(200).json(resposta)
+        }
+    })
+}
+
 module.exports = {
     cadastrarServidor,
     exibeLayout,
@@ -166,5 +176,6 @@ module.exports = {
     allServidores,
     deletarServidor,
     allRegioes,
-    getDataLayoutsServidor
+    getDataLayoutsServidor,
+    getByApelido
 };
