@@ -1,7 +1,31 @@
 
+function loadAll() {
+    validarSessao()
+    listarChamados() 
+}
+
+
+function getIdByApelido(nomeServidorMonitorando) {
+    console.log("NOME SERVIDOR MONITORANDO: ",nomeServidorMonitorando)
+    fetch(`/servidores/getByApelido/${nomeServidorMonitorando}`, {
+        method: "GET"
+    })
+    .then(async resposta => {
+        const retorno = await resposta.json()
+        sessionStorage.ID_SERVIDOR_MONITORANDO = retorno[0].id;
+        console.log("retorno do servidor a ser monitorado: ", retorno)
+        
+        getDadosByBucketClient(retorno[0].macadress)
+
+
+        verificaLayoutServidor()
+    })
+}
+
+
+
 function verificaLayoutServidor() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idServidor = urlParams.get('idServidor');
+    const idServidor = sessionStorage.ID_SERVIDOR_MONITORANDO;
     let areaCardsComponentes = document.getElementsByClassName("opcoes-metricas")
 
     fetch(`/servidores/dataLayoutsServidor/${idServidor}`, {
@@ -22,8 +46,11 @@ function verificaLayoutServidor() {
                         let layoutData = await response.json();
                         select_configurations.innerText = `${layoutData[0].nomeLayout}`;
                         configs_layout = layoutData;
+
+                        //carregando kpis 
+                        carregaKpis(layoutData)
                     } else {
-                        throw new Error("Erro ao buscar configuração do layout.");
+                        throw new Error("Erro ao buscar configuração do layout");
                     }
                 })
                 .catch(error => {
@@ -57,7 +84,7 @@ function verificaLayoutServidor() {
 
                 }
 
-            }   
+            }  
 
         } else {
             console.error("Nenhum dado de layout encontrado para o servidor especificado.");
@@ -68,3 +95,44 @@ function verificaLayoutServidor() {
     });
    
 }   
+
+function carregaKpis(dados_config) {
+    let areaKpis = document.getElementById('area_kpis_servidor');
+    
+    dados_config.forEach(linhaConfig => {
+        areaKpis.innerHTML+=`
+                                <div class="kpi">
+                                    <div class="title-kpi">${linhaConfig.nomeComponente.replaceAll("_"," ")}</div>
+                                    <div class="dados-kpi">
+                                        <div class="dado-porcentagem">
+                                            68%</div>
+                                    </div>
+                                    <div class="progresso-kpi">
+                                        <div class="barra-fundo">
+                                            <div class="progresso-barra">
+                                                <div class="bar-moderated"></div>
+                                                <div class="bar-alert"></div>
+                                            </div>
+                                        </div>
+                                        <label>
+                                            <span><span style="color: #ac9305;font-weight: 900;">|</span> Leve -<span class="moderado-legend lgnd"> ${linhaConfig.alertaLeve}${linhaConfig.unidadeMedida}</span></span>
+                                            <span><span style="color: #ac0509;font-weight: 900;">|</span> Grave -<span class="grave-legend lgnd"> ${linhaConfig.alertaGrave}${linhaConfig.unidadeMedida}</span></span>
+                                        </label>
+                                    </div>
+                                </div>        
+        `
+    });
+
+}
+
+
+function allServidores() {
+    let idEmpresa = sessionStorage.ID_EMPRESA;
+    fetch(`/servidores/allServidores/${idEmpresa}`, {
+        method:"GET"
+    })
+    .then(async resposta => {
+        const dados = await resposta.json();
+        console.log("DADOS:", dados)
+    })
+}

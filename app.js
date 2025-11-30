@@ -14,7 +14,7 @@ var PORTA_APP = process.env.APP_PORT;
 var HOST_APP = process.env.APP_HOST;
 
 var app = express();
-
+var jiraRouter = require("./src/routes/jira");
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var cadastroEmpresaRouter = require("./src/routes/cadastroEmpresa");
@@ -42,6 +42,7 @@ app.use("/empresas", cadastroEmpresaRouter);
 app.use("/cargos", cargosRouter);
 app.use("/cadastroEmpresa", cadastroEmpresaRouter);
 app.use("/servidores", cadastrarServidor);
+app.use("/jiraIntegration", jiraRouter);
 //app.use("/aceitarEmpresas", aceitarEmpresasRouter);
 app.use("/config", config);
 app.use("/configuracaoGlobal", configGlobal);

@@ -25,7 +25,7 @@ router.get('/ver/*', (req, res) => {
 // Precisa do * pra interpretar a /
 router.get('/arquivo/*', (req, res) => {
 // Oq vem dps do * vai pra dentro do req em um vetor, ent passa aqui
-
+  
   req.params.arquivo = req.params[0];
   s3Controller.lerArquivoCaminhoCompleto(req, res);
 });

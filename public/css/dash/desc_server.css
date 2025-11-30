@@ -280,7 +280,6 @@ html, * {
 .progresso-barra {
     display: flex;
     flex-direction: row;
-    width: 70%;
     height: 100%;
     background-color: #5896bb;
     border-radius: 15px;
@@ -307,7 +306,7 @@ html, * {
     background-color: #fad73e;
     color: transparent;
     position: relative;
-    left: 85%;
+    left: 0%;
 }
 .bar-alert {
     height: 100%;
@@ -315,7 +314,7 @@ html, * {
     background-color: #ac0509;
     color: transparent;
     position: relative;
-    left: 100%;
+    left: 0%;
 }
 
 
