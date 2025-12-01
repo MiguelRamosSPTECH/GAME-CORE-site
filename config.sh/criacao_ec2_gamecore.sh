@@ -1,5 +1,5 @@
 #!/bin/bash
-nome_chave_pem=chaveaws
+nome_chave_pem="chaveaws"
 
 #------------DROPANDO INSTÂNCIA CASO EXISTA-------------#
 id_instancia=$(aws ec2 describe-instances \
