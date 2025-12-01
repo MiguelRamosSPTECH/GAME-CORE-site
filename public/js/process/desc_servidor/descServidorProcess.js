@@ -16,8 +16,8 @@ function getIdByApelido(nomeServidorMonitorando) {
         console.log("retorno do servidor a ser monitorado: ", retorno)
         
         getDadosByBucketClient(retorno[0].macadress)
-
-
+        getDadosByBucketClientContainer(retorno[0].macadress)
+        getDadosByBucketClientProcess(retorno[0].macadress)
         verificaLayoutServidor()
     })
 }
@@ -100,19 +100,22 @@ function carregaKpis(dados_config) {
     let areaKpis = document.getElementById('area_kpis_servidor');
     
     dados_config.forEach(linhaConfig => {
+        let leve = Number(linhaConfig.alertaLeve)
+        let grave = Number(linhaConfig.alertaGrave)
+        let diff = grave - leve;
         areaKpis.innerHTML+=`
                                 <div class="kpi">
                                     <div class="title-kpi">${linhaConfig.nomeComponente.replaceAll("_"," ")}</div>
                                     <div class="dados-kpi">
                                         <div class="dado-porcentagem">
-                                            68%</div>
+                                            </div>
                                     </div>
                                     <div class="progresso-kpi">
                                         <div class="barra-fundo">
                                             <div class="progresso-barra">
-                                                <div class="bar-moderated"></div>
-                                                <div class="bar-alert"></div>
                                             </div>
+                                                <div style="left:${leve}%" class="bar-moderated"></div>
+                                                <div style="left:${grave}%" class="bar-alert"></div>
                                         </div>
                                         <label>
                                             <span><span style="color: #ac9305;font-weight: 900;">|</span> Leve -<span class="moderado-legend lgnd"> ${linhaConfig.alertaLeve}${linhaConfig.unidadeMedida}</span></span>
