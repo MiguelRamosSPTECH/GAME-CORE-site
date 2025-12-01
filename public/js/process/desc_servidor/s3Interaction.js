@@ -1,9 +1,10 @@
 let diaDeHoje = new Date()
 let mes = diaDeHoje.getMonth() + 1;
-let dia = diaDeHoje.getDate();
+let dia = diaDeHoje.getDate() < 10 ? `${0}${diaDeHoje.getDate()}` : diaDeHoje.getDate();
 let ano = diaDeHoje.getFullYear();
 let timestamp = `${ano}-${mes}-${dia}`;
 let nomeServidorMockado = "00-D7-6D-98-56-34";
+
 
 async function getDadosByBucketClient(apelidoServidor) {
 
@@ -80,14 +81,20 @@ async function getDadosByBucketClientContainer(apelidoServidor) {
         } else if(Number(throttled_data) >= 2) {
             dadoKpiThrottled.style.color = "#fad73e"
         }
+        console.log(dadosContainersMaisRecente[0])
+        //area para atualizar o gráfico:
+        let dadosRam = [dadosContainersMaisRecente[0].ram_container,dadosContainersMaisRecente[1].ram_container,dadosContainersMaisRecente[2].ram_container]
+        let dadosCpu = [dadosContainersMaisRecente[0].cpu_container,dadosContainersMaisRecente[1].cpu_container,dadosContainersMaisRecente[2].cpu_container]
+        let dadosIo = [dadosContainersMaisRecente[0].throughput_container, dadosContainersMaisRecente[1].throughput_container, dadosContainersMaisRecente[2].throughput_container]
 
         dadoKpiThrottled.innerHTML = throttled_data
         dadoKpiTick.innerText = tick_data
+        return [dadosRam, dadosCpu, dadosIo]
     })
 
-    setTimeout(() => {
-        getDadosByBucketClientContainer("nada")
-    }, 4000)
+    // setTimeout(() => {
+    //     getDadosByBucketClientContainer("nada")
+    // }, 4000)
 
 }
 
@@ -105,7 +112,6 @@ async function getDadosByBucketClientProcess(apelidoServidor) {
 
         dadosProcessos.forEach(processo => {
             let nomeProcesso = Object.keys(processo);
-            console.log(processo[nomeProcesso])
             listaProcessos.innerHTML+=`
                 <tr>
                 <td>${nomeProcesso}</td>
