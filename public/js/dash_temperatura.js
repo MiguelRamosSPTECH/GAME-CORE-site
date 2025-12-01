@@ -1,3 +1,5 @@
+const tempoIntervalo = 2 * 60 * 1000; // 2 minutos
+
 let limiteUso1 = 80;
 let limiteUso2 = 90;
 const limiteTemp1 = 80;
@@ -301,66 +303,67 @@ function resumoFinal(uso_cpu, temperatura_cpu, freqMin_cpu, freqAtual_cpu, freqM
     const isFrequenciaAlta = porcentagemFreq > 85;
 
     const resumo = document.getElementById('resumo-txt');
+    const resumoBloco = document.getElementById('resumo');
 
 
 
     // thermal throttling 
     if (isTempCritica && isFrequenciaBaixa) {
         resumo.innerHTML = "Possível limitação térmica. CPU superaquecida reduzindo a frequência.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor4');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor4');
         return;
     }
 
     // fallha de refrigeração
     if (isTempCritica && isUsoBaixo) {
         resumo.innerHTML = "Possível falha de refrigeração. Temperatura crítica com baixo uso.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor4');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor4');
         return;
     }
 
     //
     if (isTempCritica && !isFrequenciaBaixa) {
         resumo.innerHTML = "Provavelmente entrará em limitação térmica em breve. Temperatura e frequência altas.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor3');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor3');
         return;
     }
 
     //
     if (isUsoAlto && !isFrequenciaAlta && isTempNormal) {
         resumo.innerHTML = "Uso de CPU acima do limite. Frequência e temperatura controladas. Sistema operando em alto desempenho.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor2');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor2');
         return;
     }
 
     if (isTempAlta && isUsoAlto && isFrequenciaAlta) {
         resumo.innerHTML = "Estresse performático. Temperatura e uso acima dos limites. Frequência elevada.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor3');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor3');
         return;
     }
 
 
     if (isUsoAlto && isFrequenciaAlta && isTempNormal) {
         resumo.innerHTML = "Alto desempenho. Uso e frequência elevados com temperatura controlada.";
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor1');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor1');
         return;
     }
 
     if (isUsoBaixo && isTempNormal) {
         resumo.innerHTML = "Sistema ocioso e estável em economia de energia."
-        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-        resumo.classList.add('cor1');
+        resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumoBloco.classList.add('cor1');
         return;
     }
 
     resumo.innerHTML = "Operação normal do sistema. Sem anomalias detectadas.";
-    resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
-    resumo.classList.add('cor1');
+    resumoBloco.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+    resumoBloco.classList.add('cor1');
     return;
 
 }
@@ -608,3 +611,16 @@ function plotarTemperatura(allMedicoes) {
 function linhaHorizontal(valor, quantidade) {
     return Array(quantidade).fill(valor);
 }
+
+async function atualizarDashboard() {
+    buscarParametrosDashTemp();
+    // buscarArquivoPedroMed();
+    // buscarArquivoPedroProc();
+}
+
+async function iniciarDashboard() {
+    await atualizarDashboard();
+    setInterval(atualizarDashboard, tempoIntervalo);    
+}
+
+window.onload = iniciarDashboard();
