@@ -271,6 +271,7 @@ html, * {
     font-size: small;
 }
 .barra-fundo {
+    display: flex;
     align-self: start;
     background-color: whitesmoke;
     width: 90%;
@@ -283,6 +284,7 @@ html, * {
     height: 100%;
     background-color: #5896bb;
     border-radius: 15px;
+    width: 0%;
 }
 .lgnd {
     color: white!important;
@@ -304,17 +306,14 @@ html, * {
     height: 100%;
     width: 5px;
     background-color: #fad73e;
-    color: transparent;
-    position: relative;
-    left: 0%;
+    position: static; /* VER ESSA BOMBA AQ*/
 }
 .bar-alert {
     height: 100%;
     width: 5px;
     background-color: #ac0509;
     color: transparent;
-    position: relative;
-    left: 0%;
+    position: static;
 }
 
 
@@ -417,6 +416,10 @@ html, * {
     height: 60%;
     width: 98%;
     border-radius: 15px;
+    overflow-y: auto;
+}
+.area-lista-processos::-webkit-scrollbar {
+  width: 0px;
 }
 .title-lista-processos {
     display: flex;
@@ -441,9 +444,11 @@ html, * {
 .lista-processos {
     max-height: 75%;
     width: 90%;
+
 }
 table tbody tr td {
-    color: rgb(180, 179, 179)
+    color: rgb(180, 179, 179);
+    font-size: 14px;
 }
 table th,td {
     text-align: start;
@@ -451,7 +456,7 @@ table th,td {
 table th {
     color: rgb(241, 241, 241);
     font-weight: 500;
-    font-size: 14.5px;
+    font-size: 13px;
 }
 .status-process {
     text-align: center;
