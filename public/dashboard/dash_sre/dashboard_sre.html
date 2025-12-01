@@ -117,7 +117,7 @@
 
 
         <div class="direita2"> 
-            <p class="titulo_direita1">Alertas previstos por componente em 3 horas</p>                
+            <p class="titulo_direita1">Servidores em Risco de Alerta (CPU)</p>                
             
             <canvas id="graf_pizza"></canvas>
         </div>
@@ -150,15 +150,8 @@ function fechar_popup() {
 }
 
 
-
-
-
-
-
-
-
-
         // LÓGICA DE HOVER DA BARRA LATERAL
+
         const navLateral = document.querySelector('.nav-lateral');
         const conteudo = document.querySelector('.conteudo');
 
@@ -172,59 +165,7 @@ function fechar_popup() {
 
 
 
-                const ctx2 = document.getElementById('graf_pizza').getContext('2d');
-        
-
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ["CPU", "RAM"],
-                datasets: [{
-                    label: 'CPU',
-                    data: [20,30],
-                    backgroundColor: ['#6ce5e8', '#16c4d4'],
-                    borderColor: '#6ce5e8',
-                    borderWidth: 3,
-                    fill: false,
-                    tension: 0.4,
-                    pointRadius: 0,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: true },
-                    title: {
-                        display: true,
-                        color: 'white',
-                        font: {
-                            size: 20,
-                            weight: 'bold',
-                            family: 'Open Sans'
-                        },
-                        align: 'center',
-                        padding: {
-                            top: -25
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        ticks: { color: 'white' },
-                        grid: { display: false }
-                    },
-                    y: {
-                        ticks: { color: 'white' },
-                        grid: { color: 'rgba(255,255,255,0.1)' }
-                    }
-                },
-                layout: {
-                    padding: 10
-                }
-            }
-        });
-
+       
 
     </script>
 </body>
@@ -237,7 +178,7 @@ var alertaLevevar = 0
 
 
 
-// entrar()
+ entrar()
 
  function entrar() {
         
@@ -296,7 +237,7 @@ var alertaLevevar = 0
     }
 
     
-    var nomesServidores = []
+    var nomesServidores = {}
     var localizacaoServidores = []
     var macServidor = []
     var idServidor = []
@@ -331,7 +272,8 @@ var alertaLevevar = 0
                     console.log(JSON.stringify(json));
 
                         for(i = 0; i < json.length; i++){
-                            nomesServidores.push(json[i].apelido);
+                            // nomesServidores.push(json[i].apelido);
+                            nomesServidores[json[i].macadress] = json[i].apelido;
                             localizacaoServidores.push(json[i].localizacao);
                             macServidor.push(json[i].macadress);
                             idServidor.push(json[i].id);
@@ -383,12 +325,12 @@ var alertaLevevar = 0
 
 // montando o Site:
 
+var dataAtual = new Date();
+var mes = dataAtual.getMonth()
+var dia = dataAtual.getDate()
 
 function montar() {
 
-    var dataAtual = new Date();
-    var mes = dataAtual.getMonth()
-    var dia = dataAtual.getDate()
 
     var nomesMeses = [
     "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -470,6 +412,7 @@ function montar() {
         document.getElementById("box_2ram").style.borderColor  = "red";
     }
 
+     mandarBuscar ()
 }
 
 
@@ -486,7 +429,7 @@ var horarioServidores = {}
 var terAlertaLevesServidores = {}
 var terAlertaGravesServidores = {}
 
-    mandarBuscar ()
+   
 
     async function mandarBuscar (){
             
@@ -495,9 +438,9 @@ var terAlertaGravesServidores = {}
         
         for ( var i = 0; i < macServidor.length; i++){
 
-            let NOME_ARQUIVO = `${dia}/${macServidor[i]}/dados_capturados.csv`;
+            let NOME_ARQUIVO = `8/${macServidor[i]}/dados_caputrados.csv`;
             let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
-            await buscarDados(URL_API, macServidor[i],"CpuServidores","RamServidores", "cpu_porcentagem","ram_porcentagem")
+            await buscarDados(URL_API, macServidor[i], "cpu_porcentagem", "ram_porcentagem")
             // Adiona os valores de CPU e RAM nos objetos criados acima de todos os servidores cadastrados, do dia de hoje
         }
 
@@ -509,7 +452,7 @@ var terAlertaGravesServidores = {}
         
         
         
-        async function buscarDados(URL_API,mac,obj1, obj2, valor1, valor2) {
+        async function buscarDados(URL_API, mac, valor1, valor2) {
             
             
 
@@ -548,17 +491,24 @@ var terAlertaGravesServidores = {}
 
             // extrai os valores para os eixos
 
-            obj1[mac] = data.map(d => Number(d[valor1]));
-            obj2[mac] = data.map(d => Number(d[valor2]) || 0);
-            horarioServidores[mac] = data.map(d => Number(d[timestamp]));
+            if (!Array.isArray(data)) {
+            data = [data];
+             }
+
+        console.log("DATA RECEBIDO DO CSV:", data);
 
 
+        
+        CpuServidores[mac] = data.map(d => Number(d[valor1]));       // CPU
+        RamServidores[mac] = data.map(d => Number(d[valor2]) || 0);  // RAM
+        horarioServidores[mac] = data.map(d => new Date(d["timestamp"]).getTime());
 
-            // Se for a ultima chamada dessa função, ela faz o codigo abaixo, que gera o predict de alerta pra cada servidor
-            
-            if (mac == macServidor[macServidor.length -1]){
-                
-                fazerPredict()
+        console.log("CPU convertida:", CpuServidores[mac][0], typeof CpuServidores[mac][0]);
+        console.log("RAM convertida:", RamServidores[mac][0], typeof RamServidores[mac][0]);
+
+        // ultima chamada
+        if (mac == macServidor[macServidor.length -1]){
+            fazerPredict();
 
             }
         }
@@ -571,6 +521,8 @@ var terAlertaGravesServidores = {}
         
     }
 
+    var alertaLevevar = 0; 
+    var alertaGravevar = 0;
 
     function fazerPredict() {
 
@@ -595,7 +547,9 @@ var terAlertaGravesServidores = {}
             }
         }
 
-        const n = cpu3h.length;
+        var n = cpu3h.length;
+
+        var limiteMaximoPrevisao = 540;
 
         // Criar o vetor X [0,1,2,3] já que o gap de tempo tem que ser o mesmo sempre
         var x = [];
@@ -623,30 +577,81 @@ var terAlertaGravesServidores = {}
         var b = (n * somaXY - somaX * somaY) / (n * somaX2 - somaX * somaX);
         var a = (somaY - b * somaX) / n;
 
+        console.log("n" + n);
+        
+
+        console.log("a" + a);
+        console.log("b" + b);
+
+        
+
+        terAlertaLevesServidores[mac] = null;
+        terAlertaGravesServidores[mac] = null;
+
+
         // Logica da previsão da bagaceira:
 
         // var proximoX = n; // próximo índice
         // var previsao = a + b * proximoX; // formula para prever os proximos valores
 
-        if (b > 0){
                     var horarioAlertaLeve = (alertaLevevar - a) / b
 
                     var horarioAlertaGrave = (alertaGravevar - a) / b
 
+                    console.log("HORArioAlertaLeve:" + horarioAlertaLeve);
+                    
             // Isso me dá daqui a quantas medidas vai ter o alerta
-        }
 
 
-        if(horarioAlertaLeve < n){
-            terAlertaLevesServidores[mac]=horarioAlertaLeve
-        }
-        
-        if(horarioAlertaGrave < n){
-            terAlertaGravesServidores[mac]=horarioAlertaGrave
-        }
+                            const proximoPonto = n;
+                // LÓGICA DE PREVISÃO CORRIGIDA PARA RISCO CRESCENTE
+                // SÓ CALCULA SE A TENDÊNCIA FOR DE CRESCIMENTO (b > 0)
+                if (b > 0.00001) { 
+
+                    // Garante que não haja divisão por zero ou infinito
+                    if (isFinite(b)) {
+                        
+                        var horarioAlertaLeve = ((alertaLevevar - a) / b) * 1/3; // 1/3 pra virar minutos
+                        var horarioAlertaGrave = ((alertaGravevar - a) / b) * 1/3;
+
+                        // 1. Alerta Leve
+                        // Condição: Se a inclinação é positiva, basta que o alerta tenha sido alcançado
+                        // em algum momento positivo (horarioAlerta > 0).
+                        if (horarioAlertaLeve > 0 && isFinite(horarioAlertaLeve)) { 
+                            terAlertaLevesServidores[mac] = horarioAlertaLeve;
+
+                            console.log("Alerta leve na possição " + mac +terAlertaLevesServidores[mac] );
+                            
+
+                            if (horarioAlertaLeve <= 60) {
+                                    contagemAlertasCPULeve.ate1h++;
+                                } else if (horarioAlertaLeve <= 120) {
+                                    contagemAlertasCPULeve.ate2h++;
+                                } else if (horarioAlertaLeve <= 180) { // 3 horas = 180 minutos
+                                    contagemAlertasCPULeve.ate3h++;
+                                }
+                            
+                        }
+
+                        // 2. Alerta Grave
+                        if (horarioAlertaGrave > 0 && isFinite(horarioAlertaGrave)) { 
+                            terAlertaGravesServidores[mac] = horarioAlertaGrave;
+
+                            console.log("Alerta grave na possição " + mac +terAlertaGravesServidores[mac] );
+
+                            if (horarioAlertaLeve <= 60) {
+                                    contagemAlertasCPUGrave.ate1h++;
+                                } else if (horarioAlertaGrave <= 120) {
+                                    contagemAlertasCPUGrave.ate2h++;
+                                } else if (horarioAlertaGrave <= 180) { // 3 horas = 180 minutos
+                                    contagemAlertasCPUGrave.ate3h++;
+                                }
+
+                        }
     }
-
-}
+    }
+        listarServidores()
+}}
 
 
 
@@ -730,11 +735,11 @@ function listarServidores() {
 
         if (sv.grave !== null) {
             cor = "red"
-            tempo = sv.grave.toFixed(2)
+            tempo = sv.grave.toFixed(1) + "min"
         }
         else if (sv.leve !== null) {
             cor = "orange"
-            tempo = sv.leve.toFixed(2)
+            tempo = sv.leve.toFixed(1) + "min"
         }
 
         linhas += 
@@ -753,8 +758,116 @@ function listarServidores() {
             "<th>Previsão</th>" +
         "</tr>" +
         linhas
+
+
+        gerarBarra()
 }
 
+var contagemAlertasCPULeve = {
+    ate1h: 0,
+    ate2h: 0,
+    ate3h: 0
+}
+
+var contagemAlertasCPUGrave = {
+    ate1h: 0,
+    ate2h: 0,
+    ate3h: 0
+};
+
+var graficoPizza = null
+var graficoLinha = null
+
+function gerarBarra(){
+    const ctx2 = document.getElementById('graf_pizza').getContext('2d');
+    
+    // Os rótulos (faixas de tempo)
+    const labels = ["Até 3h", "Até 2h", "Até 1h"];
+
+    // Os dados (invertermos a ordem para que o "Até 1h" fique no topo do gráfico)
+    const dataLeve = [
+        contagemAlertasCPULeve.ate3h,
+        contagemAlertasCPULeve.ate2h,
+        contagemAlertasCPULeve.ate1h
+    ];
+    const dataGrave = [
+        contagemAlertasCPUGrave.ate3h,
+        contagemAlertasCPUGrave.ate2h,
+        contagemAlertasCPUGrave.ate1h
+    ];
+
+    if(graficoPizza){
+        graficoPizza.destroy()
+    }
+
+  graficoPizza = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Alerta Leve',
+                    data: dataLeve,
+                    backgroundColor: '#FFCC00', // Amarelo/Laranja para Leve
+                    borderColor: 'white',
+                    borderWidth: 1,
+                },
+                {
+                    label: 'Alerta Grave',
+                    data: dataGrave,
+                    backgroundColor: '#FF4136', // Vermelho para Grave
+                    borderColor: 'white',
+                    borderWidth: 1,
+                }
+            ]
+        },
+        options: {
+            indexAxis: 'y', // Barras HORIZONTAIS
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { 
+                    display: true,
+                    labels: {
+                        color: 'white'
+                    }
+                }, 
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.x !== null) {
+                                label += context.parsed.x + ' servidores';
+                            }
+                            return label;
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: { // Contagem
+                    stacked: false, // Barras lado a lado
+                    beginAtZero: true,
+                    ticks: { 
+                        color: 'white',
+                        precision: 0 
+                    },
+                    grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                y: { 
+                    ticks: { color: 'white' },
+                    grid: { display: false }
+                }
+            },
+            layout: {
+                padding: 0
+            }
+        }
+    });
+}
 
 
 
@@ -768,6 +881,8 @@ let mediasCPUvar = []
 let mediasRAMvar = []
 let previsoesCPUvar = []
 let previsoesRAMvar = []
+
+
 
  async function grafLinha() {
             
@@ -842,8 +957,11 @@ let previsoesRAMvar = []
 
         const ctx = document.getElementById('grafico').getContext('2d');
         
+        if (graficoLinha) {
+        graficoLinha.destroy();
+}
 
-        new Chart(ctx, {
+       graficoLinha =  new Chart(ctx, {
             type: 'line',
             data: {
                 labels: gerarDias(),
