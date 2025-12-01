@@ -41,4 +41,8 @@ router.get('/dataLayoutsServidor/:idServidor', function(req,res) {
     cadastroServidorController.getDataLayoutsServidor(req,res);
 })
 
+router.get('/getByApelido/:apelido', function(req,res) {
+    cadastroServidorController.getByApelido(req,res);
+})
+
 module.exports = router;

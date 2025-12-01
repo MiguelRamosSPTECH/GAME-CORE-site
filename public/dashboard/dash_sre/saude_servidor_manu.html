@@ -1,337 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - Saúde do Servidor</title>
-
-  <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css" />
-  <link href="https:fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https:cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="https:cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-
-<body>
-
-<div class="container-all">
-
-
-  <div class="nav-lateral">
-    <div class="logo-dbg">
-      <img src="../../assets/imgs/DBG.-logo2png.png">
-    </div>
-
-    <div class="options-nav">
-      <div class="principal-options">
-        <div class="circle-option">
-          <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-house"></i>
-        </div>
-
-        <div class="circle-option">
-          <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
-        </div>
-
-        <div class="circle-option">
-          <i onclick="window.location.href='#'" class="fa-solid fa-notes-medical"></i>
-        </div>
-      </div>
-
-      <div class="area-logoff">
-        <div class="circle-option logoff" onclick="limparSessao()">
-          <i class="fa-solid fa-right-from-bracket"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  <main class="content">
-
-    <header class="header">
-      <h1>Saúde do Servidor - Visão Geral</h1>
-    </header>
-
-    <section class="grid-dashboard">
-
-
-      <div class="card card-mainchart">
-        <div class="legend">
-          <span class="leg-dot blue"></span> Desempenho
-          <span class="leg-dot purple"></span> Tempo de Espera
-        </div>
-        <canvas id="mainChart"></canvas>
-      </div>
-<div class="card card-memoria">
-    <div class="memoria-section-header">
-        <h2>Taxa de Swap</h2>
-    </div>
-    <div class="memoria-chart-container">
-        <canvas id="swapChart"></canvas>
-    </div>
-
-    <hr class="memoria-divider">
-
-    <div class="memoria-section-header">
-        <h2>Utilização RAM</h2>
-    </div>
-    <div class="memoria-ram-content">
-        <canvas id="ramChart"></canvas>
-        <div class="ram-legend">
-            <div class="leg-item">
-                <span class="leg-dot small blue"></span> Disponível
-                <span class="ram-percent">12.5%</span>
-            </div>
-            <div class="leg-item">
-                <span class="leg-dot small purple"></span> Utilizada
-                <span class="ram-percent">87.5%</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card card-cpu">
-    </div>
-
-<div class="card card-processes">
-    </div>
-
-<div class="card card-threads">
-    </div>
-
-<div class="card card-cpu">
-    </div>
-
-<div class="card card-processes">
-    </div>
-
-<div class="card card-threads">
-    </div>
-
-      
-      <div class="card card-cpu">
-        <h2>Tempo de CPU</h2>
-        <p class="sub">Usuário VS Sistema</p>
-
-        <div class="cpu-bars">
-          <div class="cpu-row"><div class="cpu-fill cpu-user" style="width:60%"></div></div>
-          <div class="cpu-row"><div class="cpu-fill cpu-user2" style="width:45%"></div></div>
-
-          <div class="cpu-scale">
-            <span>0%</span><span>50%</span><span>100%</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card card-processes">
-        <h2>Total de Processos em Execução</h2>
-
-        <div class="proc-top">
-          <div class="green-dot"></div>
-          <div class="proc-number">345</div>
-          <div class="proc-change">+ 2%</div>
-        </div>
-
-        <hr class="proc-sep">
-
-        <p class="proc-sub">Processo que mais consome CPU</p>
-        <p class="proc-name"><strong>minecraft-inicializator-server</strong> (70%)</p>
-      </div>
-
-     
-
-      <div class="card card-threads">
-
-        <div class="threads-header">
-     <h3>Contagem de Threads</h3>
-          <div id="threadsLegend" class="chart-legend"></div> 
-    </div>
-
-        <div class="threads-content-area">
-     <div class="threads-left">
-      <canvas id="threadsChart"></canvas>
-     </div>
-
-     <div class="threads-right">
-      <div class="warning-icon">!</div>
-      <p>O aumento significa um vazamento de recursos na aplicação, esgotando o kernel e gerando instabilidade.</p>
-     </div>
-    </div>
-
-   </div>
-
-    </section>
-
-  </main>
-</div>
-
-<script>
-function limparSessao() { console.log("Sessão encerrada."); }
-
-const labels = ["Item 1","Item 2","Item 3","Item 4","Item 5"];
-
-
-new Chart(document.getElementById("mainChart"), {
-  type: "line",
-  data: {
-    labels,
-    datasets: [
-      { label: "Desempenho", data: [12,15,38,30,50], borderColor: "#55c0ff", pointBackgroundColor:"#55c0ff", tension:0.3, borderWidth:3, fill:false },
-      { label: "Tempo de Espera", data: [6,9,16,12,33], borderColor: "#9a7bff", pointBackgroundColor:"#9a7bff", tension:0.3, borderWidth:3, fill:false }
-    ]
-  },
-  options: {
-    responsive:true,
-    maintainAspectRatio:false,
-    plugins:{ legend:{ display:false } },
-    scales:{
-      x:{ ticks:{ color:"#bfbfbf" }, grid:{ color:"rgba(255,255,255,0.08)" } },
-      y:{ ticks:{ color:"#bfbfbf" }, grid:{ color:"rgba(255,255,255,0.08)" } }
-    }
-  }
-});
-
-
-
-new Chart(document.getElementById("swapChart"), {
-    type:"line",
-    data:{
-        labels,
-        datasets:[{
-            label:"Swap",
-            data:[18,26,22,35,37],
-            borderColor:"#55c0ff",
-            pointBackgroundColor:"#55c0ff",
-            borderWidth:3,
-            tension:0.3,
-            fill:false
-        }]
-    },
-    options:{
-        responsive:true,
-        maintainAspectRatio:false, 
-        plugins:{ legend:{ display:false } },
-        layout: {
-            padding: {
-                left: 10,
-                right: 10,
-                top: 10,
-                bottom: 10
-            }
-        },
-        scales:{
-            x:{
-                ticks:{
-                    color:"#bfbfbf",
-                    autoSkip: false,
-                    maxRotation: 0,
-                    minRotation: 0
-                },
-                grid:{
-                    color:"rgba(255,255,255,0.08)"
-                },
-                beginAtZero: false
-            },
-            y:{
-                ticks:{
-                    color:"#bfbfbf",
-                    mirror: false,
-                    padding: 5
-                },
-                grid:{
-                    color:"rgba(255,255,255,0.08)"
-                },
-                beginAtZero: false,
-                min: 15,
-                max: 40
-            }
-        }
-    }
-});
-
-
-new Chart(document.getElementById("ramChart"), {
- type:"doughnut",
- data:{
-  labels:["Disponível","Utilizada"],
-  datasets:[
-   {
-    data:[12.5,87.5],
-    backgroundColor:["#55c0ff","#9a7bff"],
-    borderWidth:6,
-    borderColor:"#151025",
-    hoverOffset: 4 
-   }
-  ]
- },
- options:{
-  responsive:true,
-  maintainAspectRatio:true,
-  plugins:{ 
-   legend:{ display:false } 
-  },
-  
-  cutout: '70%', 
-  layout: {
-   padding: 5
-  }
-
- }
-});
-
-
-new Chart(document.getElementById("threadsChart"), {
-    type:"bar",
-    data:{
-    labels:["Item 1","Item 2","Item 3","Item 4"],
-    datasets:[
-    {
-    label:"Item", 
-    data:[8,14,19,22],
-    
-    backgroundColor:[
-            '#61D8DE', 
-            '#4A90E2',
-            '#3A7BDA', 
-            '#2C5D9F'  
-    ],
-    borderWidth: 1,
-    borderColor: '#0a061b' 
-    }
-    ]
-    },
-    options:{
-    responsive:true,
-    maintainAspectRatio:false,
-    plugins:{ 
-    legend:{ 
-    display: true, 
-    position: 'top', 
-        labels: {
-            boxWidth: 15, 
-            padding: 20, 
-            color: '#bfbfbf'
-        }
-    } 
-    },
-    animation:false, 
-    scales: {
-    x: {
-    ticks: { color: "#bfbfbf" },
-    grid: { display: false }
-    },
-    y: {
-    ticks: { color: "#bfbfbf" },
-    grid: { color: "rgba(255,255,255,0.08)" } 
-    }
-    }
-    }
-});
-</script>
-
-</body>
-</html> -->
-
-
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -339,8 +5,8 @@ new Chart(document.getElementById("threadsChart"), {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard - Saúde do Servidor</title>
-  <script src="https:cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../../js/process/dash-saude-servidor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
   <link rel="stylesheet" href="../../css/dash/saude_servidor_manu.css" />
   <link href="https:fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -388,7 +54,7 @@ new Chart(document.getElementById("threadsChart"), {
       <div class="kpis">
         <div class="card kpi-processos">
           <h5>Total de Processos em Execução</h5>
-          <h3>345</h3>
+          <h3 id="totalProcessosExec">345</h3>
         </div>
 
         <div class="card kpi-cpu">
@@ -435,7 +101,7 @@ new Chart(document.getElementById("threadsChart"), {
       <div class="cima">
           <div class="card-kpi-alertas">
           <h3 class="titulo">Qtd. alertas no último mês</h3>
-          <h1 style="font-size:40px;">14</h1>
+          <h1 id="totalAlertasMes" style="font-size:40px;">14</h1>
         </div>
 
         <div class="uiverse">
@@ -457,209 +123,392 @@ new Chart(document.getElementById("threadsChart"), {
     </div>
 
   </div>
+
+  <div id="mensagem" style="color:white; padding:10px;"></div>
+
 </div>
 
 
  <script>
-   new Chart(document.getElementById("cpuChart"), {
-     type: "line",
-     data: {
-       labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
-       datasets: [
-         {
-           label: "Sistema",
-           data: [20, 35, 48, 50, 87],
-           borderColor: "#9a7bff",
-           pointBackgroundColor: "#9a7bff",
-           tension: 0.3,
-           borderWidth: 2,
-           fill: false
-         },
-         {
-           label: "Usuário",
-           data: [8, 17, 26, 29, 36],
-           borderColor: "#55c0ff",
-           pointBackgroundColor: "#55c0ff",
-           tension: 0.3,
-           borderWidth: 2,
-           fill: false
-         }
-       ]
-     },
-     options: {
-       responsive: true,
-       maintainAspectRatio: false,
-       plugins: {
-         legend: {
-           display: true,
-           position: 'bottom',
-           align: 'center',
-           labels: {
-             color: "#fff",
-             boxWidth: 10,
-           }
-         }
-       },
-       scales: {
-         x: {
-           ticks: { color: "#bbb" },
-           grid: { display: false }
-         },
-         y: {
-           ticks: { color: "#bbb" },
-           grid: { color: "rgba(255,255,255,0.08)" },
-      
-           min: 0,
-           max: 100, 
-         }
-       }
-     }
-   });
+    
+    let nomeServidorMockado = "00-D7-6D-98-56-34";
+    let diaDeHoje = new Date()
+    let mes = diaDeHoje.getMonth() + 1;
+    let dia = diaDeHoje.getDate();
+    let ano = diaDeHoje.getFullYear();
+
+    //para pegar a pasta correta la no bucket
+    let timestamp = `${ano}-${mes}-${dia}`;
+
+    const ARQUIVO_CONTAINER = 'dados_capturados.json';
+    const URL_API_CONTAINER = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_CONTAINER}`;
+    const CHAVE_TPS = 'tps_container';
+
+    const NOME_ARQUIVO = 'dados_capturados.json';
+
+    
+    const CHAVE_CPU_SISTEMA = 'cpuSystemTimeSeries';
+    const CHAVE_CPU_USUARIO = 'cpuUserTimeSeries';
+    const CHAVE_DESEMPENHO = 'desempenhoTimeSeries'; 
+    const CHAVE_TEMPO_ESPERA = 'esperaTimeSeries'; 
+    const CHAVE_SWAP = 'swapTimeSeries'; 
+
+    
+ 
+    const CHAVE_ALERTAS_MES_SERIE = 'alertasMesTimeSeries';
+    const CHAVE_PICO_RAM_SERIE = 'picoMaxRamMesTimeSeries';
+    const CHAVE_PICO_CPU_SERIE = 'picoMaxCpuMesTimeSeries';
+    const CHAVE_PICO_PROCESSOS_SERIE = 'picoMaxProcessosMesTimeSeries';
+
+    
+    
+    const CHAVE_RAM_DISPONIVEL = 'ramDisponivelPercent';
+    const CHAVE_RAM_UTILIZADA = 'ramUtilizadaPercent';
+    const CHAVE_TOTAL_PROCESSOS = 'totalProcessos';
+    const CHAVE_TOTAL_ALERTAS_MES_KPI = 'totalAlertasMes'; 
+  
+    const CHAVE_PICO_MAX_CPU_KPI = 'picoMaxCpuMesPercentual';
+    const CHAVE_PICO_MAX_RAM_KPI = 'picoMaxRamMesPercentual';
+    const CHAVE_PICO_MAX_PROCESSOS_KPI = 'picoMaxProcessosMes';
 
 
-   // ======== Desempenho x Tempo de Espera ========
+    async function buscarDados() {
+        // Referência ao canvas principal e ao container auxiliar para mensagens de erro
+        
+        const carregamento = document.getElementById('mensagem');
 
-   new Chart(document.getElementById("desempenhoChart"), {
-     type: "line",
-     data: {
-       labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
-       datasets: [
-         {
-           label: "Desempenho",
-           data: [12, 15, 38, 30, 50],
-           borderColor: "#55c0ff",
-           pointBackgroundColor: "#55c0ff",
-           tension: 0.3,
-           borderWidth: 3,
-           fill: false
-         },
-         {
-           label: "Tempo de Espera",
-           data: [6, 9, 16, 12, 33],
-           borderColor: "#9a7bff",
-           pointBackgroundColor: "#9a7bff",
-           tension: 0.3,
-           borderWidth: 3,
-           fill: false
-         }
-       ]
-     },
-     options: {
-       responsive: true,
-       maintainAspectRatio: false,
-       plugins: {
-         legend: {
-           display: true,
-           labels: {
-             color: "#fff",
-             usePointStyle: true,
-             boxWidth: 10
-           }
-         }
-       },
-       scales: {
-         x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
-         y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
-       }
-     }
-   });
+        carregamento.innerHTML = 'Carregando dados...'; 
+
+        try {
+            // requisição à API
+            const resposta = await fetch(URL_API_CONTAINER);
+
+            // descreve erros 
+            if (!resposta.ok) {
+                const erroDetalhe = await resposta.text();
+                throw new Error(`Erro ${resposta.status}: Falha na API: ${erroDetalhe.substring(0, 100)}`);
+            }
+
+            // converte a resposta para JSON
+            const data = await resposta.json();
+
+            console.log("Dados recebidos da API:", data);
+
+            // limpa a mensagem de carregamento
+            carregamento.innerHTML = '';
 
 
-   // ======== Swap ========
+    
+            if (!data || !data[CHAVE_CPU_SISTEMA] || data[CHAVE_CPU_SISTEMA].length === 0) {
+                console.warn("Erro nos dados recebidos: Objeto nulo ou série temporal principal vazia.");
+                carregamento.innerHTML = `<div style="color: orange; padding: 20px;">⚠️ Dados vazios para plotar o gráfico.</div>`;
+                return;
+            }
 
-   new Chart(document.getElementById("swapChart"), {
-     type: "line",
-     data: {
-       labels: ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"],
-       datasets: [{
-         label: "Swap",
-         data: [18, 26, 22, 35, 37],
-         borderColor: "#55c0ff",
-         pointBackgroundColor: "#55c0ff",
-         borderWidth: 3,
-         tension: 0.3,
-         fill: false
-       }]
-     },
-     options: {
-       responsive: true,
-       maintainAspectRatio: false,
-       plugins: { legend: { display: false } },
-       scales: {
-         x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
-         y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
-       }
-     }
-   });
+       
+            const labelsDiarios = data[CHAVE_CPU_SISTEMA].map(d => {
+                return new Date(d.timestamp).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' });
+            });
 
+            const valoresCPUUsuario = data[CHAVE_CPU_USUARIO].map(d => Number(d.value) || 0);
+            const valoresCPUSistema = data[CHAVE_CPU_SISTEMA].map(d => Number(d.value) || 0);
+            const valoresDesempenho = data[CHAVE_DESEMPENHO].map(d => Number(d.value) || 0);
+            const valoresEspera = data[CHAVE_TEMPO_ESPERA].map(d => Number(d.value) || 0);
+            const valoresSwap = data[CHAVE_SWAP].map(d => Number(d.value) || 0);
+            
+        
+            const serieAlertas = data[CHAVE_ALERTAS_MES_SERIE] || []; 
+            
+            const labelsMensais = serieAlertas.map(d => {
+                return new Date(d.timestamp).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', timeZone: 'UTC' });
+            });
+            
+            const valoresAlertasMes = serieAlertas.map(d => Number(d.value) || 0);
+            const valoresPicoCpuMes = (data[CHAVE_PICO_CPU_SERIE] || []).map(d => Number(d.value) || 0);
+            const valoresPicoRamMes = (data[CHAVE_PICO_RAM_SERIE] || []).map(d => Number(d.value) || 0);
+            const valoresPicoProcessosMes = (data[CHAVE_PICO_PROCESSOS_SERIE] || []).map(d => Number(d.value) || 0);
 
-   // ======== RAM (Doughnut) ========
+          
+            const ramDisponivel = Number(data[CHAVE_RAM_DISPONIVEL]) || 0;
+            const ramUtilizada = Number(data[CHAVE_RAM_UTILIZADA]) || 0;
+            const valoresRam = [ramDisponivel, ramUtilizada]; 
 
-   new Chart(document.getElementById("ramChart"), {
-     type: "doughnut",
-     data: {
-       labels: ["Disponível", "Utilizada"],
-       datasets: [{
-         data: [12.5, 87.5],
-         backgroundColor: ["#55c0ff", "#9a7bff"],
-         borderWidth: 5,
-         borderColor: "#151025"
-       }]
-     },
-     options: {
-       maintainAspectRatio: false,
-       responsive: true,
-       cutout: "70%",
-       plugins: { legend: { display: false } }
-     }
-   });
+            const totalProcessos = Number(data[CHAVE_TOTAL_PROCESSOS]) || 0;
+            const totalAlertasMesKPI = Number(data[CHAVE_TOTAL_ALERTAS_MES_KPI]) || 0;
+            const picoMaxCpuKPI = Number(data[CHAVE_PICO_MAX_CPU_KPI]) || 0;
+            const picoMaxRamKPI = Number(data[CHAVE_PICO_MAX_RAM_KPI]) || 0;
+            const picoMaxProcessosKPI = Number(data[CHAVE_PICO_MAX_PROCESSOS_KPI]) || 0;
 
 
-  //  ======== Tendência e Correlação de Alertas ========
+            //consts novas pra poder colocar a bolinha do grafico so quando atingir o maximo
+            const maxCpu = Math.max(...valoresPicoCpuMes);
+            const maxRam = Math.max(...valoresPicoRamMes);
+            const maxProcessos = Math.max(...valoresPicoProcessosMes);
+
+            
+          
+            if (document.getElementById('totalProcessosExec')) document.getElementById('totalProcessosExec').innerText = totalProcessos;
+            if (document.getElementById('totalAlertasMes')) document.getElementById('totalAlertasMes').innerText = totalAlertasMesKPI;
+
+            
+            
+            
+            Chart.defaults.color = '#FFFFFF'
+                            
+            // ======== CPU Chart  ========
+            new Chart(document.getElementById("cpuChart"), {
+                type: "line",
+                data: {
+                    labels: labelsDiarios, 
+                    datasets: [
+                        {
+                            label: "Sistema",
+                            data: valoresCPUSistema,
+                            borderColor: "#9a7bff",
+                            pointBackgroundColor: "#9a7bff",
+                            tension: 0.3,
+                            borderWidth: 2,
+                            fill: false
+                        },
+                        {
+                            label: "Usuário",
+                            data: valoresCPUUsuario,
+                            borderColor: "#55c0ff",
+                            pointBackgroundColor: "#55c0ff",
+                            tension: 0.3,
+                            borderWidth: 2,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            align: 'center',
+                            labels: {
+                                color: "#fff",
+                                boxWidth: 10,
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: "#bbb" },
+                            grid: { display: false }
+                        },
+                        y: {
+                            ticks: { color: "#bbb" },
+                            grid: { color: "rgba(255,255,255,0.08)" },
+                            min: 0,
+                            max: 100, 
+                        }
+                    }
+                }
+            });
 
 
-   new Chart(document.getElementById("alertasChart"), {
-     type: "bar",
-     data: {
-       labels: ["0", "2", "4", "6", "8", "10", "12", "14"],
-       datasets: [
-         {
-           type: "bar",
-           label: "Alertas",
-           data: [2, 3, 5, 6, 4, 3, 4, 2],
-           backgroundColor: "rgba(85,192,255,0.7)",
-           borderColor: "#55c0ff",
-           borderWidth: 1
-         },
-         {
-           type: "line",
-           label: "Tendência",
-           data: [1, 3, 4, 5, 3, 4, 4.5, 6],
-           borderColor: "#9a7bff",
-           pointBackgroundColor: "#9a7bff",
-           borderWidth: 2,
-           fill: false,
-           tension: 0.3
-         }
-       ]
-     },
-     options: {
-       responsive: true,
-       maintainAspectRatio: false,
-       plugins: {
-         legend: {
-           labels: { color: "#fff" }
-         }
-       },
-       scales: {
-         x: { ticks: { color: "#ccc" }, grid: { display: false } },
-         y: { ticks: { color: "#ccc" }, grid: { color: "rgba(255,255,255,0.08)" } }
-       }
-     }
-   });
+            // ======== Desempenho x Tempo de Espera ========
+            new Chart(document.getElementById("desempenhoChart"), {
+                type: "line",
+                data: {
+                    labels: labelsDiarios, 
+                    datasets: [
+                        {
+                            label: "Desempenho",
+                            data: valoresDesempenho,
+                            borderColor: "#ffea00",
+                            pointBackgroundColor: "#ffea00",
+                            tension: 0.3,
+                            borderWidth: 3,
+                            fill: false
+                        },
+                        {
+                            label: "Tempo de Espera",
+                            data: valoresEspera,
+                            borderColor: "#00ffdb",
+                            pointBackgroundColor: "#00ffdb",
+                            tension: 0.3,
+                            borderWidth: 3,
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                color: "#fff",
+                                usePointStyle: true,
+                                boxWidth: 10
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
+                        y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
+                    }
+                }
+            });
 
 
- </script>
+            // ======== Swap ========
+            new Chart(document.getElementById("swapChart"), {
+                type: "line",
+                data: {
+                    labels: labelsDiarios,
+                    datasets: [{
+                        label: "Swap",
+                        data: valoresSwap,
+                        borderColor: "#ff8a00",
+                        pointBackgroundColor: "#ff8a00",
+                        borderWidth: 3,
+                        tension: 0.3,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } },
+                        y: { ticks: { color: "#bbb" }, grid: { color: "rgba(255,255,255,0.08)" } }
+                    }
+                }
+            });
+
+
+            // ======== RAM ========
+            new Chart(document.getElementById("ramChart"), {
+                type: "doughnut",
+                data: {
+                    labels: ["Disponível", "Utilizada"],
+                    datasets: [{
+                        data: valoresRam,
+                        backgroundColor: ["#55c0ff", "#9a7bff"],    
+                        borderWidth: 1,
+                        borderColor: "#151025"
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    cutout: "70%",
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+
+           
+            new Chart(document.getElementById("alertasChart"), {
+                type: "bar",
+                data: {
+                    labels: labelsMensais, 
+                    datasets: [
+                        {
+                            type: "line",
+                            label: "Pico Máx. CPU ",
+                            data: valoresPicoCpuMes, 
+                            borderColor: "#e24747",
+                            pointBackgroundColor: "#e24747",
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxCpu ? 2 : 0; 
+                            }, 
+                        },
+                        {
+                            type: "line",
+                            label: "Pico Máx. RAM",
+                            data: valoresPicoRamMes, 
+                            borderColor: "#4777e2",
+                            pointBackgroundColor: "#4777e2",
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxRam ? 2 : 0
+                            }, 
+                        },
+                        {
+                            type: "line",
+                            label: "Pico Máx. Processos",
+                            data: valoresPicoProcessosMes, 
+                            borderColor: "#fb00ff",
+                            pointBackgroundColor: "#fb00ff",
+                            borderWidth: 2,
+                            fill: false,
+                            tension: 0.3,
+                            yAxisID: 'yCpu',
+                            pointRadius: (context) => {
+                                const value = context.dataset.data[context.dataIndex];
+                                return value === maxProcessos ? 2 : 0; 
+                            }, 
+                        },
+                        {
+                            type: "bar",
+                            label: "Alertas Mensais",
+                            data: valoresAlertasMes, 
+                            backgroundColor: "#f7fb78",
+                            borderColor: "#f7fb78",
+                            borderWidth: 1,
+                            yAxisID: 'yAlertas' 
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: { color: "#fff" }
+                        }
+                    },
+                    scales: {
+                        x: { ticks: { color: "#ccc" }, grid: { display: false } },
+                        yAlertas: {
+                            position: 'left',
+                            ticks: { color: "#ccc", precision: 0 },
+                            grid: { color: "rgba(255,255,255,0.08)" },
+                            title: { display: true, text: 'Alertas (Contagem)', color: '#fff' },
+                            min: 0
+                        },
+                        yCpu: { 
+                            position: 'right',
+                            ticks: { color: "#ccc" },
+                            grid: { drawOnChartArea: false }, 
+                            title: { display: true, text: 'Pico CPU (%)', color: '#fff' },
+                            min: 0,
+                            max: 300
+                        }
+                    }
+                }
+            });
+
+
+        } catch (error) {
+            
+            console.error("❌ Erro ao carregar ou plotar dados:", error);
+            if (carregamento) {
+                carregamento.innerHTML = `<div style="color: red; padding: 20px;"> ❌ Falha ao carregar dados. ${error.message}</div>`;
+            }
+        }
+    }
+    window.onload = buscarDados;
+
+</script>
 
 </body>
 </html>

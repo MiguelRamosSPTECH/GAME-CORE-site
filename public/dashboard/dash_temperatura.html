@@ -6,32 +6,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temperatura | Dashboard</title>
     <link rel="stylesheet" href="../css/dash/dash_temperatura.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/dash_temperatura.js" defer></script>
     <script src="../js/sessao.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 </head>
 
-<body onload="validarSessao(), buscarParametrosDashTemp(), buscarArquivoPedroProc(), buscarArquivoPedroMed()">
+<!-- <body onload="validarSessao(), buscarParametrosDashTemp(), buscarArquivoPedroProc(), buscarArquivoPedroMed()"> -->
+<body onload="validarSessao(), buscarParametrosDashTemp()">
     <div class="container-all">
 
         <div class="nav-lateral">
             <div class="logo-dbg">
                 <img src="../assets/imgs/DBG.-logo2png.png" alt="">
             </div>
-            <div class="options-nav ">
+            <div class="options-nav">
                 <div class="principal-options">
-                    <div class="circle-option">
-                        <i onclick="window.location.href='#'" class="fa-solid fa-house"></i>
+                    <div class="circle-option" onclick="window.location.reload()">
+                        <i class="fa-solid fa-house"></i>
                         <span class="texto-oculto">Início</span>
                     </div>
-                    <div class="circle-option">
-                        <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
+                    <div class="circle-option" onclick="window.location.href='./processos/index.html'">
+                        <i class="fa-solid fa-clock"></i>
+                        <span class="texto-oculto">Processos</span>
+                    </div>
+                    <div class="circle-option" onclick="window.location.href='historico_alerta.html'">
+                        <i class="fa-solid fa-bug"></i>
                         <span class="texto-oculto">Alertas</span>
                     </div>
-                    <div class="circle-option">
-                        <i class="fa-solid fa-notes-medical"
-                            onclick="window.location.href='dashSaudeServidores.html'"></i>
+                    <div class="circle-option" onclick="window.location.href='./layouts/configs_padrao.html'">
+                        <i class="fa-solid fa-gear"></i>
                         <span class="texto-oculto">Configurações</span>
                     </div>
                 </div>
@@ -62,7 +69,8 @@
                     <div class="kpi-content">
                         <div class="kpi-subtit">
                             <div>
-                                <span id="atualCpu" class="maior">50</span><span id="atualCpuPorcent" class="maior">%</span>
+                                <span id="atualCpu" class="maior">50</span><span id="atualCpuPorcent"
+                                    class="maior">%</span>
                                 <span id="variacaoCpu" class="menor">+3.2</span>%
                             </div>
                             <div class="tit-alert">
@@ -83,7 +91,8 @@
                     <div class="kpi-content">
                         <div class="kpi-subtit">
                             <div>
-                                <span id="atualTemp" class="maior">50</span><span id="atualTempPorcent" class="maior">°C</span>
+                                <span id="atualTemp" class="maior">50</span><span id="atualTempPorcent"
+                                    class="maior">°C</span>
                                 <span id="variacaoTemp" class="menor">+3.2</span>°C
                             </div>
                             <div class="tit-alert">
@@ -122,13 +131,14 @@
 
                     </div>
 
-                    <span class="freq-resumo cor1">Operação normal</span>
+                    <span id="freq-resumo" class="freq-resumo cor1">...</span>
 
                 </div>
 
 
                 <div class="kpi kpi-t-crit">
-                    <div class="kpi-titulo">Tempo acima da temperatura permitida <span>+<span id="limite-temp-crit"></span>°C</span></div>
+                    <div class="kpi-titulo">Tempo acima da temperatura permitida <span>+<span
+                                id="limite-temp-crit"></span>°C</span></div>
                     <div class="kpi-content">
                         <span id="tempo-acima-limite" class="maior-t-crit">0</span>
                     </div>
@@ -161,20 +171,18 @@
 
                     <div class="resumo cor3">
                         <!-- <div class="resumo-titulo">Análise</div> -->
-                        <div class="resumo-txt">Possível limitação térmica: temperatura elevada e queda de frequência.
-
-                            Processador trabalhando no limite com alta frequência.
+                        <div id="resumo-txt" class="resumo-txt">Resumo
                         </div>
                     </div>
 
                     <section class="graficos">
 
-                        <div class="graf-temp">
-                            <canvas id="myChartTemp"></canvas>
-                        </div>
-
                         <div class="graf-uso">
                             <canvas id="myChartUso"></canvas>
+                        </div>
+
+                        <div class="graf-temp">
+                            <canvas id="myChartTemp"></canvas>
                         </div>
 
                     </section>
@@ -185,32 +193,40 @@
                 <section class="dir">
 
                     <div class="processos">
-                        <div class="processos-titulo">Processos que mais consomem CPU</div>
+                        <div class="processos-titulo">Processos que mais estão consumindo CPU</div>
                         <div class="processos-lista">
                             <div class="processo-item">
-                                <span class="processo-nome">chrome.exe</span>
-                                <span class="processo-cpu">45%</span>
+                                <span id="n1" class="processo-nome">p1</span>
+                                <span id="p1" class="processo-cpu">%</span>
                             </div>
                             <div class="processo-item">
-                                <span class="processo-nome">node.exe</span>
-                                <span class="processo-cpu">28%</span>
+                                <span id="n2" class="processo-nome">p2</span>
+                                <span id="p2" class="processo-cpu">%</span>
                             </div>
                             <div class="processo-item">
-                                <span class="processo-nome">mysqld.exe</span>
-                                <span class="processo-cpu">18%</span>
+                                <span id="n3" class="processo-nome">p3</span>
+                                <span id="p3" class="processo-cpu">%</span>
                             </div>
                             <div class="processo-item">
-                                <span class="processo-nome">svchost.exe</span>
-                                <span class="processo-cpu">12%</span>
+                                <span id="n4" class="processo-nome">p4</span>
+                                <span id="p4" class="processo-cpu">%</span>
                             </div>
                             <div class="processo-item">
-                                <span class="processo-nome">explorer.exe</span>
-                                <span class="processo-cpu">8%</span>
+                                <span id="n5" class="processo-nome">p5</span>
+                                <span id="p5" class="processo-cpu">%</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="servidores">Acesso aos servidores</div>
+                    <div class="latencia">
+                        <button class="btn-latencia" onclick="window.location.href='latencia.html'">
+                            Visualizar latência do servidor</button>
+                    </div>
+
+                    <div class="servidores">
+                        <button class="btn-voltar" onclick="window.location.href='index.html'">
+                            Retornar para visualização geral do servidor</button>
+                    </div>
 
                 </section>
 

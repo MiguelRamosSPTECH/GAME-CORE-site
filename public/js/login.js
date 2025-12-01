@@ -90,7 +90,7 @@ function entrar() {
                                 }
                             });
                         }else if (permissoes.includes(1)) {
-                            window.location = "../dashboard/index.html"
+                            window.location = "../dashboard/servidores/desc_servidor.html"
                         }else if (permissoes.includes(2)) {
                             window.location = "../dashboard/dash_sre/dashboard_sre.html"
                         } else if (permissoes.includes(3)) {

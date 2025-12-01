@@ -451,9 +451,9 @@ svg:hover .tooltip {
 }
 
 .legenda-pie .disp::before {
-  background-color: #56d4ff;
+  background-color: #55c0ff;
 }
 
 .legenda-pie .util::before {
-  background-color: #1bb6c7;
+  background-color: #9a7bff;
 }

@@ -99,6 +99,14 @@ function getDataLayoutsServidor(idServidor) {
     return database.executar(querySql);
 }  
 
+function getByApelido(apelido) {
+    apelido = apelido == "nada" ? "M1.MAIN" : apelido
+    let querySql = `
+     SELECT * FROM servidor WHERE apelido = '${apelido}';
+    `
+    return database.executar(querySql);
+}
+
 
 
 module.exports = {
@@ -109,5 +117,6 @@ module.exports = {
     allServidores,
     deletarServidor,
     allRegioes,
-    getDataLayoutsServidor
+    getDataLayoutsServidor,
+    getByApelido
 };
