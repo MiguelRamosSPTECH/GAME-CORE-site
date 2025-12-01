@@ -131,8 +131,20 @@
 
  <script>
     
-    const NOME_ARQUIVO = 'dashboard_metricas_manu.json';
-    const URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
+    let nomeServidorMockado = "00-D7-6D-98-56-34";
+    let diaDeHoje = new Date()
+    let mes = diaDeHoje.getMonth() + 1;
+    let dia = diaDeHoje.getDate();
+    let ano = diaDeHoje.getFullYear();
+
+    //para pegar a pasta correta la no bucket
+    let timestamp = `${ano}-${mes}-${dia}`;
+
+    const ARQUIVO_CONTAINER = 'dados_capturados.json';
+    const URL_API_CONTAINER = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_CONTAINER}`;
+    const CHAVE_TPS = 'tps_container';
+
+    const NOME_ARQUIVO = 'dados_capturados.json';
 
     
     const CHAVE_CPU_SISTEMA = 'cpuSystemTimeSeries';
@@ -169,7 +181,7 @@
 
         try {
             // requisição à API
-            const resposta = await fetch(URL_API);
+            const resposta = await fetch(URL_API_CONTAINER);
 
             // descreve erros 
             if (!resposta.ok) {
@@ -179,6 +191,8 @@
 
             // converte a resposta para JSON
             const data = await resposta.json();
+
+            console.log("Dados recebidos da API:", data);
 
             // limpa a mensagem de carregamento
             carregamento.innerHTML = '';
