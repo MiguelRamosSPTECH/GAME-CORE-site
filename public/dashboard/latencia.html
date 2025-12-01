@@ -56,7 +56,7 @@
 
                     </div>
                     <div class="texto-titulo">
-                        <h3>TÉCNICO - LATÊNCIA E ATRASOS | DE 10 EM 10 MINUTOS | SERVIDOR V1.MAIN</h3>
+                        <h3>TÉCNICO - LATÊNCIA E ATRASOS | DE 1 EM 1 MINUTOS | SERVIDOR V1.MAIN</h3>
                     </div>
 
                 </div>
@@ -73,7 +73,7 @@
                         <h3>Latência</h3>
 
                     </div>
-                    <div class="gauge-latencia">
+                    <div class="gauge-latencia" id="area-kpi-latencia">
 
                         <canvas id="gauge-kpi-latencia"></canvas>
 
@@ -83,7 +83,30 @@
                             <h3>Limite Máximo: <span style="color: #74ce3a;">50ms</span></h3>
                         </div>
                         <div class="taxa-reqs">
-                            <h3>98% REQS < 50ms</h3>
+                            <h3><span id="taxa-requisicao">Carregando...</span>% REQS <= 50ms</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-falha">
+                    <div class="titulo-falha">
+
+                        <h3>Probabilidade de Falha Sistêmica</h3>
+
+                    </div>
+                    <div class="taxa-falha" id="prob-falha">
+
+                        <h1><span id="taxa-erro"></span></h1>
+
+                    </div>
+                    <div class="limite-falha">
+                        <div class="limites">
+                            <span style="color:#63d551">Taxa em 0%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#ffda55">Entre +0% e 50%</span>
+                        </div>
+                        <div class="limites">
+                            <span style="color:#f3464a">Acima de 50%</span>
                         </div>
                     </div>
                 </div>
@@ -99,29 +122,6 @@
 
                     </div>
                     <div class="limite-erro">
-                        <div class="limites">
-                            <span style="color:#63d551">Taxa em 0%</span>
-                        </div>
-                        <div class="limites">
-                            <span style="color:#ffda55">Entre +0% e 50%</span>
-                        </div>
-                        <div class="limites">
-                            <span style="color:#f3464a">Acima de 50%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="kpi-falha">
-                    <div class="titulo-falha">
-
-                        <h3>Probabilidade de Falha Sistêmica</h3>
-
-                    </div>
-                    <div class="taxa-falha">
-
-                        <h1>0%</h1>
-
-                    </div>
-                    <div class="limite-falha">
                         <div class="limites">
                             <span style="color:#63d551">Taxa em 0%</span>
                         </div>
@@ -176,7 +176,7 @@
                         <div class="gauge-carga">
                             <div class="carga1">
 
-                                <div class="real-grafico-carga">
+                                <div class="real-grafico-carga" id="real-grafico-cargaC1">
 
                                     <canvas id="gauge-carga1"></canvas>
 
@@ -191,7 +191,7 @@
                             </div>
                             <div class="carga5">
 
-                                <div class="real-grafico-carga">
+                                <div class="real-grafico-carga" id="real-grafico-cargaC2">
 
                                     <canvas id="gauge-carga5"></canvas>
 
@@ -206,7 +206,7 @@
                             </div>
                             <div class="carga15">
 
-                                <div class="real-grafico-carga">
+                                <div class="real-grafico-carga" id="real-grafico-cargaC3">
 
                                     <canvas id="gauge-carga15"></canvas>
 
