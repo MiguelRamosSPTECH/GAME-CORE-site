@@ -10,20 +10,21 @@
   },
   "dependencies": {
     "apexcharts": "^5.3.6",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
     "mysql2": "^3.9.4",
     "nodemon": "^2.0.7",
-    "path": "^0.12.7",
-    "aws-sdk": "^2.1478.0",
-    "ejs": "^3.1.10",
-    "papaparse": "^5.4.1"
+    "papaparse": "^5.4.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
-  "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0"
   },
-    "keywords": [
+  "keywords": [
     "s3",
     "express",
     "ejs",
