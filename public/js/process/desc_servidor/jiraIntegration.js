@@ -1,4 +1,3 @@
-const { ConfigurationServicePlaceholders } = require("aws-sdk/lib/config_service_placeholders");
 
 function listarChamados() {
     fetch('/jiraIntegration/listar', {
@@ -18,12 +17,15 @@ function listarChamados() {
 
         for(let i=0;i<chamados.issues.length;i++){
             let chamadosEmString = JSON.stringify(chamados.issues[i]);
+            let corGravidade = "";
             if(chamados.issues[i].fields.priority.name == "Highest"){
                 chamados.issues[i].fields.priority.name = "Crítico"
             } else if(chamados.issues[i].fields.priority.name == "High"){
                 chamados.issues[i].fields.priority.name = "Alto"
+                corGravidade = "#ff5757;"
             } else if(chamados.issues[i].fields.priority.name == "Medium"){
                 chamados.issues[i].fields.priority.name = "Médio"
+                corGravidade = "#fad73e"
             }
 
             
@@ -39,9 +41,9 @@ function listarChamados() {
 
             let trataData = Math.round((Date.now() - new Date(chamados.issues[i].fields.created)) / (1000 * 60));
             areaAlertas.innerHTML+= `
-                            <div class="alerta" onclick="descricaoDetalhadaChamado(${chamadosEmString})">
+                            <div class="alerta" onclick='descricaoDetalhadaChamado(${chamadosEmString})'>
                                 <div class="nivel-alerta">
-                                    <div class="content-nivel">
+                                    <div class="content-nivel" style="background-color:${corGravidade}!important">
                                         ${chamados.issues[i].fields.priority.name}
                                     </div>
                                 </div>
@@ -59,6 +61,14 @@ function listarChamados() {
                             </div>            
             `
         }
+        if(chamados.issues.length == 0) {
+             areaAlertas.innerHTML+= "NENNHUM TICKET FOI ABERTO HOJE AINDA!"
+        }
+
+
+
+
+
         let listaAlertasServidores = document.getElementById('tabela_alerta_servidores');
         let nomeServidorMonitorar = "nada"
         if(qtdTickets == 0) {
@@ -102,6 +112,7 @@ function listarChamados() {
     });
 }
 
+//ver com grupo se faz sntido ficar aq ou ir pro jira tlgd
 function descricaoDetalhadaChamado(dados_chamado) {
     console.log(dados_chamado)
 }
