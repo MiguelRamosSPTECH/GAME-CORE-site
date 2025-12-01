@@ -1,7 +1,9 @@
-let limiteUso1;
-let limiteUso2;
-const limiteTemp1 = 80
-const limiteTemp2 = 90
+let limiteUso1 = 80;
+let limiteUso2 = 90;
+const limiteTemp1 = 80;
+const limiteTemp2 = 90;
+let limiteCpuFreq1 = 0;
+let limiteCpuFreq2 = 0;
 
 function buscarParametrosDashTemp() {
     var idEmpresa = sessionStorage.ID_EMPRESA;
@@ -34,6 +36,9 @@ function buscarParametrosDashTemp() {
                         // console.log(config.alertaLeve)
                         // console.log(config.alertaGrave)
                         // console.log(typeof config.alertaGrave)
+
+                        limiteCpuFreq1 = Number(config.alertaLeve);
+                        limiteCpuFreq2 = Number(config.alertaGrave);
                     }
 
                 });
@@ -44,7 +49,6 @@ function buscarParametrosDashTemp() {
             }
         })
 }
-
 
 
 // S3 ---------------------------------------------
@@ -67,12 +71,15 @@ async function buscarArquivoPedroProc() {
                 // const atual = new Date();
                 // console.log(atual);
                 // console.log(typeof atual);
-                // console.log(top5ProcessosCpu(processos))
+
+
+                // top5ProcessosCpu(processos)
 
                 // return processos;
             }
         })
 }
+
 
 async function buscarArquivoPedroMed() {
     const resposta = await fetch(`/dashTemperatura/dados_pedro/medicoes.json`, {
@@ -86,12 +93,12 @@ async function buscarArquivoPedroMed() {
             if (resposta.ok) {
 
                 // console.log(resposta);
-                console.log(medicoes);
+                // console.log(medicoes);
 
                 // atualizarKpis(medicoes);
                 Chart.defaults.color = '#ddddddff';
-                plotarTemperatura(medicoes);
-                plotarUsoCPU(medicoes);
+                // plotarTemperatura(medicoes);
+                // plotarUsoCPU(medicoes);
 
                 // return medicoes;
             }
@@ -100,16 +107,50 @@ async function buscarArquivoPedroMed() {
 // S3 ---------------------------------------------
 
 function top5ProcessosCpu(allProcessos) {
-    const dataAtual = new Date();
+    // const dataAtual = new Date();
     // const data30MinAtras = new Date(dataAtual.getTime() - 30*60*1000); // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
-    const data30MinAtras = new Date("2025-11-28T10:15:30"); // data fixa para teste
+    // const data30MinAtras = new Date("2025-11-28T10:15:30"); // data fixa para teste
 
-    console.log(data30MinAtras)
-    const processosFiltrados = allProcessos.filter(p => {
-        return new Date(p.timestamp.replace(" ", "T")) >= data30MinAtras;
-    })
-    return processosFiltrados;
+    // // console.log(data30MinAtras)
+    // const processosFiltrados = allProcessos.filter(p => {
+    //     return new Date(p.timestamp.replace(" ", "T")) >= data30MinAtras;
+    // })
+    // return processosFiltrados;
+
+    const ultimaData = allProcessos[allProcessos.length - 1].timestamp.replace(" ", "T");
+    console.log("Última data disponível:", ultimaData);
+    const processosUltimaMedicao = allProcessos.filter(p => {
+        return p.timestamp.replace(" ", "T") === ultimaData;
+    });
+    console.log(processosUltimaMedicao);
+    // console.log(processosUltimaMedicao.nome_processo);
+    // console.log(processosUltimaMedicao.cpu_porcentagem);
+    // processosUltimaMedicao.forEach(p => {
+    //     console.log(p.nome_processo, p.cpu_porcentagem);
+    // });
+
+    for (let i = 0; i < processosUltimaMedicao.length - 1; i++) {
+        let maxIndex = i;
+        for (let j = i + 1; j < processosUltimaMedicao.length; j++) {
+            if (processosUltimaMedicao[j].cpu_porcentagem > processosUltimaMedicao[maxIndex].cpu_porcentagem) {
+                maxIndex = j;
+            }
+        }
+        if (maxIndex !== i) {
+            let aux = processosUltimaMedicao[i];
+            processosUltimaMedicao[i] = processosUltimaMedicao[maxIndex];
+            processosUltimaMedicao[maxIndex] = aux;
+        }
+    }
+
+    // console.log("order by cpu",processosUltimaMedicao);
+
+    for (let k = 0; k < 5; k++) {
+        document.getElementById(`n${k + 1}`).innerHTML = processosUltimaMedicao[k].nome_processo;
+        document.getElementById(`p${k + 1}`).innerHTML = processosUltimaMedicao[k].cpu_porcentagem + '%';
+    }
 }
+
 
 function atualizarKpis(allMedicoes) {
     const dataAtual = new Date();
@@ -125,7 +166,8 @@ function atualizarKpis(allMedicoes) {
 
     // console.log(medicoesFiltradas[0].cpu_porcentagem, medicoesFiltradas[medicoesFiltradas.length - 1].cpu_porcentagem);
     const usoPrimeiraMedicao = medicoesFiltradas[0].cpu_porcentagem;
-    const usoAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_porcentagem;
+    // const usoAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_porcentagem;
+    const usoAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_porcentagem.toFixed(1);
     const variacaoUso = (usoAtualMedicao - usoPrimeiraMedicao).toFixed(1);
     // console.log(variacaoUso);
     // return medicoesFiltradas;
@@ -140,7 +182,7 @@ function atualizarKpis(allMedicoes) {
 
     document.getElementById('variacaoCpu').innerHTML = stringVariacaoUso;
 
-    document.getElementById('atualCpu').innerHTML = usoAtualMedicao.toFixed(1);
+    document.getElementById('atualCpu').innerHTML = usoAtualMedicao;
 
     const valorKpiUso = document.getElementById('atualCpu');
     const simboloUso = document.getElementById('atualCpuPorcent');
@@ -163,7 +205,8 @@ function atualizarKpis(allMedicoes) {
 
     // ---------------------------------------------
     const tempPrimeiraMedicao = medicoesFiltradas[0].temperatura_cpu;
-    const tempAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].temperatura_cpu;
+    // const tempAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].temperatura_cpu;
+    const tempAtualMedicao = medicoesFiltradas[medicoesFiltradas.length - 1].temperatura_cpu.toFixed(1);
     const variacaoTemp = (tempAtualMedicao - tempPrimeiraMedicao).toFixed(1);
 
     // console.log(medicoesFiltradas)
@@ -178,7 +221,7 @@ function atualizarKpis(allMedicoes) {
     }
     document.getElementById('variacaoTemp').innerHTML = stringVariacaoTemp;
 
-    document.getElementById('atualTemp').innerHTML = tempAtualMedicao.toFixed(1);
+    document.getElementById('atualTemp').innerHTML = tempAtualMedicao;
 
     const valorKpiTemp = document.getElementById('atualTemp');
     const simboloPorcent = document.getElementById('atualTempPorcent')
@@ -201,7 +244,7 @@ function atualizarKpis(allMedicoes) {
     const tempoAcimaLimite = calcularTempoAcimaLimite(medicoesFiltradas, limiteTemp1);
     // console.log(tempoAcimaLimite);
 
-    document.getElementById('limite-temp-crit').innerHTML = limiteTemp1;
+    document.getElementById('limite-temp-crit').innerHTML = limiteTemp2;
     document.getElementById('tempo-acima-limite').innerHTML = tempoAcimaLimite + ' min';
 
     const tempoAcumulado = document.getElementById('tempo-acima-limite');
@@ -219,15 +262,109 @@ function atualizarKpis(allMedicoes) {
 
     // ---------------------------------------------
 
-    const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMin;
-    const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequencia;
-    const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMax;
+    // const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMin;
+    // const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequencia;
+    // const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMax;
+    const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMin.toFixed(1);
+    const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequencia.toFixed(1);
+    const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMax.toFixed(1);
 
-    document.getElementById('freq-min').textContent = freqMinDisponivel.toFixed(1);
-    document.getElementById('freq-atual').textContent = freqAtual.toFixed(1);
-    document.getElementById('freq-max').textContent = freqMaxDisponivel.toFixed(1);
+    document.getElementById('freq-min').textContent = freqMinDisponivel;
+    document.getElementById('freq-atual').textContent = freqAtual;
+    document.getElementById('freq-max').textContent = freqMaxDisponivel;
+
+    const porcentagemFreq = (freqAtual / freqMaxDisponivel) * 100;
+
+    document.getElementById('freq-resumo').innerHTML = porcentagemFreq.toFixed(1) + '% da máxima disponível';
+
+
+    // ----------------------------------------------
+
+    resumoFinal(usoAtualMedicao, tempAtualMedicao, freqMinDisponivel, freqAtual, freqMaxDisponivel);
 
 }
+
+function resumoFinal(uso_cpu, temperatura_cpu, freqMin_cpu, freqAtual_cpu, freqMax_cpu) {
+    // const temperatura = temperatura_cpu >= 90 ? "alta" : temperatura_cpu >= 80 ? "quente" : "normal";
+    // const uso = uso_cpu >= limiteUso2 ? "alto" : uso_cpu >= limiteUso1 ? "moderado" : "normal";
+    // const freq = freqAtual_cpu > freqMax_cpu * 0.9 ? "alta" : freqAtual_cpu < freqMin_cpu * 1.1 ? "baixa" : "normal";
+    const porcentagemFreq = (freqAtual_cpu / freqMax_cpu) * 100;
+
+    const isTempCritica = temperatura_cpu >= 90;
+    const isTempAlta = temperatura_cpu >= 80 && temperatura_cpu < 90;
+    const isTempNormal = temperatura_cpu < 80;
+
+    const isUsoAlto = uso_cpu >= limiteUso2;
+    const isUsoBaixo = uso_cpu <= limiteUso1;
+
+    const isFrequenciaBaixa = porcentagemFreq < 60;
+    const isFrequenciaAlta = porcentagemFreq > 85;
+
+    const resumo = document.getElementById('resumo-txt');
+
+
+
+    // thermal throttling 
+    if (isTempCritica && isFrequenciaBaixa) {
+        resumo.innerHTML = "Possível limitação térmica. CPU superaquecida reduzindo a frequência.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor4');
+        return;
+    }
+
+    // fallha de refrigeração
+    if (isTempCritica && isUsoBaixo) {
+        resumo.innerHTML = "Possível falha de refrigeração. Temperatura crítica com baixo uso.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor4');
+        return;
+    }
+
+    //
+    if (isTempCritica && !isFrequenciaBaixa) {
+        resumo.innerHTML = "Provavelmente entrará em limitação térmica em breve. Temperatura e frequência altas.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor3');
+        return;
+    }
+
+    //
+    if (isUsoAlto && !isFrequenciaAlta && isTempNormal) {
+        resumo.innerHTML = "Uso de CPU acima do limite. Frequência e temperatura controladas. Sistema operando em alto desempenho.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor2');
+        return;
+    }
+
+    if (isTempAlta && isUsoAlto && isFrequenciaAlta) {
+        resumo.innerHTML = "Estresse performático. Temperatura e uso acima dos limites. Frequência elevada.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor3');
+        return;
+    }
+
+
+    if (isUsoAlto && isFrequenciaAlta && isTempNormal) {
+        resumo.innerHTML = "Alto desempenho. Uso e frequência elevados com temperatura controlada.";
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor1');
+        return;
+    }
+
+    if (isUsoBaixo && isTempNormal) {
+        resumo.innerHTML = "Sistema ocioso e estável em economia de energia."
+        resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+        resumo.classList.add('cor1');
+        return;
+    }
+
+    resumo.innerHTML = "Operação normal do sistema. Sem anomalias detectadas.";
+    resumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+    resumo.classList.add('cor1');
+    return;
+
+}
+
 
 function calcularTempoAcimaLimite(medicoesFiltradas, limiteTemperatura) {
     let tempoAcumulado = 0;
@@ -248,9 +385,6 @@ function calcularTempoAcimaLimite(medicoesFiltradas, limiteTemperatura) {
 
     return Math.round(tempoAcumulado / 60);
 }
-
-
-
 
 
 function plotarUsoCPU(allMedicoes) {
@@ -361,7 +495,6 @@ function plotarUsoCPU(allMedicoes) {
 
     new Chart(graphUso, configUso);
 }
-
 
 
 function plotarTemperatura(allMedicoes) {
