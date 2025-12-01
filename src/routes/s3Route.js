@@ -3,11 +3,18 @@ const router = express.Router();
 const path = require('path');
 
 const s3Controller = require('../script/s3');
+const s3TratamentoController = require('../script/s3_tratamento');
 
 router.get('/dados/*', (req, res) => {
   req.params.arquivo = req.params[0];
   s3Controller.lerArquivo(req, res);
 });
+
+router.get('/dados-transformados/*', (req, res) => {
+  req.params.arquivo = req.params[0];
+  s3TratamentoController.lerArquivo(req, res);
+});
+
 
 router.get('/ver/*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../public/dashboard', 'latencia.html'));
