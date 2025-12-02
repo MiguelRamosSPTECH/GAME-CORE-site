@@ -2,8 +2,121 @@ let diaDeHoje = new Date()
 let mes = diaDeHoje.getMonth() + 1;
 let dia = diaDeHoje.getDate() < 10 ? `${0}${diaDeHoje.getDate()}` : diaDeHoje.getDate();
 let ano = diaDeHoje.getFullYear();
-let timestamp = `${ano}-${mes}-${dia}`;
+let timestamp = `${ano}-${mes}-01`;
 let nomeServidorMockado = "00-D7-6D-98-56-34";
+
+var chart;
+
+             const options = {
+
+                title: {
+                    text: 'Uso dos containers comparados',
+                    align: 'left',
+                    style: {
+                        fontSize: '18px',
+                        color: '#f1f1f1' // Cor do título (combinando com o foreColor)
+                    }
+                },                
+
+
+                series: [
+                    {
+                        name: "Uso de CPU (%)", // Cor 1: Roxo
+                        data: []
+                    },
+                    {
+                        name: "Throughput (Requisições/s)", // Cor 2: Azul
+                        data: []
+                    }, 
+                    {
+                        name: "Uso de RAM (GB)", // Cor 3: Laranja
+                        data: []
+                    },
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 430,
+                    width: 400,
+                    toolbar: {
+                        show: false
+                    }
+                },
+                // Cores: 1. Roxo, 2. Azul, 3. Laranja
+                colors: ['#9c18daff', '#008FFB', '#e76e0bff'],
+                foreColor: '#f1f1f1', // Cor do texto e eixos
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                        dataLabels: {
+                            position: 'top',
+                            offsetX: 0,
+                        },
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                    offsetX: -6,
+                    style: {
+                        fontSize: '13px',
+                        colors: ['#ffffff'],
+                        
+                    },
+                },
+                stroke: {
+                    show: true,
+                    width: 1,
+                    colors: ['#fff'],
+                },
+                tooltip: {
+                    shared: true,
+                    intersect: false,
+                    theme: 'dark'
+                },
+                xaxis: {
+                    categories: ["mc-server-1", "mc-server-2", "mc-server-3"],
+                    labels: {
+                        style: {
+                            colors: '#f1f1f1',
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: '#f1f1f1',
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        colors: '#f1f1f1',
+                    }
+                }
+            };
+
+chart = new ApexCharts(document.querySelector("#grafico-barra"), options);
+chart.render();
+
+function atualizaGrafico(dadoRam, dadoCpu, dadoIo) {
+    console.log("dardo: ",dadoRam)
+    const novoDataSeries = [
+        {
+            name: "Uso de RAM (%)",
+            data: dadoRam
+        },
+        {
+            name: "Uso de CPU (%)",
+            data: dadoCpu
+        },
+        {
+            name: "Throughput (I/O)",
+            data: dadoIo
+        }
+    ];
+
+    chart.updateSeries(novoDataSeries) //magia essa biblioteca aikkkk
+}
 
 
 async function getDadosByBucketClient(apelidoServidor) {
@@ -14,7 +127,6 @@ async function getDadosByBucketClient(apelidoServidor) {
     })
     .then(async resposta => {
         let retorno = await resposta.json();
-        console.log(retorno)
         let areaKpis = document.getElementsByClassName('kpi');
         for(let i=0;i<areaKpis.length;i++) {
             let corBordaKpi = ''
@@ -22,10 +134,8 @@ async function getDadosByBucketClient(apelidoServidor) {
             let metricaKpi = areaKpis[i].children[2].children[1].children[0].children[1].textContent.split(".");
             let faixaLeve = Number((areaKpis[i].children[2].children[1].children[0].children[1].textContent).replace(/[^0-9.]/g, ''));
             let faixaGrave = Number((areaKpis[i].children[2].children[1].children[1].children[1].textContent).replace(/[^0-9.]/g, ''));
-
             let barraProgresso = areaKpis[i].children[2].children[0].children[0]
-            let metricaKpi1 = metricaKpi[1].replace(/\d/g, '')
-
+            let metricaKpi1 = metricaKpi.length > 1 ? metricaKpi[1].replace(/\d/g, '').trim() : metricaKpi[0].replace(/\d/g, '').trim()
             if(metricaKpi1 == "%") {
                 nomeKpi+="_porcentagem"
             } else {
@@ -49,7 +159,7 @@ async function getDadosByBucketClient(apelidoServidor) {
 }
 
 async function getDadosByBucketClientContainer(apelidoServidor) {
-    fetch(`/s3Route/dados/${timestamp}/${nomeServidorMockado}/dados_containers.json`, {
+    fetch(`/s3Route/dados/${timestamp}/${nomeServidorMockado}/dados_containers_1.json`, {
         method: "GET"
     })
     .then(async resposta => {
@@ -74,12 +184,16 @@ async function getDadosByBucketClientContainer(apelidoServidor) {
 
         if(Number(tick_data) < 20) {
             dadoKpiTick.style.color = "red"
+        } else {
+            dadoKpiTick.style.color = "green"
         }
         
         if(Number(throttled_data) >= 4) {
             dadoKpiThrottled.style.color = "#e61c1cff"
         } else if(Number(throttled_data) >= 2) {
             dadoKpiThrottled.style.color = "#fad73e"
+        } else {
+            dadoKpiThrottled.style.color = "white"
         }
         console.log(dadosContainersMaisRecente[0])
         //area para atualizar o gráfico:
@@ -88,8 +202,8 @@ async function getDadosByBucketClientContainer(apelidoServidor) {
         let dadosIo = [dadosContainersMaisRecente[0].throughput_container, dadosContainersMaisRecente[1].throughput_container, dadosContainersMaisRecente[2].throughput_container]
 
         dadoKpiThrottled.innerHTML = throttled_data
-        dadoKpiTick.innerText = tick_data
-        return [dadosRam, dadosCpu, dadosIo]
+        dadoKpiTick.innerText = Math.round(tick_data,2)
+        atualizaGrafico(dadosRam, dadosCpu, dadosIo)
     })
 
     // setTimeout(() => {

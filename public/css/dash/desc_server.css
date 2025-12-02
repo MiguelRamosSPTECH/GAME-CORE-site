@@ -271,7 +271,7 @@ html, * {
     font-size: small;
 }
 .barra-fundo {
-    display: flex;
+    display: none;
     align-self: start;
     background-color: whitesmoke;
     width: 90%;

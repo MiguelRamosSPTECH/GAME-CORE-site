@@ -91,7 +91,3 @@ sudo /usr/local/bin/docker-compose up -d
 
 echo "VERIFICANDO EXECUÇÃO DOS CONTAINERS"
 sudo /usr/local/bin/docker-compose ps
-
-
-echo "================== ADICIONANDO UBUNTU AO GRUPO DOCKER =================================="
-sudo usermod -aG docker ubuntu
