@@ -56,13 +56,11 @@
 
                     </div>
                     <div class="texto-titulo">
-                        <h3>TÉCNICO - LATÊNCIA E ATRASOS | DE 1 EM 1 MINUTOS | SERVIDOR V1.MAIN</h3>
+                        <h3>TÉCNICO - LATÊNCIA E ATRASOS | DE 1 EM 1 MINUTOS | SERVIDOR M1.MAIN</h3>
                     </div>
 
                 </div>
                 <div class="botao-sair">
-
-                    <button>Voltar</button>
 
                 </div>
             </div>
@@ -103,33 +101,33 @@
                             <span style="color:#63d551">Taxa em 0%</span>
                         </div>
                         <div class="limites">
-                            <span style="color:#ffda55">Entre +0% e 50%</span>
+                            <span style="color:#ffda55">Entre +0% e 0.1%</span>
                         </div>
                         <div class="limites">
-                            <span style="color:#f3464a">Acima de 50%</span>
+                            <span style="color:#f3464a">Acima de 0.1%</span>
                         </div>
                     </div>
                 </div>
                 <div class="kpi-erro">
                     <div class="titulo-erro">
 
-                        <h3>Taxa de Falha dos Containers</h3>
+                        <h3>Confiabilidade do Sistema</h3>
 
                     </div>
-                    <div class="gauge-erro">
+                    <div class="gauge-erro" id="gauge-erro">
 
                         <canvas id="gauge-latencia-erro"></canvas>
 
                     </div>
                     <div class="limite-erro">
                         <div class="limites">
-                            <span style="color:#63d551">Taxa em 0%</span>
+                            <span style="color:#63d551">Taxa em +99.9%</span>
                         </div>
                         <div class="limites">
-                            <span style="color:#ffda55">Entre +0% e 50%</span>
+                            <span style="color:#ffda55">Entre +99.9% e 90.0%</span>
                         </div>
                         <div class="limites">
-                            <span style="color:#f3464a">Acima de 50%</span>
+                            <span style="color:#f3464a">Abaixo de 90.0%</span>
                         </div>
                     </div>
                 </div>
@@ -221,56 +219,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="lista-procs">
-                        <div class="titulo-lista">
-                            <h3>TOP 5 Processos que Mais Consomem CPU</h3>
-                        </div>
-                        <div class="corpo-lista">
-                            <div class="item1">
-                                <div class="nome-proc-container">
-                                    <span>minecraft-inicializator-server</span>
-                                </div>
-                                <div class="container-servidor">
-                                    <span>(CPU: 70% | cont-1)</span>
-                                </div>
-                            </div>
-                            <div class="item2">
-                                <div class="nome-proc-container">
-                                    <span>createworld-inicializator</span>
-                                </div>
-                                <div class="container-servidor">
-                                    <span>(CPU: 55% | cont-3)</span>
-                                </div>
-                            </div>
-                            <div class="item3">
-                                <div class="nome-proc-container">
-                                    <span>spawnmob-map</span>
-                                </div>
-                                <div class="container-servidor">
-                                    <span>(CPU: 47% | cont-2)</span>
-                                </div>
-                            </div>
-                            <div class="item4">
-                                <div class="nome-proc-container">
-                                    <span>creeper_explosion-action</span>
-                                </div>
-                                <div class="container-servidor">
-                                    <span>(CPU: 35% | cont-1)</span>
-                                </div>
-                            </div>
-                            <div class="item5">
-                                <div class="nome-proc-container">
-                                    <span>nether-inicializator</span>
-                                </div>
-                                <div class="container-servidor">
-                                    <span>(CPU: 32% | cont-1)</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="latencia">
+                        <button class="btn-latencia" onclick="window.location.href='dash_temperatura.html'">
+                            Visualizar Temperatura do Servidor</button>
+                    </div>
+
+                    <div class="servidores">
+                        <button class="btn-voltar" onclick="window.location.href='./servidores/desc_servidor.html'">
+                            Retornar para visualização geral do servidor</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
     </div>
