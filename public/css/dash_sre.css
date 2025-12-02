@@ -9,6 +9,7 @@ margin: 0;
 padding: 0;
 height: 100%;
 overflow: hidden;
+font-family: "Poppins", sans-serif;
 }
 
 .container-all {
@@ -134,7 +135,7 @@ width: 100%;
 grid-area: corpo;
 background-color: #0a061b;
 margin-top: 50px;
-height: calc(100vh - 50px); ;
+height: calc(100vh - 50px);
 display: grid;
 grid-template-rows: 2fr 7fr 1fr 19fr;
 row-gap: 4px;
@@ -160,7 +161,7 @@ justify-content: center;
 align-items: center;
 align-content: center;
 justify-items: center;
-font-size: 33px;
+font-size: 19px;
 position: relative;
 }
 
@@ -173,11 +174,9 @@ color: #fff;
 display: grid;
 grid-template-columns: 1fr 1fr;
 column-gap: 1%;
-
+height: 100%;
 position: relative;
-
 align-items: center;
-
 padding-top: 3%;
 padding-left: 1%;
 padding-right: 1%;
@@ -194,7 +193,7 @@ color: #fff;
 display: grid;
 grid-template-columns: 1fr 1fr;
 column-gap: 1%;
-
+height: 100%;
 position: relative;
 
 align-items: center;
@@ -341,25 +340,25 @@ transform: translateX(-50%)
     border: 0.3vh solid #911;
     border-radius: 15px;
     background-color: #231f39;
-    height: 85%;
-
+    height: 80%;
+    
     display: flex;
     flex-direction: column;
     justify-content: center; 
     align-items: center;
-    gap: 2%;            
+    gap: 5%;            
     padding: 2%;
 }
 
 .desc_metade {
-    font-size: 140%;       
+    font-size: 18px;       
     text-align: center;
     line-height: 120%;     
     max-width: 90%;
 }
 
 .medida_metade {
-    font-size: 280%;       
+    font-size: 25px;       
     font-weight: 700;
     display: flex;
     gap: 3%;
@@ -368,7 +367,7 @@ transform: translateX(-50%)
 
 
 .titulo_direita1{
-    font-size: 140%;       
+    font-size: 17px;       
     text-align: center;
     line-height: 120%;     
     max-width: 90%;
@@ -382,11 +381,12 @@ transform: translateX(-50%)
     border-collapse: collapse;
     margin-top: 10px;
 }
-
+.img_td {
+    width: 15%;
+}
 .lista_sv td {
-    padding: 8px 12px;
     border-bottom: 1px solid #444;
-    font-size: 1.8vh;
+    font-size: 2vh;
 }
 
 #graf_pizza{
