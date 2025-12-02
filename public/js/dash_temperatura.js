@@ -11,6 +11,17 @@ let limiteCpuFreq2 = 0;
 
 // S3_BUCKET_PEDRO="pedro-teste-bucket-01-12"
 
+
+let diaDeHoje = new Date()
+let mes = diaDeHoje.getMonth() + 1;
+let dia = diaDeHoje.getDate() < 10 ? `${0}${diaDeHoje.getDate()}` : diaDeHoje.getDate();
+let ano = diaDeHoje.getFullYear();
+// let timestamp = `${ano}-${mes}-${dia}`;
+let timestamp = `2025-12-01`;
+let nomeServidorMockado = "00-D7-6D-98-56-34";
+
+
+
 function buscarParametrosDashTemp() {
     var idEmpresa = sessionStorage.ID_EMPRESA;
     fetch(`/dashTemperatura/buscarParametros/${idEmpresa}`, {
@@ -59,6 +70,10 @@ function buscarParametrosDashTemp() {
 
 // S3 ---------------------------------------------
 async function buscarArquivoPedroProc() {
+    const ARQUIVO_HOST = 'dados_processos.json';
+    const URL_API_HOST = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_HOST}`;
+    // const resposta = await fetch(URL_API_HOST, {
+    // const resposta = await fetch(`/dashTemperatura/dados_pedro/processos.json`, {
     const resposta = await fetch(`/dashTemperatura/dados_pedro/dados_processos.csv`, {
         method: "GET",
         headers: {
@@ -78,7 +93,7 @@ async function buscarArquivoPedroProc() {
                 // console.log(atual);
                 // console.log(typeof atual);
 
-
+                console.log(processos)
                 top5ProcessosCpu(processos)
 
                 // return processos;
@@ -88,6 +103,9 @@ async function buscarArquivoPedroProc() {
 
 
 async function buscarArquivoPedroMed() {
+    const ARQUIVO_HOST = 'dados_capturados.json';
+    const URL_API_HOST = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_HOST}`;
+    // const resposta = await fetch(URL_API_HOST, {
     const resposta = await fetch(`/dashTemperatura/dados_pedro/dados_capturados.json`, {
         method: "GET",
         headers: {
@@ -164,7 +182,7 @@ function atualizarKpis(allMedicoes) {
 
 
     // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
-    const data30MinAtras = new Date("2025-11-30T21:21:00"); // data fixa para teste 
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
@@ -406,12 +424,17 @@ function calcularTempoAcimaLimite(medicoesFiltradas, limiteTemperatura) {
 
 function plotarUsoCPU(allMedicoes) {
 
-    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
-    const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
+    // // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    // const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
 
 
-    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date();
+    // console.log(allMedicoes)
 
+
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
         return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
@@ -516,12 +539,17 @@ function plotarUsoCPU(allMedicoes) {
 
 function plotarTemperatura(allMedicoes) {
 
-    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
-    const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
+    // // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    // const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
 
 
-    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date();
+    // console.log(allMedicoes)
 
+
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
         return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
