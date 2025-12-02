@@ -53,15 +53,15 @@
             <div class="kpi1">
                 <p class="titulo_kpi">CPU Esperada:</p>
                 <div class="metade" id="box_1cpu">
-                    <p class="desc_metade" id="atual_cpu">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                    <p class="desc_metade" id="atual_cpu"></p>
 
-                    <p class="medida_metade" id="1_cpu">77%  a 97%</p>
+                    <p class="medida_metade" id="1_cpu"></p>
                 </div>
 
                 <div class="metade" id="box_2cpu">
-                    <p class="desc_metade" id="proxima_cpu">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                    <p class="desc_metade" id="proxima_cpu"></p>
 
-                    <p class="medida_metade" id="2_cpu">80%  a 87%</p>
+                    <p class="medida_metade" id="2_cpu"></p>
                 </div>
 
         
@@ -71,16 +71,16 @@
             <div class="kpi2">
             <p class="titulo_kpi">RAM Esperada:</p>
         
-                    <div class="metade" style="border-color: green;" id="box_1ram">
-                    <p class="desc_metade" id="atual_ram">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                    <div class="metade" id="box_1ram">
+                    <p class="desc_metade" id="atual_ram"></p>
 
-                    <p class="medida_metade" id="1_ram">55% a 60%</p>
+                    <p class="medida_metade" id="1_ram"></p>
                 </div>
 
-                <div class="metade" style="border-color: yellow; " id="box_2ram">
-                    <p class="desc_metade" id="proxima_ram">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                <div class="metade" id="box_2ram">
+                    <p class="desc_metade" id="proxima_ram"></p>
 
-                    <p class="medida_metade" id="2_ram">66% a 70%</p>
+                    <p class="medida_metade" id="2_ram"></p>
                 </div>
         </div>
 
@@ -101,15 +101,9 @@
                     
                 </tr>
                 <tr>
-                    <td class="img_td"><img src="../../assets/imgs/bandeira_brasil.png" width="80%" ></td>
-                    <td>minecraft-main</td>
-                    <td style="color: red;">5</td>
+                    
 
                 </tr>
-                                <tr>
-                    <td class="img_td"><img src="../../assets/imgs/bandeira_brasil.png" width="80%" ></td>
-                    <td>minecraft-main</td>
-                    <td style="color: red;">5</td>
 
                 </tr>
             </table>
@@ -131,7 +125,7 @@
 
     <div id="popup" class="popup">
     <div class="popup_conteudo">
-        <p>Nos períodos informados abaixo, aproximadamente 68% do tempo, a porcentagem de uso estará dentro da sua respectiva faixa prevista</p>
+        <p>Nos períodos informados abaixo, aproximadamente 68% do tempo, a porcentagem de uso estará dentro da sua respectiva faixa prevista, com base no mês anterior</p>
 
         <button onclick="fechar_popup()" class="fechar_popup">Fechar</button>
     </div>
@@ -488,16 +482,30 @@ var horarioServidores = {}
 var terAlertaLevesServidores = {}
 var terAlertaGravesServidores = {}
 
-   
+
+
+var dataAtualFormatada = new Date();
+
+var anoFormatada = dataAtual.getFullYear();
+var mesFormatada = String(dataAtual.getMonth() + 1).padStart(2, "0");
+var diaFormatada = String(dataAtual.getDate()).padStart(2, "0");
+
+var dataFormatada = `${anoFormatada}-${mesFormatada}-${diaFormatada}`;
+
+console.log(dataFormatada);
+
+
+
 
     async function mandarBuscar (){
             
 
+
         // Logica para pegar os dados de todos os servidores daquela empresa:]
-        
+
         for ( var i = 0; i < macServidor.length; i++){
 
-            let NOME_ARQUIVO = `8/${macServidor[i]}/dados_caputrados.csv`;
+            let NOME_ARQUIVO = `${dataFormatada}/${macServidor[i]}/dados_capturados.json`;
             let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
             await buscarDados(URL_API, macServidor[i], "cpu_porcentagem", "ram_porcentagem")
             // Adiona os valores de CPU e RAM nos objetos criados acima de todos os servidores cadastrados, do dia de hoje
@@ -661,22 +669,22 @@ var terAlertaGravesServidores = {}
                     
             // Isso me dá daqui a quantas medidas vai ter o alerta
 
-
                             const proximoPonto = n;
-                // LÓGICA DE PREVISÃO CORRIGIDA PARA RISCO CRESCENTE
-                // SÓ CALCULA SE A TENDÊNCIA FOR DE CRESCIMENTO (b > 0)
-                if (b > 0.00001) { 
+
+                // Só calcula se B for positivo
+                if (b > 0) { 
 
                     // Garante que não haja divisão por zero ou infinito
+                    
                     if (isFinite(b)) {
                         
                         var horarioAlertaLeve = ((alertaLevevar - a) / b) * 1/3; // 1/3 pra virar minutos
                         var horarioAlertaGrave = ((alertaGravevar - a) / b) * 1/3;
 
-                        // 1. Alerta Leve
-                        // Condição: Se a inclinação é positiva, basta que o alerta tenha sido alcançado
-                        // em algum momento positivo (horarioAlerta > 0).
-                        if (horarioAlertaLeve > 0 && isFinite(horarioAlertaLeve)) { 
+                        // Alerta Leve
+
+                        // Só pega se tiver em 3 horas, e n tiver valor estranho
+                        if (horarioAlertaLeve > 0 && isFinite(horarioAlertaLeve && horarioAlertaLeve <= 180)) { 
                             terAlertaLevesServidores[mac] = horarioAlertaLeve;
 
                             console.log("Alerta leve na possição " + mac +terAlertaLevesServidores[mac] );
@@ -692,8 +700,8 @@ var terAlertaGravesServidores = {}
                             
                         }
 
-                        // 2. Alerta Grave
-                        if (horarioAlertaGrave > 0 && isFinite(horarioAlertaGrave)) { 
+                        // Alerta Grave
+                        if (horarioAlertaGrave > 0 && isFinite(horarioAlertaGrave) && horarioAlertaGrave <= 180) { 
                             terAlertaGravesServidores[mac] = horarioAlertaGrave;
 
                             console.log("Alerta grave na possição " + mac +terAlertaGravesServidores[mac] );
@@ -792,13 +800,24 @@ function listarServidores() {
         var cor = "green"
         var tempo = "-"
 
-        if (sv.grave !== null) {
+        if (sv.grave !== null && sv.grave <= 180) {
+
+            if(sv.grave >= 60){
+                cor = "red"
+                tempo = (sv.grave/60).toFixed(1) + "hrs"
+            } else{
+
             cor = "red"
-            tempo = sv.grave.toFixed(1) + "min"
+            tempo = sv.grave.toFixed(1) + "min"}
         }
-        else if (sv.leve !== null) {
+        else if (sv.leve !== null && sv.leve <= 180) {
+            if(sv.leve >= 60){
+                cor = "orange"
+                tempo = (sv.leve/60).toFixed(1) + "hrs"
+            } else{
+
             cor = "orange"
-            tempo = sv.leve.toFixed(1) + "min"
+            tempo = sv.leve.toFixed(1) + "min"}
         }
 
         linhas += 
