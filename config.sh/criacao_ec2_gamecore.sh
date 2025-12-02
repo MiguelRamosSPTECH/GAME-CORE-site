@@ -74,7 +74,7 @@ aws ec2 run-instances \
   --image-id ami-0360c520857e3138f \
   --count 1 \
   --security-group-ids $id_sg \
-  --instance-type t3.micro \
+  --instance-type t3.small \
   --subnet-id $id_subnet \
   --key-name $nome_chave_pem \
   --user-data file://config_amb_gamecore_v2.sh \

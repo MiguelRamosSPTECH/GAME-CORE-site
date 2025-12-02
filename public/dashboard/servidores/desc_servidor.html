@@ -63,9 +63,10 @@
                     </div>
                     <div class="infos-add">
                         <div class="area-clock">
-                            <i class="fa-regular fa-clock"></i> Atualização: <span>2 minutos atrás</span>
+                            INFORMAÇÕES DETALHADAS:
                         </div>
-                        <i class="fa-solid fa-circle-info" id="info-popup"></i>
+                        <div class="icon_link" onclick="window.location='../dash_temperatura.html'"><img src="../../assets/imgs/icon_temperature.png" alt=""></div>
+                        <div class="icon_link" onclick="window.location='../latencia.html'"><img src="../../assets/imgs/icon_latency.png" alt=""></div>
                     </div>
                 </div>
                 <div class="area-containers-dados">
@@ -91,7 +92,6 @@
                                         <div class="kpi-container">
                                             <div class="title-kpi-container">
                                                 TICKS POR SEGUNDO
-                                                <i class="fa-solid fa-circle-info"></i>
                                             </div>
                                             <div class="dado-kpi-container">
                                                 <span id="tick_kpi"></span> /20
@@ -100,7 +100,6 @@
                                         <div class="kpi-container">
                                             <div class="title-kpi-container">
                                                 THROTTLED TIME
-                                                <i class="fa-solid fa-circle-info"></i>
                                             </div>
                                             <div class="dado-kpi-container">
                                                 <span id="throttled_kpi"></span> /5 min
@@ -119,11 +118,18 @@
                                             <th scope="col">Nome</th>
                                             <th scope="col">Cpu (%)</th>
                                             <th scope="col">Ram (%)</th>
-                                            <th scope="col">I/O (%)</th>
+                                            <th scope="col">I/O (MB/s)</th>
                                             <th scope="col" class="status-process">Status</th>
                                             </tr>
                                         </thead>     
-                                        <tbody id="list_process_servidor">                                          
+                                        <tbody id="list_process_servidor">
+                                            <tr>
+                                                <td>Code.exe</td>
+                                                <td>45%</td>
+                                                <td>30%</td>
+                                                <td>150</td>
+                                                <td class="status-process" style="color: rgb(67, 255, 67);">RUNNING</td>
+                                            </tr>                                                                                        
                                         </tbody>                                                                      
                                     </table>
                                 </div>

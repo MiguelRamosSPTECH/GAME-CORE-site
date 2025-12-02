@@ -53,15 +53,15 @@
             <div class="kpi1">
                 <p class="titulo_kpi">CPU Esperada:</p>
                 <div class="metade" id="box_1cpu">
-                    <p class="desc_metade" id="atual_cpu">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                    <p class="desc_metade" id="atual_cpu"></p>
 
-                    <p class="medida_metade" id="1_cpu">77%  a 97%</p>
+                    <p class="medida_metade" id="1_cpu"></p>
                 </div>
 
                 <div class="metade" id="box_2cpu">
-                    <p class="desc_metade" id="proxima_cpu">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                    <p class="desc_metade" id="proxima_cpu"></p>
 
-                    <p class="medida_metade" id="2_cpu">80%  a 87%</p>
+                    <p class="medida_metade" id="2_cpu"></p>
                 </div>
 
         
@@ -71,16 +71,16 @@
             <div class="kpi2">
             <p class="titulo_kpi">RAM Esperada:</p>
         
-                    <div class="metade" style="border-color: green;" id="box_1ram">
-                    <p class="desc_metade" id="atual_ram">2ª metade de novembro <b>(<u>atual)</u></b></p>
+                    <div class="metade" id="box_1ram">
+                    <p class="desc_metade" id="atual_ram"></p>
 
-                    <p class="medida_metade" id="1_ram">55% a 60%</p>
+                    <p class="medida_metade" id="1_ram"></p>
                 </div>
 
-                <div class="metade" style="border-color: yellow; " id="box_2ram">
-                    <p class="desc_metade" id="proxima_ram">1ª metade de Dezembro  <b>(<u>seguinte)</u></b> </p>
+                <div class="metade" id="box_2ram">
+                    <p class="desc_metade" id="proxima_ram"></p>
 
-                    <p class="medida_metade" id="2_ram">66% a 70%</p>
+                    <p class="medida_metade" id="2_ram"></p>
                 </div>
         </div>
 
@@ -101,15 +101,9 @@
                     
                 </tr>
                 <tr>
-                    <td class="img_td"><img src="../../assets/imgs/bandeira_brasil.png" width="80%" ></td>
-                    <td>minecraft-main</td>
-                    <td style="color: red;">5</td>
+                    
 
                 </tr>
-                                <tr>
-                    <td class="img_td"><img src="../../assets/imgs/bandeira_brasil.png" width="80%" ></td>
-                    <td>minecraft-main</td>
-                    <td style="color: red;">5</td>
 
                 </tr>
             </table>
@@ -131,7 +125,7 @@
 
     <div id="popup" class="popup">
     <div class="popup_conteudo">
-        <p>Nos períodos informados abaixo, aproximadamente 68% do tempo, a porcentagem de uso estará dentro da sua respectiva faixa prevista</p>
+        <p>Nos períodos informados abaixo, aproximadamente 68% do tempo, a porcentagem de uso estará dentro da sua respectiva faixa prevista, com base no mês anterior</p>
 
         <button onclick="fechar_popup()" class="fechar_popup">Fechar</button>
     </div>
@@ -282,7 +276,7 @@ var alertaLevevar = 0
 
 
 
-                        montar()
+                        mandarBuscar ()
                     
                     
 
@@ -328,8 +322,44 @@ var alertaLevevar = 0
 var dataAtual = new Date();
 var mes = dataAtual.getMonth()
 var dia = dataAtual.getDate()
-
 function montar() {
+
+
+    var dadosCPU2 = tudoCPU.slice(-(dia + 15), -dia)
+    var dadosCPU1 = tudoCPU.slice(-(dia + 30), -(dia + 15))
+
+    var dadosRAM2 = tudoRAM.slice(-(dia + 15), -dia)
+    var dadosRAM1 = tudoRAM.slice(-(dia + 30), -(dia + 15))
+
+
+    // calculando o desvio padrão:
+
+    var CPU2desvio = desvioPadrao(dadosCPU2)
+    var CPU1desvio = desvioPadrao(dadosCPU1)
+    var RAM2desvio = desvioPadrao(dadosRAM2)
+    var RAM1desvio = desvioPadrao(dadosRAM1)
+    
+
+    var CPU2media = mediaPadrao(dadosCPU2)
+    var CPU1media = mediaPadrao(dadosCPU1)
+    var RAM2media = mediaPadrao(dadosRAM2)
+    var RAM1media = mediaPadrao(dadosRAM1)
+
+
+    kpis.cpumax1 = (CPU1media + CPU1desvio).toFixed(0)
+    kpis.cpumax2 = (CPU2media + CPU2desvio).toFixed(0)
+
+    kpis.rammax1 = (RAM1media + RAM1desvio).toFixed(0)
+    kpis.rammax2 = (RAM2media + RAM2desvio).toFixed(0)
+
+
+
+    kpis.cpumin1 = (CPU1media - CPU1desvio).toFixed(0)
+    kpis.cpumin2 = (CPU2media - CPU2desvio).toFixed(0)
+
+    kpis.rammin1 = (RAM1media - RAM1desvio).toFixed(0)
+    kpis.rammin2 = (RAM2media - RAM2desvio).toFixed(0)
+
 
 
     var nomesMeses = [
@@ -412,14 +442,37 @@ function montar() {
         document.getElementById("box_2ram").style.borderColor  = "red";
     }
 
-     mandarBuscar ()
+     
 }
 
 
 
+function desvioPadrao (vetor){
+    var soma = 0
+    for(var i = 0; i < vetor.length; i++){
+        soma += vetor[i]
+    }
 
+    var media = soma/vetor.length
 
+    var desvioQuadrado = 0
 
+    for(var i = 0; i < vetor.length; i++){
+        desvioQuadrado += ((vetor[i] - media) ^ 2)
+    }
+
+    var desvio = ((desvioQuadrado/media) ^ 0.5)
+
+    return desvio
+}
+
+function mediaPadrao(vetor){
+    var soma = 0
+    for(i = 0; i < vetor.length; i++){
+        soma += vetor[i]
+    }
+    return soma/vetor.length
+}
 
 // Pegando os valores do bucket:
 
@@ -429,16 +482,30 @@ var horarioServidores = {}
 var terAlertaLevesServidores = {}
 var terAlertaGravesServidores = {}
 
-   
+
+
+var dataAtualFormatada = new Date();
+
+var anoFormatada = dataAtual.getFullYear();
+var mesFormatada = String(dataAtual.getMonth() + 1).padStart(2, "0");
+var diaFormatada = String(dataAtual.getDate()).padStart(2, "0");
+
+var dataFormatada = `${anoFormatada}-${mesFormatada}-${diaFormatada}`;
+
+console.log(dataFormatada);
+
+
+
 
     async function mandarBuscar (){
             
 
+
         // Logica para pegar os dados de todos os servidores daquela empresa:]
-        
+
         for ( var i = 0; i < macServidor.length; i++){
 
-            let NOME_ARQUIVO = `8/${macServidor[i]}/dados_caputrados.csv`;
+            let NOME_ARQUIVO = `${dataFormatada}/${macServidor[i]}/dados_capturados.json`;
             let URL_API = `/s3Route/dados/${NOME_ARQUIVO}`;
             await buscarDados(URL_API, macServidor[i], "cpu_porcentagem", "ram_porcentagem")
             // Adiona os valores de CPU e RAM nos objetos criados acima de todos os servidores cadastrados, do dia de hoje
@@ -602,22 +669,22 @@ var terAlertaGravesServidores = {}
                     
             // Isso me dá daqui a quantas medidas vai ter o alerta
 
-
                             const proximoPonto = n;
-                // LÓGICA DE PREVISÃO CORRIGIDA PARA RISCO CRESCENTE
-                // SÓ CALCULA SE A TENDÊNCIA FOR DE CRESCIMENTO (b > 0)
-                if (b > 0.00001) { 
+
+                // Só calcula se B for positivo
+                if (b > 0) { 
 
                     // Garante que não haja divisão por zero ou infinito
+                    
                     if (isFinite(b)) {
                         
                         var horarioAlertaLeve = ((alertaLevevar - a) / b) * 1/3; // 1/3 pra virar minutos
                         var horarioAlertaGrave = ((alertaGravevar - a) / b) * 1/3;
 
-                        // 1. Alerta Leve
-                        // Condição: Se a inclinação é positiva, basta que o alerta tenha sido alcançado
-                        // em algum momento positivo (horarioAlerta > 0).
-                        if (horarioAlertaLeve > 0 && isFinite(horarioAlertaLeve)) { 
+                        // Alerta Leve
+
+                        // Só pega se tiver em 3 horas, e n tiver valor estranho
+                        if (horarioAlertaLeve > 0 && isFinite(horarioAlertaLeve && horarioAlertaLeve <= 180)) { 
                             terAlertaLevesServidores[mac] = horarioAlertaLeve;
 
                             console.log("Alerta leve na possição " + mac +terAlertaLevesServidores[mac] );
@@ -633,8 +700,8 @@ var terAlertaGravesServidores = {}
                             
                         }
 
-                        // 2. Alerta Grave
-                        if (horarioAlertaGrave > 0 && isFinite(horarioAlertaGrave)) { 
+                        // Alerta Grave
+                        if (horarioAlertaGrave > 0 && isFinite(horarioAlertaGrave) && horarioAlertaGrave <= 180) { 
                             terAlertaGravesServidores[mac] = horarioAlertaGrave;
 
                             console.log("Alerta grave na possição " + mac +terAlertaGravesServidores[mac] );
@@ -733,13 +800,24 @@ function listarServidores() {
         var cor = "green"
         var tempo = "-"
 
-        if (sv.grave !== null) {
+        if (sv.grave !== null && sv.grave <= 180) {
+
+            if(sv.grave >= 60){
+                cor = "red"
+                tempo = (sv.grave/60).toFixed(1) + "hrs"
+            } else{
+
             cor = "red"
-            tempo = sv.grave.toFixed(1) + "min"
+            tempo = sv.grave.toFixed(1) + "min"}
         }
-        else if (sv.leve !== null) {
+        else if (sv.leve !== null && sv.leve <= 180) {
+            if(sv.leve >= 60){
+                cor = "orange"
+                tempo = (sv.leve/60).toFixed(1) + "hrs"
+            } else{
+
             cor = "orange"
-            tempo = sv.leve.toFixed(1) + "min"
+            tempo = sv.leve.toFixed(1) + "min"}
         }
 
         linhas += 
@@ -867,6 +945,8 @@ function gerarBarra(){
             }
         }
     });
+
+    pegarGrafLinha()
 }
 
 
@@ -884,7 +964,10 @@ let previsoesRAMvar = []
 
 
 
- async function grafLinha() {
+var tudoCPU = []
+var tudoRAM = []
+
+ async function pegarGrafLinha() {
             
 
             let NOME_ARQUIVO = `resumo.csv`;
@@ -927,15 +1010,37 @@ let previsoesRAMvar = []
             // extrai os valores para os eixos
 
 
-            mediasCPUvar = data.map(d => Number(d[mediasCPU])).slice(-30); // esse .slice(-30) corta os ultimos 30 valores do vetor
-            mediasRAMvar = data.map(d => Number(d[mediasRAM])).slice(-30);
-
-            previsoesCPUvar = data.map(d => Number(d[previsoesCPU])).slice(-45);
-            previsoesRAMvar = data.map(d => Number(d[previsoesRAM])).slice(-45);
+            mediasCPUvar = data.map(d => Number(d["cpu_media"])).slice(-60); // esse .slice(-30) corta os ultimos 30 valores do vetor
+            mediasRAMvar = data.map(d => Number(d["ram_media"])).slice(-60);
 
 
+            tudoCPU = data.map(d => Number(d["cpu_media"]));
+            tudoRAM = data.map(d => Number(d["ram_media"]));
 
-            // Se for a ultima chamada dessa função, ela faz o codigo abaixo, que gera o predict de alerta pra cada servidor
+
+
+
+            preverGrafLinha(mediasCPUvar, pontosCPU)
+            preverGrafLinha(mediasRAMvar, pontosRAM)
+            
+
+            previsoesCPUvar = pontosCPU; 
+            previsoesRAMvar = pontosRAM;
+
+
+
+            mediasCPUvar = mediasCPUvar.slice(-30); 
+            mediasRAMvar = mediasRAMvar.slice(-30);
+
+
+            for (let i = 0; i < 5; i++) {
+            mediasCPUvar.push(null);
+            mediasRAMvar.push(null);
+            }
+
+            grafLinha()
+
+            
         }
                  catch (error) {
             // Captura e exibe erros
@@ -943,23 +1048,112 @@ let previsoesRAMvar = []
         }
 
         console.log("");
+    }
+
+// var historicoCPU_Base = []
+// var historicoRAM_Base = []
+
+
+var pontosCPU = []
+var pontosRAM = []
+
+function preverGrafLinha(referencia, vetor){
+    
+    var n = 30; 
+    var numPrevisoes = 5;
+    var totalPontos = n + numPrevisoes; // Total de 35 pontos no gráfico
+
+    var y_base = referencia.slice(-n); 
+    
+    var x_base = [];
+    for (var i = 0; i < n; i++) {
+        x_base.push(i); 
+    }
+
+
+    // Regressão
+
+    var somaX = 0;
+    var somaY = 0;
+    var somaXY = 0;
+    var somaX2 = 0;
+
+    for (let i = 0; i < n; i++) {
+        somaX += x_base[i];
+        somaY += y_base[i];
+        somaXY += x_base[i] * y_base[i];
+        somaX2 += x_base[i] * x_base[i];
+    }
+
+    // a e b
+    var b = (n * somaXY - somaX * somaY) / (n * somaX2 - somaX * somaX); 
+    var a = (somaY - b * somaX) / n;
+    
+    console.log(`Regressão n=${n} A=${a.toFixed(2)}, B=${b.toFixed(4)}`);
+
+    // Gerando os pontos
+    
+    vetor.length = 0; // Limpa o vetor
+    
+
+    for (let i = 0; i < totalPontos; i++) {
+
+        var x_valor = i; 
         
+        var previsao = a + b * x_valor; 
 
-        // --------------------------------------------------------------------
-        // Logica da criação do grafico de linha em si e da separação dos dados
-        // --------------------------------------------------------------------
+        // Bão deixa o resultado passar de 100%
+        vetor.push(Math.min(100, previsao)); 
+    }
+    
+}
+
+vetorSaida = []
 
 
-        //Premissa: os dados vem do mais antigo para o mais recente -> tem que confirmar isso
+
+function gerarDias() {
+    var labels = [];
+
+    var hoje = new Date();
+
+    // 29 dias pra tras
+    for (var i = 29; i > 0; i--) {
+        var data = new Date(hoje);
+        data.setDate(hoje.getDate() - i);
+
+        var dia = String(data.getDate()).padStart(2, "0");
+        var mes = String(data.getMonth() + 1).padStart(2, "0");
+
+        labels.push(dia + "/" + mes);
+    }
+
+    // dia de hoje
+    var diaAtual = String(hoje.getDate()).padStart(2, "0");
+    var mesAtual = String(hoje.getMonth() + 1).padStart(2, "0");
+    labels.push(diaAtual + "/" + mesAtual);
+
+    //  5 dias pra frente
+    for (var j = 1; j <= 5; j++) {
+        var futura = new Date(hoje);
+        futura.setDate(hoje.getDate() + j);
+
+        var dia = String(futura.getDate()).padStart(2, "0");
+        var mes = String(futura.getMonth() + 1).padStart(2, "0");
+
+        labels.push(dia + "/" + mes);
+    }
+
+    return labels;
+}
 
 
-
-
-        const ctx = document.getElementById('grafico').getContext('2d');
+function grafLinha(){
+            const ctx = document.getElementById('grafico').getContext('2d');
         
         if (graficoLinha) {
         graficoLinha.destroy();
-}
+        }
 
        graficoLinha =  new Chart(ctx, {
             type: 'line',
@@ -1009,7 +1203,7 @@ let previsoesRAMvar = []
                     legend: { display: true },
                     title: {
                         display: true,
-                        text: 'Evolução e previsão da media mensal de uso de CPU e RAM (ultimos 30 e proximos 15 dias)',
+                        text: 'Evolução e previsão da media mensal de uso de CPU e RAM (ultimos 30 e proximos 5 dias)',
                         color: 'white',
                         font: {
                             size: 20,
@@ -1038,49 +1232,8 @@ let previsoesRAMvar = []
             }
         });
 
-    }
-
-
-
-
-
-
-
-function gerarDias() {
-    var labels = [];
-
-    var hoje = new Date();
-
-    // 29 dias pra tras
-    for (var i = 29; i > 0; i--) {
-        var data = new Date(hoje);
-        data.setDate(hoje.getDate() - i);
-
-        var dia = String(data.getDate()).padStart(2, "0");
-        var mes = String(data.getMonth() + 1).padStart(2, "0");
-
-        labels.push(dia + "/" + mes);
-    }
-
-    // dia de hoje
-    var diaAtual = String(hoje.getDate()).padStart(2, "0");
-    var mesAtual = String(hoje.getMonth() + 1).padStart(2, "0");
-    labels.push(diaAtual + "/" + mesAtual);
-
-    //  15 dias pra frente
-    for (var j = 1; j <= 15; j++) {
-        var futura = new Date(hoje);
-        futura.setDate(hoje.getDate() + j);
-
-        var dia = String(futura.getDate()).padStart(2, "0");
-        var mes = String(futura.getMonth() + 1).padStart(2, "0");
-
-        labels.push(dia + "/" + mes);
-    }
-
-    return labels;
+        montar()
 }
-
 
 </script>
 

@@ -160,20 +160,19 @@ INSERT INTO regiao VALUES (null, "AS-2");
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
 
 insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
-insert into configuracaoservidor values(null, 85.4, 91.6, 6, 6, 1);
-insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
+insert into configuracaoservidor values(null, 85.4, 91.6, 1, 7, 1);
+insert into configuracaoservidor values(null, 2.8, 12.8, 1, 9, 1);
 insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
 
 
-insert into servidor values (null, "M1.MAIN","10-68-38-9B-8A-08",1,1,1),
+insert into servidor values (null, "M1.MAIN","10-68-38-9B-8A-08",1,1,null),
                             (null, "M2.MAIN","98-FE-3E-41-A0-3C",1,1,1),
                             (null, "M3.MAIN","EC-91-61-8B-FF-A1",1,1,null),
                             (null, "M.BCKP.PROD","40-8D-5C-76-DB-41",1,1,null),
                             (null, "M1.AU-SNCD","00-D7-6D-98-56-34",1,1,null),
-                            (null, "M1.MAIN","40-8D-5C-76-DB-41",1,1,null);
+                            (null, "MHG1.MAIN","34-6F-24-21-38-7F",1,1,null);
                             
-                            
-
+select * from servidor;
 
 insert into permissaocargo values(3,1,0),
 								 (4,1,0),
