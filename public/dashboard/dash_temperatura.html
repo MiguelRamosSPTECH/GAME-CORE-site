@@ -58,7 +58,7 @@
 
             <section class="topo-pagina">
                 <div class="titulo">
-                    <h2>TÉCNICO - TEMPERATURA DA CPU | ÚLTIMOS 30 MINUTOS | SERVIDOR V1.MAIN</h2>
+                    <h2>TÉCNICO - TEMPERATURA DA CPU | ÚLTIMOS 30 MINUTOS | <span id="serverSelecionado">SERVIDOR V1.MAIN</span></h2>
                 </div>
             </section>
 
@@ -70,9 +70,9 @@
                     <div class="kpi-content">
                         <div class="kpi-subtit">
                             <div>
-                                <span id="atualCpu" class="maior">50</span><span id="atualCpuPorcent"
+                                <span id="atualCpu" class="maior">0</span><span id="atualCpuPorcent"
                                     class="maior">%</span>
-                                <span id="variacaoCpu" class="menor">+3.2</span>%
+                                <span id="variacaoCpu" class="menor">+0.0</span>%
                             </div>
                             <div class="tit-alert">
                                 <div>
@@ -92,9 +92,9 @@
                     <div class="kpi-content">
                         <div class="kpi-subtit">
                             <div>
-                                <span id="atualTemp" class="maior">50</span><span id="atualTempPorcent"
+                                <span id="atualTemp" class="maior">0</span><span id="atualTempPorcent"
                                     class="maior">°C</span>
-                                <span id="variacaoTemp" class="menor">+3.2</span>°C
+                                <span id="variacaoTemp" class="menor">+0.0</span>°C
                             </div>
                             <div class="tit-alert">
                                 <div>
@@ -111,23 +111,23 @@
 
                 <div class="kpi kpi-freq">
 
-                    <div class="kpi-titulo freq1">Frequência</div>
+                    <div class="kpi-titulo freq1">Frequência (MHz)</div>
 
                     <div class="kpi-content kc-freq">
 
                         <div class="col">
                             <span class="tit">Min. disponível</span>
-                            <span id="freq-min" class="cont-menor">1.5</span>
+                            <span id="freq-min" class="cont-menor">0.0</span>
                         </div>
 
                         <div class="col">
                             <span class="tit">Atual</span>
-                            <span id="freq-atual" class="cont-maior">1.5</span>
+                            <span id="freq-atual" class="cont-maior">0.0</span>
                         </div>
 
                         <div class="col">
                             <span class="tit">Máx. disponível</span>
-                            <span id="freq-max" class="cont-menor">1.5</span>
+                            <span id="freq-max" class="cont-menor">0.0</span>
                         </div>
 
                     </div>
@@ -225,7 +225,7 @@
                     </div>
 
                     <div class="servidores">
-                        <button class="btn-voltar" onclick="window.location.href='index.html'">
+                        <button class="btn-voltar" onclick="window.location.href='./servidores/desc_servidor.html'">
                             Retornar para visualização geral do servidor</button>
                     </div>
 
