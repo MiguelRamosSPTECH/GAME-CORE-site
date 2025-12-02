@@ -4,151 +4,137 @@ const Papa = require('papaparse');
 AWS.config.update({ region: process.env.AWS_REGION });
 const s3 = new AWS.S3();
 
-/**
- * Transforma dados capturados no formato esperado pelo dashboard
- */
+
 function transformarDados(dadosCapturados) {
-  // Ordenar por timestamp
-  dadosCapturados.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-  
-  // Filtrar últimas 24 horas para séries diárias
-  const agora = new Date();
-  const ultimoDia = new Date(agora.getTime() - 24 * 60 * 60 * 1000);
-  const dadosDiarios = dadosCapturados.filter(d => new Date(d.timestamp) >= ultimoDia);
-  
-  // Filtrar últimos 30 dias para séries mensais
-  const ultimoMes = new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000);
-  const dadosMensais = dadosCapturados.filter(d => new Date(d.timestamp) >= ultimoMes);
-  
-  // Agrupar dados por dia
-  const dadosPorDia = {};
-  dadosMensais.forEach(dado => {
-    const data = new Date(dado.timestamp);
-    const chaveData = data.toISOString().split('T')[0];
-    
-    if (!dadosPorDia[chaveData]) {
-      dadosPorDia[chaveData] = {
-        maxCpu: 0,
-        maxRam: 0,
-        maxProcessos: 0,
-        alertas: 0
-      };
-    }
-    
-    dadosPorDia[chaveData].maxCpu = Math.max(dadosPorDia[chaveData].maxCpu, dado.cpu_porcentagem || 0);
-    dadosPorDia[chaveData].maxRam = Math.max(dadosPorDia[chaveData].maxRam, dado.ram_porcentagem || 0);
-    dadosPorDia[chaveData].maxProcessos = Math.max(dadosPorDia[chaveData].maxProcessos, dado.total_processos_ativos || 0);
-    
-    // Contar alertas: CPU > 80%, RAM > 90%, Temperatura > 80°C
-    if (dado.cpu_porcentagem > 80 || dado.ram_porcentagem > 90 || dado.temperatura_cpu > 80) {
-      dadosPorDia[chaveData].alertas++;
-    }
-  });
-  
-  // Criar séries temporais mensais
-  const alertasMesTimeSeries = [];
-  const picoMaxRamMesTimeSeries = [];
-  const picoMaxCpuMesTimeSeries = [];
-  const picoMaxProcessosMesTimeSeries = [];
-  
-  const diasOrdenados = Object.keys(dadosPorDia).sort();
-  diasOrdenados.forEach(dia => {
-    const dados = dadosPorDia[dia];
-    const timestamp = `${dia}T00:00:00Z`;
-    
-    alertasMesTimeSeries.push({ timestamp, value: dados.alertas });
-    picoMaxRamMesTimeSeries.push({ timestamp, value: parseFloat(dados.maxRam.toFixed(1)) });
-    picoMaxCpuMesTimeSeries.push({ timestamp, value: parseFloat(dados.maxCpu.toFixed(1)) });
-    picoMaxProcessosMesTimeSeries.push({ timestamp, value: Math.round(dados.maxProcessos) });
-  });
-  
-  // Criar séries temporais diárias
-  const cpuSystemTimeSeries = [];
-  const cpuUserTimeSeries = [];
-  const desempenhoTimeSeries = [];
-  const esperaTimeSeries = [];
-  const swapTimeSeries = [];
-  
-  dadosDiarios.forEach(dado => {
-    const timestamp = new Date(dado.timestamp).toISOString();
-    
-    cpuSystemTimeSeries.push({ 
-      timestamp, 
-      value: parseFloat((dado.cpu_sistema_porcentagem || 0).toFixed(1)) 
+    dadosCapturados.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+    const agora = new Date();
+    const ultimoDia = new Date(agora.getTime() - 24 * 60 * 60 * 1000);
+    const dadosDiarios = dadosCapturados.filter(d => new Date(d.timestamp) >= ultimoDia);
+
+    const ultimoMes = new Date(agora.getTime() - 30 * 24 * 60 * 60 * 1000);
+    const dadosMensais = dadosCapturados.filter(d => new Date(d.timestamp) >= ultimoMes);
+
+    const dadosPorDia = {};
+    dadosMensais.forEach(dado => {
+        const data = new Date(dado.timestamp);
+        const chaveData = data.toISOString().split('T')[0];
+
+        if (!dadosPorDia[chaveData]) {
+            dadosPorDia[chaveData] = {
+                maxCpu: 0,
+                maxRam: 0,
+                maxProcessos: 0,
+                alertas: 0
+            };
+        }
+
+        dadosPorDia[chaveData].maxCpu = Math.max(dadosPorDia[chaveData].maxCpu, dado.cpu_porcentagem || 0);
+        dadosPorDia[chaveData].maxRam = Math.max(dadosPorDia[chaveData].maxRam, dado.ram_porcentagem || 0);
+        dadosPorDia[chaveData].maxProcessos = Math.max(dadosPorDia[chaveData].maxProcessos, dado.total_processos_ativos || 0);
+
+        if (dado.cpu_porcentagem > 80 || dado.ram_porcentagem > 90 || dado.temperatura_cpu > 80) {
+            dadosPorDia[chaveData].alertas++;
+        }
     });
-    
-    cpuUserTimeSeries.push({ 
-      timestamp, 
-      value: parseFloat((dado.cpu_usuarios_porcentagem || 0).toFixed(1)) 
+
+    const alertasMesTimeSeries = [];
+    const picoMaxRamMesTimeSeries = [];
+    const picoMaxCpuMesTimeSeries = [];
+    const picoMaxProcessosMesTimeSeries = [];
+
+    const diasOrdenados = Object.keys(dadosPorDia).sort();
+    diasOrdenados.forEach(dia => {
+        const dados = dadosPorDia[dia];
+        const timestamp = `${dia}T00:00:00Z`;
+
+        alertasMesTimeSeries.push({ timestamp, value: dados.alertas });
+        picoMaxRamMesTimeSeries.push({ timestamp, value: parseFloat(dados.maxRam.toFixed(1)) });
+        picoMaxCpuMesTimeSeries.push({ timestamp, value: parseFloat(dados.maxCpu.toFixed(1)) });
+        picoMaxProcessosMesTimeSeries.push({ timestamp, value: Math.round(dados.maxProcessos) });
     });
-    
-    // Cálculo de desempenho: CPU utilizada / (CPU ociosa + Swap)
-    const cpuUtilizada = dado.cpu_porcentagem || 0;
-    const cpuOciosa = dado.cpu_ociosa_porcentagem || 0;
-    const swap = dado.ram_swap_porcentagem || 0;
-    const desempenho = cpuOciosa + swap > 0 ? cpuUtilizada / (cpuOciosa + swap) : 0;
-    
-    desempenhoTimeSeries.push({ 
-      timestamp, 
-      value: parseFloat(desempenho.toFixed(2)) 
+
+    const cpuSystemTimeSeries = [];
+    const cpuUserTimeSeries = [];
+    const desempenhoTimeSeries = [];
+    const esperaTimeSeries = [];
+    const swapTimeSeries = [];
+
+    dadosDiarios.forEach(dado => {
+        const timestamp = new Date(dado.timestamp).toISOString();
+
+        cpuSystemTimeSeries.push({
+            timestamp,
+            value: parseFloat((dado.cpu_sistema_porcentagem || 0).toFixed(1))
+        });
+
+        cpuUserTimeSeries.push({
+            timestamp,
+            value: parseFloat((dado.cpu_usuarios_porcentagem || 0).toFixed(1))
+        });
+
+        const cpuUtilizada = dado.cpu_porcentagem || 0;
+        const cpuOciosa = dado.cpu_ociosa_porcentagem || 0;
+        const swap = dado.ram_swap_porcentagem || 0;
+        const desempenho = cpuOciosa + swap > 0 ? cpuUtilizada / (cpuOciosa + swap) : 0;
+
+        desempenhoTimeSeries.push({
+            timestamp,
+            value: parseFloat(desempenho.toFixed(2))
+        });
+
+        const tempoEspera = ((cpuUtilizada + (dado.ram_porcentagem || 0)) / 2) * 0.3;
+        esperaTimeSeries.push({
+            timestamp,
+            value: parseFloat(tempoEspera.toFixed(1))
+        });
+
+        swapTimeSeries.push({
+            timestamp,
+            value: parseFloat((swap || 0).toFixed(1))
+        });
     });
-    
-    // Tempo de espera (estimativa baseada em carga)
-    const tempoEspera = ((cpuUtilizada + (dado.ram_porcentagem || 0)) / 2) * 0.3;
-    esperaTimeSeries.push({ 
-      timestamp, 
-      value: parseFloat(tempoEspera.toFixed(1)) 
-    });
-    
-    swapTimeSeries.push({ 
-      timestamp, 
-      value: parseFloat((swap || 0).toFixed(1)) 
-    });
-  });
-  
-  // Dados mais recentes para KPIs
-  const dadoMaisRecente = dadosCapturados[dadosCapturados.length - 1] || {};
-  
-  // Contar total de alertas no último mês
-  let totalAlertasMes = 0;
-  alertasMesTimeSeries.forEach(item => {
-    totalAlertasMes += item.value;
-  });
-  
-  // Picos máximos do mês
-  const picoMaxCpuKPI = picoMaxCpuMesTimeSeries.length > 0 
-    ? Math.max(...picoMaxCpuMesTimeSeries.map(d => d.value)) 
-    : 0;
-  
-  const picoMaxRamKPI = picoMaxRamMesTimeSeries.length > 0 
-    ? Math.max(...picoMaxRamMesTimeSeries.map(d => d.value)) 
-    : 0;
-  
-  const picoMaxProcessosKPI = picoMaxProcessosMesTimeSeries.length > 0 
-    ? Math.max(...picoMaxProcessosMesTimeSeries.map(d => d.value)) 
-    : 0;
-  
-  // Retornar objeto no formato esperado
-  return {
-    dataReferencia: new Date().toISOString().split('T')[0],
-    ramUtilizadaPercent: parseFloat((dadoMaisRecente.ram_porcentagem || 0).toFixed(1)),
-    ramDisponivelPercent: parseFloat((dadoMaisRecente.ram_disp_porcentagem || 0).toFixed(1)),
-    totalProcessos: Math.round(dadoMaisRecente.total_processos_ativos || 0),
-    totalAlertasMes,
-    picoMaxCpuMesPercentual: parseFloat(picoMaxCpuKPI.toFixed(1)),
-    picoMaxRamMesPercentual: parseFloat(picoMaxRamKPI.toFixed(1)),
-    picoMaxProcessosMes: Math.round(picoMaxProcessosKPI),
-    alertasMesTimeSeries,
-    picoMaxRamMesTimeSeries,
-    picoMaxCpuMesTimeSeries,
-    picoMaxProcessosMesTimeSeries,
-    swapTimeSeries,
-    desempenhoTimeSeries,
-    esperaTimeSeries,
-    cpuSystemTimeSeries,
-    cpuUserTimeSeries
-  };
+
+    const dadoMaisRecente = dadosCapturados[dadosCapturados.length - 1] || {};
+
+    let totalAlertasMes = 0;
+    alertasMesTimeSeries.forEach(item => { totalAlertasMes += item.value; });
+
+    const picoMaxCpuKPI = picoMaxCpuMesTimeSeries.length > 0
+        ? Math.max(...picoMaxCpuMesTimeSeries.map(d => d.value))
+        : 0;
+
+    const picoMaxRamKPI = picoMaxRamMesTimeSeries.length > 0
+        ? Math.max(...picoMaxRamMesTimeSeries.map(d => d.value))
+        : 0;
+
+    const picoMaxProcessosKPI = picoMaxProcessosMesTimeSeries.length > 0
+        ? Math.max(...picoMaxProcessosMesTimeSeries.map(d => d.value))
+        : 0;
+
+    return {
+        dataReferencia: new Date().toISOString().split('T')[0],
+        ramUtilizadaPercent: parseFloat((dadoMaisRecente.ram_porcentagem || 0).toFixed(1)),
+        ramDisponivelPercent: parseFloat((dadoMaisRecente.ram_disp_porcentagem || 0).toFixed(1)),
+        totalProcessos: Math.round(dadoMaisRecente.total_processos_ativos || 0),
+        totalAlertasMes,
+        picoMaxCpuMesPercentual: parseFloat(picoMaxCpuKPI.toFixed(1)),
+        picoMaxRamMesPercentual: parseFloat(picoMaxRamKPI.toFixed(1)),
+        picoMaxProcessosMes: Math.round(picoMaxProcessosKPI),
+        alertasMesTimeSeries,
+        picoMaxRamMesTimeSeries,
+        picoMaxCpuMesTimeSeries,
+        picoMaxProcessosMesTimeSeries,
+        swapTimeSeries,
+        desempenhoTimeSeries,
+        esperaTimeSeries,
+        cpuSystemTimeSeries,
+        cpuUserTimeSeries
+    };
 }
+
+
+
 
 async function lerArquivo(req, res) {
   try {

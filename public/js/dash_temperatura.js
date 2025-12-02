@@ -1,4 +1,6 @@
 const tempoIntervalo = 2 * 60 * 1000; // 2 minutos
+let graficoTempReiniciar = null;
+let graficoUsoReiniciar = null;
 
 let limiteUso1 = 80;
 let limiteUso2 = 90;
@@ -6,6 +8,19 @@ const limiteTemp1 = 80;
 const limiteTemp2 = 90;
 let limiteCpuFreq1 = 0;
 let limiteCpuFreq2 = 0;
+
+// S3_BUCKET_PEDRO="pedro-teste-bucket-01-12"
+
+
+let diaDeHoje = new Date()
+let mes = diaDeHoje.getMonth() + 1;
+let dia = diaDeHoje.getDate() < 10 ? `${0}${diaDeHoje.getDate()}` : diaDeHoje.getDate();
+let ano = diaDeHoje.getFullYear();
+// let timestamp = `${ano}-${mes}-${dia}`;
+let timestamp = `2025-12-01`;
+let nomeServidorMockado = "00-D7-6D-98-56-34";
+
+
 
 function buscarParametrosDashTemp() {
     var idEmpresa = sessionStorage.ID_EMPRESA;
@@ -55,6 +70,10 @@ function buscarParametrosDashTemp() {
 
 // S3 ---------------------------------------------
 async function buscarArquivoPedroProc() {
+    const ARQUIVO_HOST = 'dados_processos.json';
+    const URL_API_HOST = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_HOST}`;
+    // const resposta = await fetch(URL_API_HOST, {
+    // const resposta = await fetch(`/dashTemperatura/dados_pedro/processos.json`, {
     const resposta = await fetch(`/dashTemperatura/dados_pedro/dados_processos.csv`, {
         method: "GET",
         headers: {
@@ -74,8 +93,8 @@ async function buscarArquivoPedroProc() {
                 // console.log(atual);
                 // console.log(typeof atual);
 
-
-                // top5ProcessosCpu(processos)
+                console.log(processos)
+                top5ProcessosCpu(processos)
 
                 // return processos;
             }
@@ -84,7 +103,10 @@ async function buscarArquivoPedroProc() {
 
 
 async function buscarArquivoPedroMed() {
-    const resposta = await fetch(`/dashTemperatura/dados_pedro/medicoes.json`, {
+    const ARQUIVO_HOST = 'dados_capturados.json';
+    const URL_API_HOST = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_HOST}`;
+    // const resposta = await fetch(URL_API_HOST, {
+    const resposta = await fetch(`/dashTemperatura/dados_pedro/dados_capturados.json`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -95,12 +117,12 @@ async function buscarArquivoPedroMed() {
             if (resposta.ok) {
 
                 // console.log(resposta);
-                // console.log(medicoes);
+                console.log(medicoes);
 
-                // atualizarKpis(medicoes);
                 Chart.defaults.color = '#ddddddff';
-                // plotarTemperatura(medicoes);
-                // plotarUsoCPU(medicoes);
+                plotarTemperatura(medicoes);
+                plotarUsoCPU(medicoes);
+                atualizarKpis(medicoes);
 
                 // return medicoes;
             }
@@ -120,11 +142,11 @@ function top5ProcessosCpu(allProcessos) {
     // return processosFiltrados;
 
     const ultimaData = allProcessos[allProcessos.length - 1].timestamp.replace(" ", "T");
-    console.log("Última data disponível:", ultimaData);
+    // console.log("Última data disponível:", ultimaData);
     const processosUltimaMedicao = allProcessos.filter(p => {
         return p.timestamp.replace(" ", "T") === ultimaData;
     });
-    console.log(processosUltimaMedicao);
+    // console.log(processosUltimaMedicao);
     // console.log(processosUltimaMedicao.nome_processo);
     // console.log(processosUltimaMedicao.cpu_porcentagem);
     // processosUltimaMedicao.forEach(p => {
@@ -156,10 +178,11 @@ function top5ProcessosCpu(allProcessos) {
 
 function atualizarKpis(allMedicoes) {
     const dataAtual = new Date();
+    // console.log(allMedicoes)
 
 
     // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
-    const data30MinAtras = new Date("2025-11-19T21:03:30"); // data fixa para teste 
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
@@ -174,12 +197,12 @@ function atualizarKpis(allMedicoes) {
     // console.log(variacaoUso);
     // return medicoesFiltradas;
 
-    console.log(medicoesFiltradas);
+    // console.log(medicoesFiltradas);
 
     if (variacaoUso >= 0) {
         stringVariacaoUso = `+${variacaoUso}`;
     } else {
-        stringVariacaoUso = `-${variacaoUso}`;
+        stringVariacaoUso = `${variacaoUso}`;
     }
 
     document.getElementById('variacaoCpu').innerHTML = stringVariacaoUso;
@@ -219,7 +242,7 @@ function atualizarKpis(allMedicoes) {
     if (variacaoTemp >= 0) {
         stringVariacaoTemp = `+${variacaoTemp}`;
     } else {
-        stringVariacaoTemp = `-${variacaoTemp}`;
+        stringVariacaoTemp = `${variacaoTemp}`;
     }
     document.getElementById('variacaoTemp').innerHTML = stringVariacaoTemp;
 
@@ -267,9 +290,10 @@ function atualizarKpis(allMedicoes) {
     // const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMin;
     // const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequencia;
     // const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMax;
-    const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMin.toFixed(1);
-    const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequencia.toFixed(1);
-    const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpuFrequenciaMax.toFixed(1);
+    // console.log(medicoesFiltradas[0])
+    const freqMinDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_freq_min_mhz.toFixed(0);
+    const freqAtual = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_freq_mhz.toFixed(0);
+    const freqMaxDisponivel = medicoesFiltradas[medicoesFiltradas.length - 1].cpu_freq_max_mhz.toFixed(0);
 
     document.getElementById('freq-min').textContent = freqMinDisponivel;
     document.getElementById('freq-atual').textContent = freqAtual;
@@ -277,7 +301,15 @@ function atualizarKpis(allMedicoes) {
 
     const porcentagemFreq = (freqAtual / freqMaxDisponivel) * 100;
 
-    document.getElementById('freq-resumo').innerHTML = porcentagemFreq.toFixed(1) + '% da máxima disponível';
+    const txtResumo = document.getElementById('freq-resumo');
+
+    txtResumo.innerHTML = 'Utilizando ' + porcentagemFreq.toFixed(0) + '% do máximo';
+    txtResumo.classList.remove('cor1', 'cor2', 'cor3', 'cor4');
+    if (porcentagemFreq <= 30 || porcentagemFreq >= 90) {
+        txtResumo.classList.add('cor3');
+    } else {
+        txtResumo.classList.add('cor1');
+    }
 
 
     // ----------------------------------------------
@@ -392,12 +424,17 @@ function calcularTempoAcimaLimite(medicoesFiltradas, limiteTemperatura) {
 
 function plotarUsoCPU(allMedicoes) {
 
-    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
-    const dataAtual = new Date("2025-11-15T21:33:30"); // data fixa para teste
+    // // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    // const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
 
 
-    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date();
+    // console.log(allMedicoes)
 
+
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
         return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
@@ -408,9 +445,9 @@ function plotarUsoCPU(allMedicoes) {
     // console.log(medicoesFiltradas.map(m => m.timestamp.substring(11, 16)));
 
 
-
-
-
+    if (graficoUsoReiniciar) {
+        graficoUsoReiniciar.destroy();
+    }
     const graphUso = document.getElementById('myChartUso');
 
     const labelsUso = medicoesFiltradas.map(m => m.timestamp.substring(11, 16));
@@ -496,18 +533,23 @@ function plotarUsoCPU(allMedicoes) {
         },
     };
 
-    new Chart(graphUso, configUso);
+    graficoUsoReiniciar = new Chart(graphUso, configUso);
 }
 
 
 function plotarTemperatura(allMedicoes) {
 
-    // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
-    const dataAtual = new Date("2025-11-15T21:33:30"); // data fixa para teste
+    // // const dataAtual = new Date(); // DATA PARA FUNCIONAR NORMALMENTE
+    // const dataAtual = new Date("2025-11-30T21:51:15"); // data fixa para teste
 
 
-    const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const dataAtual = new Date();
+    // console.log(allMedicoes)
 
+
+    // const data30MinAtras = new Date(dataAtual.getTime() - 30 * 60 * 1000); // DATA PARA FUNCIONAR NORMALMENTE
+    const data30MinAtras = new Date("2025-11-30T20:00:00"); // data fixa para teste 
 
     const medicoesFiltradas = allMedicoes.filter(m => {
         return new Date(m.timestamp.replace(" ", "T")) >= data30MinAtras;
@@ -518,12 +560,16 @@ function plotarTemperatura(allMedicoes) {
     // console.log(medicoesFiltradas.map(m => m.timestamp.substring(11, 16)));
 
 
-
+    if (graficoTempReiniciar) {
+        graficoTempReiniciar.destroy();
+    }
     const graphTemp = document.getElementById('myChartTemp');
 
     const labelsTemp = medicoesFiltradas.map(m => m.timestamp.substring(11, 16));
     const dataMedicoes = medicoesFiltradas.map(m => m.temperatura_cpu);
     // console.log(dataMedicoes);
+
+
 
     const dataTemp = {
         labels: labelsTemp,
@@ -604,7 +650,8 @@ function plotarTemperatura(allMedicoes) {
         },
     };
 
-    new Chart(graphTemp, configTemp);
+
+    graficoTempReiniciar = new Chart(graphTemp, configTemp);
 }
 
 
@@ -614,13 +661,13 @@ function linhaHorizontal(valor, quantidade) {
 
 async function atualizarDashboard() {
     buscarParametrosDashTemp();
-    // buscarArquivoPedroMed();
-    // buscarArquivoPedroProc();
+    buscarArquivoPedroMed();
+    buscarArquivoPedroProc();
 }
 
 async function iniciarDashboard() {
     await atualizarDashboard();
-    setInterval(atualizarDashboard, tempoIntervalo);    
+    setInterval(atualizarDashboard, tempoIntervalo);
 }
 
 window.onload = iniciarDashboard();

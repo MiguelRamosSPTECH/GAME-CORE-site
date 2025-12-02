@@ -4,76 +4,6 @@ function loadAll() {
     listarChamados() 
 }
 
-var chart;
-
- var options = {
-  
-        series: [
-            {
-                data: [53, 32, 33]
-            },
-            {
-                data: [44, 55, 41]
-            }, 
-            {
-                data: [12, 17, 11]
-            },
-        ],
-          chart: {
-          type: 'bar',
-          height: 430,
-          width: 400,
-          toolbar: {
-            show: false
-          }
-        },
-        colors: ['#9c18daff', '#008FFB', '#e76e0bff'],
-        foreColor: '#ffffffff',
-        plotOptions: {
-          bar: {
-            horizontal: true,
-            dataLabels: {
-              position: 'top',
-            },
-          },
-        },
-        dataLabels: {
-          enabled: true,
-          offsetX: -6,
-          style: {
-            fontSize: '13px',
-            colors: ['#ffffffff'],
-            
-          },
-        },
-        stroke: {
-          show: true,
-          width: 1,
-          colors: ['#fff'],
-        },
-        tooltip: {
-          shared: true,
-          intersect: false,
-          theme: 'dark'
-        },
-        xaxis: {
-          categories: ["mc-server-1", "mc-server-2", "mc-server-3"],
-        }
-    };
-
-chart = new ApexCharts(document.querySelector("#grafico-barra"), options);
-chart.render();
-
-function atualizaGrafico(dadoRam, dadoCpu, dadoIo) {
-    console.log("dardo: ",dadoRam)
-    const novoDataSeries = [
-        {data: dadoRam},
-        {data: dadoCpu},
-        {data: dadoIo}
-    ];
-
-    chart.updateSeries(novoDataSeries) //magia essa biblioteca aikkkk
-}
 
 
 function getIdByApelido(nomeServidorMonitorando) {
@@ -88,11 +18,11 @@ function getIdByApelido(nomeServidorMonitorando) {
         
         getDadosByBucketClient(retorno[0].macadress)
 
-        let dadosAtualiza = getDadosByBucketClientContainer(retorno[0].macadress)
+        let dadosAtualiza = await getDadosByBucketClientContainer(retorno[0].macadress)
         console.log("dados att:", dadosAtualiza)
         // atualizaGrafico(dadosAtualiza[0], dadosAtualiza[1], dadosAtualiza[2])
 
-        getDadosByBucketClientProcess(retorno[0].macadress)
+        // getDadosByBucketClientProcess(retorno[0].macadress)
 
         verificaLayoutServidor()
     })
@@ -122,9 +52,6 @@ function verificaLayoutServidor() {
                         let layoutData = await response.json();
                         select_configurations.innerText = `${layoutData[0].nomeLayout}`;
                         configs_layout = layoutData;
-
-                        //carregando kpis 
-                        carregaKpis(layoutData)
                     } else {
                         throw new Error("Erro ao buscar configuração do layout");
                     }
@@ -133,10 +60,14 @@ function verificaLayoutServidor() {
                     console.error("Erro ao obter configuração do layout:", error);
                 });
             }  else  {
+                configs_layout = data
                 select_configurations.innerText = `${data[0].nomeLayout}`;
 
             }   
-            // jogando a config para os modal que muda temporariamente a config do servidor
+
+            carregaKpis(configs_layout)
+
+            //jogando a config para os modal que muda temporariamente a config do servidor
             for(let i = 0; i < areaCardsComponentes.length; i++){
                 let nomeComponenteModal = areaCardsComponentes[i].children[0].innerText.trim()
                 const achouComponente = configs_layout.find(layout => layout.nomeComponente.replaceAll("_"," ") == nomeComponenteModal);
@@ -172,12 +103,11 @@ function verificaLayoutServidor() {
 }   
 
 function carregaKpis(dados_config) {
+    console.log(dados_config)
     let areaKpis = document.getElementById('area_kpis_servidor');
-    
     dados_config.forEach(linhaConfig => {
         let leve = Number(linhaConfig.alertaLeve)
         let grave = Number(linhaConfig.alertaGrave)
-        let diff = grave - leve;
         areaKpis.innerHTML+=`
                                 <div class="kpi">
                                     <div class="title-kpi">${linhaConfig.nomeComponente.replaceAll("_"," ")}</div>

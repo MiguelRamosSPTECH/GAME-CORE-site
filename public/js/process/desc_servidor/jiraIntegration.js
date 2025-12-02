@@ -1,4 +1,7 @@
 
+// Constante que define o início do link do Jira, pronto para receber a chave do chamado
+const JIRA_BASE_URL = 'https://gamecore.atlassian.net/jira/software/projects/KAN/list/?jql=project%20%3D%20%22KAN%22%20ORDER%20BY%20created%20DESC&selectedIssue=';
+
 function listarChamados() {
     fetch('/jiraIntegration/listar', {
         method: 'GET',
@@ -40,6 +43,11 @@ function listarChamados() {
 
 
             let trataData = Math.round((Date.now() - new Date(chamados.issues[i].fields.created)) / (1000 * 60));
+            if(trataData >= 60) {
+                trataData = Math.round(trataData / 60,2)
+            }
+
+            console.log(chamados.issues[i].fields.description.content[0].content[0])
             areaAlertas.innerHTML+= `
                             <div class="alerta" onclick='descricaoDetalhadaChamado(${chamadosEmString})'>
                                 <div class="nivel-alerta">
@@ -52,7 +60,6 @@ function listarChamados() {
                                     ${chamados.issues[i].fields.summary}
                                 </div>
                                 <div class="desc-alerta">
-                                    ${chamados.issues[i].fields.description.content[0].content[0].text.slice(0, 31)}
                                 </div>
                                 <div class="tempo-decorrido-alerta">
                                     <i class="fa-regular fa-clock"></i>
@@ -64,9 +71,6 @@ function listarChamados() {
         if(chamados.issues.length == 0) {
              areaAlertas.innerHTML+= "NENNHUM TICKET FOI ABERTO HOJE AINDA!"
         }
-
-
-
 
 
         let listaAlertasServidores = document.getElementById('tabela_alerta_servidores');
@@ -94,7 +98,7 @@ function listarChamados() {
                 }
                 listaAlertasServidores.innerHTML+=`
                     <tr style="${cor}" onclick='getIdByApelido(${nomeServidorMonitorar})'>
-                        <td>${regiaoSeparada}</td>
+                        <td style="font-size:10px!important">${regiaoSeparada}</td>
                         <td style="width:100px">${servidorSeparado}</td>
                         <td style="color: gold;"><i class="fa-solid fa-circle-chevron-right"></i></td>
                         <td class="qtd-alertas-list">${contagem}</td>
@@ -112,7 +116,20 @@ function listarChamados() {
     });
 }
 
-//ver com grupo se faz sntido ficar aq ou ir pro jira tlgd
-function descricaoDetalhadaChamado(dados_chamado) {
-    console.log(dados_chamado)
+//gerei com IA mesmo por que para redirecionar o link é um trampo mesmo
+function descricaoDetalhadaChamado(chamado) {
+    // Verifica se o objeto chamado tem a chave (key) necessária (ex: KAN-264)
+    if (chamado && chamado.key) {
+        
+        // 1. Constrói a URL completa: URL_BASE + Chave do Chamado
+        const urlChamado = JIRA_BASE_URL + chamado.key;
+        
+        console.log(`Redirecionando para o chamado: ${chamado.key}`);
+
+        // 2. Redireciona o navegador para a URL, abrindo em uma nova aba (_blank)
+        window.open(urlChamado, '_blank'); 
+        
+    } else {
+        console.error("Objeto do chamado inválido ou faltando a chave (key).", chamado);
+    }
 }
