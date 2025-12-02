@@ -25,9 +25,9 @@ router.get('/ver/*', (req, res) => {
 });
 
 
-//router.get('/ver/*', (req, res) => {
-//  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'dashboard_joao.html'));
-//});
+router.get('/ver/*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../public/dashboard/dash_sre', 'sre_comparativo_servidores.html'));
+});
 
 // Precisa do * pra interpretar a /
 router.get('/arquivo/*', (req, res) => {

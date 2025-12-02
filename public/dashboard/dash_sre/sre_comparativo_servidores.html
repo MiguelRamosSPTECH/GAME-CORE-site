@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparativo Servidores</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="../../css/dash/css_sre_index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <script src="../../js/sessao.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+</head>
+
+<body>
+    <div class="corpo">
+        <div class="nav-lateral">
+            <div class="logo-dbg">
+                <img src="../../assets/imgs/DBG.-logo2png.png" alt="">
+            </div>
+            <div class="options-nav ">
+                <div class="principal-options">
+                    <div class="circle-option">
+                        <i onclick="window.location.href='#'" class="fa-solid fa-house"></i>
+                        <span class="texto-oculto">Início</span>
+                    </div>  
+                    <div class="circle-option">
+                        <i class="fa-solid fa-notes-medical"
+                            onclick="window.location.href='dashSaudeServidores.html'"></i>
+                        <span class="texto-oculto">Configurações</span>
+                    </div>
+                </div>
+                <div class="area-logoff">
+                    <div class="circle-option logoff" onclick="limparSessao()">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span class="texto-oculto" style="color: red;">Sair</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="titulo">
+            Desempenho médio geral dos servidores esse mês
+        </div>
+        <div class="area_dashboard">
+            <div class="container_auxiliar">
+                <div class="area_kpi">
+                    <div class="kpi" id="area_mtbf">
+                        Tempo Médio Entre Falhas (MTBF)
+                        <div style="height: 20px; font-size: 14px;">ideal: &ge; 5 dias</div>
+                        <div style="margin-top: 8px; text-align: center;">
+                            <div>
+                                <span id="mtbf" style="font-size: 1.7em; font-weight: bold; color: #feca57;">
+                                    carregando...
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kpi" id="area_mttr" style="border-left: 1px solid #b4b4b4;">
+                        Tempo médio de reparo (MTTR)
+                        <div style="height: 20px; font-size: 14px;">ideal: &le; 30 min</div>
+                        <div style="margin-top: 8px; text-align: center;">
+                            <div>
+                                <span id="mttr" style="font-size: 1.7em; font-weight: bold; color: #feca57;">
+                                    carregando...
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="area_comparativo_servidores" id="area_comparativo_servidores">
+                    <div>
+                        <select name="select_componente_nome" id="select_componente" class="select_componente"
+                            style="width: 70px;">
+                            <option value="CPU">CPU</option>
+                            <option value="RAM">RAM</option>
+                        </select>
+                    </div>
+                    <div id="containerAuxiliar"></div>
+                    <div id="containerGrafico" style="position: relative; height: 90%; width: 100%; margin-top: 15px;">
+                        <canvas id="grafico"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="area_listas">
+                <div class="lista_componentes">
+                    <div style="font-weight:600; font-size:0.95em; margin-bottom:8px;">
+                        Legenda de Cores
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:9px; font-size:0.88em; padding:0 15px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-solid fa-circle" style="color:#1dd1a1;"></i>
+                            <span style="color:#ccc;">≤ 60% → <strong style="color:#1dd1a1;">Normal</strong></span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-solid fa-circle" style="color:#feca57;"></i>
+                            <span style="color:#ccc;">61% – 80% → <strong style="color:#feca57;">Atenção</strong></span>
+                        </div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <i class="fa-solid fa-circle" style="color:#ff6b6b;"></i>
+                            <span style="color:#ccc;">> 80% → <strong style="color:#ff6b6b;">Crítico</strong></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lista_servidores">
+                    <div style="border-bottom: 1px solid #b4b4b4;" class="titulo_lista_servidores">
+                        <select name="" id="lista_servidores_componente">
+                            <option value="0">CPU</option>
+                            <option value="1">RAM</option>
+                        </select>
+                        <span>Servidores</span>
+                    </div>
+                    <div id="servidores_listados"></div>
+                </div>
+                <div class="previsoes"> <img src="../../assets/imgs/icone_previsoes.png" alt="" width="30px"> Ir para
+                    previsões</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // CONFIGURAÇÕES SIMPLES 
+        const PASTA_DIA = "2025-12-01";
+        const BASE_URL = "/s3Route/dados/" + PASTA_DIA;
+        const ARQUIVO = "dados_capturados.json";
+
+        const MACS = [
+            "00-D7-6D-98-56-34", "40-8D-5C-76-DB-41", "EC-91-61-8B-FF-A1",
+            "0A-00-27-00-00-0B", "34-6F-24-21-38-7F", "10-68-38-9B-8A-08"
+        ];
+
+        // Todos os dados carregados de todos os servidores
+        let todosOsDados = [];
+        let meuGrafico = null;
+
+        // FUNÇÃO PRINCIPAL CARREGAR DADOS 
+        function carregarDados() {
+            const caixa = document.getElementById("containerAuxiliar");
+            caixa.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Carregando...";
+
+            let contadorConcluidos = 0;
+            todosOsDados = []; // limpa antes de começar
+
+            for (let i = 0; i < MACS.length; i++) {
+                const mac = MACS[i];
+                const url = BASE_URL + "/" + mac + "/" + ARQUIVO;
+
+                fetch(url)
+                    .then(response => {
+                        if (!response.ok) throw Error();
+                        return response.json();
+                    })
+                    .then(dadosDoServidor => {
+                        // se vier um objeto só transforma em array
+                        if (!Array.isArray(dadosDoServidor)) {
+                            dadosDoServidor = [dadosDoServidor];
+                        }
+                        // adiciona o MAC em cada linha
+                        for (let j = 0; j < dadosDoServidor.length; j++) {
+                            dadosDoServidor[j].macadress = mac;
+                        }
+                        // junta com os outros servidores
+                        todosOsDados = todosOsDados.concat(dadosDoServidor);
+
+                        contadorConcluidos++;
+                        if (contadorConcluidos === MACS.length) {
+                            // Terminou de carregar TODOS os servidores
+                            caixa.innerHTML = "";
+                            atualizarTudo();
+                        }
+                    })
+                    .catch(erro => {
+                        contadorConcluidos++;
+                        if (contadorConcluidos === MACS.length) {
+                            caixa.innerHTML = "";
+                            atualizarTudo();
+                        }
+                    });
+            }
+        }
+
+        //CARREGAR MTBF e MTTR 
+        function carregarIndicadoresGerais() {
+            const url = "/s3Route/dados/metricas_kpi.json";
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Não encontrou o arquivo de indicadores");
+                    }
+                    return response.json();
+                })
+                .then(dados => {
+                    // Atualiza os valores na tela
+                    document.getElementById("mtbf").textContent = dados.mtbfDias + " Dias";
+                    document.getElementById("mttr").textContent = dados.mttrMinutos + " minutos";
+
+                    // Opcional: muda a cor conforme o valor (exemplo)
+                    const spanMtbf = document.getElementById("mtbf");
+                    const spanMttr = document.getElementById("mttr");
+
+                    // MTBF: quanto maior, melhor → verde se > 5 dias, amarelo se < 3
+                    if (dados.mtbfDias >= 5) spanMtbf.style.color = "#1dd1a1";      // verde
+                    else if (dados.mtbfDias < 3) spanMtbf.style.color = "#ff6b6b";  // vermelho
+                    else spanMtbf.style.color = "#feca57";                          // amarelo
+
+                    // MTTR: quanto menor, melhor → vermelho se > 60min
+                    if (dados.mttrMinutos <= 30) spanMttr.style.color = "#1dd1a1";
+                    else if (dados.mttrMinutos > 60) spanMttr.style.color = "#ff6b6b";
+                    else spanMttr.style.color = "#feca57";
+                })
+                .catch(erro => {
+                    console.log("Não foi possível carregar MTBF/MTTR:", erro);
+                    document.getElementById("mtbf").textContent = "N/D";
+                    document.getElementById("mttr").textContent = "N/D";
+                    document.getElementById("mtbf").style.color = "#aaa";
+                    document.getElementById("mttr").style.color = "#aaa";
+                });
+        }
+
+        // CALCULAR MÉDIA DE CPU OU RAM 
+        function calcularMedia(componente) {
+            const campo = (componente === "CPU") ? "cpu_porcentagem" : "ram_porcentagem";
+            const somas = {};   // somas[mac] = {total: 0, quantidade: 0}
+
+            for (let i = 0; i < todosOsDados.length; i++) {
+                const item = todosOsDados[i];
+                const valorStr = item[campo];
+                if (valorStr !== undefined && valorStr !== null) {
+                    const valor = parseFloat(valorStr);
+                    if (!isNaN(valor)) {
+                        if (!somas[item.macadress]) {
+                            somas[item.macadress] = { total: 0, quantidade: 0 };
+                        }
+                        somas[item.macadress].total += valor;
+                        somas[item.macadress].quantidade += 1;
+                    }
+                }
+            }
+
+            const resultado = [];
+            for (let i = 0; i < MACS.length; i++) {
+                const mac = MACS[i];
+                if (somas[mac] && somas[mac].quantidade > 0) {
+                    const media = (somas[mac].total / somas[mac].quantidade).toFixed(1);
+                    resultado.push({ mac: mac, media: parseFloat(media) });
+                }
+            }
+            return resultado;
+        }
+
+        //  ATUALIZAR GRÁFICO E LISTA
+        function atualizarTudo() {
+            const componente = document.getElementById("select_componente").value;
+            const dados = calcularMedia(componente);
+
+            // ----- Atualiza o gráfico -----
+            const canvas = document.getElementById("grafico");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (meuGrafico) meuGrafico.destroy();
+
+            if (dados.length === 0) {
+                document.getElementById("containerAuxiliar").innerHTML =
+                    "<small style='color:#aaa'>Nenhum dado de " + componente + "</small>";
+                return;
+            }
+
+            meuGrafico = new Chart(canvas, {
+                type: "bar",
+                data: {
+                    labels: dados.map(x => x.mac),
+                    datasets: [{
+                        label: componente + " (%)",
+                        data: dados.map(x => x.media),
+                        backgroundColor: "#00d2ff",
+                        borderColor: "#00a0d0",
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: componente + " - Média do dia 01/12/2025",
+                            color: "#fff",
+                            font: { size: 18 }
+                        },
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { color: "#ccc" } },
+                        x: { ticks: { color: "#ccc" } }
+                    }
+                }
+            });
+
+            // ----- Atualiza a lista de servidores -----
+            let html = "";
+            for (let i = 0; i < dados.length; i++) {
+                const d = dados[i];
+                let cor = "#1dd1a1"; // verde
+                if (d.media > 80) cor = "#ff6b6b";      // vermelho
+                else if (d.media > 60) cor = "#feca57"; // amarelo
+
+                html += `
+                    <div style="display:flex; justify-content:space-between; padding:12px 15px; border-bottom:1px dotted #555;">
+                        <span style="font-family:monospace;">${d.mac}</span>
+                        <strong style="color:${cor};">${d.media}%</strong>
+                    </div>`;
+            }
+            if (html === "") html = "<div style='padding:20px; color:#aaa; text-align:center'>Sem dados</div>";
+            document.getElementById("servidores_listados").innerHTML = html;
+        }
+
+        // ==================== QUANDO A PÁGINA CARREGA ====================
+        window.onload = function () {
+            // Sincroniza os dois selects (corrigido!)
+            const select1 = document.getElementById("select_componente");
+            const select2 = document.getElementById("lista_servidores_componente");
+
+            select1.onchange = function () {
+                if (this.value === "CPU") select2.value = "0";
+                else select2.value = "1";
+                atualizarTudo();
+            };
+
+            select2.onchange = function () {
+                if (this.value === "0") select1.value = "CPU";
+                else select1.value = "RAM";
+                atualizarTudo();
+            };
+
+            carregarIndicadoresGerais();
+            carregarDados();
+        };
+    </script>
+</body>
+
+</html>

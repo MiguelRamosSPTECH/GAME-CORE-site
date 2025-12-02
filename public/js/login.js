@@ -52,7 +52,7 @@ function entrar() {
                                 cancelButtonText: "GameOps"
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                                    window.location = "../dashboard/dash_sre/sre_comparativo_servidores.html"
                                 } else {
                                     window.location = "../dashboard/index.html"
                                 }
@@ -86,13 +86,13 @@ function entrar() {
                                 if (result.isConfirmed) {
                                     window.location = "../dashboard/dash_adm/funcionarios/index.html"
                                 } else {
-                                    window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                                    window.location = "../dashboard/dash_sre/sre_comparativo_servidores.html"
                                 }
                             });
                         }else if (permissoes.includes(1)) {
                             window.location = "../dashboard/servidores/desc_servidor.html"
                         }else if (permissoes.includes(2)) {
-                            window.location = "../dashboard/dash_sre/dashboard_sre.html"
+                            window.location = "../dashboard/dash_sre/sre_comparativo_servidores.html"
                         } else if (permissoes.includes(3)) {
                             window.location = "../dashboard/dash_adm/funcionarios/index.html"
                         }
