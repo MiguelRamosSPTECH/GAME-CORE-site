@@ -147,35 +147,32 @@ INSERT INTO permissao (nome) VALUES
 ("CAD CARGO");
 # depois adicionar mais permissões para aplicar os esquema tudo la
 
-INSERT INTO regiao VALUES (null, "sa-leste-1"); -- América do Sul (São Paulo)
-INSERT INTO regiao VALUES (null, "us-leste-1"); -- EUA (Norte da Virginia)
-INSERT INTO regiao VALUES (null, "eu-oeste-1"); -- Europa (Irlanda)
-INSERT INTO regiao VALUES (null, "ap-sudeste-2"); -- Ásia-Pacífico (Sydney)
-
--- Zonas de Disponibilidade (Sub-regiões)
--- AZs para sa-leste-1 (São Paulo)
-INSERT INTO regiao VALUES (null, "sa-leste-1-a");
-INSERT INTO regiao VALUES (null, "sa-leste-1-b");
-
--- AZs para us-leste-1 (N. Virginia)
-INSERT INTO regiao VALUES (null, "us-leste-1-a");
-INSERT INTO regiao VALUES (null, "us-leste-1-b");
-
--- AZs para eu-oeste-1 (Irlanda)
-INSERT INTO regiao VALUES (null, "eu-oeste-1-a");
-INSERT INTO regiao VALUES (null, "eu-oeste-1-b");
+INSERT INTO regiao VALUES (null, "BR-1"); 
+INSERT INTO regiao VALUES (null, "BR-2"); 
+INSERT INTO regiao VALUES (null, "EU-1"); 
+INSERT INTO regiao VALUES (null, "EU-2"); 
+INSERT INTO regiao VALUES (null, "AS-1");
+INSERT INTO regiao VALUES (null, "AS-2");
 
 
 
-insert into servidor values (null, "M1.MAIN","34:60:f9:55:51:71",1,1,null);
 
 insert into layout values(null, "DESEMPENHO LÓGICO", 1, 1);
 
 insert into configuracaoservidor values(null, 54.9, 82.35, 1, 1, 1);
-insert into configuracaoservidor values(null, 85.4, 91.6, 6, 6, 1);
-insert into configuracaoservidor values(null, 2.8, 12.8, 1, 8, 1);
+insert into configuracaoservidor values(null, 85.4, 91.6, 1, 7, 1);
+insert into configuracaoservidor values(null, 2.8, 12.8, 1, 9, 1);
 insert into configuracaoservidor values(null, 44.9, 72.35, 1, 3, 1);
 
+
+insert into servidor values (null, "M1.MAIN","10-68-38-9B-8A-08",1,1,null),
+                            (null, "M2.MAIN","98-FE-3E-41-A0-3C",1,1,1),
+                            (null, "M3.MAIN","EC-91-61-8B-FF-A1",1,1,null),
+                            (null, "M.BCKP.PROD","40-8D-5C-76-DB-41",1,1,null),
+                            (null, "M1.AU-SNCD","00-D7-6D-98-56-34",1,1,null),
+                            (null, "MHG1.MAIN","34-6F-24-21-38-7F",1,1,null);
+                            
+select * from servidor;
 
 insert into permissaocargo values(3,1,0),
 								 (4,1,0),
