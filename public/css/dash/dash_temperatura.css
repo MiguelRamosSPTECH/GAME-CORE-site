@@ -396,7 +396,10 @@ html,
     font-weight: 650;
     width: 98%;
     height: 70%;
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .bloco-fim .esq .graficos {
