@@ -135,6 +135,7 @@ function transformarDados(dadosCapturados) {
 
 
 
+
 async function lerArquivo(req, res) {
   try {
     const fileKey = req.params.arquivo;
