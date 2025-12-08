@@ -23,8 +23,7 @@ function buscar(id) {
         select
         id,
         macadress,
-        apelido, 
-    localizacao
+        apelido
     from Servidor   
     where fk_empresa_servidor =  1
     `;

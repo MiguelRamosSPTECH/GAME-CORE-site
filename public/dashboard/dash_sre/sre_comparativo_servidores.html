@@ -31,7 +31,7 @@
                     </div>  
                     <div class="circle-option">
                         <i class="fa-solid fa-notes-medical"
-                            onclick="window.location.href='dashSaudeServidores.html'"></i>
+                            onclick="window.location.href='dashboard_sre.html'"></i>
                         <span class="texto-oculto">Configurações</span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="titulo">
-            Desempenho médio geral dos servidores esse mês
+            Desempenho médio geral dos servidores
         </div>
         <div class="area_dashboard">
             <div class="container_auxiliar">
@@ -116,8 +116,8 @@
                     </div>
                     <div id="servidores_listados"></div>
                 </div>
-                <div class="previsoes"> <img src="../../assets/imgs/icone_previsoes.png" alt="" width="30px"> Ir para
-                    previsões</div>
+                <div class="previsoes" onclick="window.location.href='dashboard_sre.html'"> <img src="../../assets/imgs/icone_previsoes.png" alt="" width="30px"> Ir para previsões
+                </div>
             </div>
         </div>
     </div>
@@ -301,7 +301,7 @@
                 }
             });
 
-            // ----- Atualiza a lista de servidores -----
+            // Atualiza a lista de servidores 
             let html = "";
             for (let i = 0; i < dados.length; i++) {
                 const d = dados[i];
@@ -310,7 +310,7 @@
                 else if (d.media > 60) cor = "#feca57"; // amarelo
 
                 html += `
-                    <div style="display:flex; justify-content:space-between; padding:12px 15px; border-bottom:1px dotted #555;">
+                    <div style="display:flex; justify-content:space-between; padding:12px 15px; border-bottom:1px dotted #555;" onclick=window.location.href='saude_servidor_manu.html?mac=${d.mac}'>
                         <span style="font-family:monospace;">${d.mac}</span>
                         <strong style="color:${cor};">${d.media}%</strong>
                     </div>`;

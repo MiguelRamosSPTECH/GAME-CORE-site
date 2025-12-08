@@ -271,7 +271,7 @@ html, * {
     font-size: small;
 }
 .barra-fundo {
-    display: flex;
+    display: none;
     align-self: start;
     background-color: whitesmoke;
     width: 90%;
@@ -948,6 +948,20 @@ input:checked {
     height: 100%;
 }
 .icon-chamado img {
+    width: 100%;
+    height: 100%;
+}
+
+.icon_link {
+    width: 25px;
+    height: 25px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+.icon_link:hover {
+    transform: scale(1.3);
+}
+.icon_link img {
     width: 100%;
     height: 100%;
 }

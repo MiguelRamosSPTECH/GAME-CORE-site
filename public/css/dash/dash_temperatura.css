@@ -300,17 +300,18 @@ html,
 }
 
 .cont-maior {
-    font-size: 45px;
+    font-size: 40px;
     font-weight: 750;
 }
 
 .cont-menor {
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 700;
 }
 
 .freq-resumo {
-    font-size: 28px;
+    margin-top: 10px;
+    font-size: 20px;
     font-weight: 650;
 }
 
@@ -395,7 +396,10 @@ html,
     font-weight: 650;
     width: 98%;
     height: 70%;
+    display: flex;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .bloco-fim .esq .graficos {

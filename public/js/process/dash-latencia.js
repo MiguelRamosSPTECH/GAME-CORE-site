@@ -3,22 +3,22 @@ const intervaloMS = 60 * 1000
 let dash_latencia_grafico = null;
 let dash_cpu_grafico = null;
 let erro_kpi = null;
+let gauge1 = null;
+let gauge5 = null;
+let gauge15 = null;
+let kpiConfianca = null
 
 
 
 
 let nomeServidorMockado = "00-D7-6D-98-56-34";
-let diaDeHoje = new Date()
+let diaDeHoje = new Date();
 let mes = diaDeHoje.getMonth() + 1;
 let dia = diaDeHoje.getDate();
 let ano = diaDeHoje.getFullYear();
 
 //para pegar a pasta correta la no bucket
-let timestamp = `${ano}-${mes}-0${dia}`;
-
-
-
-
+let timestamp = `2025-12-01`;
 
 
 
@@ -46,21 +46,7 @@ async function carregarKpiLatencia() {
         }
 
         const data = await respostaContainer.json();
-
-        let capturaTicks = []
-
-        for (i in data) capturaTicks.push(Object.values(data[i]))
-
-        console.log(capturaTicks);
-
-        const todosOsTps = capturaTicks.map(container => {
-            // Para cada item ('container'), retorne o valor da propriedade 'tps_container'
-            return container;
-        });
-
-        console.log(todosOsTps)
-
-
+        console.log(data)
 
 
         carregamento.innerHTML = null;
@@ -74,127 +60,125 @@ async function carregarKpiLatencia() {
 
         }
 
-
-
-
+        let tpsArray = data.map(d => d[CHAVE_TPS])
         //A PARTIR DAQUI É A LÓGICA DOS VALORES DE TICK
 
-        //        for (i in tpsArray) if (tpsArray[i] > 20) tpsArray[i] = 20
-        //
-        //        tpsArray.sort((a, b) => b - a);
-        //
-        //        console.log(tpsArray);
-        //        let tamanhotpsArray = tpsArray.length;
-        //
-        //        function calcularMediana(tpsArray) {
-        //
-        //            let valorMediano = 0;
-        //
-        //            if (tamanhotpsArray % 2 != 0) {
-        //
-        //                let indice = Math.floor(tamanhotpsArray / 2);
-        //                valorMediano = tpsArray[indice];
-        //
-        //            }
-        //            else {
-        //
-        //                let indice1 = tamanhotpsArray / 2 - 1;
-        //                let indice2 = tamanhotpsArray / 2;
-        //                valorMediano = (tpsArray[indice1] + tpsArray[indice2]) / 2;
-        //
-        //                return valorMediano;
-        //
-        //            }
-        //
-        //        }
-        //        console.log("Mediana: " + calcularMediana(tpsArray))
-        //
-        //
-        //        function calculoLatenciaP95(tpsArray) {
-        //
-        //            const posicao95 = Math.ceil(0.95 * tamanhotpsArray);
-        //
-        //            let indexP95 = posicao95 - 1;
-        //
-        //            return tpsArray[indexP95];
-        //
-        //        }
-        //        console.log("Percentil 95: " + calculoLatenciaP95(tpsArray));
-        //
-        //
-        //        latencia = Math.round(1000 / calcularMediana(tpsArray));
-        //        console.log("Latência P50: " + latencia);
-        //
-        //        let porcentagemLatencia = latencia * 100 / 50
-        //
-        //        if (porcentagemLatencia > 100) porcentagemLatencia = 100
-        //
-        //        var valorAtual = porcentagemLatencia;
-        //        const valorMaximo = 100 //50ms
-        //        let valorRestante = valorAtual - valorMaximo
-        //
-        //        console.log("O quanto que a latência capturada está perto do limite no dash (%): " + porcentagemLatencia)
-        //
-        //        let taxaRequisicao = document.getElementById("taxa-requisicao");
-        //
-        //        function taxaProcs(tpsArray) {
-        //
-        //            let qtdRequisicaoAbaixoLimite = 0;
-        //
-        //            for (i in tpsArray) {
-        //
-        //                if (1000 / tpsArray[i] <= 50) qtdRequisicaoAbaixoLimite++
-        //
-        //            }
-        //            let taxaRequisicaoAbaixoLimite = Math.round((qtdRequisicaoAbaixoLimite / tpsArray.length) * 100);
-        //            return taxaRequisicaoAbaixoLimite;
-        //
-        //        }
-        //        console.log("Taxa de procs que estão abaixo ou iguais ao limite de 50ms: " + taxaProcs(tpsArray))
-        //
-        //        taxaRequisicao.innerHTML = taxaProcs(tpsArray)
-        //
-        //        //A PARTIR DAQUI É O GRÁFICO DE "GAUGE"
-        //
-        //        if (dash_latencia_grafico) {
-        //
-        //            dash_latencia_grafico.destroy(); //Destruir o gráfico se ele já existir
-        //
-        //        }
-        //
-        //        Chart.defaults.color = '#FFFFFF'
-        //
-        //        dash_latencia_grafico = new Chart(dash_latencia, {
-        //            type: 'doughnut',
-        //            data: {
-        //                labels: ["valor", "falta"],
-        //                datasets: [{
-        //                    data: [valorAtual, valorRestante],
-        //                    backgroundColor: ['#4CAF50', '#E0E0E0'],
-        //                    borderWidth: 0
-        //                }]
-        //            },
-        //            plugins: [{
-        //                afterDraw(c) {
-        //                    let ctx = c.ctx,
-        //                        x = c.width / 2,
-        //                        y = c.height / 1.05;
-        //                    ctx.font = "bold 22px sans-serif";
-        //                    ctx.textAlign = "center";
-        //                    ctx.fillStyle = "#ffffffff"
-        //                    ctx.fillText(`${latencia}ms`, x, y);
-        //                }
-        //            }],
-        //            options: {
-        //                rotation: -90,
-        //                circumference: 180,
-        //                cutout: "70%",
-        //                plugins: {
-        //                    legend: { display: false },
-        //                    tooltip: { enabled: false }
-        //                }
-        //            }
-        //        });
+        for (i in tpsArray) if (tpsArray[i] > 20) tpsArray[i] = 20
+
+        tpsArray.sort((a, b) => b - a);
+
+        console.log(tpsArray);
+        let tamanhotpsArray = tpsArray.length;
+
+        function calcularMediana(tpsArray) {
+
+            let valorMediano = 0;
+
+            if (tamanhotpsArray % 2 != 0) {
+
+                let indice = Math.floor(tamanhotpsArray / 2);
+                valorMediano = tpsArray[indice];
+
+            }
+            else {
+
+                let indice1 = tamanhotpsArray / 2 - 1;
+                let indice2 = tamanhotpsArray / 2;
+                valorMediano = (tpsArray[indice1] + tpsArray[indice2]) / 2;
+
+                return valorMediano;
+
+            }
+
+        }
+        console.log("Mediana: " + calcularMediana(tpsArray))
+
+
+        function calculoLatenciaP95(tpsArray) {
+
+            const posicao95 = Math.ceil(0.95 * tamanhotpsArray);
+
+            let indexP95 = posicao95 - 1;
+
+            return tpsArray[indexP95];
+
+        }
+        console.log("Percentil 95: " + calculoLatenciaP95(tpsArray));
+
+
+        latencia = Math.round(1000 / calcularMediana(tpsArray));
+        console.log("Latência P50: " + latencia);
+
+        let porcentagemLatencia = latencia * 100 / 50
+
+        if (porcentagemLatencia > 100) porcentagemLatencia = 100
+
+        var valorAtual = porcentagemLatencia;
+        const valorMaximo = 100 //50ms
+        let valorRestante = valorAtual - valorMaximo
+
+        console.log("O quanto que a latência capturada está perto do limite no dash (%): " + porcentagemLatencia)
+
+        let taxaRequisicao = document.getElementById("taxa-requisicao");
+
+        function taxaProcs(tpsArray) {
+
+            let qtdRequisicaoAbaixoLimite = 0;
+
+            for (i in tpsArray) {
+
+                if (1000 / tpsArray[i] <= 50) qtdRequisicaoAbaixoLimite++
+
+            }
+            let taxaRequisicaoAbaixoLimite = Math.round((qtdRequisicaoAbaixoLimite / tpsArray.length) * 100);
+            return taxaRequisicaoAbaixoLimite;
+
+        }
+        console.log("Taxa de procs que estão abaixo ou iguais ao limite de 50ms: " + taxaProcs(tpsArray))
+
+        taxaRequisicao.innerHTML = taxaProcs(tpsArray)
+
+        //A PARTIR DAQUI É O GRÁFICO DE "GAUGE"
+
+        if (dash_latencia_grafico) {
+
+            dash_latencia_grafico.destroy(); //Destruir o gráfico se ele já existir
+
+        }
+
+        Chart.defaults.color = '#FFFFFF'
+
+        dash_latencia_grafico = new Chart(dash_latencia, {
+            type: 'doughnut',
+            data: {
+                labels: ["valor", "falta"],
+                datasets: [{
+                    data: [valorAtual, valorRestante],
+                    backgroundColor: ['#4CAF50', '#E0E0E0'],
+                    borderWidth: 0
+                }]
+            },
+            plugins: [{
+                afterDraw(c) {
+                    let ctx = c.ctx,
+                        x = c.width / 2,
+                        y = c.height / 1.05;
+                    ctx.font = "bold 22px sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = "#ffffffff"
+                    ctx.fillText(`${latencia}ms`, x, y);
+                }
+            }],
+            options: {
+                rotation: -90,
+                circumference: 180,
+                cutout: "70%",
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
 
     } catch (error) {
 
@@ -219,14 +203,14 @@ async function carregarKpiLatencia() {
 
 
 
-const ARQUIVO_ERRO = 'processos_metrics.json';
-const URL_API_ERRO = `/s3Route/dados/${ARQUIVO_ERRO}`;
+const ARQUIVO_ERRO = 'dados_processos.json';
+const URL_API_ERRO = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_ERRO}`;
 const CHAVE_ERRO = 'status';
 
 async function carregarProbErro() {
 
     let kpi_erro = document.getElementById("taxa-erro");
-    kpi_erro.style = "color: #fff; font-size: 70px; font-weight: bold;"
+    kpi_erro.style = "color: #4CAF50; font-size: 70px; font-weight: bold;"
     const carregamento = document.getElementById('prob-falha');
     carregamento.innerHTML = 'Carregando dados...';
     carregamento.style = "color: #fff; font-size: 20px; font-weight: bold;"
@@ -276,7 +260,7 @@ async function carregarProbErro() {
         console.log("Resultado da função que calcula os erros: " + calculoProbErro(taxaErro))
         kpi_erro.innerHTML = calculoProbErro(taxaErro) + "%";
 
-
+        return calculoProbErro(taxaErro);
 
     } catch (error) {
 
@@ -290,53 +274,46 @@ async function carregarProbErro() {
 
 
 
+        var valorAtual = 100;
+        const valorMaximo = 100 //50ms
+        let valorRestante = valorAtual - valorMaximo
 
 
 
+        const dash_erro = document.getElementById("gauge-latencia-erro")
 
+        new Chart(dash_erro, {
+            type: 'doughnut',
+            data: {
+                labels: ["valor", "falta"],
+                datasets: [{
+                    data: [valorAtual, valorRestante],
+                    backgroundColor: ['#4CAF50', '#E0E0E0'],
+                    borderWidth: 0,
+                }]
+            },
+            plugins: [{
+                afterDraw(c) {
+                    let ctx = c.ctx,
+                        x = c.width / 2,
+                        y = c.height / 1.05;
+                    ctx.font = "bold 30px sans-serif";
+                    ctx.textAlign = "center";
+                    ctx.fillStyle = "#4CAF50"
+                    ctx.fillText("100%", x, y);
+                }
+            }],
+            options: {
+                rotation: -90,
+                circumference: 180,
+                cutout: "70%",
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
 
-
-
-
-
-
-
-
-
-
-const dash_erro = document.getElementById("gauge-latencia-erro")
-
-new Chart(dash_erro, {
-    type: 'doughnut',
-    data: {
-        labels: ["valor", "falta"],
-        datasets: [{
-            data: [2, 1],
-            backgroundColor: ['#ca331fff', '#ff523bff'],
-            borderWidth: 0,
-        }]
-    },
-    plugins: [{
-        afterDraw(c) {
-            let ctx = c.ctx,
-                x = c.width / 2,
-                y = c.height / 1.05;
-            ctx.font = "bold 30px sans-serif";
-            ctx.textAlign = "center";
-            ctx.fillStyle = "#ff9393ff"
-            ctx.fillText("70%", x, y);
-        }
-    }],
-    options: {
-        rotation: -90,
-        circumference: 180,
-        cutout: "70%",
-        plugins: {
-            legend: { display: false },
-            tooltip: { enabled: false }
-        }
-    }
-});
 
 
 
@@ -352,9 +329,13 @@ new Chart(dash_erro, {
 
 
 
-const ARQUIVO_AVG = 'host_metrics.json';
-const URL_API_AVG = `/s3Route/dados/${ARQUIVO_AVG}`;
-const CHAVE_AVG = 'cpuLoadAvg';
+
+
+
+
+const ARQUIVO_AVG = 'dados_capturados.json';
+const URL_API_AVG = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_AVG}`;
+const CHAVE_AVG = 'cpu_loadavg';
 
 async function procLoadAvg() {
 
@@ -381,6 +362,7 @@ async function procLoadAvg() {
         }
 
         const data = await respostaAVG.json();
+        console.log(data)
 
         carregamentoC2.innerHTML = null;
         carregamentoC2.appendChild(dash_gauge_carga5);
@@ -398,6 +380,10 @@ async function procLoadAvg() {
         //A PARTIR DAQUI É A LÓGICA DOS VALORES DE AVG
 
         const loadAvg = data.map(d => d[CHAVE_AVG]);
+        console.log("AQUI LOAD AVGGGGGGGGGGGGGGG")
+        console.log(loadAvg)
+
+
 
         function loadAvgParaNumerico(loadAvg) {
 
@@ -409,7 +395,12 @@ async function procLoadAvg() {
 
                 let partes3LoadAvg = stringLoadAvg.split(',').map(avg => avg.trim());
 
+                if (partes3LoadAvg[0][0] == NaN) {
+                    partes3LoadAvg[0][0] = 0.0;
+                }
+
                 let avgCorrigido = [
+
 
                     parseFloat(partes3LoadAvg[0]), //refere-se ao valor de 1 minuto das 3 partes
                     parseFloat(partes3LoadAvg[1]), //refere-se ao valor de 5 minuto das 3 partes
@@ -424,15 +415,40 @@ async function procLoadAvg() {
             return loadAvgCorrigido;
 
         }
-        console.log(loadAvgParaNumerico(loadAvg))
+
+        for (let i = 0; i < loadAvg.length; i++) {
+
+            for (let j = 0; j < loadAvg.length; j++) {
+
+                if (loadAvgParaNumerico(loadAvg)[i][j] == NaN) {
+
+                    loadAvgParaNumerico(loadAvg)[i][j] = 0.0;
+
+                }
+
+            }
+
+        }
+        console.log(loadAvgParaNumerico(loadAvg));
 
 
-        new Chart(dash_gauge_carga1, {
+
+        if (gauge1) {
+            gauge1.destroy();
+        }
+        if (gauge5) {
+            gauge5.destroy();
+        }
+        if (gauge15) {
+            gauge15.destroy();
+        }
+
+        gauge1 = new Chart(dash_gauge_carga1, {
             type: 'doughnut',
             data: {
                 labels: ["valor", "falta"],
                 datasets: [{
-                    data: [0.22, 1],
+                    data: [0.2, 1],
                     backgroundColor: ['#41b8d5', '#6ce5e8'],
                     borderWidth: 0
                 }]
@@ -445,7 +461,7 @@ async function procLoadAvg() {
                     ctx.font = "bold 12px sans-serif";
                     ctx.textAlign = "center";
                     ctx.fillStyle = "#fff"
-                    ctx.fillText("2.2 procs", x, y);
+                    ctx.fillText("2 procs", x, y);
                 }
             }],
             options: {
@@ -463,12 +479,12 @@ async function procLoadAvg() {
 
 
 
-        new Chart(dash_gauge_carga5, {
+        gauge5 = new Chart(dash_gauge_carga5, {
             type: 'doughnut',
             data: {
                 labels: ["valor", "falta"],
                 datasets: [{
-                    data: [1.5, 1],
+                    data: [0.42, 1],
                     backgroundColor: ['#41b8d5', '#6ce5e8'],
                     borderWidth: 0
                 }]
@@ -481,7 +497,7 @@ async function procLoadAvg() {
                     ctx.font = "bold 12px sans-serif";
                     ctx.textAlign = "center";
                     ctx.fillStyle = "#fff"
-                    ctx.fillText("5.7 procs", x, y);
+                    ctx.fillText("4.2 procs", x, y);
                 }
             }],
             options: {
@@ -496,12 +512,12 @@ async function procLoadAvg() {
         });
 
 
-        new Chart(dash_gauge_carga15, {
+        gauge15 = new Chart(dash_gauge_carga15, {
             type: 'doughnut',
             data: {
                 labels: ["valor", "falta"],
                 datasets: [{
-                    data: [100, 1],
+                    data: [0.52, 1],
                     backgroundColor: ['#41b8d5', '#6ce5e8'],
                     borderWidth: 0
                 }]
@@ -514,7 +530,7 @@ async function procLoadAvg() {
                     ctx.font = "bold 12px sans-serif";
                     ctx.textAlign = "center";
                     ctx.fillStyle = "#fff"
-                    ctx.fillText("10.2 procs", x, y);
+                    ctx.fillText("5.2 procs", x, y);
                 }
             }],
             options: {
@@ -563,14 +579,13 @@ async function procLoadAvg() {
 
 
 
-const ARQUIVO_HOST = 'containers_metrics.json';
-const URL_API_HOST = `/s3Route/dados/${ARQUIVO_HOST}`;
+const ARQUIVO_HOST = 'dados_containers.json';
+const URL_API_HOST = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_HOST}`;
 const TIMESTAMP = 'timestamp';
 const MEDIA_CPU_AGREGADA = 'cpu_container';
 
 async function carregarGraficoCpuAgregada() {
 
-    // Referência ao canvas principal e ao container auxiliar para mensagens de erro
     const ctx = document.getElementById('cpu-agregada');
     const carregamento = document.getElementById('area-grafico-cpu-agregada');
     carregamento.innerHTML = 'Carregando dados...';
@@ -606,9 +621,18 @@ async function carregarGraficoCpuAgregada() {
 
         let timestamp = [];
 
-        for (i in labels) timestamp.push(labels[i].substring(11, 19))
-        console.log("Timestamp corrigido: " + timestamp)
+        for (let i = 0; i < labels.length; i++) {
 
+            timestamp.push(labels[i].substring(11, 19));
+            //console.log("Timestamp corrigido: " + timestamp);
+
+            if (i == 9) break;
+
+        }
+
+        const labelsTemp = timestamp.map(m => m.substring(0, 5))
+        console.log(labelsTemp)
+        console.log(timestamp)
 
         Chart.defaults.color = '#FFFFFF'
 
@@ -619,7 +643,7 @@ async function carregarGraficoCpuAgregada() {
         }
 
         let dash_cpu = document.getElementById("cpu-agregada");
-        const limiteMaximo = 70;
+        const limiteMaximo = 85;
 
         const linhaLimite = {
             afterDraw({ ctx, chartArea, scales: { y } }) {
@@ -637,7 +661,7 @@ async function carregarGraficoCpuAgregada() {
         dash_cpu_grafico = new Chart(dash_cpu, {
             type: 'line',
             data: {
-                labels: timestamp,
+                labels: labelsTemp,
                 datasets: [{
                     label: `Consumo de CPU (%)`,
                     data: valores,
@@ -650,9 +674,40 @@ async function carregarGraficoCpuAgregada() {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                },
+                backgroundColor: 'rgba(255, 255, 255, 0)',
                 scales: {
+                    x: {
+                        ticks: {
+                            callback: function (value, index, ticks) {
+                                return index % 5 === 0 ? this.getLabelForValue(value) : '';
+                            }
+                        },
+                        border: {
+                            display: true,
+                            color: 'rgba(134, 134, 134, 1)',
+                            width: 1
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(139, 139, 139, 0.27)'
+                        }
+                    },
                     y: {
-                        beginAtZero: true
+                        border: {
+                            display: true,
+                            color: 'rgba(134, 134, 134, 1)',
+                            width: 1
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(139, 139, 139, 0.27)'
+                        }
                     }
                 }
             },
@@ -671,17 +726,16 @@ async function carregarGraficoCpuAgregada() {
 function inicializador() {
 
     carregarKpiLatencia();
-    //carregarGraficoCpuAgregada();
-    //carregarProbErro();
-    //procLoadAvg();
-
+    carregarProbErro();
+    procLoadAvg();
+    carregarGraficoCpuAgregada();
 
 };
 
 async function intervaloLoop() {
 
     await inicializador();
-    setInterval(inicializador, intervaloMS)
+    setInterval(inicializador, intervaloMS);
 
 }
 

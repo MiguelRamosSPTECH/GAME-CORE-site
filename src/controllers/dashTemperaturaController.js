@@ -27,7 +27,8 @@ async function lerArquivoPedroProc(req, res) {
     }
 
     const params = {
-      Bucket: process.env.S3_BUCKET_PEDRO,
+      // Bucket: process.env.S3_BUCKET_PEDRO,
+      Bucket: process.env.S3_BUCKET,
       Key: fileKey
     };
 
@@ -64,7 +65,8 @@ async function lerArquivoPedroMed(req, res) {
     }
 
     const params = {
-      Bucket: process.env.S3_BUCKET_PEDRO,
+      // Bucket: process.env.S3_BUCKET_PEDRO,
+      Bucket: process.env.S3_BUCKET,
       Key: fileKey
     };
 

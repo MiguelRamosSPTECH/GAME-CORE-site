@@ -25,15 +25,11 @@
     <div class="options-nav">
       <div class="principal-options">
         <div class="circle-option">
-          <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-house"></i>
+          <i onclick="window.location.href='sre_comparativo_servidores.html'" class="fa-solid fa-house"></i>
         </div>
 
         <div class="circle-option">
-          <i onclick="window.location.href='dashHistoricoAlertaSRE.html'" class="fa-solid fa-bug"></i>
-        </div>
-
-        <div class="circle-option">
-          <i onclick="window.location.href='#'" class="fa-solid fa-notes-medical"></i>
+          <i onclick="window.location.href='dashboard_sre.html'" class="fa-solid fa-notes-medical"></i>
         </div>
       </div>
 
@@ -53,12 +49,12 @@
       <!-- KPIs -->
       <div class="kpis">
         <div class="card kpi-processos">
-          <h5>Total de Processos em Execução</h5>
-          <h3 id="totalProcessosExec">345</h3>
+          <h5 style="font-size: 28px;">Total de Processos em Execução</h5>
+          <h3 style="font-size: 35px;" id="totalProcessosExec"></h3>
         </div>
 
         <div class="card kpi-cpu">
-          <h4>Tempo de CPU</h4>
+          <h4>Tempo de CPU (%)</h4>
          <p> <span style="color: #55c0ff">Usuário</span> VS <span style="color: #9a7bff;;">Sistema</span> </p>
           <canvas id="cpuChart"  height="100"></canvas>
         </div>
@@ -66,7 +62,7 @@
 
       <!-- Desempenho / Tempo de Espera -->
       <div class="card-grafico">
-        <h3 class="titulo">Desempenho x Tempo de Espera</h3>
+        <h3 class="titulo">Desempenho x Tempo de Espera (ms)</h3>
         <canvas id="desempenhoChart"></canvas>
       </div>
 
@@ -74,12 +70,12 @@
       <div class="blocos-mistos">
 
         <div class="graficoSwap bloco-meio">
-          <h3 class="titulo">Taxa de Swap</h3>
+          <h3 class="titulo">Taxa de Swap (%)</h3>
           <canvas id="swapChart"></canvas>
         </div>
 
         <div class="graficoRam bloco-meio">
-          <h3 class="titulo">Utilização RAM</h3>
+          <h3 class="titulo">Utilização RAM (% total)</h3>
 
           <div class="pie-area">
             <canvas id="ramChart" width="200"></canvas>
@@ -131,20 +127,22 @@
 
  <script>
     
-    let nomeServidorMockado = "00-D7-6D-98-56-34";
+    
+
     let diaDeHoje = new Date()
     let mes = diaDeHoje.getMonth() + 1;
-    let dia = diaDeHoje.getDate();
+    let dia = diaDeHoje.getDate() < 10 ? `${0}${diaDeHoje.getDate()}` : diaDeHoje.getDate();
     let ano = diaDeHoje.getFullYear();
-
-    //para pegar a pasta correta la no bucket
     let timestamp = `${ano}-${mes}-${dia}`;
+    let nomeServidorMockado = "00-D7-6D-98-56-34";
 
-    const ARQUIVO_CONTAINER = 'dados_capturados.json';
+   
+
+    const ARQUIVO_CONTAINER = 'dashboard_metricas_manu.json';
     const URL_API_CONTAINER = `/s3Route/dados/${timestamp}/${nomeServidorMockado}/${ARQUIVO_CONTAINER}`;
     const CHAVE_TPS = 'tps_container';
 
-    const NOME_ARQUIVO = 'dados_capturados.json';
+    const NOME_ARQUIVO = 'dashboard_metricas_manu.json';
 
     
     const CHAVE_CPU_SISTEMA = 'cpuSystemTimeSeries';
@@ -234,7 +232,7 @@
             const valoresRam = [ramDisponivel, ramUtilizada]; 
 
             const totalProcessos = Number(data[CHAVE_TOTAL_PROCESSOS]) || 0;
-            const totalAlertasMesKPI = Number(data[CHAVE_TOTAL_ALERTAS_MES_KPI]) || 0;
+            const totalAlertasMesKPI = valoresAlertasMes.reduce((acc, current) => acc + current, 0);
             const picoMaxCpuKPI = Number(data[CHAVE_PICO_MAX_CPU_KPI]) || 0;
             const picoMaxRamKPI = Number(data[CHAVE_PICO_MAX_RAM_KPI]) || 0;
             const picoMaxProcessosKPI = Number(data[CHAVE_PICO_MAX_PROCESSOS_KPI]) || 0;
